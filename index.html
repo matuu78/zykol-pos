@@ -4174,6 +4174,44 @@
       </div>
     </sc-if>
 
+    <sc-if value="{{ kasseAgOffen }}" hint-placeholder-val="{{ false }}">
+      <div sc-camel-on-click="{{ onKasseAgZu }}" style="position:fixed;inset:0;background:rgba(5,7,10,.34);display:flex;justify-content:flex-end;z-index:47;">
+        <div class="zk-bo" sc-camel-on-click="{{ stop }}" style="width:100%;max-width:min(520px,100vw);height:100%;background:#FFFFFF;display:flex;flex-direction:column;border-radius:10px 0 0 28px;overflow:hidden;">
+          <div style="flex:none;padding:22px 24px 16px;border-bottom:1px solid #e5e7eb;display:flex;align-items:flex-start;justify-content:space-between;gap:16px;">
+            <div style="min-width:0;">
+              <div style="font-size:12px;letter-spacing:.12em;text-transform:uppercase;font-weight:600;color:#545b66;">Kasse</div>
+              <div style="font-family:'Poppins',sans-serif;font-size:26px;font-weight:600;color:#101010;line-height:1.15;margin-top:4px;">Angebote aus der Kasse</div>
+              <div style="font-size:13.5px;color:#545b66;margin-top:2px;">Gespeicherte Warenkörbe zurück in die Kasse laden.</div>
+            </div>
+            <button sc-camel-on-click="{{ onKasseAgZu }}" title="Schließen" style="appearance:none;cursor:pointer;width:40px;height:40px;flex:none;border-radius:6px;border:1px solid #e5e7eb;background:#FFFFFF;color:#101010;font-size:19px;">×</button>
+          </div>
+          <sc-if value="{{ kasseAgKorbVoll }}" hint-placeholder-val="{{ false }}">
+            <div style="flex:none;margin:14px 24px 0;padding:10px 12px;border-radius:10px;background:#fdebc8;color:#6b4200;font-size:13.5px;font-weight:600;line-height:1.4;">Im Warenkorb liegen Artikel. Beim Laden eines Angebots wird der aktuelle Warenkorb ersetzt.</div>
+          </sc-if>
+          <div style="flex:1;min-height:0;overflow-y:auto;padding:14px 24px 20px;display:flex;flex-direction:column;gap:10px;">
+            <sc-for list="{{ kasseAgListe }}" as="a" hint-placeholder-count="3">
+              <div style="flex:none;border:1px solid #e5e7eb;border-radius:12px;background:#FFFFFF;padding:14px 16px;display:flex;flex-direction:column;gap:10px;">
+                <div style="display:flex;align-items:flex-start;gap:12px;">
+                  <span style="flex:1;min-width:0;display:flex;flex-direction:column;gap:3px;">
+                    <span style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;"><span style="font-size:15.5px;font-weight:700;color:#101010;">{{ a.nr }}</span><span style="height:20px;padding:0 8px;border-radius:999px;background:{{ a.statusBg }};color:{{ a.statusFg }};font-size:11.5px;font-weight:600;display:inline-flex;align-items:center;">{{ a.status }}</span></span>
+                    <span style="font-size:14px;font-weight:600;color:#101010;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">{{ a.kunde }}</span>
+                    <span style="font-size:12.5px;color:#646b76;">{{ a.info }}</span>
+                  </span>
+                  <span style="flex:none;font-size:16px;font-weight:700;color:#101010;font-variant-numeric:tabular-nums;white-space:nowrap;">{{ a.summe }}</span>
+                </div>
+                <div style="display:flex;gap:8px;">
+                  <button sc-camel-on-click="{{ a.onOeffnen }}" style="appearance:none;cursor:pointer;flex:1;height:40px;border-radius:6px;border:1px solid #e5e7eb;background:#FFFFFF;color:#101010;font-size:14px;font-weight:600;white-space:nowrap;" style-hover="background:#f4f4f4;">Angebot öffnen</button>
+                  <sc-if value="{{ a.darfLaden }}" hint-placeholder-val="{{ true }}">
+                    <button sc-camel-on-click="{{ a.onLaden }}" style="appearance:none;cursor:pointer;flex:1;height:40px;border-radius:6px;border:1px solid #101010;background:#101010;color:#FFFFFF;font-size:14px;font-weight:600;white-space:nowrap;" style-hover="background:#303640;">In Warenkorb laden</button>
+                  </sc-if>
+                </div>
+              </div>
+            </sc-for>
+          </div>
+        </div>
+      </div>
+    </sc-if>
+
     <sc-if value="{{ bestellOffen }}" hint-placeholder-val="{{ false }}">
       <div sc-camel-on-click="{{ onBestellClose }}" style="position:fixed;inset:0;background:rgba(5,7,10,.34);display:flex;justify-content:flex-end;z-index:46;">
         <div class="zk-bo" sc-camel-on-click="{{ stop }}" style="width:100%;max-width:min(600px,100vw);height:100%;background:#FFFFFF;display:flex;flex-direction:column;border-radius:10px 0 0 28px;overflow:hidden;">
@@ -4544,6 +4582,13 @@
         </sc-if>
 
         <div style="flex:1 0 auto;min-height:180px;overflow-y:auto;padding:14px 16px;display:flex;flex-direction:column;gap:10px;">
+          <sc-if value="{{ kasseAgSichtbar }}" hint-placeholder-val="{{ false }}">
+            <button sc-camel-on-click="{{ onKasseAgOeffnen }}" style="appearance:none;cursor:pointer;flex:none;width:100%;text-align:left;display:flex;align-items:center;gap:10px;height:42px;padding:0 12px;border-radius:10px;border:1px dashed #8a9099;background:#FFFFFF;font-family:'Inter',sans-serif;" style-hover="background:#f4f4f4;">
+              <svg sc-camel-view-box="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" style="flex:none;color:#545b66;"><path d="M8 4h8l4 4v12a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V5a1 1 0 0 1 1-1h3zM8 12h8M8 16h5"></path></svg>
+              <span style="flex:1;min-width:0;font-size:14px;font-weight:600;color:#101010;white-space:nowrap;">Angebote aus der Kasse</span>
+              <span style="flex:none;height:22px;min-width:22px;padding:0 7px;border-radius:999px;background:#101010;color:#FFFFFF;font-size:12px;font-weight:700;display:inline-flex;align-items:center;justify-content:center;">{{ kasseAgAnzahl }}</span>
+            </button>
+          </sc-if>
           <sc-if value="{{ leer }}" hint-placeholder-val="{{ false }}">
             <div style="flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;text-align:center;padding:48px 24px;color:#646b76;">
               <div style="font-size:16px;font-weight:600;color:#545b66;">Noch keine Artikel</div>
@@ -7353,6 +7398,20 @@ class Component extends DCLogic {
     this.setState({etikett: {titel, items, ref: ref || titel}});
   };
   qrLogFuer = (st, ref) => (st.qrLog || []).filter(l => l.ref === ref);
+  angebotZuKorb = (ag) => {
+    const ids = this.agPaddel(ag);
+    const korb = {}, notiz = {}, vorgabe = {};
+    ag.pos.forEach((p, i) => {
+      if (!p.pid) return;
+      const k = p.korbKey || p.pid;
+      korb[k] = (korb[k] || 0) + p.menge;
+      if (p.posNotiz) notiz[k] = p.posNotiz;
+      if (ids[i] && ids[i].length) vorgabe[p.pid] = (vorgabe[p.pid] || []).concat(ids[i]);
+    });
+    return s => ({carts: Object.assign({}, s.carts, {[s.aktiveKasseId]: korb}), kundeNr: ag.kundeNr || null, posNotiz: notiz, notizOffen: null, korbZeileOffen: null,
+      view: 'kasse', agEdit: null, agVorschau: false, kasseAgOffen: false, paddelVorgabe: vorgabe, paddelVorgabeAg: ag.nr});
+  };
+
   agPaddel = (ed) => {
     if (!ed || ed.status !== 'Angenommen') return ed ? ed.pos.map(() => []) : [];
     let start = 0;
@@ -7878,13 +7937,7 @@ class Component extends DCLogic {
       onAgAbgelehnt: () => sichern({status: 'Abgelehnt'}, 'Angebot als abgelehnt markiert'),
       onAgDuplizieren: () => { const kopie = leer(JSON.parse(JSON.stringify(ed.pos)), ed.kundeNr); kopie.notiz = ed.notiz; this.setState({agEdit: kopie, agVorschau: false}); melde('Kopie ' + kopie.nr + ' als Entwurf angelegt'); },
       onAgLoeschen: () => { const nr = ed.nr; this.setState(s => ({angebote: (s.angebote || ANGEBOTE_START).filter(a => a.nr !== nr), agEdit: null})); melde('Angebot ' + nr + ' gelöscht'); },
-      onAgKasse: () => {
-        const korb = {};
-        ed.pos.forEach(p => { if (p.pid) korb[p.pid] = (korb[p.pid] || 0) + p.menge; });
-        const vorgabe = {};
-        ed.pos.forEach((p, i) => { if (agIds[i].length) vorgabe[p.pid] = (vorgabe[p.pid] || []).concat(agIds[i]); });
-        this.setState(s => ({carts: Object.assign({}, s.carts, {[s.aktiveKasseId]: korb}), kundeNr: ed.kundeNr, view: 'kasse', agEdit: null, agVorschau: false, paddelVorgabe: vorgabe, paddelVorgabeAg: ed.nr}));
-      },
+      onAgKasse: () => this.setState(this.angebotZuKorb(ed)),
       agHatPaddelQr: agIdsAlle.length > 0,
       agQrLabel: agLog.length ? 'QR-Etiketten nachdrucken (' + agIdsAlle.length + ')' : 'QR-Etiketten Paddel drucken (' + agIdsAlle.length + ')',
       agQrLog: agLog.length ? 'Zuletzt gedruckt ' + agLog[0].zeit + ' · ' + agLog[0].benutzer + (agLog.length > 1 ? ' · ' + agLog.length + ' Drucke' : '') : 'Noch nicht gedruckt',
@@ -10398,6 +10451,31 @@ class Component extends DCLogic {
       mwstStr: EUR(brutto - netto),
       gesamtStr: EUR(brutto),
       korbHatRabatt: kdRabatt > 0 && warenkorb.length > 0,
+      ...(() => {
+        const AGS = {Entwurf: ['#eef0f2', '#303640'], Versendet: ['#fdebc8', '#6b4200'], Angenommen: ['#dcf3e6', '#0d5f38'], Abgelehnt: ['#fde0e2', '#9b1520'], Abgelaufen: ['#eef0f2', '#545b66']};
+        const liste = (st.angebote || ANGEBOTE_START).filter(a => a.herkunft === 'kasse');
+        const darf = !!this.meineRechte()['Angebote in Kasse übernehmen'];
+        return {
+          kasseAgAnzahl: String(liste.length),
+          kasseAgSichtbar: liste.length > 0,
+          kasseAgOffen: !!st.kasseAgOffen,
+          onKasseAgOeffnen: () => this.setState({kasseAgOffen: true}),
+          onKasseAgZu: () => this.setState({kasseAgOffen: false}),
+          kasseAgKorbVoll: warenkorb.length > 0,
+          kasseAgListe: liste.map(a => {
+            const k = KUNDEN.find(x => x.nr === a.kundeNr);
+            const summe = a.pos.reduce((s, p) => s + p.menge * p.preis * (1 - (p.rabatt || 0) / 100), 0);
+            const stil = AGS[a.status] || AGS.Entwurf;
+            return {
+              nr: a.nr, kunde: k ? k.name : 'Kein Kunde gewählt', info: a.datum + ' · ' + (a.kasse || 'Kasse') + ' · ' + a.pos.length + ' Pos. · ' + a.pos.reduce((s, p) => s + p.menge, 0) + ' Stk.',
+              summe: EUR(summe), status: a.status, statusBg: stil[0], statusFg: stil[1],
+              darfLaden: darf,
+              onLaden: () => this.setState(this.angebotZuKorb(a)),
+              onOeffnen: () => this.setState({kasseAgOffen: false, korbOffen: tablet ? false : st.korbOffen, view: 'angebote', agEdit: JSON.parse(JSON.stringify(a)), agArtSuche: '', agVorschau: false})
+            };
+          })
+        };
+      })(),
       korbAngebotSichtbar: warenkorb.length > 0 && !!this.meineRechte()['Angebote erstellen & versenden'],
       onKorbAlsAngebot: () => {
         if (!warenkorb.length) return;
@@ -10409,13 +10487,13 @@ class Component extends DCLogic {
           const t = w.key.split('::');
           const pr = PRODUKTE.find(x => x.id === w.id);
           const variante = [t[1], t[2]].filter(Boolean).join(' · ');
-          return {pid: w.id, name: pr.brand + ' ' + pr.name + (variante ? ' (' + variante + ')' : ''), sku: pr.sku + (t[3] ? ' · SN ' + t[3] : ''), menge: w.qty, preis: w.listPrice, rabatt: kdRabatt};
+          return {pid: w.id, name: pr.brand + ' ' + pr.name + (variante ? ' (' + variante + ')' : ''), sku: pr.sku + (t[3] ? ' · SN ' + t[3] : ''), menge: w.qty, preis: w.listPrice, rabatt: kdRabatt, korbKey: w.key, posNotiz: w.hatNotiz ? w.notiz : ''};
         });
         const notizen = warenkorb.filter(w => w.hatNotiz).map(w => w.title + ': ' + w.notiz.trim());
         const ag = {nr, kundeNr: kunde ? kunde.nr : '', datum: dstr(heute), gueltig: dstr(bis), status: 'Entwurf',
-          bearbeiter: (st.angemeldet || {}).name || 'Marko Ahrens', notiz: notizen.join(' · '), pos};
-        const text = 'Angebot ' + nr + ' aus dem Warenkorb angelegt' + (kunde ? '' : ' — bitte Kunden wählen') + '. Der Warenkorb bleibt erhalten.';
-        this.setState(s => ({angebote: [ag].concat(s.angebote || ANGEBOTE_START), view: 'angebote', agEdit: JSON.parse(JSON.stringify(ag)), agArtSuche: '', agVorschau: false, korbOffen: tablet ? false : s.korbOffen, agMeldung: text}));
+          bearbeiter: (st.angemeldet || {}).name || 'Marko Ahrens', notiz: notizen.join(' · '), pos, herkunft: 'kasse', kasse: st.aktiveKasseId || 'Verkaufsraum'};
+        const text = 'Angebot ' + nr + ' aus dem Warenkorb angelegt' + (kunde ? '' : ' — bitte Kunden wählen') + '. Der Warenkorb wurde geleert; das Angebot ist in der Kasse unter „Angebote aus der Kasse“ abrufbar.';
+        this.setState(s => ({angebote: [ag].concat(s.angebote || ANGEBOTE_START), carts: Object.assign({}, s.carts, {[s.aktiveKasseId]: {}}), kundeNr: null, posNotiz: {}, notizOffen: null, korbZeileOffen: null, paddelVorgabe: null, paddelVorgabeAg: null, view: 'angebote', agEdit: JSON.parse(JSON.stringify(ag)), agArtSuche: '', agVorschau: false, korbOffen: tablet ? false : s.korbOffen, agMeldung: text}));
         clearTimeout(this._agT); this._agT = setTimeout(() => this.setState({agMeldung: null}), 5000);
       },
       korbListenStr: EUR(listenBrutto),

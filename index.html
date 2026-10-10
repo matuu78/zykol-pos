@@ -2,7 +2,7 @@
 <html><head><script>window.__resources = {"zlogo": "assets/img/zykol-logo.png", "https://unpkg.com/react@18.3.1/umd/react.production.min.js": "assets/js/react.production.min.js", "https://unpkg.com/react-dom@18.3.1/umd/react-dom.production.min.js": "assets/js/react-dom.production.min.js"};</script>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>zykol.POS v8.4 – Testversion</title>
+<title>zykol.POS v8.5 – Testversion</title>
 <meta name="robots" content="noindex, nofollow">
 
 <script src="assets/js/dc-runtime.js"></script>
@@ -566,6 +566,8 @@
   .zk-fuss-zeit{display:none!important}
   .zk-chip{padding:0 8px!important}
   .zk-chip-text{display:none}
+  .zk-fuss button[title="Bildschirm sperren"]{font-size:0!important;gap:0!important;padding:0 8px!important}
+  .zk-fuss>div:first-child>div{gap:6px!important}
   .zk-produkt{padding:10px!important;gap:8px!important;min-width:0}
   .zk-produkt>div:last-child{flex-wrap:wrap;gap:6px!important}
   .zk-produkt>div:last-child>div:first-child>div:first-child{font-size:16px!important;white-space:nowrap}
@@ -4710,6 +4712,7 @@
         <div style="font-size:16px;font-weight:600;color:#FFFFFF;font-variant-numeric:tabular-nums;">{{ uhrzeit }}</div>
       </div>
       <div style="display:flex;gap:8px;flex-wrap:wrap;min-width:0;">
+        <button class="zk-zur-kasse" sc-camel-on-click="{{ onZurKasse }}" title="Zur Kasse" aria-label="Zur Kasse" style="appearance:none;cursor:pointer;display:flex;align-items:center;gap:6px;height:26px;padding:0 10px;border-radius:6px;background:{{ zurKasseBg }};border:1px solid {{ zurKasseBorder }};font-family:'Inter',sans-serif;font-size:12px;font-weight:700;color:#FFFFFF;white-space:nowrap;"><svg sc-camel-view-box="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2.5"></rect><path d="M3 10h18"></path></svg>Kasse</button>
         <sc-for list="{{ statusChips }}" as="s" hint-placeholder-count="4">
           <button class="zk-chip" title="{{ s.label }}" sc-camel-on-click="{{ s.onClick }}" style="appearance:none;border:1px solid {{ s.border }};cursor:{{ s.cursor }};display:flex;align-items:center;gap:6px;height:26px;padding:0 10px;border-radius:6px;background:{{ s.bg }};font-family:'Inter',sans-serif;font-size:12px;font-weight:500;color:{{ s.fg }};">
             <span style="width:6px;height:6px;border-radius:999px;flex:none;background:{{ s.dot }};"></span><span class="zk-chip-text">{{ s.label }}</span>
@@ -10505,6 +10508,12 @@ class Component extends DCLogic {
           })
         };
       })(),
+      kasseAktiv: st.view === 'kasse',
+      zurKasseBg: st.view === 'kasse' ? '#EF3D2F' : 'transparent',
+      zurKasseBorder: st.view === 'kasse' ? '#EF3D2F' : '#EF3D2F',
+      onZurKasse: () => this.setState({view: 'kasse', detailId: null, bb: null, bestellOffen: false, kasseAgOffen: false, mailVorschauHersteller: null, mailBearbeiten: false,
+        dokVorschau: null, belegVorschau: null, kdFormNr: null, kdDetailNr: null, txBeleg: null, kachel: null, rubrikOffen: false, liefFormOffen: false, etikett: null,
+        kasseMenuOffen: false, agVorschau: false, eigenePinOffen: false, herstellerOpen: false, detailOpen: false, bestaetigung: null, bkRestore: null, navTip: null}),
       kasseToastDa: !!st.kasseToast,
       kasseToastText: st.kasseToast ? st.kasseToast.text : '',
       onKasseToastOeffnen: () => { const nr = st.kasseToast && st.kasseToast.nr; const a = (st.angebote || ANGEBOTE_START).find(x => x.nr === nr); clearTimeout(this._ktT); this.setState(a ? {kasseToast: null, korbOffen: tablet ? false : st.korbOffen, view: 'angebote', agEdit: JSON.parse(JSON.stringify(a)), agArtSuche: '', agVorschau: false} : {kasseToast: null}); },

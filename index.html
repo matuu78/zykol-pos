@@ -2,7 +2,7 @@
 <html><head><script>window.__resources = {"zlogo": "assets/img/zykol-logo.png", "https://unpkg.com/react@18.3.1/umd/react.production.min.js": "assets/js/react.production.min.js", "https://unpkg.com/react-dom@18.3.1/umd/react-dom.production.min.js": "assets/js/react-dom.production.min.js"};</script>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>zykol.POS v8.5 – Testversion</title>
+<title>zykol.POS v8.6 – Testversion</title>
 <meta name="robots" content="noindex, nofollow">
 
 <script src="assets/js/dc-runtime.js"></script>
@@ -4748,7 +4748,7 @@
       </div>
     </div>
     <sc-if value="{{ fussKorbSichtbar }}" hint-placeholder-val="{{ true }}">
-    <button sc-camel-on-click="{{ onKorbToggle }}" title="Warenkorb öffnen/schließen" style="appearance:none;border:0;cursor:pointer;background:transparent;display:flex;align-items:baseline;gap:8px;padding:4px 8px;border-radius:6px;transition:background 140ms ease-out;" style-hover="background:#1f2329;">
+    <button sc-camel-on-click="{{ onFussKorb }}" title="Warenkorb öffnen/schließen" style="appearance:none;border:0;cursor:pointer;background:transparent;display:flex;align-items:baseline;gap:8px;padding:4px 8px;border-radius:6px;transition:background 140ms ease-out;" style-hover="background:#1f2329;">
       <span style="font-size:11.5px;color:#646b76;">Gesamt · {{ anzahl }} Artikel</span>
       <span style="font-size:17px;font-weight:700;color:#FFFFFF;font-variant-numeric:tabular-nums;line-height:1;">{{ gesamtStr }}</span>
     </button>
@@ -7429,6 +7429,10 @@ class Component extends DCLogic {
     this.setState({etikett: {titel, items, ref: ref || titel}});
   };
   qrLogFuer = (st, ref) => (st.qrLog || []).filter(l => l.ref === ref);
+  zurKassePatch = () => ({view: 'kasse', detailId: null, bb: null, bestellOffen: false, kasseAgOffen: false, mailVorschauHersteller: null, mailBearbeiten: false,
+    dokVorschau: null, belegVorschau: null, kdFormNr: null, kdDetailNr: null, txBeleg: null, kachel: null, rubrikOffen: false, liefFormOffen: false, etikett: null,
+    kasseMenuOffen: false, agVorschau: false, eigenePinOffen: false, herstellerOpen: false, detailOpen: false, bestaetigung: null, bkRestore: null, navTip: null});
+
   angebotZuKorb = (ag) => {
     const ids = this.agPaddel(ag);
     const korb = {}, notiz = {}, vorgabe = {};
@@ -10475,7 +10479,7 @@ class Component extends DCLogic {
       korbPadding: st.korbOffen ? (phone ? '12px' : tablet ? '12px 12px 12px max(12px, calc(100% - 420px))' : '18px 18px 18px 0') : '0px',
       korbBg: (tablet && st.korbOffen) ? 'rgba(5,7,10,.42)' : 'transparent',
       onKorbToggle: () => this.setState(s => ({korbOffen: !s.korbOffen})),
-      fussKorbSichtbar: st.view !== 'dashboard',
+      fussKorbSichtbar: true,
       onKorbOeffnen: () => this.setState({korbOffen: true, view: 'kasse'}),
       leer: warenkorb.length === 0,
       anzahl,
@@ -10511,9 +10515,8 @@ class Component extends DCLogic {
       kasseAktiv: st.view === 'kasse',
       zurKasseBg: st.view === 'kasse' ? '#EF3D2F' : 'transparent',
       zurKasseBorder: st.view === 'kasse' ? '#EF3D2F' : '#EF3D2F',
-      onZurKasse: () => this.setState({view: 'kasse', detailId: null, bb: null, bestellOffen: false, kasseAgOffen: false, mailVorschauHersteller: null, mailBearbeiten: false,
-        dokVorschau: null, belegVorschau: null, kdFormNr: null, kdDetailNr: null, txBeleg: null, kachel: null, rubrikOffen: false, liefFormOffen: false, etikett: null,
-        kasseMenuOffen: false, agVorschau: false, eigenePinOffen: false, herstellerOpen: false, detailOpen: false, bestaetigung: null, bkRestore: null, navTip: null}),
+      onZurKasse: () => this.setState(this.zurKassePatch()),
+      onFussKorb: () => st.view === 'kasse' ? this.setState(s => ({korbOffen: !s.korbOffen})) : this.setState(Object.assign(this.zurKassePatch(), {korbOffen: true})),
       kasseToastDa: !!st.kasseToast,
       kasseToastText: st.kasseToast ? st.kasseToast.text : '',
       onKasseToastOeffnen: () => { const nr = st.kasseToast && st.kasseToast.nr; const a = (st.angebote || ANGEBOTE_START).find(x => x.nr === nr); clearTimeout(this._ktT); this.setState(a ? {kasseToast: null, korbOffen: tablet ? false : st.korbOffen, view: 'angebote', agEdit: JSON.parse(JSON.stringify(a)), agArtSuche: '', agVorschau: false} : {kasseToast: null}); },

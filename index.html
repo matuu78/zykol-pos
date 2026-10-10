@@ -2,7 +2,7 @@
 <html><head><script>window.__resources = {"zlogo": "assets/img/zykol-logo.png", "https://unpkg.com/react@18.3.1/umd/react.production.min.js": "assets/js/react.production.min.js", "https://unpkg.com/react-dom@18.3.1/umd/react-dom.production.min.js": "assets/js/react-dom.production.min.js"};</script>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>zykol.POS v8.7 – Testversion</title>
+<title>zykol.POS v8.8 – Testversion</title>
 <meta name="robots" content="noindex, nofollow">
 
 <script src="assets/js/dc-runtime.js"></script>
@@ -584,6 +584,32 @@
   .zk-aufgabe>span:last-child select{flex:1 1 100%;max-width:100%!important;min-width:0}
   .zk-aufgabe>span:last-child{justify-content:flex-start!important}
   .zk-filterleiste{gap:14px!important;padding:14px!important}
+  /* Tabellen werden auf dem Handy zu Karten: keine Mindestbreite, Kopfzeile aus, Zellen zweispaltig */
+  .zk-tabelle{min-width:0!important}
+  .zk-tabelle>div[style*="text-transform: uppercase"]{display:none!important}
+  .zk-tabelle>div[style*="grid-template-columns"]{grid-template-columns:repeat(2,minmax(0,1fr))!important;gap:6px 12px!important;padding:12px 14px!important;align-items:start!important}
+  .zk-tabelle>div[style*="grid-template-columns"]>*:first-child{grid-column:1 / -1}
+  .zk-tabelle>div[style*="grid-template-columns"]>*{min-width:0;text-align:left!important;justify-content:flex-start!important}
+  .zk-tabelle>div>div[style*="grid-template-columns"]:first-child{grid-template-columns:repeat(2,minmax(0,1fr))!important;gap:6px 12px!important;padding:12px 14px!important;align-items:start!important}
+  .zk-tabelle>div>div[style*="grid-template-columns"]:first-child>*:first-child{grid-column:1 / -1}
+  .zk-tabelle>div>div[style*="grid-template-columns"]:first-child>*{min-width:0;text-align:left!important;justify-content:flex-start!important}
+  .zk-tabelle span[style*="border-radius: 999px"]{white-space:nowrap}
+  .zk-segment{display:grid!important;grid-template-columns:repeat(4,minmax(0,1fr));width:100%;gap:4px!important}
+  .zk-segment>button{padding:0 6px!important;font-size:14px!important;min-width:0}
+  .zk-segment+button{width:100%;justify-content:center}
+  .zk-saeulen{gap:3px!important}
+  .zk-saeulen .mk-caption{font-size:10px!important}
+  .zk-voll{flex:1 1 100%!important;justify-content:center;max-width:100%}
+  .zk-reiter{flex-wrap:nowrap!important;overflow-x:auto;scrollbar-width:none;-webkit-overflow-scrolling:touch;border-radius:999px!important;scroll-snap-type:x proximity}
+  .zk-reiter::-webkit-scrollbar{display:none}
+  .zk-reiter>button{flex:none;white-space:nowrap;padding:0 14px!important;border-radius:999px!important;scroll-snap-align:start}
+  .zk-felder{grid-template-columns:1fr!important}
+  .zk-felder>div{grid-column:auto!important}
+  .zk-monat{min-width:0!important;gap:3px!important}
+  .zk-monat>div{padding:2px!important;font-size:10.5px!important;letter-spacing:.04em!important;text-align:center}
+  .zk-monat>button{min-height:52px!important;padding:3px!important;flex-direction:row!important;flex-wrap:wrap;align-content:flex-start;justify-content:center;gap:2px!important;border-radius:8px!important}
+  .zk-monat>button>span:first-child{width:24px!important;height:24px!important;font-size:12.5px!important;flex:0 0 100%;max-width:24px}
+  .zk-monat>button>span+span{font-size:0!important;width:auto!important;gap:0!important;line-height:0!important}
   .zk-filterleiste>div[style*="width: 1px"]{display:none!important}
   .zk-termin{gap:10px!important}
   .zk-termin>span:first-child{width:44px!important}
@@ -984,7 +1010,7 @@
 
 
         <div style="background:#FFFFFF;border:1px solid #e5e7eb;border-radius:16px;overflow-x:auto;">
-          <div style="min-width:940px;">
+          <div class="zk-tabelle" style="min-width:940px;">
           <div style="display:grid;grid-template-columns:2.4fr 1fr 1.2fr 1.1fr 1fr 1.3fr;gap:14px;padding:14px 20px;background:#e5e7eb;font-size:12.5px;letter-spacing:.1em;text-transform:uppercase;font-weight:600;color:#545b66;">
             <div>Artikel</div><div>Art.-Nr.</div><div>Kategorie</div><div>Preis</div><div>Bestand</div><div>Status</div>
           </div>
@@ -1088,7 +1114,7 @@
         </div>
 
         <div style="background:#FFFFFF;border:1px solid #e5e7eb;border-radius:16px;overflow-x:auto;">
-          <div style="min-width:940px;">
+          <div class="zk-tabelle" style="min-width:940px;">
             <div style="display:grid;grid-template-columns:1.1fr 0.9fr 2.2fr 1.1fr 1fr 1fr;gap:14px;padding:14px 20px;background:#e5e7eb;font-size:12.5px;letter-spacing:.1em;text-transform:uppercase;font-weight:600;color:#545b66;">
               <sc-for list="{{ txSpalten }}" as="c" hint-placeholder-count="6">
                 <button sc-camel-on-click="{{ c.onClick }}" title="Nach {{ c.label }} sortieren" style="appearance:none;cursor:pointer;border:0;background:transparent;padding:0;font:inherit;letter-spacing:inherit;text-transform:inherit;color:{{ c.color }};display:flex;align-items:center;gap:6px;justify-content:{{ c.justify }};">{{ c.label }}<span style="font-size:11px;letter-spacing:0;">{{ c.pfeil }}</span></button>
@@ -1167,7 +1193,7 @@
         </div>
 
         <div style="background:#FFFFFF;border:1px solid #e5e7eb;border-radius:16px;overflow-x:auto;">
-          <div style="min-width:940px;">
+          <div class="zk-tabelle" style="min-width:940px;">
             <div style="display:grid;grid-template-columns:2.2fr 1.1fr 1.4fr 1fr 1fr 44px;gap:14px;padding:14px 20px;background:#e5e7eb;font-size:12.5px;letter-spacing:.1em;text-transform:uppercase;font-weight:600;color:#545b66;">
               <div>Kunde</div><div>Typ</div><div>Kontakt</div><div>Konditionen</div><div style="text-align:right;">Umsatz Jahr</div><div></div>
             </div>
@@ -1300,14 +1326,14 @@
   <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,380px),1fr));gap:16px;margin-bottom:16px;">
 
     <div style="background:#fff;border:1px solid var(--mk-line);border-radius:0 16px 16px 16px;padding:22px 24px;box-shadow:var(--mk-shadow-sm);">
-      <div style="display:flex;justify-content:space-between;align-items:baseline;margin-bottom:16px;">
+      <div style="display:flex;justify-content:space-between;align-items:baseline;margin-bottom:16px;flex-wrap:wrap;gap:6px 14px;">
         <h3 class="mk-h3">Umsatzverlauf nach Monat</h3>
-        <div style="display:flex;gap:14px;">
+        <div style="display:flex;gap:14px;flex-wrap:wrap;">
           <span class="mk-small" style="display:flex;align-items:center;gap:6px;color:var(--mk-body-soft);"><span style="width:10px;height:10px;border-radius:3px;background:var(--mk-dunkelblau);display:inline-block;"></span>Ladengeschäft</span>
           <span class="mk-small" style="display:flex;align-items:center;gap:6px;color:var(--mk-body-soft);"><span style="width:10px;height:10px;border-radius:3px;background:var(--mk-ultramarin);display:inline-block;"></span>Regatta</span>
         </div>
       </div>
-      <div style="display:flex;align-items:flex-end;gap:6px;height:280px;min-width:0;">
+      <div class="zk-saeulen" style="display:flex;align-items:flex-end;gap:6px;height:280px;min-width:0;">
         <sc-for list="{{ ud.monthlySeries }}" as="mo" hint-placeholder-count="12">
           <div style="flex:1;min-width:0;display:flex;flex-direction:column;align-items:center;justify-content:flex-end;height:100%;gap:6px;">
             <div class="mk-caption" title="{{ mo.totalLabel }}" style="font-style:normal;font-size:11px;color:var(--mk-ink);font-weight:700;white-space:nowrap;writing-mode:vertical-rl;transform:rotate(180deg);">{{ mo.totalLabel }}</div>
@@ -1506,7 +1532,7 @@
             <div style="font-size:16px;color:#545b66;margin-top:4px;">Umsatz, Zahlarten und Warengruppen — Auswertung für {{ berichtKasseTitel }}.</div>
           </div>
           <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap;">
-            <div style="display:flex;gap:6px;background:#e5e7eb;border-radius:999px;padding:5px;">
+            <div class="zk-segment" style="display:flex;gap:6px;background:#e5e7eb;border-radius:999px;padding:5px;">
               <sc-for list="{{ zeitraumTabs }}" as="z" hint-placeholder-count="4">
                 <button sc-camel-on-click="{{ z.onClick }}" style="appearance:none;cursor:pointer;height:40px;padding:0 20px;border-radius:999px;border:0;font-size:15px;font-weight:{{ z.weight }};background:{{ z.bg }};color:{{ z.fg }};transition:all 140ms ease-out;">{{ z.label }}</button>
               </sc-for>
@@ -1583,7 +1609,7 @@
         </div>
 
         <div style="background:#FFFFFF;border:1px solid #e5e7eb;border-radius:16px;overflow-x:auto;">
-          <div style="min-width:820px;">
+          <div class="zk-tabelle" style="min-width:820px;">
             <div style="display:grid;grid-template-columns:1.8fr 1fr 0.9fr 1fr 1.4fr 0.7fr;gap:14px;padding:14px 20px;background:#e5e7eb;font-size:12.5px;letter-spacing:.1em;text-transform:uppercase;font-weight:600;color:#545b66;">
               <div>Kasse</div><div style="text-align:right;">Umsatz</div><div style="text-align:right;">Bons</div><div style="text-align:right;">Ø Bon</div><div>Anteil</div><div style="text-align:right;">Storni</div>
             </div>
@@ -1688,7 +1714,7 @@
 
         <div style="display:grid;grid-template-columns:{{ bestandRaster }};gap:16px;align-items:start;">
           <div style="background:#FFFFFF;border:1px solid #e5e7eb;border-radius:16px;overflow-x:auto;min-width:0;">
-            <div style="min-width:760px;">
+            <div class="zk-tabelle" style="min-width:760px;">
               <div style="display:grid;grid-template-columns:2.2fr 1.3fr 0.9fr 0.9fr 1fr 1.2fr;gap:12px;padding:14px 20px;background:#e5e7eb;font-size:12.5px;letter-spacing:.1em;text-transform:uppercase;font-weight:600;color:#545b66;">
                 <div>Artikel</div><div>Lagerort</div><div>Bestand</div><div>Reserv.</div><div>Verfügbar</div><div>Korrektur</div>
               </div>
@@ -1790,7 +1816,7 @@
         </div>
 
         <div style="background:#FFFFFF;border:1px solid #e5e7eb;border-radius:16px;overflow-x:auto;">
-          <div style="min-width:1000px;">
+          <div class="zk-tabelle" style="min-width:1000px;">
             <div style="display:grid;grid-template-columns:2.2fr 1.5fr 1.4fr 1.2fr 1.1fr 1fr 40px;gap:14px;padding:14px 20px;background:#e5e7eb;font-size:12.5px;letter-spacing:.1em;text-transform:uppercase;font-weight:600;color:#545b66;">
               <div>Lieferant</div><div>Ansprechpartner</div><div>Sortiment</div><div>Konditionen</div><div>Lieferzeit</div><div style="text-align:right;">Volumen</div><div></div>
             </div>
@@ -1913,7 +1939,7 @@
         </div>
 
         <div style="background:#FFFFFF;border:1px solid #e5e7eb;border-radius:16px;overflow-x:auto;">
-          <div style="min-width:940px;">
+          <div class="zk-tabelle" style="min-width:940px;">
             <div style="display:grid;grid-template-columns:2.2fr 1.9fr 1fr 1fr 1.2fr 1.3fr 40px;gap:14px;padding:14px 20px;background:#e5e7eb;font-size:12.5px;letter-spacing:.1em;text-transform:uppercase;font-weight:600;color:#545b66;">
               <div>Boot</div><div>Kunde</div><div>Kaufdatum</div><div style="text-align:right;">Preis</div><div>Garantie</div><div>Service</div><div></div>
             </div>
@@ -2153,7 +2179,7 @@
         </div>
         <div style="display:flex;gap:16px;align-items:flex-start;flex-wrap:wrap;">
           <div style="flex:1 1 480px;min-width:0;background:#FFFFFF;border:1px solid #e5e7eb;border-radius:16px;box-shadow:rgba(36,36,36,.05) 0 4px 8px;padding:14px;overflow-x:auto;">
-            <div style="display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:6px;min-width:470px;">
+            <div class="zk-monat" style="display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:6px;min-width:470px;">
               <sc-for list="{{ kalWochentage }}" as="w" hint-placeholder-count="7">
                 <div style="padding:4px 8px;font-size:12px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:#545b66;">{{ w.w }}</div>
               </sc-for>
@@ -2257,7 +2283,7 @@
         </div>
 
         <div style="background:#FFFFFF;border:1px solid #e5e7eb;border-radius:16px;overflow-x:auto;">
-          <div style="min-width:900px;">
+          <div class="zk-tabelle" style="min-width:900px;">
             <div style="display:grid;grid-template-columns:1.2fr 2.2fr 1.1fr 1fr 1.1fr 1.1fr 40px;gap:14px;padding:14px 20px;background:#e5e7eb;font-size:12.5px;letter-spacing:.1em;text-transform:uppercase;font-weight:600;color:#545b66;">
               <div>Angebot</div><div>Kunde</div><div>Positionen</div><div>Gültig bis</div><div style="text-align:right;">Summe</div><div>Status</div><div></div>
             </div>
@@ -2518,7 +2544,7 @@
             <div class="zk-titel" style="font-family:'Poppins',sans-serif;font-size:34px;font-weight:600;line-height:1.1;color:#101010;margin-top:4px;">Einstellungen</div>
             <div style="font-size:16px;color:#545b66;margin-top:4px;">Drucker, ERP-Anbindung und Webshops für dieses Terminal.</div>
           </div>
-          <div style="display: flex; gap: 6px; background: #e5e7eb; border-radius: 20px; padding: 5px; flex-wrap: wrap">
+          <div class="zk-reiter" style="display: flex; gap: 6px; background: #e5e7eb; border-radius: 20px; padding: 5px; flex-wrap: wrap">
             <sc-for list="{{ einstellTabs }}" as="t" hint-placeholder-count="3">
               <button sc-camel-on-click="{{ t.onClick }}" style="appearance:none;cursor:pointer;height:42px;padding:0 20px;border-radius:6px;border:0;font-size:15px;font-weight:{{ t.weight }};background:{{ t.bg }};color:{{ t.fg }};transition:all 140ms ease-out;">{{ t.label }}</button>
             </sc-for>
@@ -2534,7 +2560,7 @@
                   <div style="font-size:18px;font-weight:600;color:#101010;">{{ g.titel }}</div>
                   <div style="font-size:13.5px;color:#545b66;">{{ g.beschreibung }}</div>
                 </div>
-                <button style="appearance:none;cursor:pointer;flex:none;height:42px;padding:0 18px;border-radius:6px;border:1px solid #e5e7eb;background:#FFFFFF;color:#101010;font-size:14.5px;font-weight:600;display:flex;align-items:center;gap:8px;" style-hover="background:#e5e7eb;">
+                <button class="zk-voll" style="appearance:none;cursor:pointer;flex:none;height:42px;padding:0 18px;border-radius:6px;border:1px solid #e5e7eb;background:#FFFFFF;color:#101010;font-size:14.5px;font-weight:600;display:flex;align-items:center;gap:8px;" style-hover="background:#e5e7eb;">
                   <svg sc-camel-view-box="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round"><path d="M12 5v14M5 12h14"></path></svg>{{ g.hinzufuegen }}
                 </button>
               </div>
@@ -2875,7 +2901,7 @@
             </sc-if>
 
             <div style="border:1px solid #e5e7eb;border-radius:14px;overflow-x:auto;">
-              <div style="min-width:900px;">
+              <div class="zk-tabelle" style="min-width:900px;">
                 <div style="display:grid;grid-template-columns:2fr 1.4fr 1.7fr 0.9fr 1fr 1.1fr;gap:12px;padding:14px 20px;background:#e5e7eb;font-size:12.5px;letter-spacing:.1em;text-transform:uppercase;font-weight:600;color:#545b66;">
                   <div>Benutzer</div><div>Rolle</div><div>Kassen</div><div>PIN</div><div>Status</div><div>Aktion</div>
                 </div>
@@ -3182,7 +3208,7 @@
             </div>
 
             <div style="border:1px solid #e5e7eb;border-radius:14px;overflow-x:auto;background:#FFFFFF;">
-              <div style="min-width:840px;">
+              <div class="zk-tabelle" style="min-width:840px;">
                 <div style="display:grid;grid-template-columns:1.8fr 1.4fr 1fr 1fr 1fr 1fr 1.1fr;gap:12px;padding:12px 18px;background:#e5e7eb;font-size:12.5px;letter-spacing:.08em;text-transform:uppercase;font-weight:600;color:#545b66;">
                   <div>Mitarbeitende</div><div>Status</div><div style="text-align:right;">Heute</div><div style="text-align:right;">Woche</div><div style="text-align:right;">Soll</div><div style="text-align:right;">Saldo</div><div></div>
                 </div>
@@ -3286,7 +3312,7 @@
               </div>
             </div>
             <div style="overflow-x:auto;border:1px solid #e5e7eb;border-radius:14px;">
-              <div style="min-width:900px;">
+              <div class="zk-tabelle" style="min-width:900px;">
                 <div style="display:grid;grid-template-columns:150px 120px 130px 130px minmax(0,1fr) 24px;gap:12px;padding:12px 16px;background:#f4f4f4;font-size:12.5px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:#545b66;">
                   <span>Zeitstempel</span><span>Ebene</span><span>Benutzer</span><span>Kasse</span><span>Ereignis</span><span></span>
                 </div>
@@ -3349,7 +3375,7 @@
               </div>
             </sc-if>
             <div style="overflow-x:auto;border:1px solid #e5e7eb;border-radius:14px;">
-              <div style="min-width:860px;">
+              <div class="zk-tabelle" style="min-width:860px;">
                 <div style="display:grid;grid-template-columns:150px 130px 100px 90px minmax(0,1fr) 130px 150px;gap:12px;padding:12px 16px;background:#f4f4f4;font-size:12.5px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:#545b66;">
                   <span>Zeitstempel</span><span>Typ</span><span>Größe</span><span>Dauer</span><span>Ziel</span><span>Prüfsumme</span><span></span>
                 </div>
@@ -3429,7 +3455,7 @@
                   <div style="font-size:17px;font-weight:600;color:#101010;">{{ g.titel }}</div>
                   <div style="font-size:13px;color:#646b76;text-wrap:pretty;">{{ g.hinweis }}</div>
                 </div>
-                <div style="display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;">
+                <div class="zk-felder" style="display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;">
                   <sc-for list="{{ g.felder }}" as="f" hint-placeholder-count="4">
                     <div style="grid-column:{{ f.spalte }};display:flex;flex-direction:column;gap:6px;min-width:0;">
                       <sc-if value="{{ f.istText }}" hint-placeholder-val="{{ true }}">
@@ -3783,7 +3809,7 @@
         </div>
 
         <div style="background:#FFFFFF;border:1px solid #e5e7eb;border-radius:16px;overflow-x:auto;">
-          <div style="min-width:980px;">
+          <div class="zk-tabelle" style="min-width:980px;">
             <div style="display:grid;grid-template-columns:1.5fr 0.6fr 1.6fr 1.3fr 0.8fr 0.9fr;gap:14px;padding:14px 20px;background:#e5e7eb;font-size:12.5px;letter-spacing:.1em;text-transform:uppercase;font-weight:600;color:#545b66;">
               <div>Kassenfeld</div><div>Richtung</div><div>{{ fzSystem }}-Feld</div><div>Transformation</div><div>Pflicht</div><div>Aktiv</div>
             </div>
@@ -8868,7 +8894,7 @@ class Component extends DCLogic {
         bg: st.einstellTab === t[0] ? '#101010' : 'transparent',
         fg: st.einstellTab === t[0] ? '#FFFFFF' : '#545b66',
         weight: st.einstellTab === t[0] ? 600 : 500,
-        onClick: () => this.setState(s => ({einstellTab: s.einstellTab === t[0] && darfEinst ? null : t[0]}))
+        onClick: (e) => { const b = e && e.currentTarget; if (b && b.scrollIntoView) setTimeout(() => { try { b.scrollIntoView({inline: 'center', block: 'nearest', behavior: 'smooth'}) } catch (x) {} }, 30); this.setState(s => ({einstellTab: s.einstellTab === t[0] && darfEinst ? null : t[0]})) }
       })),
       tabDrucker: st.einstellTab === 'drucker',
       tabAdmin: st.einstellTab === 'admin' && !!(st.angemeldet && st.angemeldet.system),

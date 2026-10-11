@@ -2,7 +2,7 @@
 <html><head><script>window.__resources = {"zlogo": "assets/img/zykol-logo.png", "https://unpkg.com/react@18.3.1/umd/react.production.min.js": "assets/js/react.production.min.js", "https://unpkg.com/react-dom@18.3.1/umd/react-dom.production.min.js": "assets/js/react-dom.production.min.js"};</script>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>zykol.POS v8.13 – Testversion</title>
+<title>zykol.POS v9.00 – Testversion</title>
 <meta name="robots" content="noindex, nofollow">
 
 <script src="assets/js/dc-runtime.js"></script>
@@ -372,9 +372,9 @@
   unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
 }
 </style>
-<script src="assets/js/sprachen.js?v=8.13"></script>
+<script src="assets/js/sprachen.js?v=9.00"></script>
 <script src="assets/js/qrcode.js"></script>
-<script src="assets/js/bedienungsanleitung.js?v=8.13"></script>
+<script src="assets/js/bedienungsanleitung.js?v=9.00"></script>
 <style>
   html,body{margin:0;background:#f4f4f4;}
   *{box-sizing:border-box;}
@@ -564,6 +564,7 @@
   .zk-fuss{padding:8px 12px!important;row-gap:6px!important;gap:10px!important}
   .zk-fuss>div:first-child{gap:10px!important}
   .zk-fuss-zeit{display:none!important}
+  .zk-fuss-version{position:absolute;right:14px;bottom:17px}
   .zk-chip{padding:0 8px!important}
   .zk-chip-text{display:none}
   .zk-fuss button[title="Bildschirm sperren"]{font-size:0!important;gap:0!important;padding:0 8px!important}
@@ -4779,6 +4780,7 @@
         </div>
         <button sc-camel-on-click="{{ onSperren }}" title="Bildschirm sperren" style="appearance:none;cursor:pointer;display:flex;align-items:center;gap:6px;height:26px;padding:0 10px;border-radius:6px;background:#FFFFFF;border:1px solid #FFFFFF;font-family:'Inter',sans-serif;font-size:12px;font-weight:700;color:#101010;" style-hover="background:#e5e7eb;"><svg sc-camel-view-box="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="11" width="16" height="10" rx="2"></rect><path d="M8 11V7a4 4 0 0 1 8 0v4"></path></svg>Sperren</button>
       </div>
+      <span class="zk-fuss-version" title="Version" style="font-size:11.5px;color:#646b76;font-variant-numeric:tabular-nums;letter-spacing:.04em;white-space:nowrap;">v9.00</span>
     </div>
     <sc-if value="{{ fussKorbSichtbar }}" hint-placeholder-val="{{ true }}">
     <button sc-camel-on-click="{{ onFussKorb }}" title="Warenkorb öffnen/schließen" style="appearance:none;border:0;cursor:pointer;background:transparent;display:flex;align-items:baseline;gap:8px;padding:4px 8px;border-radius:6px;transition:background 140ms ease-out;" style-hover="background:#1f2329;">

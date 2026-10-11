@@ -1879,3 +1879,10 @@ Logo|Logótipo
     ['Berichte · KW (\\d+)', {en: 'Reports · week $1', fr: 'Rapports · semaine $1', es: 'Informes · semana $1', pt: 'Relatórios · semana $1'}]
   ].forEach(function (m) { I.muster.push([new RegExp('^' + m[0] + '$'), m[1]]); });
 })();
+(function () {
+  var D = window.ZYKOL_I18N && window.ZYKOL_I18N.dict; if (!D) return;
+  D['Angebote aus der Kasse'] = {en: 'Quotes from checkout', fr: 'Devis de la caisse', es: 'Presupuestos de caja', pt: 'Orçamentos da caixa'};
+  D['In Warenkorb laden'] = {en: 'Load into cart', fr: 'Charger dans le panier', es: 'Cargar en el carrito', pt: 'Carregar no carrinho'};
+  D['Barkunde (ohne Kundendaten)'] = {en: 'Cash customer (no customer data)', fr: 'Client comptant (sans données client)', es: 'Cliente de contado (sin datos)', pt: 'Cliente a dinheiro (sem dados)'};
+  D['Barkunde'] = {en: 'Cash customer', fr: 'Client comptant', es: 'Cliente de contado', pt: 'Cliente a dinheiro'};
+})();

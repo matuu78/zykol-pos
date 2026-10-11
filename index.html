@@ -2,7 +2,7 @@
 <html><head><script>window.__resources = {"zlogo": "assets/img/zykol-logo.png", "https://unpkg.com/react@18.3.1/umd/react.production.min.js": "assets/js/react.production.min.js", "https://unpkg.com/react-dom@18.3.1/umd/react-dom.production.min.js": "assets/js/react-dom.production.min.js"};</script>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>zykol.POS v8.11 – Testversion</title>
+<title>zykol.POS v8.12 – Testversion</title>
 <meta name="robots" content="noindex, nofollow">
 
 <script src="assets/js/dc-runtime.js"></script>
@@ -372,9 +372,9 @@
   unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
 }
 </style>
-<script src="assets/js/sprachen.js?v=8.11"></script>
+<script src="assets/js/sprachen.js?v=8.12"></script>
 <script src="assets/js/qrcode.js"></script>
-<script src="assets/js/bedienungsanleitung.js"></script>
+<script src="assets/js/bedienungsanleitung.js?v=8.12"></script>
 <style>
   html,body{margin:0;background:#f4f4f4;}
   *{box-sizing:border-box;}
@@ -8063,7 +8063,29 @@ class Component extends DCLogic {
     const aktivId = liste.some(k => k.id === st.anlKap) ? st.anlKap : (liste[0] && liste[0].id);
     const akt = alle.find(k => k.id === aktivId);
     const frei = k => !k.recht || !st.angemeldet || !!r[k.recht];
-    const pdf = (lang) => () => window.open(encodeURI('zykol.POS Bedienungsanleitung.dc.html') + '?lang=' + lang, '_blank');
+    const pdf = (lang) => () => {
+      const codes = lang === 'alle' ? Object.keys(A.sprachen) : [lang];
+      const esc = s => String(s || '').replace(/[&<>"]/g, c => ({'&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;'}[c]));
+      const teil = c => {
+        const S = A.sprachen[c];
+        const kap = A.meta.map((m, i) => Object.assign({nr: String(i + 1).padStart(2, '0')}, m, S.kapitel[m.id]));
+        return '<section class="sp"><div class="marke">zykol.POS</div><h1>' + esc(S.ui.titel) + '</h1><p>' + esc(S.ui.untertitel) + '</p>'
+          + '<p class="klein">' + esc(S.ui.stand) + ': ' + esc(A.version) + ' · ' + esc(S.ui.sprache) + ': ' + esc(S.name) + '</p>'
+          + '<h2>' + esc(S.ui.inhalt) + '</h2><ol class="toc">' + kap.map(k => '<li>' + esc(k.titel) + '</li>').join('') + '</ol>'
+          + kap.map(k => '<article><div class="nr">' + esc(S.ui.kapitel) + ' ' + k.nr + '</div><h3>' + esc(k.titel) + '</h3><p>' + esc(k.intro) + '</p>'
+            + '<p class="klein">' + esc(k.recht ? S.ui.benoetigt + ': ' + (S.rechte[k.recht] || k.recht) : S.ui.alleNutzer) + '</p>'
+            + '<ol>' + k.schritte.map(s => '<li>' + esc(s) + '</li>').join('') + '</ol>'
+            + (k.tipp ? '<p class="tipp"><b>' + esc(S.ui.tipp) + ':</b> ' + esc(k.tipp) + '</p>' : '') + '</article>').join('') + '</section>';
+      };
+      const w = window.open('', '_blank'); if (!w) return;
+      w.document.write('<!doctype html><html lang="' + codes[0] + '"><head><meta charset="utf-8"><title>zykol.POS – ' + esc(A.sprachen[codes[0]].ui.titel) + ' ' + esc(A.version) + '</title>'
+        + '<style>@page{size:A4;margin:16mm}body{font-family:Inter,Arial,sans-serif;color:#101010;font-size:11pt;line-height:1.45;max-width:780px;margin:24px auto;padding:0 16px}'
+        + 'h1{font-size:24pt;margin:2px 0 4px}h2{font-size:13pt;margin:20px 0 6px}h3{font-size:14pt;margin:2px 0 4px}.marke{font-weight:700;letter-spacing:.08em;text-transform:uppercase;font-size:9.5pt}'
+        + '.klein,.nr{color:#545b66;font-size:9.5pt}.nr{text-transform:uppercase;letter-spacing:.12em}article{break-inside:avoid;border-top:1px solid #e5e7eb;padding-top:10px;margin-top:14px}'
+        + '.tipp{background:#f4f4f4;padding:8px 10px;border-radius:6px}.sp+.sp{break-before:page;margin-top:40px}ol li{margin:3px 0}@media print{body{margin:0;max-width:none}}</style></head><body>'
+        + codes.map(teil).join('') + '</body></html>');
+      w.document.close(); setTimeout(() => { w.focus(); w.print(); }, 500);
+    };
     let kap = {schritte: []};
     if (akt) {
       const ok = frei(akt);

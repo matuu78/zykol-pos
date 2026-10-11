@@ -2,7 +2,7 @@
 <html><head><script>window.__resources = {"zlogo": "assets/img/zykol-logo.png", "https://unpkg.com/react@18.3.1/umd/react.production.min.js": "assets/js/react.production.min.js", "https://unpkg.com/react-dom@18.3.1/umd/react-dom.production.min.js": "assets/js/react-dom.production.min.js"};</script>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>zykol.POS v8.9 – Testversion</title>
+<title>zykol.POS v8.10 – Testversion</title>
 <meta name="robots" content="noindex, nofollow">
 
 <script src="assets/js/dc-runtime.js"></script>
@@ -6322,12 +6322,13 @@ const D_SHIFT = (s, off) => {
   if (!off || typeof s !== 'string') return s;
   if (/^20\d{6}$/.test(s)) return D_ISO(D_ADD(+s.slice(0, 4), +s.slice(4, 6) - 1, +s.slice(6, 8), off));
   return s
-    .replace(/(\d{2})\.(\d{2})\.–(\d{2})\.(\d{2})\.(20\d\d)/g, (m, d1, m1, d2, m2, y) => D_DE(D_ADD(+y, +m1 - 1, +d1, off)) + '–' + D_DE(D_ADD(+y, +m2 - 1, +d2, off)))
-    .replace(/(\d{1,2})\.–(\d{1,2})\.(\d{2})\.(20\d\d)/g, (m, d1, d2, mo, y) => D_DE(D_ADD(+y, +mo - 1, +d1, off)) + '–' + D_DE(D_ADD(+y, +mo - 1, +d2, off)))
+    .replace(/(\d{2})\.(\d{2})\.–(\d{2})\.(\d{2})\.(20\d\d)/g, (m, d1, m1, d2, m2, y) => (D_DE(D_ADD(+y, +m1 - 1, +d1, off)) + '–' + D_DE(D_ADD(+y, +m2 - 1, +d2, off))).replace(/\./g, '\uE000'))
+    .replace(/(\d{1,2})\.–(\d{1,2})\.(\d{2})\.(20\d\d)/g, (m, d1, d2, mo, y) => (D_DE(D_ADD(+y, +mo - 1, +d1, off)) + '–' + D_DE(D_ADD(+y, +mo - 1, +d2, off))).replace(/\./g, '\uE000'))
     .replace(/(\d{2})\.(\d{2})\.(20\d\d)/g, (m, d, mo, y) => D_DE(D_ADD(+y, +mo - 1, +d, off)))
     .replace(/(20\d\d)-(\d\d)-(\d\d)/g, (m, y, mo, d) => { const x = D_ADD(+y, +mo - 1, +d, off); return x.getFullYear() + '-' + String(x.getMonth() + 1).padStart(2, '0') + '-' + String(x.getDate()).padStart(2, '0'); })
     .replace(new RegExp('(' + MON_DE.join('|') + ') (20\\d\\d)', 'g'), (m, mo, y) => { const x = D_ADD(+y, MON_DE.indexOf(mo), 15, off); return MON_DE[x.getMonth()] + ' ' + x.getFullYear(); })
-    .replace(/KW (\d{1,2})\b/g, (m, w) => { const j4 = new Date(2026, 0, 4); const mo = D_ADD(2026, 0, 4 - (j4.getDay() + 6) % 7 + (+w - 1) * 7, off); return 'KW ' + D_KW(mo); });
+    .replace(/KW (\d{1,2})\b/g, (m, w) => { const j4 = new Date(2026, 0, 4); const mo = D_ADD(2026, 0, 4 - (j4.getDay() + 6) % 7 + (+w - 1) * 7, off); return 'KW ' + D_KW(mo); })
+    .replace(/\uE000/g, '.');
 };
 const DT = s => D_SHIFT(s, DEMO_OFF);
 const DTX = s => D_SHIFT(s, DEMO_OFF_TX);
@@ -6379,21 +6380,17 @@ const KAL_TERMINE = [
   ['Lieferung', 'Wareneingang Vaikobi · Schwimmwesten', '01.10.2026', '09:00', 'Lager', 'Paketdienst'],
   ['Abholung', 'Einzelkunde · Lettmann Granate', '01.10.2026', '11:00', 'Laden', 'Kunde K-1205'],
   ['Werkstatt', 'Steuerseil Surfski erneuern', '01.10.2026', '14:00', 'Werkstatt', 'Auftrag W-0216'],
-  ['Lieferung', 'Plastex Testboote für Regatta Werder', '02.10.2026', '13:00', 'Anhänger Regattastand', 'Direktlieferung · 4 × K1 Bullet II', 'KASSE-03 Mobil'],
-  ['Lieferung', 'Leihboote Nelo für Adigemarathon', '21.10.2026', '14:00', 'Anhänger Regattastand', 'Direktlieferung · 6 × K1 5 ST', 'KASSE-03 Mobil'],
   ['Lieferung', 'Wareneingang Nelo · 6 × K1 Vanquish', '02.10.2026', '10:00', 'Lager', 'Spedition Portugal'],
   ['Abholung', 'Kanu-Club Weser · 4 Wildwasserboote', '02.10.2026', '15:30', 'Laden', 'Kunde K-1042'],
   ['Werkstatt', 'Steueranlage K1 Sete tauschen', '05.10.2026', '09:00', 'Werkstatt', 'Auftrag W-0218'],
   ['Lieferung', 'Wareneingang Plastex · Bullet II', '07.10.2026', '11:00', 'Lager', 'Spedition Polen'],
   ['Abholung', 'Bootshaus Nord · Paddel & Westen', '08.10.2026', '14:00', 'Laden', 'Kunde K-1088'],
   ['Werkstatt', 'Sitzanpassung Rennboot', '09.10.2026', '16:00', 'Werkstatt', 'Auftrag W-0221'],
-  ['Regatta', 'Regatta Werder · Verkaufsstand', '10.10.2026', 'ganztägig', 'Werder (Havel)', 'Messestand mit Testbooten', 'KASSE-03 Mobil'],
   ['Lieferung', 'Wareneingang Brača · Paddel', '13.10.2026', '10:00', 'Lager', 'Paketdienst'],
   ['Werkstatt', 'Laminatreparatur Polo-Kajak', '14.10.2026', '10:00', 'Werkstatt', 'Auftrag W-0224'],
   ['Abholung', 'Einzelkunde · Surfski Nelo 550', '16.10.2026', '17:00', 'Laden', 'Kunde K-1231'],
   ['Messe', 'Paddelmesse Nord · Aussteller', '17.–18.10.2026', 'ganztägig', 'Hamburg', 'Stand mit Lettmann und Zhik', 'KASSE-03 Mobil'],
   ['Lieferung', 'Wareneingang Zhik · Westen & Bekleidung', '21.10.2026', '09:30', 'Lager', 'Paketdienst'],
-  ['Regatta', 'Adigemarathon · Testboote', '24.–25.10.2026', 'ganztägig', 'Verona (ITA)', 'Leihboote für Vereinskunden', 'KASSE-03 Mobil'],
   ['Werkstatt', 'Wintercheck Vereinsflotte', '27.–29.10.2026', '08:00', 'Werkstatt', 'Kanu-Club Weser'],
   ['Abholung', 'Landesstützpunkt · Los 2 Rennboote', '04.11.2026', '10:00', 'Laden', 'Kunde K-1103'],
   ['Lieferung', 'Wareneingang Lettmann · Wildwasser', '11.11.2026', '10:00', 'Lager', 'Spedition Moers'],
@@ -6659,7 +6656,7 @@ const SCHICHT_START = {
   u1: ['frueh', 'frueh', 'spaet', 'frueh', 'spaet', 'ganz', 'frei'],
   u2: ['ganz', 'spaet', 'frueh', 'ganz', 'frueh', 'frei', 'frei'],
   u3: ['frei', 'ganz', 'ganz', 'spaet', 'ganz', 'frei', 'frei'],
-  u4: ['frei', 'frei', 'spaet', 'frei', 'spaet', 'regatta', 'frei'],
+  u4: ['frei', 'frei', 'spaet', 'frei', 'spaet', 'regatta', 'regatta'],
   u5: ['frueh', 'frueh', 'frueh', 'frueh', 'frei', 'frei', 'frei']
 };
 
@@ -6727,7 +6724,7 @@ const TX_FILTER = [
 const demoDE = s => { if (!/\d\d\.\d{4}$/.test(s || '')) return s; const a = demoISO(KAL_START(s)), b = demoISO(KAL_ISO(s)), f = x => x.slice(6, 8) + '.' + x.slice(4, 6) + '.' + x.slice(0, 4); return a === b ? f(a) : f(a) + '–' + f(b); };
 [VERKAUFTE_BOOTE, LIEFERANTEN, SERIEN, SN_HISTORIE, PROTOKOLL, BACKUPS, KUNDEN, KAL_TERMINE, ANGEBOTE_START, KAEUFE, KUNDENBOOTE, BENUTZER_START, SCHICHT_START, LAGER, RESERVIERT, BEWEGUNGEN, ZEITRAUM, FZ].forEach(o => D_WALK(o, DEMO_OFF));
 D_WALK(TX, DEMO_OFF_TX);
-// Sonntage und Feiertage (Niedersachsen, Standort Syke) bleiben frei: Termine und Aufgaben rücken auf den nächsten Werktag.
+// Sonntage und Feiertage (Niedersachsen, Standort Syke) bleiben frei: Termine und Aufgaben rücken auf den nächsten Werktag. Ausnahme: Regatten.
 const FEIERTAGE = (() => { const c = {}; return y => { if (c[y]) return c[y];
   const a = y % 19, b = Math.floor(y / 100), cc = y % 100, d = Math.floor(b / 4), e = b % 4, f = Math.floor((b + 8) / 25), g = Math.floor((b - f + 1) / 3), h = (19 * a + b - d - g + 15) % 30,
     i = Math.floor(cc / 4), k = cc % 4, l = (32 + 2 * e + 2 * i - h - k) % 7, m = Math.floor((a + 11 * h + 22 * l) / 451), mo = Math.floor((h + l - 7 * m + 114) / 31), da = (h + l - 7 * m + 114) % 31 + 1;
@@ -6740,6 +6737,7 @@ const WERKTAG = t => { if (!/^\d{8}$/.test(t || '')) return t; let d = I_DATE(t)
 const WERKTAG_DE = s => { if (!/^\d\d\.\d\d\.\d{4}$/.test(s || '')) return s; const w = WERKTAG(KAL_ISO(s)); return w.slice(6, 8) + '.' + w.slice(4, 6) + '.' + w.slice(0, 4); };
 const KAL_FREIRUECKEN = () => KAL_TERMINE.forEach(t => {
   const a = KAL_START(t[2]), b = KAL_ISO(t[2]); if (!/^\d{8}$/.test(a) || !/^\d{8}$/.test(b)) return;
+  if (t[0] === 'Regatta') return;   // Regatten finden auch sonn- und feiertags statt, dort wird verkauft
   const n = Math.round((I_DATE(b) - I_DATE(a)) / 86400000); let s0 = I_DATE(a), tries = 0;
   const frei = d => { for (let k = 0; k <= n; k++) if (FREI(D_ISO(new Date(d.getFullYear(), d.getMonth(), d.getDate() + k)))) return true; return false; };
   while (frei(s0) && tries++ < 14) s0 = new Date(s0.getFullYear(), s0.getMonth(), s0.getDate() + 1);
@@ -6747,6 +6745,10 @@ const KAL_FREIRUECKEN = () => KAL_TERMINE.forEach(t => {
   const e0 = new Date(s0.getFullYear(), s0.getMonth(), s0.getDate() + n);
   t[2] = n === 0 ? D_DE(s0) : s0.getMonth() === e0.getMonth() ? String(s0.getDate()).padStart(2, '0') + '.–' + D_DE(e0) : D_DE(s0).slice(0, 6) + '–' + D_DE(e0);
 });
+// Regatten aus Kai Kalender (Notion-Datenbank „Regatten“, Europa, Stand 11.10.2026) – echte Termine, werden nicht verschoben.
+const KAI_REGATTEN = [["Regatta", "I Giganti Dello Sprint", "02.–04.10.2026", "ganztägig", "Cabras-Oristano-Zeddiani (Italien)", "Kanurennsport · Paddle Worldwide PW-2794 · Quelle: Kai Kalender", "KASSE-03 Mobil"], ["Regatta", "2026 Paddle Europe Canoe Polo Club Championships", "02.–04.10.2026", "ganztägig", "Mailand (Italien)", "Kanupolo · Paddle Worldwide PW-2856 · Quelle: Kai Kalender", "KASSE-03 Mobil"], ["Regatta", "2026 ICF Canoe Slalom World Ranking 1 – Lee Valley", "03.10.2026", "ganztägig", "Lee Valley (Vereinigtes Königreich)", "Kanuslalom · Paddle Worldwide PW-2741 · Quelle: Kai Kalender", "KASSE-03 Mobil"], ["Regatta", "23. Neumuenster Marathon", "03.10.2026", "ganztägig", "Neumünster (Deutschland)", "Marathon · Paddle Worldwide PW-2800 · Quelle: Kai Kalender", "KASSE-03 Mobil"], ["Regatta", "2026 ICF Canoe Slalom World Ranking 2 – Lee Valley", "04.10.2026", "ganztägig", "Lee Valley (Vereinigtes Königreich)", "Kanuslalom · Paddle Worldwide PW-2742 · Quelle: Kai Kalender", "KASSE-03 Mobil"], ["Regatta", "Sile Marathon 2026", "04.10.2026", "ganztägig", "Fiume Sile Casier (Italien)", "Marathon · Paddle Worldwide PW-2911 · Quelle: Kai Kalender", "KASSE-03 Mobil"], ["Regatta", "International Sarcidano Race 2026", "09.–11.10.2026", "ganztägig", "Isili – Lago San Sebastiano (Italien)", "Kanurennsport · Paddle Worldwide PW-2791 · Quelle: Kai Kalender", "KASSE-03 Mobil"], ["Regatta", "2026 Canoe Ocean Racing World Championships", "09.–11.10.2026", "ganztägig", "La Vila Joiosa (Spanien)", "SUP/Ocean · Paddle Worldwide PW-2499 · Quelle: Kai Kalender", "KASSE-03 Mobil"], ["Regatta", "2026 Canoe Slalom – Alpe Adria Cup", "11.10.2026", "ganztägig", "Klagenfurt (Österreich)", "Kanuslalom · Paddle Worldwide PW-2714 · Quelle: Kai Kalender", "KASSE-03 Mobil"], ["Regatta", "2026 Canoe Slalom World Ranking Race – 57th Ilinden Kayak Slalom", "11.10.2026", "ganztägig", "Src.Matka, Skopje (Nordmazedonien)", "Kanuslalom · Paddle Worldwide PW-2830 · Quelle: Kai Kalender", "KASSE-03 Mobil"], ["Regatta", "Taormina SUP Challenge", "13.–18.10.2026", "ganztägig", "Giardini Naxos – Taormina (Italien)", "SUP/Ocean · Paddle Worldwide PW-2795 · Quelle: Kai Kalender", "KASSE-03 Mobil"], ["Regatta", "2026 Stand Up Paddling (SUP) World Championships", "14.–18.10.2026", "ganztägig", "Sabaudia (Italien)", "SUP/Ocean · Paddle Worldwide PW-2503 · Quelle: Kai Kalender", "KASSE-03 Mobil"], ["Regatta", "7. Spreemarathon", "17.–18.10.2026", "ganztägig", "Cottbus/Spree (Deutschland)", "Marathon · Paddle Worldwide PW-2799 · Quelle: Kai Kalender", "KASSE-03 Mobil"], ["Regatta", "Tigullio Ocean Racing Challenge 2026", "17.–18.10.2026", "ganztägig", "Sestri Levante (Italien)", "SUP/Ocean · Paddle Worldwide PW-2796 · Quelle: Kai Kalender", "KASSE-03 Mobil"]];
+KAI_REGATTEN.forEach(r => KAL_TERMINE.push(r));
+KAL_TERMINE.push(['Lieferung', 'Testboote Plastex für 7. Spreemarathon', '16.10.2026', '13:00', 'Anhänger Regattastand', 'Direktlieferung · 4 × K1 Bullet II', 'KASSE-03 Mobil']);
 KAL_FREIRUECKEN();
 ANGEBOTE_START.forEach(a => { if (a.status === 'Versendet' || a.status === 'Entwurf') a.gueltig = WERKTAG_DE(a.gueltig); });
 const UmsatzDash = (() => {
@@ -7766,7 +7768,7 @@ class Component extends DCLogic {
     const feiertag = { [heute.getFullYear() + '1003']: 'Tag der Deutschen Einheit · geschlossen', [(heute.getFullYear() + 1) + '0101']: 'Neujahr · geschlossen', [heute.getFullYear() + '1225']: '1. Weihnachtstag · geschlossen', [heute.getFullYear() + '1226']: '2. Weihnachtstag · geschlossen' };
     const woche = tage.slice(1).map(d => {
       const t = iso(d), ev = amTag(t), auAlle = aufg.filter(x => x.faellig === t), au = auAlle.filter(sichtbar);
-      const hinweis = FREI(t) ? FREI(t) + ' · geschlossen' : '';
+      const hinweis = FREI(t) ? FREI(t) + (ev.some(e => e.typ === 'Regatta') ? ' · Laden geschlossen, Regatta' : ' · geschlossen') : '';
       return { datum: de(d), tagLang: WTL[d.getDay()], hinweis, hatHinweis: !!hinweis, onTag: zuKal(t),
         termine: ev.map(termVal), aufgaben: au.map(aufgVal), leer: ev.length === 0 && au.length === 0 && !hinweis,
         zaehler: ev.length + (ev.length === 1 ? ' Termin' : ' Termine') + ' · ' + auAlle.length + (auAlle.length === 1 ? ' Aufgabe' : ' Aufgaben') };
@@ -7846,7 +7848,7 @@ class Component extends DCLogic {
       kalFilterOptionen: ['Alle'].concat(Object.keys(KAL_FARBE)).map(v => ({ v, label: v === 'Alle' ? 'Alle Terminarten' : v })),
       kalFilterWert: filt, onKalFilter: e => this.setState({ kalFilter: e.target.value }),
       kalLegende: Object.keys(KAL_FARBE).map(k => ({ label: k, farbe: KAL_FARBE[k] })),
-      kalTagTitel: new Date(+tagSel.slice(0, 4), +tagSel.slice(4, 6) - 1, +tagSel.slice(6, 8)).toLocaleDateString('de-DE', { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' }) + (FREI(tagSel) && FREI(tagSel) !== 'Sonntag' ? ' · ' + FREI(tagSel) : '') + (FREI(tagSel) ? ' · geschlossen' : ''),
+      kalTagTitel: new Date(+tagSel.slice(0, 4), +tagSel.slice(4, 6) - 1, +tagSel.slice(6, 8)).toLocaleDateString('de-DE', { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' }) + (FREI(tagSel) && FREI(tagSel) !== 'Sonntag' ? ' · ' + FREI(tagSel) : '') + (FREI(tagSel) ? ' · Laden geschlossen' : ''),
       kalTagLeer: tagEv.length === 0,
       kalTagEvents: tagEv.map(t => ({ typ: t.typ, titel: t.titel, datum: t.datum, zeit: t.zeit, ort: t.ort, info: t.info, farbe: KAL_FARBE[t.typ],
         bearbeitbar: !!t.ref, nurAngebot: !t.ref,
@@ -7868,7 +7870,7 @@ class Component extends DCLogic {
         const datumOk = /^\d\d\.\d\d\.\d{4}$/.test(datum) || (e.ref && datum === e.ref[2]);
         if (!datumOk) return this.setState({ kalEditFehler: 'Datum bitte als TT.MM.JJJJ eingeben.' });
         if (zeit !== 'ganztägig' && !/^\d{1,2}:\d{2}$/.test(zeit)) return this.setState({ kalEditFehler: 'Uhrzeit bitte als HH:MM oder „ganztägig“ eingeben.' });
-        { const t0 = KAL_START(datum), fr = FREI(t0); if (fr && !(e.ref && datum === e.ref[2])) { const w = WERKTAG(t0); return this.setState({ kalEditFehler: (fr === 'Sonntag' ? 'Sonntags' : 'Am ' + fr) + ' ist geschlossen. Nächster Werktag: ' + w.slice(6, 8) + '.' + w.slice(4, 6) + '.' + w.slice(0, 4) + '.' }); } }
+        { const t0 = KAL_START(datum), fr = FREI(t0); if (fr && e.typ !== 'Regatta' && !(e.ref && datum === e.ref[2])) { const w = WERKTAG(t0); return this.setState({ kalEditFehler: (fr === 'Sonntag' ? 'Sonntags' : 'Am ' + fr) + ' ist geschlossen (nur Regatten möglich). Nächster Werktag: ' + w.slice(6, 8) + '.' + w.slice(4, 6) + '.' + w.slice(0, 4) + '.' }); } }
         const zeile = [e.typ, titel, datum, zeit, (e.ort || '').trim(), (e.info || '').trim()];
         if (kasse !== 'Verkaufsraum') zeile[6] = kasse;
         if (e.ref) { const i = KAL_TERMINE.indexOf(e.ref); if (i >= 0) KAL_TERMINE[i] = zeile; } else KAL_TERMINE.push(zeile);

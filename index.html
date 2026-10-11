@@ -2,7 +2,7 @@
 <html><head><script>window.__resources = {"zlogo": "assets/img/zykol-logo.png", "https://unpkg.com/react@18.3.1/umd/react.production.min.js": "assets/js/react.production.min.js", "https://unpkg.com/react-dom@18.3.1/umd/react-dom.production.min.js": "assets/js/react-dom.production.min.js"};</script>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>zykol.POS v8.10 – Testversion</title>
+<title>zykol.POS v8.11 – Testversion</title>
 <meta name="robots" content="noindex, nofollow">
 
 <script src="assets/js/dc-runtime.js"></script>
@@ -372,7 +372,7 @@
   unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
 }
 </style>
-<script src="assets/js/sprachen.js"></script>
+<script src="assets/js/sprachen.js?v=8.11"></script>
 <script src="assets/js/qrcode.js"></script>
 <script src="assets/js/bedienungsanleitung.js"></script>
 <style>
@@ -2040,7 +2040,7 @@
               </div>
               <sc-for list="{{ dashUe }}" as="a" hint-placeholder-count="3">
                 <div class="zk-aufgabe" style="display:flex;align-items:center;gap:12px;padding:11px 0;border-top:1px solid #eef0f2;">
-                  <button sc-camel-on-click="{{ a.onToggle }}" title="Erledigt / offen" style="appearance:none;cursor:pointer;padding:0;width:22px;height:22px;flex:none;border-radius:6px;border:1.5px solid {{ a.boxRand }};background:{{ a.boxBg }};display:flex;align-items:center;justify-content:center;color:#FFFFFF;"><svg sc-camel-view-box="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"></path></svg></button>
+                  <button sc-camel-on-click="{{ a.onToggle }}" title="Erledigt / offen" style="appearance:none;cursor:pointer;padding:0;width:22px;height:22px;flex:none;border-radius:6px;border:1.5px solid {{ a.boxRand }};background:{{ a.boxBg }};display:flex;align-items:center;justify-content:center;color:#FFFFFF;"><svg style="opacity:{{ a.hakenOp }};" sc-camel-view-box="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"></path></svg></button>
                   <span style="display:flex;flex-direction:column;gap:2px;min-width:0;flex:1;">
                     <span style="font-size:15px;font-weight:600;color:{{ a.textFg }};text-decoration:{{ a.deko }};text-wrap:pretty;">{{ a.titel }}</span>
                     <span style="font-size:13.5px;color:#545b66;"><span style="font-weight:600;color:#9b1520;">{{ a.faelligStr }}</span> · {{ a.info }}</span>
@@ -2086,7 +2086,7 @@
               <sc-if value="{{ dashHeuteAufgLeer }}" hint-placeholder-val="{{ false }}"><div style="padding:12px 0;border-top:1px solid #eef0f2;font-size:14.5px;color:#545b66;">Keine offenen Aufgaben für heute.</div></sc-if>
               <sc-for list="{{ dashHeuteAufgaben }}" as="a" hint-placeholder-count="3">
                 <div class="zk-aufgabe" style="display:flex;align-items:center;gap:12px;padding:11px 0;border-top:1px solid #eef0f2;">
-                  <button sc-camel-on-click="{{ a.onToggle }}" title="Erledigt / offen" style="appearance:none;cursor:pointer;padding:0;width:22px;height:22px;flex:none;border-radius:6px;border:1.5px solid {{ a.boxRand }};background:{{ a.boxBg }};display:flex;align-items:center;justify-content:center;color:#FFFFFF;"><svg sc-camel-view-box="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"></path></svg></button>
+                  <button sc-camel-on-click="{{ a.onToggle }}" title="Erledigt / offen" style="appearance:none;cursor:pointer;padding:0;width:22px;height:22px;flex:none;border-radius:6px;border:1.5px solid {{ a.boxRand }};background:{{ a.boxBg }};display:flex;align-items:center;justify-content:center;color:#FFFFFF;"><svg style="opacity:{{ a.hakenOp }};" sc-camel-view-box="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"></path></svg></button>
                   <span style="display:flex;flex-direction:column;gap:2px;min-width:0;flex:1;">
                     <span style="font-size:15px;font-weight:600;color:{{ a.textFg }};text-decoration:{{ a.deko }};text-wrap:pretty;">{{ a.titel }}</span>
                     <span style="font-size:13.5px;color:#545b66;">{{ a.info }}</span>
@@ -2139,7 +2139,7 @@
                 </sc-for>
                 <sc-for list="{{ w.aufgaben }}" as="a" hint-placeholder-count="0">
                   <div style="display:flex;align-items:center;gap:10px;padding:5px 0;">
-                    <button sc-camel-on-click="{{ a.onToggle }}" title="Erledigt / offen" style="appearance:none;cursor:pointer;padding:0;width:18px;height:18px;flex:none;border-radius:5px;border:1.5px solid {{ a.boxRand }};background:{{ a.boxBg }};display:flex;align-items:center;justify-content:center;color:#FFFFFF;"><svg sc-camel-view-box="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"></path></svg></button>
+                    <button sc-camel-on-click="{{ a.onToggle }}" title="Erledigt / offen" style="appearance:none;cursor:pointer;padding:0;width:18px;height:18px;flex:none;border-radius:5px;border:1.5px solid {{ a.boxRand }};background:{{ a.boxBg }};display:flex;align-items:center;justify-content:center;color:#FFFFFF;"><svg style="opacity:{{ a.hakenOp }};" sc-camel-view-box="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"></path></svg></button>
                     <span style="flex:1;min-width:0;font-size:14px;color:{{ a.textFg }};text-decoration:{{ a.deko }};overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">{{ a.titel }}</span>
                     <sc-if value="{{ a.kannOeffnen }}" hint-placeholder-val="{{ false }}"><button sc-camel-on-click="{{ a.onOeffnen }}" title="{{ a.oeffnenLabel }}" style="appearance:none;cursor:pointer;padding:0;border:0;background:none;font-family:'Inter',sans-serif;font-size:13px;font-weight:600;color:#545b66;" style-hover="color:#101010;">→</button></sc-if>
                   </div>
@@ -7247,7 +7247,7 @@ class Component extends DCLogic {
     const lang = this.aktiveSprache();
     if (!this._i18nMap) this._i18nMap = new WeakMap();
     const M = this._i18nMap;
-    const tr = (orig) => { if (lang === 'de' || !orig) return orig; const k = orig.trim(); const e = D.dict[k]; return e && e[lang] ? orig.replace(k, e[lang]) : orig; };
+    if (!this._i18nCache || this._i18nCacheLang !== lang) { this._i18nCache = new Map(); this._i18nCacheLang = lang; } const C = this._i18nCache; const trK = (k, tief) => { const e = D.dict[k]; if (e && e[lang]) return e[lang]; if (!tief && k.indexOf(' · ') > 0) { const t = k.split(' · '), n = t.map(s => trK(s, 1) || s); if (n.some((s, i) => s !== t[i])) return n.join(' · '); } for (const m of (D.muster || [])) { const g = k.match(m[0]); if (g && m[1][lang] != null) return m[1][lang].replace(/§(l?)(\d)|\$(\d)/g, (x, l, a, b) => { if (b) return g[b]; const v = trK(g[a], 1) || g[a]; return l ? v.toLowerCase() : v; }); } return null; }; const tr = (orig) => { if (lang === 'de' || !orig) return orig; const k = orig.trim(); if (!k) return orig; let v = C.get(k); if (v === undefined) { v = trK(k, 0); C.set(k, v); } return v != null ? orig.replace(k, v) : orig; };
     const w = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT);
     let n;
     while ((n = w.nextNode())) {
@@ -7734,7 +7734,7 @@ class Component extends DCLogic {
       const done = !!erl[x.id];
       const oeffnen = x.agNr ? ['Angebot ' + x.agNr + ' öffnen', zuAg(x.agNr)] : x.ziel ? [x.ziel[1], zuView(x.ziel[0])] : x.kalTag ? ['Im Kalender zeigen', zuKal(x.kalTag)] : null;
       return { titel: x.titel, info: x.info + (x.verschoben ? ' · verschoben' : ''), textFg: done ? '#646b76' : '#101010', deko: done ? 'line-through' : 'none',
-        boxBg: done ? '#101010' : '#FFFFFF', boxRand: done ? '#101010' : '#8a9099',
+        boxBg: done ? '#101010' : '#FFFFFF', hakenOp: done ? 1 : 0, boxRand: done ? '#101010' : '#8a9099',
         kannOeffnen: !!oeffnen && !done, oeffnenLabel: oeffnen ? oeffnen[0] : '', onOeffnen: oeffnen ? oeffnen[1] : () => {},
         kannVerschieben: !done && x.faellig <= hIso, onMorgen: () => setMap('dashVerschoben', x.id, morgenIso), morgenLabel: morgenLabel,
         kannLoeschen: !!x.eigen && x.kannWeg !== false, onLoeschen: () => this.setState(y => ({ dashEigene: (y.dashEigene || []).filter(e => e.id !== x.id) })),

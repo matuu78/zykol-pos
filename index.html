@@ -2,7 +2,7 @@
 <html><head><script>window.__resources = {"zlogo": "assets/img/zykol-logo.png", "https://unpkg.com/react@18.3.1/umd/react.production.min.js": "assets/js/react.production.min.js", "https://unpkg.com/react-dom@18.3.1/umd/react-dom.production.min.js": "assets/js/react-dom.production.min.js"};</script>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>zykol.POS v8.12 – Testversion</title>
+<title>zykol.POS v8.13 – Testversion</title>
 <meta name="robots" content="noindex, nofollow">
 
 <script src="assets/js/dc-runtime.js"></script>
@@ -372,9 +372,9 @@
   unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
 }
 </style>
-<script src="assets/js/sprachen.js?v=8.12"></script>
+<script src="assets/js/sprachen.js?v=8.13"></script>
 <script src="assets/js/qrcode.js"></script>
-<script src="assets/js/bedienungsanleitung.js?v=8.12"></script>
+<script src="assets/js/bedienungsanleitung.js?v=8.13"></script>
 <style>
   html,body{margin:0;background:#f4f4f4;}
   *{box-sizing:border-box;}
@@ -9421,9 +9421,9 @@ class Component extends DCLogic {
       ...this.shopVals(st),
       dokOffen: !!st.dokVorschau,
       dokTitel: ({beleg: 'Kassenbeleg', rechnung: 'Rechnung', tagesabschluss: 'Tagesabschluss', artikelliste: 'Artikelliste', bestandsliste: 'Bestands- & Inventurliste', dsfinvk: 'DSFinV-K Protokoll'})[st.dokVorschau] || '',
-      dokUrl: st.dokVorschau ? 'zykol Dokumentvorlage.dc.html' + dq() + '#' + st.dokVorschau : '',
+      dokUrl: st.dokVorschau ? 'dokumentvorlage.html' + dq() + '#' + st.dokVorschau : '',
       onDokZu: () => this.setState({dokVorschau: null}),
-      onDokTab: () => window.open('zykol Dokumentvorlage.dc.html' + dq() + '#' + st.dokVorschau, '_blank'),
+      onDokTab: () => window.open('dokumentvorlage.html' + dq() + '#' + st.dokVorschau, '_blank'),
       onDokDrucken: () => {
         const f = document.querySelector('iframe[title="Dokumentvorschau"]');
         if (!f || !f.contentWindow) return;

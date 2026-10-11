@@ -2,7 +2,7 @@
 <html><head><script>window.__resources = {"zlogo": "assets/img/zykol-logo.png", "https://unpkg.com/react@18.3.1/umd/react.production.min.js": "assets/js/react.production.min.js", "https://unpkg.com/react-dom@18.3.1/umd/react-dom.production.min.js": "assets/js/react-dom.production.min.js"};</script>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>zykol.POS v8.8 – Testversion</title>
+<title>zykol.POS v8.9 – Testversion</title>
 <meta name="robots" content="noindex, nofollow">
 
 <script src="assets/js/dc-runtime.js"></script>
@@ -2036,7 +2036,7 @@
               <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap;padding-bottom:4px;">
                 <svg sc-camel-view-box="0 0 24 24" width="18" height="18" fill="none" stroke="#9b1520" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" style="flex:none;"><path d="M12 8v5M12 16.5v.5M10.3 3.9 2.4 18a2 2 0 0 0 1.7 3h15.8a2 2 0 0 0 1.7-3L13.7 3.9a2 2 0 0 0-3.4 0z"></path></svg><span style="font-size:17px;font-weight:700;color:#9b1520;">Überfällig</span>
                 <span style="height:24px;padding:0 9px;border-radius:999px;background:#f4f4f4;font-size:12.5px;font-weight:600;color:#545b66;font-variant-numeric:tabular-nums;display:inline-flex;align-items:center;">{{ dashUeInfo }}</span>
-                <span style="margin-left:auto;display:flex;flex-wrap:wrap;justify-content:flex-end;gap:6px;align-items:center;"><sc-if value="{{ dashUeKlapp.mehr }}" hint-placeholder-val="{{ false }}"><span style="font-size:12.5px;font-weight:600;color:#545b66;font-variant-numeric:tabular-nums;white-space:nowrap;">{{ dashUeKlapp.anzahl }}</span><button sc-camel-on-click="{{ dashUeKlapp.onToggle }}" title="{{ dashUeKlapp.label }}" style="appearance:none;cursor:pointer;height:32px;padding:0 10px;border-radius:6px;border:1px solid #e5e7eb;background:#FFFFFF;font-family:'Inter',sans-serif;font-size:12.5px;font-weight:600;color:#545b66;display:inline-flex;align-items:center;gap:5px;" style-hover="border-color:#101010;color:#101010;">{{ dashUeKlapp.kurz }}<svg sc-camel-view-box="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="{{ dashUeKlapp.pfeil }}"></path></svg></button></sc-if><button sc-camel-on-click="{{ onDashAlleMorgen }}" style="appearance:none;cursor:pointer;height:32px;padding:0 10px;border-radius:6px;border:1px solid #e5e7eb;background:#FFFFFF;font-family:'Inter',sans-serif;font-size:12.5px;font-weight:600;color:#545b66;" style-hover="border-color:#101010;color:#101010;">Alle auf heute</button></span>
+                <span style="margin-left:auto;display:flex;flex-wrap:wrap;justify-content:flex-end;gap:6px;align-items:center;"><sc-if value="{{ dashUeKlapp.mehr }}" hint-placeholder-val="{{ false }}"><span style="font-size:12.5px;font-weight:600;color:#545b66;font-variant-numeric:tabular-nums;white-space:nowrap;">{{ dashUeKlapp.anzahl }}</span><button sc-camel-on-click="{{ dashUeKlapp.onToggle }}" title="{{ dashUeKlapp.label }}" style="appearance:none;cursor:pointer;height:32px;padding:0 10px;border-radius:6px;border:1px solid #e5e7eb;background:#FFFFFF;font-family:'Inter',sans-serif;font-size:12.5px;font-weight:600;color:#545b66;display:inline-flex;align-items:center;gap:5px;" style-hover="border-color:#101010;color:#101010;">{{ dashUeKlapp.kurz }}<svg sc-camel-view-box="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="{{ dashUeKlapp.pfeil }}"></path></svg></button></sc-if><button sc-camel-on-click="{{ onDashAlleMorgen }}" style="appearance:none;cursor:pointer;height:32px;padding:0 10px;border-radius:6px;border:1px solid #e5e7eb;background:#FFFFFF;font-family:'Inter',sans-serif;font-size:12.5px;font-weight:600;color:#545b66;" style-hover="border-color:#101010;color:#101010;">{{ dashAlleAufLabel }}</button></span>
               </div>
               <sc-for list="{{ dashUe }}" as="a" hint-placeholder-count="3">
                 <div class="zk-aufgabe" style="display:flex;align-items:center;gap:12px;padding:11px 0;border-top:1px solid #eef0f2;">
@@ -2047,7 +2047,7 @@
                   </span>
                   <span style="display:flex;gap:6px;flex:none;align-items:center;">
                     <sc-if value="{{ a.kannOeffnen }}" hint-placeholder-val="{{ false }}"><button sc-camel-on-click="{{ a.onOeffnen }}" title="{{ a.oeffnenLabel }}" style="appearance:none;cursor:pointer;height:32px;padding:0 10px;border-radius:6px;border:1px solid #e5e7eb;background:#FFFFFF;font-family:'Inter',sans-serif;font-size:12.5px;font-weight:600;color:#545b66;color:#101010;" style-hover="border-color:#101010;">Öffnen</button></sc-if>
-                    <sc-if value="{{ a.kannVerschieben }}" hint-placeholder-val="{{ false }}"><button sc-camel-on-click="{{ a.onMorgen }}" title="Auf morgen verschieben" style="appearance:none;cursor:pointer;height:32px;padding:0 10px;border-radius:6px;border:1px solid #e5e7eb;background:#FFFFFF;font-family:'Inter',sans-serif;font-size:12.5px;font-weight:600;color:#545b66;" style-hover="border-color:#101010;color:#101010;">Morgen</button></sc-if>
+                    <sc-if value="{{ a.kannVerschieben }}" hint-placeholder-val="{{ false }}"><button sc-camel-on-click="{{ a.onMorgen }}" title="Auf morgen verschieben" style="appearance:none;cursor:pointer;height:32px;padding:0 10px;border-radius:6px;border:1px solid #e5e7eb;background:#FFFFFF;font-family:'Inter',sans-serif;font-size:12.5px;font-weight:600;color:#545b66;" style-hover="border-color:#101010;color:#101010;">{{ a.morgenLabel }}</button></sc-if>
                     <sc-if value="{{ a.kannVerteilen }}" hint-placeholder-val="{{ false }}"><sc-raw-select value="{{ a.verteilWert }}" sc-camel-on-change="{{ a.onVerteilen }}" title="Aufgabe verteilen" aria-label="Aufgabe verteilen" style="height:32px;max-width:150px;padding:0 6px;border-radius:6px;border:1px solid #e5e7eb;background:#FFFFFF;font-family:'Inter',sans-serif;font-size:12.5px;font-weight:600;color:#101010;cursor:pointer;"><sc-for list="{{ a.verteilOpts }}" as="o" hint-placeholder-count="3"><option value="{{ o.v }}">{{ o.label }}</option></sc-for></sc-raw-select></sc-if>
                     <sc-if value="{{ a.kannLoeschen }}" hint-placeholder-val="{{ false }}"><button sc-camel-on-click="{{ a.onLoeschen }}" title="Aufgabe löschen" style="appearance:none;cursor:pointer;height:32px;padding:0 10px;border-radius:6px;border:1px solid #e5e7eb;background:#FFFFFF;font-family:'Inter',sans-serif;font-size:12.5px;font-weight:600;color:#545b66;width:32px;padding:0;" style-hover="border-color:#9b1520;color:#9b1520;">✕</button></sc-if>
                   </span>
@@ -2063,7 +2063,7 @@
                 <span style="height:24px;padding:0 9px;border-radius:999px;background:#f4f4f4;font-size:12.5px;font-weight:600;color:#545b66;font-variant-numeric:tabular-nums;display:inline-flex;align-items:center;">{{ dashHeuteTermineAnzahl }}</span>
                 <span style="margin-left:auto;display:flex;flex-wrap:wrap;justify-content:flex-end;gap:6px;align-items:center;"><sc-if value="{{ dashHeuteTermineKlapp.mehr }}" hint-placeholder-val="{{ false }}"><span style="font-size:12.5px;font-weight:600;color:#545b66;font-variant-numeric:tabular-nums;white-space:nowrap;">{{ dashHeuteTermineKlapp.anzahl }}</span><button sc-camel-on-click="{{ dashHeuteTermineKlapp.onToggle }}" title="{{ dashHeuteTermineKlapp.label }}" style="appearance:none;cursor:pointer;height:32px;padding:0 10px;border-radius:6px;border:1px solid #e5e7eb;background:#FFFFFF;font-family:'Inter',sans-serif;font-size:12.5px;font-weight:600;color:#545b66;display:inline-flex;align-items:center;gap:5px;" style-hover="border-color:#101010;color:#101010;">{{ dashHeuteTermineKlapp.kurz }}<svg sc-camel-view-box="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="{{ dashHeuteTermineKlapp.pfeil }}"></path></svg></button></sc-if></span>
               </div>
-              <sc-if value="{{ dashHeuteTermLeer }}" hint-placeholder-val="{{ false }}"><div style="padding:12px 0;border-top:1px solid #eef0f2;font-size:14.5px;color:#545b66;">Heute stehen keine Termine an.</div></sc-if>
+              <sc-if value="{{ dashHeuteTermLeer }}" hint-placeholder-val="{{ false }}"><div style="padding:12px 0;border-top:1px solid #eef0f2;font-size:14.5px;color:#545b66;">{{ dashHeuteLeerText }}</div></sc-if>
               <sc-for list="{{ dashHeuteTermine }}" as="e" hint-placeholder-count="3">
                 <button class="zk-termin" sc-camel-on-click="{{ e.onClick }}" style="appearance:none;cursor:pointer;text-align:left;display:flex;align-items:center;gap:12px;padding:11px 8px;margin:0 -8px;border:0;border-top:1px solid #eef0f2;background:{{ e.vorbeiBg }};width:calc(100% + 16px);font-family:'Inter',sans-serif;transition:background 140ms ease-out;" style-hover="background:{{ e.vorbeiHover }};">
                   <span style="width:60px;flex:none;font-size:14px;font-weight:700;color:{{ e.vorbeiFg }};font-variant-numeric:tabular-nums;">{{ e.zeit }}</span>
@@ -2093,7 +2093,7 @@
                   </span>
                   <span style="display:flex;gap:6px;flex:none;align-items:center;">
                     <sc-if value="{{ a.kannOeffnen }}" hint-placeholder-val="{{ false }}"><button sc-camel-on-click="{{ a.onOeffnen }}" title="{{ a.oeffnenLabel }}" style="appearance:none;cursor:pointer;height:32px;padding:0 10px;border-radius:6px;border:1px solid #e5e7eb;background:#FFFFFF;font-family:'Inter',sans-serif;font-size:12.5px;font-weight:600;color:#545b66;color:#101010;" style-hover="border-color:#101010;">Öffnen</button></sc-if>
-                    <sc-if value="{{ a.kannVerschieben }}" hint-placeholder-val="{{ false }}"><button sc-camel-on-click="{{ a.onMorgen }}" title="Auf morgen verschieben" style="appearance:none;cursor:pointer;height:32px;padding:0 10px;border-radius:6px;border:1px solid #e5e7eb;background:#FFFFFF;font-family:'Inter',sans-serif;font-size:12.5px;font-weight:600;color:#545b66;" style-hover="border-color:#101010;color:#101010;">Morgen</button></sc-if>
+                    <sc-if value="{{ a.kannVerschieben }}" hint-placeholder-val="{{ false }}"><button sc-camel-on-click="{{ a.onMorgen }}" title="Auf morgen verschieben" style="appearance:none;cursor:pointer;height:32px;padding:0 10px;border-radius:6px;border:1px solid #e5e7eb;background:#FFFFFF;font-family:'Inter',sans-serif;font-size:12.5px;font-weight:600;color:#545b66;" style-hover="border-color:#101010;color:#101010;">{{ a.morgenLabel }}</button></sc-if>
                     <sc-if value="{{ a.kannVerteilen }}" hint-placeholder-val="{{ false }}"><sc-raw-select value="{{ a.verteilWert }}" sc-camel-on-change="{{ a.onVerteilen }}" title="Aufgabe verteilen" aria-label="Aufgabe verteilen" style="height:32px;max-width:150px;padding:0 6px;border-radius:6px;border:1px solid #e5e7eb;background:#FFFFFF;font-family:'Inter',sans-serif;font-size:12.5px;font-weight:600;color:#101010;cursor:pointer;"><sc-for list="{{ a.verteilOpts }}" as="o" hint-placeholder-count="3"><option value="{{ o.v }}">{{ o.label }}</option></sc-for></sc-raw-select></sc-if>
                     <sc-if value="{{ a.kannLoeschen }}" hint-placeholder-val="{{ false }}"><button sc-camel-on-click="{{ a.onLoeschen }}" title="Aufgabe löschen" style="appearance:none;cursor:pointer;height:32px;padding:0 10px;border-radius:6px;border:1px solid #e5e7eb;background:#FFFFFF;font-family:'Inter',sans-serif;font-size:12.5px;font-weight:600;color:#545b66;width:32px;padding:0;" style-hover="border-color:#9b1520;color:#9b1520;">✕</button></sc-if>
                   </span>
@@ -2118,7 +2118,7 @@
 
           <sc-if value="{{ dashZeigeAlles }}" hint-placeholder-val="{{ true }}">
           <section style="background:#FFFFFF;border:1px solid #e5e7eb;border-radius:16px;box-shadow:rgba(36,36,36,.05) 0 4px 8px;padding:18px 22px 10px;display:flex;flex-direction:column;flex:1 1 320px;min-width:0;">
-            <div style="font-size:17px;font-weight:700;color:#101010;padding-bottom:6px;">Rest der Woche</div>
+            <div style="font-size:17px;font-weight:700;color:#101010;padding-bottom:6px;">{{ dashWocheTitel }}</div>
             <sc-for list="{{ dashWoche }}" as="w" hint-placeholder-count="3">
               <div style="display:flex;flex-direction:column;gap:2px;padding:12px 0 8px;border-top:1px solid #eef0f2;">
                 <div style="display:flex;align-items:center;gap:8px;">
@@ -6659,7 +6659,7 @@ const SCHICHT_START = {
   u1: ['frueh', 'frueh', 'spaet', 'frueh', 'spaet', 'ganz', 'frei'],
   u2: ['ganz', 'spaet', 'frueh', 'ganz', 'frueh', 'frei', 'frei'],
   u3: ['frei', 'ganz', 'ganz', 'spaet', 'ganz', 'frei', 'frei'],
-  u4: ['frei', 'frei', 'spaet', 'frei', 'spaet', 'regatta', 'regatta'],
+  u4: ['frei', 'frei', 'spaet', 'frei', 'spaet', 'regatta', 'frei'],
   u5: ['frueh', 'frueh', 'frueh', 'frueh', 'frei', 'frei', 'frei']
 };
 
@@ -6727,6 +6727,28 @@ const TX_FILTER = [
 const demoDE = s => { if (!/\d\d\.\d{4}$/.test(s || '')) return s; const a = demoISO(KAL_START(s)), b = demoISO(KAL_ISO(s)), f = x => x.slice(6, 8) + '.' + x.slice(4, 6) + '.' + x.slice(0, 4); return a === b ? f(a) : f(a) + '–' + f(b); };
 [VERKAUFTE_BOOTE, LIEFERANTEN, SERIEN, SN_HISTORIE, PROTOKOLL, BACKUPS, KUNDEN, KAL_TERMINE, ANGEBOTE_START, KAEUFE, KUNDENBOOTE, BENUTZER_START, SCHICHT_START, LAGER, RESERVIERT, BEWEGUNGEN, ZEITRAUM, FZ].forEach(o => D_WALK(o, DEMO_OFF));
 D_WALK(TX, DEMO_OFF_TX);
+// Sonntage und Feiertage (Niedersachsen, Standort Syke) bleiben frei: Termine und Aufgaben rücken auf den nächsten Werktag.
+const FEIERTAGE = (() => { const c = {}; return y => { if (c[y]) return c[y];
+  const a = y % 19, b = Math.floor(y / 100), cc = y % 100, d = Math.floor(b / 4), e = b % 4, f = Math.floor((b + 8) / 25), g = Math.floor((b - f + 1) / 3), h = (19 * a + b - d - g + 15) % 30,
+    i = Math.floor(cc / 4), k = cc % 4, l = (32 + 2 * e + 2 * i - h - k) % 7, m = Math.floor((a + 11 * h + 22 * l) / 451), mo = Math.floor((h + l - 7 * m + 114) / 31), da = (h + l - 7 * m + 114) % 31 + 1;
+  const ostern = new Date(y, mo - 1, da), o = n => D_ISO(new Date(y, mo - 1, da + n));
+  return c[y] = { [y + '0101']: 'Neujahr', [o(-2)]: 'Karfreitag', [o(1)]: 'Ostermontag', [y + '0501']: 'Tag der Arbeit', [o(39)]: 'Christi Himmelfahrt', [o(50)]: 'Pfingstmontag',
+    [y + '1003']: 'Tag der Deutschen Einheit', [y + '1031']: 'Reformationstag', [y + '1225']: '1. Weihnachtstag', [y + '1226']: '2. Weihnachtstag' }; }; })();
+const I_DATE = t => new Date(+t.slice(0, 4), +t.slice(4, 6) - 1, +t.slice(6, 8));
+const FREI = t => { if (!/^\d{8}$/.test(t || '')) return ''; const f = FEIERTAGE(+t.slice(0, 4))[t]; return f || (I_DATE(t).getDay() === 0 ? 'Sonntag' : ''); };
+const WERKTAG = t => { if (!/^\d{8}$/.test(t || '')) return t; let d = I_DATE(t), n = 0; while (FREI(D_ISO(d)) && n++ < 10) d = new Date(d.getFullYear(), d.getMonth(), d.getDate() + 1); return D_ISO(d); };
+const WERKTAG_DE = s => { if (!/^\d\d\.\d\d\.\d{4}$/.test(s || '')) return s; const w = WERKTAG(KAL_ISO(s)); return w.slice(6, 8) + '.' + w.slice(4, 6) + '.' + w.slice(0, 4); };
+const KAL_FREIRUECKEN = () => KAL_TERMINE.forEach(t => {
+  const a = KAL_START(t[2]), b = KAL_ISO(t[2]); if (!/^\d{8}$/.test(a) || !/^\d{8}$/.test(b)) return;
+  const n = Math.round((I_DATE(b) - I_DATE(a)) / 86400000); let s0 = I_DATE(a), tries = 0;
+  const frei = d => { for (let k = 0; k <= n; k++) if (FREI(D_ISO(new Date(d.getFullYear(), d.getMonth(), d.getDate() + k)))) return true; return false; };
+  while (frei(s0) && tries++ < 14) s0 = new Date(s0.getFullYear(), s0.getMonth(), s0.getDate() + 1);
+  if (D_ISO(s0) === a) return;
+  const e0 = new Date(s0.getFullYear(), s0.getMonth(), s0.getDate() + n);
+  t[2] = n === 0 ? D_DE(s0) : s0.getMonth() === e0.getMonth() ? String(s0.getDate()).padStart(2, '0') + '.–' + D_DE(e0) : D_DE(s0).slice(0, 6) + '–' + D_DE(e0);
+});
+KAL_FREIRUECKEN();
+ANGEBOTE_START.forEach(a => { if (a.status === 'Versendet' || a.status === 'Entwurf') a.gueltig = WERKTAG_DE(a.gueltig); });
 const UmsatzDash = (() => {
 
 const ROWS = [{"m":"2025-09","ml":"Sep 25","loc":"Ladengeschäft","sup":"Nelo","cat":"Boote","tx":33,"qty":41,"revenue":290362},{"m":"2025-09","ml":"Sep 25","loc":"Ladengeschäft","sup":"Plastex","cat":"Boote","tx":27,"qty":34,"revenue":227120},{"m":"2025-09","ml":"Sep 25","loc":"Ladengeschäft","sup":"Jantex","cat":"Paddel","tx":176,"qty":405,"revenue":193590},{"m":"2025-09","ml":"Sep 25","loc":"Ladengeschäft","sup":"Braca","cat":"Paddel","tx":162,"qty":373,"revenue":176802},{"m":"2025-09","ml":"Sep 25","loc":"Regatta","sup":"Nelo","cat":"Boote","tx":26,"qty":33,"revenue":233706},{"m":"2025-09","ml":"Sep 25","loc":"Regatta","sup":"Plastex","cat":"Boote","tx":21,"qty":26,"revenue":173680},{"m":"2025-09","ml":"Sep 25","loc":"Regatta","sup":"Jantex","cat":"Paddel","tx":87,"qty":200,"revenue":95600},{"m":"2025-09","ml":"Sep 25","loc":"Regatta","sup":"Braca","cat":"Paddel","tx":80,"qty":184,"revenue":87216},{"m":"2025-10","ml":"Okt 25","loc":"Ladengeschäft","sup":"Nelo","cat":"Boote","tx":29,"qty":36,"revenue":254952},{"m":"2025-10","ml":"Okt 25","loc":"Ladengeschäft","sup":"Plastex","cat":"Boote","tx":24,"qty":30,"revenue":200400},{"m":"2025-10","ml":"Okt 25","loc":"Ladengeschäft","sup":"Jantex","cat":"Paddel","tx":155,"qty":357,"revenue":170646},{"m":"2025-10","ml":"Okt 25","loc":"Ladengeschäft","sup":"Braca","cat":"Paddel","tx":143,"qty":329,"revenue":155946},{"m":"2025-10","ml":"Okt 25","loc":"Regatta","sup":"Nelo","cat":"Boote","tx":17,"qty":21,"revenue":148722},{"m":"2025-10","ml":"Okt 25","loc":"Regatta","sup":"Plastex","cat":"Boote","tx":13,"qty":16,"revenue":106880},{"m":"2025-10","ml":"Okt 25","loc":"Regatta","sup":"Jantex","cat":"Paddel","tx":55,"qty":126,"revenue":60228},{"m":"2025-10","ml":"Okt 25","loc":"Regatta","sup":"Braca","cat":"Paddel","tx":51,"qty":117,"revenue":55458},{"m":"2025-11","ml":"Nov 25","loc":"Ladengeschäft","sup":"Nelo","cat":"Boote","tx":28,"qty":35,"revenue":247870},{"m":"2025-11","ml":"Nov 25","loc":"Ladengeschäft","sup":"Plastex","cat":"Boote","tx":23,"qty":29,"revenue":193720},{"m":"2025-11","ml":"Nov 25","loc":"Ladengeschäft","sup":"Jantex","cat":"Paddel","tx":151,"qty":347,"revenue":165866},{"m":"2025-11","ml":"Nov 25","loc":"Ladengeschäft","sup":"Braca","cat":"Paddel","tx":140,"qty":322,"revenue":152628},{"m":"2025-11","ml":"Nov 25","loc":"Regatta","sup":"Nelo","cat":"Boote","tx":12,"qty":15,"revenue":106230},{"m":"2025-11","ml":"Nov 25","loc":"Regatta","sup":"Plastex","cat":"Boote","tx":9,"qty":11,"revenue":73480},{"m":"2025-11","ml":"Nov 25","loc":"Regatta","sup":"Jantex","cat":"Paddel","tx":39,"qty":90,"revenue":43020},{"m":"2025-11","ml":"Nov 25","loc":"Regatta","sup":"Braca","cat":"Paddel","tx":36,"qty":83,"revenue":39342},{"m":"2025-12","ml":"Dez 25","loc":"Ladengeschäft","sup":"Nelo","cat":"Boote","tx":34,"qty":43,"revenue":304526},{"m":"2025-12","ml":"Dez 25","loc":"Ladengeschäft","sup":"Plastex","cat":"Boote","tx":28,"qty":35,"revenue":233800},{"m":"2025-12","ml":"Dez 25","loc":"Ladengeschäft","sup":"Jantex","cat":"Paddel","tx":181,"qty":416,"revenue":198848},{"m":"2025-12","ml":"Dez 25","loc":"Ladengeschäft","sup":"Braca","cat":"Paddel","tx":168,"qty":386,"revenue":182964},{"m":"2025-12","ml":"Dez 25","loc":"Regatta","sup":"Nelo","cat":"Boote","tx":13,"qty":16,"revenue":113312},{"m":"2025-12","ml":"Dez 25","loc":"Regatta","sup":"Plastex","cat":"Boote","tx":11,"qty":14,"revenue":93520},{"m":"2025-12","ml":"Dez 25","loc":"Regatta","sup":"Jantex","cat":"Paddel","tx":45,"qty":103,"revenue":49234},{"m":"2025-12","ml":"Dez 25","loc":"Regatta","sup":"Braca","cat":"Paddel","tx":41,"qty":94,"revenue":44556},{"m":"2026-01","ml":"Jan 26","loc":"Ladengeschäft","sup":"Nelo","cat":"Boote","tx":30,"qty":38,"revenue":269116},{"m":"2026-01","ml":"Jan 26","loc":"Ladengeschäft","sup":"Plastex","cat":"Boote","tx":24,"qty":30,"revenue":200400},{"m":"2026-01","ml":"Jan 26","loc":"Ladengeschäft","sup":"Jantex","cat":"Paddel","tx":160,"qty":368,"revenue":175904},{"m":"2026-01","ml":"Jan 26","loc":"Ladengeschäft","sup":"Braca","cat":"Paddel","tx":147,"qty":338,"revenue":160212},{"m":"2026-01","ml":"Jan 26","loc":"Regatta","sup":"Nelo","cat":"Boote","tx":12,"qty":15,"revenue":106230},{"m":"2026-01","ml":"Jan 26","loc":"Regatta","sup":"Plastex","cat":"Boote","tx":9,"qty":11,"revenue":73480},{"m":"2026-01","ml":"Jan 26","loc":"Regatta","sup":"Jantex","cat":"Paddel","tx":38,"qty":87,"revenue":41586},{"m":"2026-01","ml":"Jan 26","loc":"Regatta","sup":"Braca","cat":"Paddel","tx":36,"qty":83,"revenue":39342},{"m":"2026-02","ml":"Feb 26","loc":"Ladengeschäft","sup":"Nelo","cat":"Boote","tx":32,"qty":40,"revenue":283280},{"m":"2026-02","ml":"Feb 26","loc":"Ladengeschäft","sup":"Plastex","cat":"Boote","tx":27,"qty":34,"revenue":227120},{"m":"2026-02","ml":"Feb 26","loc":"Ladengeschäft","sup":"Jantex","cat":"Paddel","tx":175,"qty":402,"revenue":192156},{"m":"2026-02","ml":"Feb 26","loc":"Ladengeschäft","sup":"Braca","cat":"Paddel","tx":162,"qty":373,"revenue":176802},{"m":"2026-02","ml":"Feb 26","loc":"Regatta","sup":"Nelo","cat":"Boote","tx":21,"qty":26,"revenue":184132},{"m":"2026-02","ml":"Feb 26","loc":"Regatta","sup":"Plastex","cat":"Boote","tx":18,"qty":23,"revenue":153640},{"m":"2026-02","ml":"Feb 26","loc":"Regatta","sup":"Jantex","cat":"Paddel","tx":72,"qty":166,"revenue":79348},{"m":"2026-02","ml":"Feb 26","loc":"Regatta","sup":"Braca","cat":"Paddel","tx":67,"qty":154,"revenue":72996},{"m":"2026-03","ml":"Mär 26","loc":"Ladengeschäft","sup":"Nelo","cat":"Boote","tx":43,"qty":54,"revenue":382428},{"m":"2026-03","ml":"Mär 26","loc":"Ladengeschäft","sup":"Plastex","cat":"Boote","tx":35,"qty":44,"revenue":293920},{"m":"2026-03","ml":"Mär 26","loc":"Ladengeschäft","sup":"Jantex","cat":"Paddel","tx":186,"qty":428,"revenue":204584},{"m":"2026-03","ml":"Mär 26","loc":"Ladengeschäft","sup":"Braca","cat":"Paddel","tx":172,"qty":396,"revenue":187704},{"m":"2026-03","ml":"Mär 26","loc":"Regatta","sup":"Nelo","cat":"Boote","tx":39,"qty":49,"revenue":347018},{"m":"2026-03","ml":"Mär 26","loc":"Regatta","sup":"Plastex","cat":"Boote","tx":32,"qty":40,"revenue":267200},{"m":"2026-03","ml":"Mär 26","loc":"Regatta","sup":"Jantex","cat":"Paddel","tx":110,"qty":253,"revenue":120934},{"m":"2026-03","ml":"Mär 26","loc":"Regatta","sup":"Braca","cat":"Paddel","tx":101,"qty":232,"revenue":109968},{"m":"2026-04","ml":"Apr 26","loc":"Ladengeschäft","sup":"Nelo","cat":"Boote","tx":45,"qty":56,"revenue":396592},{"m":"2026-04","ml":"Apr 26","loc":"Ladengeschäft","sup":"Plastex","cat":"Boote","tx":37,"qty":46,"revenue":307280},{"m":"2026-04","ml":"Apr 26","loc":"Ladengeschäft","sup":"Jantex","cat":"Paddel","tx":193,"qty":444,"revenue":212232},{"m":"2026-04","ml":"Apr 26","loc":"Ladengeschäft","sup":"Braca","cat":"Paddel","tx":179,"qty":412,"revenue":195288},{"m":"2026-04","ml":"Apr 26","loc":"Regatta","sup":"Nelo","cat":"Boote","tx":53,"qty":66,"revenue":467412},{"m":"2026-04","ml":"Apr 26","loc":"Regatta","sup":"Plastex","cat":"Boote","tx":44,"qty":55,"revenue":367400},{"m":"2026-04","ml":"Apr 26","loc":"Regatta","sup":"Jantex","cat":"Paddel","tx":151,"qty":347,"revenue":165866},{"m":"2026-04","ml":"Apr 26","loc":"Regatta","sup":"Braca","cat":"Paddel","tx":140,"qty":322,"revenue":152628},{"m":"2026-05","ml":"Mai 26","loc":"Ladengeschäft","sup":"Nelo","cat":"Boote","tx":47,"qty":59,"revenue":417838},{"m":"2026-05","ml":"Mai 26","loc":"Ladengeschäft","sup":"Plastex","cat":"Boote","tx":38,"qty":48,"revenue":320640},{"m":"2026-05","ml":"Mai 26","loc":"Ladengeschäft","sup":"Jantex","cat":"Paddel","tx":202,"qty":465,"revenue":222270},{"m":"2026-05","ml":"Mai 26","loc":"Ladengeschäft","sup":"Braca","cat":"Paddel","tx":186,"qty":428,"revenue":202872},{"m":"2026-05","ml":"Mai 26","loc":"Regatta","sup":"Nelo","cat":"Boote","tx":68,"qty":85,"revenue":601970},{"m":"2026-05","ml":"Mai 26","loc":"Regatta","sup":"Plastex","cat":"Boote","tx":55,"qty":69,"revenue":460920},{"m":"2026-05","ml":"Mai 26","loc":"Regatta","sup":"Jantex","cat":"Paddel","tx":191,"qty":439,"revenue":209842},{"m":"2026-05","ml":"Mai 26","loc":"Regatta","sup":"Braca","cat":"Paddel","tx":176,"qty":405,"revenue":191970},{"m":"2026-06","ml":"Jun 26","loc":"Ladengeschäft","sup":"Nelo","cat":"Boote","tx":44,"qty":55,"revenue":389510},{"m":"2026-06","ml":"Jun 26","loc":"Ladengeschäft","sup":"Plastex","cat":"Boote","tx":36,"qty":45,"revenue":300600},{"m":"2026-06","ml":"Jun 26","loc":"Ladengeschäft","sup":"Jantex","cat":"Paddel","tx":188,"qty":432,"revenue":206496},{"m":"2026-06","ml":"Jun 26","loc":"Ladengeschäft","sup":"Braca","cat":"Paddel","tx":174,"qty":400,"revenue":189600},{"m":"2026-06","ml":"Jun 26","loc":"Regatta","sup":"Nelo","cat":"Boote","tx":65,"qty":81,"revenue":573642},{"m":"2026-06","ml":"Jun 26","loc":"Regatta","sup":"Plastex","cat":"Boote","tx":54,"qty":68,"revenue":454240},{"m":"2026-06","ml":"Jun 26","loc":"Regatta","sup":"Jantex","cat":"Paddel","tx":186,"qty":428,"revenue":204584},{"m":"2026-06","ml":"Jun 26","loc":"Regatta","sup":"Braca","cat":"Paddel","tx":171,"qty":393,"revenue":186282},{"m":"2026-07","ml":"Jul 26","loc":"Ladengeschäft","sup":"Nelo","cat":"Boote","tx":41,"qty":51,"revenue":361182},{"m":"2026-07","ml":"Jul 26","loc":"Ladengeschäft","sup":"Plastex","cat":"Boote","tx":34,"qty":43,"revenue":287240},{"m":"2026-07","ml":"Jul 26","loc":"Ladengeschäft","sup":"Jantex","cat":"Paddel","tx":178,"qty":409,"revenue":195502},{"m":"2026-07","ml":"Jul 26","loc":"Ladengeschäft","sup":"Braca","cat":"Paddel","tx":164,"qty":377,"revenue":178698},{"m":"2026-07","ml":"Jul 26","loc":"Regatta","sup":"Nelo","cat":"Boote","tx":65,"qty":81,"revenue":573642},{"m":"2026-07","ml":"Jul 26","loc":"Regatta","sup":"Plastex","cat":"Boote","tx":53,"qty":66,"revenue":440880},{"m":"2026-07","ml":"Jul 26","loc":"Regatta","sup":"Jantex","cat":"Paddel","tx":183,"qty":421,"revenue":201238},{"m":"2026-07","ml":"Jul 26","loc":"Regatta","sup":"Braca","cat":"Paddel","tx":169,"qty":389,"revenue":184386},{"m":"2026-08","ml":"Aug 26","loc":"Ladengeschäft","sup":"Nelo","cat":"Boote","tx":42,"qty":53,"revenue":375346},{"m":"2026-08","ml":"Aug 26","loc":"Ladengeschäft","sup":"Plastex","cat":"Boote","tx":35,"qty":44,"revenue":293920},{"m":"2026-08","ml":"Aug 26","loc":"Ladengeschäft","sup":"Jantex","cat":"Paddel","tx":181,"qty":416,"revenue":198848},{"m":"2026-08","ml":"Aug 26","loc":"Ladengeschäft","sup":"Braca","cat":"Paddel","tx":168,"qty":386,"revenue":182964},{"m":"2026-08","ml":"Aug 26","loc":"Regatta","sup":"Nelo","cat":"Boote","tx":70,"qty":88,"revenue":623216},{"m":"2026-08","ml":"Aug 26","loc":"Regatta","sup":"Plastex","cat":"Boote","tx":58,"qty":73,"revenue":487640},{"m":"2026-08","ml":"Aug 26","loc":"Regatta","sup":"Jantex","cat":"Paddel","tx":199,"qty":458,"revenue":218924},{"m":"2026-08","ml":"Aug 26","loc":"Regatta","sup":"Braca","cat":"Paddel","tx":183,"qty":421,"revenue":199554}];
@@ -7649,11 +7671,13 @@ class Component extends DCLogic {
   dashboardVals(st) {
     const WT = ['So','Mo','Di','Mi','Do','Fr','Sa'], WTL = ['Sonntag','Montag','Dienstag','Mittwoch','Donnerstag','Freitag','Samstag'];
     const heute = new Date(HEUTE_D), tage = [];
-    for (let d = new Date(heute); ; d.setDate(d.getDate() + 1)) { tage.push(new Date(d)); if (d.getDay() === 0) break; }
+    let naechsteWoche = false;
+    for (let d = new Date(heute); ; d.setDate(d.getDate() + 1)) { tage.push(new Date(d)); if (d.getDay() === 0) { if (tage.some(x => !FREI(D_ISO(x)))) break; naechsteWoche = true; } if (tage.length > 14) break; }
     const iso = d => '' + d.getFullYear() + String(d.getMonth() + 1).padStart(2, '0') + String(d.getDate()).padStart(2, '0');
     const de = d => d.toLocaleDateString('de-DE', { day: '2-digit', month: '2-digit' });
     const isoDe = f => f.slice(6, 8) + '.' + f.slice(4, 6) + '.' + f.slice(0, 4);
-    const hIso = iso(heute), endIso = iso(tage[tage.length - 1]), morgenIso = iso(tage[1] || heute);
+    const hIso = iso(heute), endIso = iso(tage[tage.length - 1]), morgenIso = WERKTAG(iso(tage[1] || heute));
+    const morgenLabel = morgenIso === iso(new Date(heute.getFullYear(), heute.getMonth(), heute.getDate() + 1)) ? 'Morgen' : WTL[I_DATE(morgenIso).getDay()];
     const erl = st.dashErledigt || {}, versch = st.dashVerschoben || {}, eigene = st.dashEigene || [];
     const ausblenden = !!st.dashAusblenden, nurUe = !!st.dashNurUe;
     const alleAg = st.angebote || ANGEBOTE_START;
@@ -7669,7 +7693,7 @@ class Component extends DCLogic {
     const zuView = v => () => this.setState({ view: v, cat: 'alle', suche: '' });
     const kasse = st.aktiveKasseId || 'Verkaufsraum', hauptkasse = kasse === 'Verkaufsraum';
     const termine = KAL_TERMINE.filter(t => KAL_KASSE(t) === kasse).map(t => ({ typ: t[0], titel: t[1], datum: t[2], zeit: t[3], ort: t[4], info: t[5] }))
-      .concat(alleAg.filter(x => hauptkasse && x.status === 'Versendet').map(x => ({ typ: 'Angebot', agNr: x.nr, titel: 'Angebot ' + x.nr + ' läuft ab', datum: x.gueltig, zeit: 'ganztägig', ort: kdName(x.kundeNr), info: x.bearbeiter })));
+      .concat(alleAg.filter(x => hauptkasse && x.status === 'Versendet').map(x => ({ typ: 'Angebot', agNr: x.nr, titel: 'Angebot ' + x.nr + ' läuft ab', datum: WERKTAG_DE(x.gueltig), zeit: 'ganztägig', ort: kdName(x.kundeNr), info: x.bearbeiter })));
     const terminRecht = { Angebot: 'Angebote erstellen & versenden', Lieferung: 'Artikel & Bestände pflegen', Abholung: 'Verkauf kassieren' };
     const amTag = t => termine.filter(e => (!terminRecht[e.typ] || rechte[terminRecht[e.typ]]) && (e.typ !== 'Angebot' || eigeneAg(alleAg.find(x => x.nr === e.agNr) || {}))).filter(e => KAL_START(e.datum) <= t && KAL_ISO(e.datum) >= t).sort((x, y) => x.zeit.localeCompare(y.zeit));
     const basis = [
@@ -7690,6 +7714,7 @@ class Component extends DCLogic {
      .concat(KAL_TERMINE.filter(t => (t[0] === 'Lieferung' || t[0] === 'Abholung') && (KAL_KASSE(t) === kasse || zuwMir('kt-' + t[1]))).map(t => ({ id: 'kt-' + t[1], recht: t[0] === 'Lieferung' ? 'Artikel & Bestände pflegen' : 'Verkauf kassieren', faellig: KAL_START(t[2]), kalTag: KAL_START(t[2]),
         titel: t[0] === 'Lieferung' ? 'Wareneingang prüfen und einbuchen' : 'Ware bereitstellen', info: t[1], ziel: t[0] === 'Lieferung' ? ['bestand', 'Bestand öffnen'] : null })))
      .concat(eigene.map(e => Object.assign({ eigen: true }, e)));
+    basis.forEach(x => { if (x.faellig) x.faellig = WERKTAG(x.faellig); });
     const ich = nutzer.name || '', zuwMap = st.dashZuweisung || {};
     const zuwVon = x => zuwMap[x.id] || (x.eigen && x.fuer && x.fuer !== x.von ? { fuer: x.fuer, von: x.von } : null);
     const mitZuw = basis.map(x => { const z = zuwVon(x); return Object.assign({}, x, { zuw: z,
@@ -7709,7 +7734,7 @@ class Component extends DCLogic {
       return { titel: x.titel, info: x.info + (x.verschoben ? ' · verschoben' : ''), textFg: done ? '#646b76' : '#101010', deko: done ? 'line-through' : 'none',
         boxBg: done ? '#101010' : '#FFFFFF', boxRand: done ? '#101010' : '#8a9099',
         kannOeffnen: !!oeffnen && !done, oeffnenLabel: oeffnen ? oeffnen[0] : '', onOeffnen: oeffnen ? oeffnen[1] : () => {},
-        kannVerschieben: !done && x.faellig <= hIso, onMorgen: () => setMap('dashVerschoben', x.id, morgenIso),
+        kannVerschieben: !done && x.faellig <= hIso, onMorgen: () => setMap('dashVerschoben', x.id, morgenIso), morgenLabel: morgenLabel,
         kannLoeschen: !!x.eigen && x.kannWeg !== false, onLoeschen: () => this.setState(y => ({ dashEigene: (y.dashEigene || []).filter(e => e.id !== x.id) })),
         onToggle: () => setMap('dashErledigt', x.id, done ? undefined : true),
         kannVerteilen: verteilRecht && !done && verteilZiele.length > 0,
@@ -7741,27 +7766,27 @@ class Component extends DCLogic {
     const feiertag = { [heute.getFullYear() + '1003']: 'Tag der Deutschen Einheit · geschlossen', [(heute.getFullYear() + 1) + '0101']: 'Neujahr · geschlossen', [heute.getFullYear() + '1225']: '1. Weihnachtstag · geschlossen', [heute.getFullYear() + '1226']: '2. Weihnachtstag · geschlossen' };
     const woche = tage.slice(1).map(d => {
       const t = iso(d), ev = amTag(t), auAlle = aufg.filter(x => x.faellig === t), au = auAlle.filter(sichtbar);
-      const hinweis = feiertag[t] || (d.getDay() === 0 ? 'Sonntag · geschlossen' : '');
+      const hinweis = FREI(t) ? FREI(t) + ' · geschlossen' : '';
       return { datum: de(d), tagLang: WTL[d.getDay()], hinweis, hatHinweis: !!hinweis, onTag: zuKal(t),
         termine: ev.map(termVal), aufgaben: au.map(aufgVal), leer: ev.length === 0 && au.length === 0 && !hinweis,
         zaehler: ev.length + (ev.length === 1 ? ' Termin' : ' Termine') + ' · ' + auAlle.length + (auAlle.length === 1 ? ' Aufgabe' : ' Aufgaben') };
     });
     const wocheTerm = woche.reduce((n, w) => n + w.termine.length, 0);
     const name = (nutzer.name || 'Marko Ahrens').split(' ')[0];
-    const neuText = st.dashNeuText || '', neuTag = st.dashNeuTag || hIso;
+    const neuText = st.dashNeuText || '', neuTag = st.dashNeuTag || WERKTAG(hIso);
     const kannDeleg = !!rechte['Aufgaben delegieren'];
     const delegZiele = (st.benutzer || []).filter(b => !b.system && b.name !== nutzer.name && !(st.benutzerAus || {})[b.id]);
     const hinzufuegen = () => {
       const t = (this.state.dashNeuText || '').trim(); if (!t) return this.setState({ dashNeuFehler: true });
       const ich = nutzer.name || 'Marko Ahrens', an = kannDeleg && this.state.dashNeuFuer && this.state.dashNeuFuer !== ich ? this.state.dashNeuFuer : null;
-      this.setState(y => ({ dashEigene: (y.dashEigene || []).concat([Object.assign({ id: 'eigen-' + Date.now(), titel: t, info: 'Eigene Aufgabe · ' + ich, faellig: y.dashNeuTag || hIso }, an ? { fuer: an, von: ich } : {})]), dashNeuText: '', dashNeuFehler: false, dashNeuFuer: '' }));
+      this.setState(y => ({ dashEigene: (y.dashEigene || []).concat([Object.assign({ id: 'eigen-' + Date.now(), titel: t, info: 'Eigene Aufgabe · ' + ich, faellig: y.dashNeuTag || WERKTAG(hIso) }, an ? { fuer: an, von: ich } : {})]), dashNeuText: '', dashNeuFehler: false, dashNeuFuer: '' }));
     };
     const kpi = (label, wert, aktiv, onClick, hinweis, rot) => ({ label, wert, hinweis, onClick, fg: rot && wert ? '#EF3D2F' : '#101010', rand: aktiv ? (rot ? '#EF3D2F' : '#101010') : '#e5e7eb' });
     return {
       dashView: st.view === 'dashboard',
       dashGruss: (new Date().getHours() < 11 ? 'Guten Morgen, ' : new Date().getHours() < 18 ? 'Guten Tag, ' : 'Guten Abend, ') + name,
       dashRolle: 'Aufgaben für die Rolle ' + rolle + (alleAgSehen ? '' : ' · nur eigene Angebote') + ' · ' + Object.keys(rechte).filter(k => rechte[k]).length + ' von ' + RECHTE.length + ' Rechten' + ' · Termine für ' + kasse,
-      dashDatum: WTL[heute.getDay()] + ', ' + heute.toLocaleDateString('de-DE', { day: 'numeric', month: 'long', year: 'numeric' }),
+      dashDatum: WTL[heute.getDay()] + ', ' + heute.toLocaleDateString('de-DE', { day: 'numeric', month: 'long', year: 'numeric' }) + (FREI(hIso) && FREI(hIso) !== 'Sonntag' ? ' · ' + FREI(hIso) : ''),
       dashZahlen: [
         kpi('Überfällig', ueberfaellig.length, nurUe, () => this.setState(y => ({ dashNurUe: !y.dashNurUe })), nurUe ? 'Filter aktiv · alle anzeigen' : 'Nur überfällige zeigen', true),
         kpi('Termine heute', heuteTerm.length, false, zuKal(hIso), 'Im Kalender öffnen'),
@@ -7769,17 +7794,17 @@ class Component extends DCLogic {
         kpi('Termine bis Sonntag', wocheTerm, false, zuKal(morgenIso), 'Woche im Kalender')
       ],
       dashZeigeAlles: !nurUe, dashNurUe: nurUe, onDashAlle: () => this.setState({ dashNurUe: false }),
-      dashHeuteTermine: heuteTerm.map(termVal), dashHeuteTermLeer: heuteTerm.length === 0,
+      dashHeuteTermine: heuteTerm.map(termVal), dashHeuteTermLeer: heuteTerm.length === 0, dashAlleAufLabel: FREI(hIso) ? 'Alle auf ' + WTL[I_DATE(WERKTAG(hIso)).getDay()] : 'Alle auf heute', dashWocheTitel: naechsteWoche ? 'Bis nächsten Sonntag' : 'Rest der Woche', dashHeuteLeerText: FREI(hIso) ? (FREI(hIso) === 'Sonntag' ? 'Sonntag' : FREI(hIso)) + ' · geschlossen. Termine und Aufgaben stehen am nächsten Werktag.' : 'Heute stehen keine Termine an.',
       dashHeuteAufgaben: heuteAufg.map(aufgVal), dashHeuteAufgLeer: heuteAufg.length === 0,
       dashAufgInfo: (heuteAufgAlle.length - offen) + ' von ' + heuteAufgAlle.length + ' erledigt',
       dashAusblendLabel: ausblenden ? 'Erledigte zeigen' : 'Erledigte ausblenden', onDashAusblenden: () => this.setState(y => ({ dashAusblenden: !y.dashAusblenden })),
       dashWoche: woche, dashUe: ueberfaellig.map(ueVal), dashHatUe: ueberfaellig.length > 0, dashKeinUe: ueberfaellig.length === 0,
       dashUeInfo: ueberfaellig.length + (ueberfaellig.length === 1 ? ' Aufgabe' : ' Aufgaben') + ' offen',
-      onDashAlleMorgen: () => this.setState(y => { const m = Object.assign({}, y.dashVerschoben); ueberfaellig.forEach(x => { m[x.id] = hIso; }); return { dashVerschoben: m }; }),
+      onDashAlleMorgen: () => this.setState(y => { const m = Object.assign({}, y.dashVerschoben); ueberfaellig.forEach(x => { m[x.id] = WERKTAG(hIso); }); return { dashVerschoben: m }; }),
       dashNeuText: neuText, onDashNeuText: e => this.setState({ dashNeuText: e.target.value, dashNeuFehler: false }),
       onDashNeuKey: e => { if (e.key === 'Enter') hinzufuegen(); }, dashNeuFehler: !!st.dashNeuFehler,
       dashNeuTag: neuTag, onDashNeuTag: e => this.setState({ dashNeuTag: e.target.value }),
-      dashNeuTage: tage.map((d, i) => ({ v: iso(d), label: i === 0 ? 'Heute' : i === 1 ? 'Morgen · ' + de(d) : WTL[d.getDay()] + ' · ' + de(d) })),
+      dashNeuTage: tage.map((d, i) => ({ v: iso(d), label: i === 0 ? 'Heute' : i === 1 ? 'Morgen · ' + de(d) : WTL[d.getDay()] + ' · ' + de(d) })).filter(o => !FREI(o.v)),
       onDashNeu: hinzufuegen,
       dashKannDeleg: kannDeleg, dashNeuFuer: st.dashNeuFuer || nutzer.name || '', onDashNeuFuer: e => this.setState({ dashNeuFuer: e.target.value }),
       dashDelegZiele: [{ v: nutzer.name || '', label: 'Für mich' }].concat(delegZiele.map(b => ({ v: b.name, label: 'An ' + b.name + ' · ' + b.rolle }))),
@@ -7793,7 +7818,7 @@ class Component extends DCLogic {
     const cj = st.kalJ ?? HEUTE_D.getFullYear(), cm = st.kalM ?? HEUTE_D.getMonth(), tagSel = st.kalTag || KAL_HEUTE, filt = st.kalFilter || 'Alle';
     const ag = (st.angebote || ANGEBOTE_START).filter(a => a.status === 'Entwurf' || a.status === 'Versendet').map(a => {
       const k = KUNDEN.find(x => x.nr === a.kundeNr);
-      return { typ: 'Angebot', titel: 'Angebot ' + a.nr + ' läuft ab', datum: a.gueltig, zeit: 'ganztägig', ort: k ? k.name : a.kundeNr === 'BAR' ? 'Barkunde' + (a.barName ? ' · ' + a.barName : '') : (a.kundeNr || 'Kein Kunde gewählt'), info: a.status + ' · ' + a.bearbeiter };
+      return { typ: 'Angebot', titel: 'Angebot ' + a.nr + ' läuft ab', datum: WERKTAG_DE(a.gueltig), zeit: 'ganztägig', ort: k ? k.name : a.kundeNr === 'BAR' ? 'Barkunde' + (a.barName ? ' · ' + a.barName : '') : (a.kundeNr || 'Kein Kunde gewählt'), info: a.status + ' · ' + a.bearbeiter };
     });
     const kasse = st.aktiveKasseId || 'Verkaufsraum';
     const alle = (kasse === 'Verkaufsraum' ? ag : []).concat(KAL_TERMINE.filter(t => KAL_KASSE(t) === kasse).map(t => ({ typ: t[0], titel: t[1], datum: t[2], zeit: t[3], ort: t[4], info: t[5], ref: t })))
@@ -7806,7 +7831,7 @@ class Component extends DCLogic {
       const dt = new Date(cj, cm, i - offset + 1), iso = isoOf(dt.getFullYear(), dt.getMonth(), dt.getDate());
       const ev = amTag(iso), im = dt.getMonth() === cm;
       zellen.push({ tag: dt.getDate(), bg: iso === tagSel ? '#f4f4f4' : '#FFFFFF', rand: iso === tagSel ? '#101010' : '#e5e7eb',
-        heuteBg: iso === KAL_HEUTE ? '#EF3D2F' : 'transparent', heuteFg: iso === KAL_HEUTE ? '#FFFFFF' : (im ? '#101010' : '#9aa0a8'),
+        heuteBg: iso === KAL_HEUTE ? '#EF3D2F' : 'transparent', heuteFg: iso === KAL_HEUTE ? '#FFFFFF' : (im && !FREI(iso) ? '#101010' : '#9aa0a8'),
         events: ev.slice(0, 3).map(t => ({ titel: t.titel, farbe: KAL_FARBE[t.typ] })), hatMehr: ev.length > 3, mehr: '+ ' + (ev.length - 3) + ' weitere',
         onClick: () => this.setState({ kalTag: iso }) });
     }
@@ -7821,7 +7846,7 @@ class Component extends DCLogic {
       kalFilterOptionen: ['Alle'].concat(Object.keys(KAL_FARBE)).map(v => ({ v, label: v === 'Alle' ? 'Alle Terminarten' : v })),
       kalFilterWert: filt, onKalFilter: e => this.setState({ kalFilter: e.target.value }),
       kalLegende: Object.keys(KAL_FARBE).map(k => ({ label: k, farbe: KAL_FARBE[k] })),
-      kalTagTitel: new Date(+tagSel.slice(0, 4), +tagSel.slice(4, 6) - 1, +tagSel.slice(6, 8)).toLocaleDateString('de-DE', { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' }),
+      kalTagTitel: new Date(+tagSel.slice(0, 4), +tagSel.slice(4, 6) - 1, +tagSel.slice(6, 8)).toLocaleDateString('de-DE', { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' }) + (FREI(tagSel) && FREI(tagSel) !== 'Sonntag' ? ' · ' + FREI(tagSel) : '') + (FREI(tagSel) ? ' · geschlossen' : ''),
       kalTagLeer: tagEv.length === 0,
       kalTagEvents: tagEv.map(t => ({ typ: t.typ, titel: t.titel, datum: t.datum, zeit: t.zeit, ort: t.ort, info: t.info, farbe: KAL_FARBE[t.typ],
         bearbeitbar: !!t.ref, nurAngebot: !t.ref,
@@ -7834,7 +7859,7 @@ class Component extends DCLogic {
       kalEditFehler: st.kalEditFehler || '', kalHatEditFehler: !!st.kalEditFehler,
       onKalETyp: this.kalFeld('typ'), onKalETitel: this.kalFeld('titel'), onKalEDatum: this.kalFeld('datum'), onKalEZeit: this.kalFeld('zeit'), onKalEOrt: this.kalFeld('ort'), onKalEInfo: this.kalFeld('info'),
       onKalE: f => e => { const v = e.target.value; this.setState(x => ({ kalEdit: Object.assign({}, x.kalEdit, { [f]: v }), kalEditFehler: null })); },
-      onKalNeu: () => this.setState({ kalEdit: { ref: null, typ: 'Lieferung', titel: '', datum: tagSel.slice(6, 8) + '.' + tagSel.slice(4, 6) + '.' + tagSel.slice(0, 4), zeit: '10:00', ort: '', info: '' }, kalEditFehler: null }),
+      onKalNeu: () => this.setState({ kalEdit: { ref: null, typ: 'Lieferung', titel: '', datum: WERKTAG(tagSel).slice(6, 8) + '.' + WERKTAG(tagSel).slice(4, 6) + '.' + WERKTAG(tagSel).slice(0, 4), zeit: '10:00', ort: '', info: '' }, kalEditFehler: null }),
       onKalAbbrechen: () => this.setState({ kalEdit: null, kalEditFehler: null }),
       onKalSpeichern: () => {
         const e = st.kalEdit; if (!e) return;
@@ -7843,6 +7868,7 @@ class Component extends DCLogic {
         const datumOk = /^\d\d\.\d\d\.\d{4}$/.test(datum) || (e.ref && datum === e.ref[2]);
         if (!datumOk) return this.setState({ kalEditFehler: 'Datum bitte als TT.MM.JJJJ eingeben.' });
         if (zeit !== 'ganztägig' && !/^\d{1,2}:\d{2}$/.test(zeit)) return this.setState({ kalEditFehler: 'Uhrzeit bitte als HH:MM oder „ganztägig“ eingeben.' });
+        { const t0 = KAL_START(datum), fr = FREI(t0); if (fr && !(e.ref && datum === e.ref[2])) { const w = WERKTAG(t0); return this.setState({ kalEditFehler: (fr === 'Sonntag' ? 'Sonntags' : 'Am ' + fr) + ' ist geschlossen. Nächster Werktag: ' + w.slice(6, 8) + '.' + w.slice(4, 6) + '.' + w.slice(0, 4) + '.' }); } }
         const zeile = [e.typ, titel, datum, zeit, (e.ort || '').trim(), (e.info || '').trim()];
         if (kasse !== 'Verkaufsraum') zeile[6] = kasse;
         if (e.ref) { const i = KAL_TERMINE.indexOf(e.ref); if (i >= 0) KAL_TERMINE[i] = zeile; } else KAL_TERMINE.push(zeile);

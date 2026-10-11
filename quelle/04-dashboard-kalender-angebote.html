@@ -1,0 +1,533 @@
+      <sc-if value="{{ dashView }}" hint-placeholder-val="{{ false }}">
+      <div class="zk-dash" style="display:flex;flex-direction:column;gap:20px;max-width:1440px;">
+        <div style="display:flex;align-items:flex-end;justify-content:space-between;gap:24px;flex-wrap:wrap;row-gap:14px;">
+          <div style="min-width:0;">
+            <div style="font-size:12px;letter-spacing:.14em;text-transform:uppercase;font-weight:600;color:#545b66;">{{ dashDatum }}</div>
+            <div class="zk-titel" style="font-family:'Poppins',sans-serif;font-size:34px;font-weight:600;line-height:1.1;color:#101010;margin-top:4px;">{{ dashGruss }}</div>
+          </div>
+          <button sc-camel-on-click="{{ onDashKalender }}" style="appearance:none;cursor:pointer;height:46px;padding:0 18px;border-radius:6px;border:1px solid #101010;background:transparent;color:#101010;font-size:15px;font-weight:600;" style-hover="background:#101010;color:#FFFFFF;">Zum Kalender</button>
+        </div>
+
+        <div style="background:#FFFFFF;border:1px solid #e5e7eb;border-radius:16px;box-shadow:rgba(36,36,36,.05) 0 4px 8px;display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));overflow:hidden;">
+          <sc-for list="{{ dashZahlen }}" as="z" hint-placeholder-count="4">
+            <button sc-camel-on-click="{{ z.onClick }}" style="appearance:none;cursor:pointer;text-align:left;border:0;border-right:1px solid #eef0f2;border-bottom:1px solid #eef0f2;background:transparent;padding:16px 20px;display:flex;flex-direction:column;gap:4px;font-family:'Inter',sans-serif;box-shadow:inset 0 3px 0 {{ z.rand }};transition:background 140ms ease-out;" style-hover="background:#f4f4f4;">
+              <span style="font-size:12px;letter-spacing:.1em;text-transform:uppercase;font-weight:600;color:#545b66;">{{ z.label }}</span>
+              <span style="font-size:30px;font-weight:700;line-height:1.1;color:{{ z.fg }};font-variant-numeric:tabular-nums;">{{ z.wert }}</span>
+              <span style="font-size:13px;color:#545b66;">{{ z.hinweis }} →</span>
+            </button>
+          </sc-for>
+        </div>
+
+        <sc-if value="{{ dashNurUe }}" hint-placeholder-val="{{ false }}">
+          <div style="display:flex;align-items:center;gap:12px;flex-wrap:wrap;padding:10px 16px;border-radius:10px;background:#FFFFFF;border:1px solid #e5e7eb;font-size:14px;color:#545b66;">
+            <span style="font-weight:600;color:#101010;">Filter: nur überfällige</span>
+            <sc-if value="{{ dashKeinUe }}" hint-placeholder-val="{{ false }}"><span>· Keine überfälligen Aufgaben.</span></sc-if>
+            <button sc-camel-on-click="{{ onDashAlle }}" style="appearance:none;cursor:pointer;height:32px;padding:0 10px;border-radius:6px;border:1px solid #e5e7eb;background:#FFFFFF;font-family:'Inter',sans-serif;font-size:12.5px;font-weight:600;color:#545b66;margin-left:auto;color:#101010;" style-hover="border-color:#101010;">Filter aufheben</button>
+          </div>
+        </sc-if>
+
+        <div style="display:flex;flex-wrap:wrap;gap:16px;align-items:flex-start;">
+          <div style="flex:2 1 560px;min-width:0;display:flex;flex-direction:column;gap:16px;">
+            <sc-if value="{{ dashHatUe }}" hint-placeholder-val="{{ false }}">
+            <section style="background:#FFFFFF;border:1px solid #e5e7eb;border-radius:16px;box-shadow:rgba(36,36,36,.05) 0 4px 8px;border-color:#EF3D2F;padding:18px 22px 8px;display:flex;flex-direction:column;">
+              <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap;padding-bottom:4px;">
+                <svg sc-camel-view-box="0 0 24 24" width="18" height="18" fill="none" stroke="#9b1520" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" style="flex:none;"><path d="M12 8v5M12 16.5v.5M10.3 3.9 2.4 18a2 2 0 0 0 1.7 3h15.8a2 2 0 0 0 1.7-3L13.7 3.9a2 2 0 0 0-3.4 0z"></path></svg><span style="font-size:17px;font-weight:700;color:#9b1520;">Überfällig</span>
+                <span style="height:24px;padding:0 9px;border-radius:999px;background:#f4f4f4;font-size:12.5px;font-weight:600;color:#545b66;font-variant-numeric:tabular-nums;display:inline-flex;align-items:center;">{{ dashUeInfo }}</span>
+                <span style="margin-left:auto;display:flex;flex-wrap:wrap;justify-content:flex-end;gap:6px;align-items:center;"><sc-if value="{{ dashUeKlapp.mehr }}" hint-placeholder-val="{{ false }}"><span style="font-size:12.5px;font-weight:600;color:#545b66;font-variant-numeric:tabular-nums;white-space:nowrap;">{{ dashUeKlapp.anzahl }}</span><button sc-camel-on-click="{{ dashUeKlapp.onToggle }}" title="{{ dashUeKlapp.label }}" style="appearance:none;cursor:pointer;height:32px;padding:0 10px;border-radius:6px;border:1px solid #e5e7eb;background:#FFFFFF;font-family:'Inter',sans-serif;font-size:12.5px;font-weight:600;color:#545b66;display:inline-flex;align-items:center;gap:5px;" style-hover="border-color:#101010;color:#101010;">{{ dashUeKlapp.kurz }}<svg sc-camel-view-box="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="{{ dashUeKlapp.pfeil }}"></path></svg></button></sc-if><button sc-camel-on-click="{{ onDashAlleMorgen }}" style="appearance:none;cursor:pointer;height:32px;padding:0 10px;border-radius:6px;border:1px solid #e5e7eb;background:#FFFFFF;font-family:'Inter',sans-serif;font-size:12.5px;font-weight:600;color:#545b66;" style-hover="border-color:#101010;color:#101010;">{{ dashAlleAufLabel }}</button></span>
+              </div>
+              <sc-for list="{{ dashUe }}" as="a" hint-placeholder-count="3">
+                <div class="zk-aufgabe" style="display:flex;align-items:center;gap:12px;padding:11px 0;border-top:1px solid #eef0f2;">
+                  <button sc-camel-on-click="{{ a.onToggle }}" title="Erledigt / offen" style="appearance:none;cursor:pointer;padding:0;width:22px;height:22px;flex:none;border-radius:6px;border:1.5px solid {{ a.boxRand }};background:{{ a.boxBg }};display:flex;align-items:center;justify-content:center;color:#FFFFFF;"><svg style="opacity:{{ a.hakenOp }};" sc-camel-view-box="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"></path></svg></button>
+                  <span style="display:flex;flex-direction:column;gap:2px;min-width:0;flex:1;">
+                    <span style="font-size:15px;font-weight:600;color:{{ a.textFg }};text-decoration:{{ a.deko }};text-wrap:pretty;">{{ a.titel }}</span>
+                    <span style="font-size:13.5px;color:#545b66;"><span style="font-weight:600;color:#9b1520;">{{ a.faelligStr }}</span> · {{ a.info }}</span>
+                  </span>
+                  <span style="display:flex;gap:6px;flex:none;align-items:center;">
+                    <sc-if value="{{ a.kannOeffnen }}" hint-placeholder-val="{{ false }}"><button sc-camel-on-click="{{ a.onOeffnen }}" title="{{ a.oeffnenLabel }}" style="appearance:none;cursor:pointer;height:32px;padding:0 10px;border-radius:6px;border:1px solid #e5e7eb;background:#FFFFFF;font-family:'Inter',sans-serif;font-size:12.5px;font-weight:600;color:#545b66;color:#101010;" style-hover="border-color:#101010;">Öffnen</button></sc-if>
+                    <sc-if value="{{ a.kannVerschieben }}" hint-placeholder-val="{{ false }}"><button sc-camel-on-click="{{ a.onMorgen }}" title="Auf morgen verschieben" style="appearance:none;cursor:pointer;height:32px;padding:0 10px;border-radius:6px;border:1px solid #e5e7eb;background:#FFFFFF;font-family:'Inter',sans-serif;font-size:12.5px;font-weight:600;color:#545b66;" style-hover="border-color:#101010;color:#101010;">{{ a.morgenLabel }}</button></sc-if>
+                    <sc-if value="{{ a.kannVerteilen }}" hint-placeholder-val="{{ false }}"><sc-raw-select value="{{ a.verteilWert }}" sc-camel-on-change="{{ a.onVerteilen }}" title="Aufgabe verteilen" aria-label="Aufgabe verteilen" style="height:32px;max-width:150px;padding:0 6px;border-radius:6px;border:1px solid #e5e7eb;background:#FFFFFF;font-family:'Inter',sans-serif;font-size:12.5px;font-weight:600;color:#101010;cursor:pointer;"><sc-for list="{{ a.verteilOpts }}" as="o" hint-placeholder-count="3"><option value="{{ o.v }}">{{ o.label }}</option></sc-for></sc-raw-select></sc-if>
+                    <sc-if value="{{ a.kannLoeschen }}" hint-placeholder-val="{{ false }}"><button sc-camel-on-click="{{ a.onLoeschen }}" title="Aufgabe löschen" style="appearance:none;cursor:pointer;height:32px;padding:0 10px;border-radius:6px;border:1px solid #e5e7eb;background:#FFFFFF;font-family:'Inter',sans-serif;font-size:12.5px;font-weight:600;color:#545b66;width:32px;padding:0;" style-hover="border-color:#9b1520;color:#9b1520;">✕</button></sc-if>
+                  </span>
+                </div>
+              </sc-for>
+            </section>
+            </sc-if>
+
+            <sc-if value="{{ dashZeigeAlles }}" hint-placeholder-val="{{ true }}">
+            <section style="background:#FFFFFF;border:1px solid #e5e7eb;border-radius:16px;box-shadow:rgba(36,36,36,.05) 0 4px 8px;padding:18px 22px 8px;display:flex;flex-direction:column;">
+              <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap;padding-bottom:4px;">
+                <span style="font-size:17px;font-weight:700;color:#101010;">Termine heute</span>
+                <span style="height:24px;padding:0 9px;border-radius:999px;background:#f4f4f4;font-size:12.5px;font-weight:600;color:#545b66;font-variant-numeric:tabular-nums;display:inline-flex;align-items:center;">{{ dashHeuteTermineAnzahl }}</span>
+                <span style="margin-left:auto;display:flex;flex-wrap:wrap;justify-content:flex-end;gap:6px;align-items:center;"><sc-if value="{{ dashHeuteTermineKlapp.mehr }}" hint-placeholder-val="{{ false }}"><span style="font-size:12.5px;font-weight:600;color:#545b66;font-variant-numeric:tabular-nums;white-space:nowrap;">{{ dashHeuteTermineKlapp.anzahl }}</span><button sc-camel-on-click="{{ dashHeuteTermineKlapp.onToggle }}" title="{{ dashHeuteTermineKlapp.label }}" style="appearance:none;cursor:pointer;height:32px;padding:0 10px;border-radius:6px;border:1px solid #e5e7eb;background:#FFFFFF;font-family:'Inter',sans-serif;font-size:12.5px;font-weight:600;color:#545b66;display:inline-flex;align-items:center;gap:5px;" style-hover="border-color:#101010;color:#101010;">{{ dashHeuteTermineKlapp.kurz }}<svg sc-camel-view-box="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="{{ dashHeuteTermineKlapp.pfeil }}"></path></svg></button></sc-if></span>
+              </div>
+              <sc-if value="{{ dashHeuteTermLeer }}" hint-placeholder-val="{{ false }}"><div style="padding:12px 0;border-top:1px solid #eef0f2;font-size:14.5px;color:#545b66;">{{ dashHeuteLeerText }}</div></sc-if>
+              <sc-for list="{{ dashHeuteTermine }}" as="e" hint-placeholder-count="3">
+                <button class="zk-termin" sc-camel-on-click="{{ e.onClick }}" style="appearance:none;cursor:pointer;text-align:left;display:flex;align-items:center;gap:12px;padding:11px 8px;margin:0 -8px;border:0;border-top:1px solid #eef0f2;background:{{ e.vorbeiBg }};width:calc(100% + 16px);font-family:'Inter',sans-serif;transition:background 140ms ease-out;" style-hover="background:{{ e.vorbeiHover }};">
+                  <span style="width:60px;flex:none;font-size:14px;font-weight:700;color:{{ e.vorbeiFg }};font-variant-numeric:tabular-nums;">{{ e.zeit }}</span>
+                  <span style="width:4px;align-self:stretch;flex:none;border-radius:2px;background:{{ e.farbe }};"></span>
+                  <span style="flex:1;min-width:0;display:flex;flex-direction:column;gap:2px;">
+                    <span style="font-size:15px;font-weight:600;color:{{ e.vorbeiFg }};">{{ e.titel }}</span>
+                    <span style="font-size:13.5px;color:{{ e.vorbeiSub }};">{{ e.typ }} · {{ e.ort }}</span>
+                  </span>
+                  <span class="zk-termin-aktion" style="flex:none;font-size:13px;font-weight:600;color:#545b66;white-space:nowrap;">{{ e.aktion }} →</span>
+                </button>
+              </sc-for>
+            </section>
+
+            <section style="background:#FFFFFF;border:1px solid #e5e7eb;border-radius:16px;box-shadow:rgba(36,36,36,.05) 0 4px 8px;padding:18px 22px 14px;display:flex;flex-direction:column;">
+              <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap;padding-bottom:4px;">
+                <span style="font-size:17px;font-weight:700;color:#101010;">Aufgaben heute</span>
+                <span style="height:24px;padding:0 9px;border-radius:999px;background:#f4f4f4;font-size:12.5px;font-weight:600;color:#545b66;font-variant-numeric:tabular-nums;display:inline-flex;align-items:center;">{{ dashAufgInfo }}</span>
+                <span style="margin-left:auto;display:flex;flex-wrap:wrap;justify-content:flex-end;gap:6px;align-items:center;"><sc-if value="{{ dashHeuteAufgabenKlapp.mehr }}" hint-placeholder-val="{{ false }}"><span style="font-size:12.5px;font-weight:600;color:#545b66;font-variant-numeric:tabular-nums;white-space:nowrap;">{{ dashHeuteAufgabenKlapp.anzahl }}</span><button sc-camel-on-click="{{ dashHeuteAufgabenKlapp.onToggle }}" title="{{ dashHeuteAufgabenKlapp.label }}" style="appearance:none;cursor:pointer;height:32px;padding:0 10px;border-radius:6px;border:1px solid #e5e7eb;background:#FFFFFF;font-family:'Inter',sans-serif;font-size:12.5px;font-weight:600;color:#545b66;display:inline-flex;align-items:center;gap:5px;" style-hover="border-color:#101010;color:#101010;">{{ dashHeuteAufgabenKlapp.kurz }}<svg sc-camel-view-box="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="{{ dashHeuteAufgabenKlapp.pfeil }}"></path></svg></button></sc-if><button sc-camel-on-click="{{ onDashAusblenden }}" style="appearance:none;cursor:pointer;height:32px;padding:0 10px;border-radius:6px;border:1px solid #e5e7eb;background:#FFFFFF;font-family:'Inter',sans-serif;font-size:12.5px;font-weight:600;color:#545b66;" style-hover="border-color:#101010;color:#101010;">{{ dashAusblendLabel }}</button></span>
+              </div>
+              <sc-if value="{{ dashHeuteAufgLeer }}" hint-placeholder-val="{{ false }}"><div style="padding:12px 0;border-top:1px solid #eef0f2;font-size:14.5px;color:#545b66;">Keine offenen Aufgaben für heute.</div></sc-if>
+              <sc-for list="{{ dashHeuteAufgaben }}" as="a" hint-placeholder-count="3">
+                <div class="zk-aufgabe" style="display:flex;align-items:center;gap:12px;padding:11px 0;border-top:1px solid #eef0f2;">
+                  <button sc-camel-on-click="{{ a.onToggle }}" title="Erledigt / offen" style="appearance:none;cursor:pointer;padding:0;width:22px;height:22px;flex:none;border-radius:6px;border:1.5px solid {{ a.boxRand }};background:{{ a.boxBg }};display:flex;align-items:center;justify-content:center;color:#FFFFFF;"><svg style="opacity:{{ a.hakenOp }};" sc-camel-view-box="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"></path></svg></button>
+                  <span style="display:flex;flex-direction:column;gap:2px;min-width:0;flex:1;">
+                    <span style="font-size:15px;font-weight:600;color:{{ a.textFg }};text-decoration:{{ a.deko }};text-wrap:pretty;">{{ a.titel }}</span>
+                    <span style="font-size:13.5px;color:#545b66;">{{ a.info }}</span>
+                  </span>
+                  <span style="display:flex;gap:6px;flex:none;align-items:center;">
+                    <sc-if value="{{ a.kannOeffnen }}" hint-placeholder-val="{{ false }}"><button sc-camel-on-click="{{ a.onOeffnen }}" title="{{ a.oeffnenLabel }}" style="appearance:none;cursor:pointer;height:32px;padding:0 10px;border-radius:6px;border:1px solid #e5e7eb;background:#FFFFFF;font-family:'Inter',sans-serif;font-size:12.5px;font-weight:600;color:#545b66;color:#101010;" style-hover="border-color:#101010;">Öffnen</button></sc-if>
+                    <sc-if value="{{ a.kannVerschieben }}" hint-placeholder-val="{{ false }}"><button sc-camel-on-click="{{ a.onMorgen }}" title="Auf morgen verschieben" style="appearance:none;cursor:pointer;height:32px;padding:0 10px;border-radius:6px;border:1px solid #e5e7eb;background:#FFFFFF;font-family:'Inter',sans-serif;font-size:12.5px;font-weight:600;color:#545b66;" style-hover="border-color:#101010;color:#101010;">{{ a.morgenLabel }}</button></sc-if>
+                    <sc-if value="{{ a.kannVerteilen }}" hint-placeholder-val="{{ false }}"><sc-raw-select value="{{ a.verteilWert }}" sc-camel-on-change="{{ a.onVerteilen }}" title="Aufgabe verteilen" aria-label="Aufgabe verteilen" style="height:32px;max-width:150px;padding:0 6px;border-radius:6px;border:1px solid #e5e7eb;background:#FFFFFF;font-family:'Inter',sans-serif;font-size:12.5px;font-weight:600;color:#101010;cursor:pointer;"><sc-for list="{{ a.verteilOpts }}" as="o" hint-placeholder-count="3"><option value="{{ o.v }}">{{ o.label }}</option></sc-for></sc-raw-select></sc-if>
+                    <sc-if value="{{ a.kannLoeschen }}" hint-placeholder-val="{{ false }}"><button sc-camel-on-click="{{ a.onLoeschen }}" title="Aufgabe löschen" style="appearance:none;cursor:pointer;height:32px;padding:0 10px;border-radius:6px;border:1px solid #e5e7eb;background:#FFFFFF;font-family:'Inter',sans-serif;font-size:12.5px;font-weight:600;color:#545b66;width:32px;padding:0;" style-hover="border-color:#9b1520;color:#9b1520;">✕</button></sc-if>
+                  </span>
+                </div>
+              </sc-for>
+              <div style="display:flex;gap:8px;flex-wrap:wrap;padding-top:12px;border-top:1px solid #eef0f2;">
+                <input value="{{ dashNeuText }}" sc-camel-on-change="{{ onDashNeuText }}" sc-camel-on-key-down="{{ onDashNeuKey }}" placeholder="Neue Aufgabe, z. B. Lieferant Brača anrufen" style="flex:1 1 240px;min-width:0;height:44px;padding:0 14px;border:1px solid #e5e7eb;border-radius:10px;font-size:15px;color:#101010;outline:none;font-family:'Inter',sans-serif;background:#FFFFFF;">
+                <sc-raw-select value="{{ dashNeuTag }}" sc-camel-on-change="{{ onDashNeuTag }}" aria-label="Fällig am" style="height:44px;padding:0 10px;border:1px solid #e5e7eb;border-radius:10px;background:#FFFFFF;font-size:14.5px;color:#101010;cursor:pointer;">
+                  <sc-for list="{{ dashNeuTage }}" as="o" hint-placeholder-count="4"><option value="{{ o.v }}">{{ o.label }}</option></sc-for>
+                </sc-raw-select>
+                <sc-if value="{{ dashKannDeleg }}" hint-placeholder-val="{{ false }}">
+                  <sc-raw-select value="{{ dashNeuFuer }}" sc-camel-on-change="{{ onDashNeuFuer }}" aria-label="Zuweisen an" style="height:44px;padding:0 10px;border:1px solid #e5e7eb;border-radius:10px;background:#FFFFFF;font-family:'Inter',sans-serif;font-size:14.5px;color:#101010;cursor:pointer;max-width:100%;">
+                    <sc-for list="{{ dashDelegZiele }}" as="o" hint-placeholder-count="3"><option value="{{ o.v }}">{{ o.label }}</option></sc-for>
+                  </sc-raw-select>
+                </sc-if>
+                <button sc-camel-on-click="{{ onDashNeu }}" style="appearance:none;cursor:pointer;height:44px;padding:0 16px;border-radius:6px;border:0;background:#101010;color:#FFFFFF;font-size:15px;font-weight:600;display:flex;align-items:center;gap:8px;" style-hover="background:#303640;"><svg sc-camel-view-box="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M12 5v14M5 12h14"></path></svg>Hinzufügen</button>
+                <sc-if value="{{ dashNeuFehler }}" hint-placeholder-val="{{ false }}"><div style="flex-basis:100%;font-size:13.5px;color:#9b1520;">Bitte einen Aufgabentext eingeben.</div></sc-if>
+              </div>
+            </section>
+            </sc-if>
+          </div>
+
+          <sc-if value="{{ dashZeigeAlles }}" hint-placeholder-val="{{ true }}">
+          <section style="background:#FFFFFF;border:1px solid #e5e7eb;border-radius:16px;box-shadow:rgba(36,36,36,.05) 0 4px 8px;padding:18px 22px 10px;display:flex;flex-direction:column;flex:1 1 320px;min-width:0;">
+            <div style="font-size:17px;font-weight:700;color:#101010;padding-bottom:6px;">{{ dashWocheTitel }}</div>
+            <sc-for list="{{ dashWoche }}" as="w" hint-placeholder-count="3">
+              <div style="display:flex;flex-direction:column;gap:2px;padding:12px 0 8px;border-top:1px solid #eef0f2;">
+                <div style="display:flex;align-items:center;gap:8px;">
+                  <button sc-camel-on-click="{{ w.onTag }}" title="Tag im Kalender öffnen" style="appearance:none;cursor:pointer;flex:1;min-width:0;display:flex;align-items:baseline;gap:8px;padding:0;border:0;background:none;text-align:left;font-family:'Inter',sans-serif;color:#101010;" style-hover="color:#EF3D2F;">
+                    <span style="font-size:15px;font-weight:700;color:inherit;">{{ w.tagLang }}</span>
+                    <span style="font-size:13.5px;color:#545b66;font-variant-numeric:tabular-nums;">{{ w.datum }}</span>
+                  </button>
+                  <sc-if value="{{ w.klapp.mehr }}" hint-placeholder-val="{{ false }}"><span style="font-size:12.5px;font-weight:600;color:#545b66;font-variant-numeric:tabular-nums;white-space:nowrap;">{{ w.klapp.anzahl }}</span><button sc-camel-on-click="{{ w.klapp.onToggle }}" title="{{ w.klapp.label }}" style="appearance:none;cursor:pointer;height:32px;padding:0 10px;border-radius:6px;border:1px solid #e5e7eb;background:#FFFFFF;font-family:'Inter',sans-serif;font-size:12.5px;font-weight:600;color:#545b66;display:inline-flex;align-items:center;gap:5px;" style-hover="border-color:#101010;color:#101010;">{{ w.klapp.kurz }}<svg sc-camel-view-box="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="{{ w.klapp.pfeil }}"></path></svg></button></sc-if>
+                </div>
+                <sc-if value="{{ w.hatHinweis }}" hint-placeholder-val="{{ false }}"><div style="margin-top:4px;align-self:flex-start;padding:3px 9px;border-radius:999px;background:#f4f4f4;font-size:12.5px;font-weight:600;color:#545b66;">{{ w.hinweis }}</div></sc-if>
+                <sc-if value="{{ w.leer }}" hint-placeholder-val="{{ false }}"><div style="padding-top:2px;font-size:13.5px;color:#646b76;">Nichts geplant.</div></sc-if>
+                <sc-for list="{{ w.termine }}" as="e" hint-placeholder-count="0">
+                  <button sc-camel-on-click="{{ e.onClick }}" style="appearance:none;cursor:pointer;text-align:left;display:flex;align-items:center;gap:10px;padding:6px 6px;margin:0 -6px;border:0;border-radius:6px;background:{{ e.vorbeiBg }};width:calc(100% + 12px);font-family:'Inter',sans-serif;transition:background 140ms ease-out;" style-hover="background:{{ e.vorbeiHover }};">
+                    <span style="width:8px;height:8px;flex:none;border-radius:999px;background:{{ e.farbe }};"></span>
+                    <span style="width:46px;flex:none;font-size:13px;font-weight:700;color:{{ e.vorbeiFg }};font-variant-numeric:tabular-nums;">{{ e.zeit }}</span>
+                    <span style="flex:1;min-width:0;font-size:14px;color:{{ e.vorbeiFg }};overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">{{ e.titel }}</span>
+                  </button>
+                </sc-for>
+                <sc-for list="{{ w.aufgaben }}" as="a" hint-placeholder-count="0">
+                  <div style="display:flex;align-items:center;gap:10px;padding:5px 0;">
+                    <button sc-camel-on-click="{{ a.onToggle }}" title="Erledigt / offen" style="appearance:none;cursor:pointer;padding:0;width:18px;height:18px;flex:none;border-radius:5px;border:1.5px solid {{ a.boxRand }};background:{{ a.boxBg }};display:flex;align-items:center;justify-content:center;color:#FFFFFF;"><svg style="opacity:{{ a.hakenOp }};" sc-camel-view-box="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"></path></svg></button>
+                    <span style="flex:1;min-width:0;font-size:14px;color:{{ a.textFg }};text-decoration:{{ a.deko }};overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">{{ a.titel }}</span>
+                    <sc-if value="{{ a.kannOeffnen }}" hint-placeholder-val="{{ false }}"><button sc-camel-on-click="{{ a.onOeffnen }}" title="{{ a.oeffnenLabel }}" style="appearance:none;cursor:pointer;padding:0;border:0;background:none;font-family:'Inter',sans-serif;font-size:13px;font-weight:600;color:#545b66;" style-hover="color:#101010;">→</button></sc-if>
+                  </div>
+                </sc-for>
+              </div>
+            </sc-for>
+          </section>
+          </sc-if>
+        </div>
+      </div>
+      </sc-if>
+
+      <sc-if value="{{ kalView }}" hint-placeholder-val="{{ false }}">
+      <div style="display:flex;flex-direction:column;gap:22px;">
+        <div style="display:flex;align-items:flex-start;justify-content:space-between;gap:24px;flex-wrap:wrap;row-gap:14px;">
+          <div style="min-width:0;">
+            <div style="font-size:12px;letter-spacing:.14em;text-transform:uppercase;font-weight:600;color:#545b66;">Planung</div>
+            <div class="zk-titel" style="font-family:'Poppins',sans-serif;font-size:34px;font-weight:600;line-height:1.1;color:#101010;margin-top:4px;">Kalender</div>
+            <div style="font-size:16px;color:#545b66;margin-top:4px;">Lieferungen, Abholungen, Werkstatttermine, auslaufende Angebote und Messen im Monatsüberblick.</div>
+            <div style="display:inline-flex;align-items:center;gap:6px;margin-top:10px;padding:4px 10px;border-radius:999px;background:#FFFFFF;border:1px solid #e5e7eb;font-size:12.5px;font-weight:600;color:#545b66;"><svg sc-camel-view-box="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 10h18M5 6h14a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2z"></path></svg>{{ kalKasse }}</div>
+          </div>
+        </div>
+        <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap;">
+          <button sc-camel-on-click="{{ kalVor }}" title="Vorheriger Monat" style="appearance:none;cursor:pointer;width:44px;height:44px;border-radius:6px;border:1px solid #e5e7eb;background:#FFFFFF;color:#101010;font-size:18px;">‹</button>
+          <button sc-camel-on-click="{{ kalWeiter }}" title="Nächster Monat" style="appearance:none;cursor:pointer;width:44px;height:44px;border-radius:6px;border:1px solid #e5e7eb;background:#FFFFFF;color:#101010;font-size:18px;">›</button>
+          <div style="font-size:22px;font-weight:600;min-width:180px;">{{ kalTitel }}</div>
+          <button sc-camel-on-click="{{ kalHeute }}" style="appearance:none;cursor:pointer;height:44px;padding:0 16px;border-radius:6px;border:1px solid #101010;background:transparent;color:#101010;font-size:14.5px;font-weight:600;">Heute</button>
+          <sc-raw-select value="{{ kalFilterWert }}" sc-camel-on-change="{{ onKalFilter }}" aria-label="Terminart" style="height:44px;padding:0 12px;border:1px solid #e5e7eb;border-radius:10px;background:#FFFFFF;font-size:14.5px;color:#101010;cursor:pointer;">
+            <sc-for list="{{ kalFilterOptionen }}" as="o" hint-placeholder-count="7"><option value="{{ o.v }}">{{ o.label }}</option></sc-for>
+          </sc-raw-select>
+          <span style="margin-left:auto;font-size:14px;color:#545b66;">{{ kalMonatInfo }}</span>
+        </div>
+        <div style="display:flex;gap:14px;flex-wrap:wrap;margin-top:-8px;">
+          <sc-for list="{{ kalLegende }}" as="l" hint-placeholder-count="6">
+            <span style="display:flex;align-items:center;gap:6px;font-size:13px;color:#545b66;"><span style="width:8px;height:8px;border-radius:999px;background:{{ l.farbe }};"></span>{{ l.label }}</span>
+          </sc-for>
+        </div>
+        <div style="display:flex;gap:16px;align-items:flex-start;flex-wrap:wrap;">
+          <div style="flex:1 1 480px;min-width:0;background:#FFFFFF;border:1px solid #e5e7eb;border-radius:16px;box-shadow:rgba(36,36,36,.05) 0 4px 8px;padding:14px;overflow-x:auto;">
+            <div class="zk-monat" style="display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:6px;min-width:470px;">
+              <sc-for list="{{ kalWochentage }}" as="w" hint-placeholder-count="7">
+                <div style="padding:4px 8px;font-size:12px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:#545b66;">{{ w.w }}</div>
+              </sc-for>
+              <sc-for list="{{ kalZellen }}" as="z" hint-placeholder-count="35">
+                <button sc-camel-on-click="{{ z.onClick }}" style="appearance:none;cursor:pointer;text-align:left;min-height:104px;padding:6px;border-radius:10px;border:1px solid {{ z.rand }};background:{{ z.bg }};display:flex;flex-direction:column;gap:4px;min-width:0;font-family:'Inter',sans-serif;transition:border-color 140ms ease-out;" style-hover="border-color:#101010;">
+                  <span style="width:26px;height:26px;border-radius:999px;display:flex;align-items:center;justify-content:center;font-size:13.5px;font-weight:600;background:{{ z.heuteBg }};color:{{ z.heuteFg }};font-variant-numeric:tabular-nums;">{{ z.tag }}</span>
+                  <sc-for list="{{ z.events }}" as="e" hint-placeholder-count="0">
+                    <span style="display:flex;align-items:center;gap:5px;font-size:12px;line-height:1.25;color:#101010;min-width:0;width:100%;"><span style="width:7px;height:7px;flex:none;border-radius:999px;background:{{ e.farbe }};"></span><span style="white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">{{ e.titel }}</span></span>
+                  </sc-for>
+                  <sc-if value="{{ z.hatMehr }}" hint-placeholder-val="{{ false }}"><span style="font-size:11.5px;font-weight:600;color:#545b66;">{{ z.mehr }}</span></sc-if>
+                </button>
+              </sc-for>
+            </div>
+          </div>
+          <aside style="flex:0 1 320px;min-width:260px;background:#FFFFFF;border:1px solid #e5e7eb;border-radius:16px;box-shadow:rgba(36,36,36,.05) 0 4px 8px;padding:20px 22px;display:flex;flex-direction:column;gap:12px;">
+            <div style="font-size:12px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:#545b66;">Ausgewählter Tag</div>
+            <div style="font-size:18px;font-weight:600;">{{ kalTagTitel }}</div>
+            <sc-if value="{{ kalEditOffen }}" hint-placeholder-val="{{ false }}">
+              <div style="display:flex;flex-direction:column;gap:12px;padding-top:12px;border-top:1px solid #e5e7eb;">
+                <div style="font-size:16px;font-weight:700;color:#101010;">{{ kalEditTitel }}</div>
+                <label style="display:flex;flex-direction:column;gap:6px;font-size:13.5px;font-weight:600;color:#303640;min-width:0;">Terminart<sc-raw-select value="{{ kalE.typ }}" sc-camel-on-change="{{ onKalETyp }}" style="height:44px;padding:0 12px;border:1px solid #8a9099;border-radius:10px;background:#FFFFFF;font-family:'Inter',sans-serif;font-size:15px;color:#101010;outline:none;min-width:0;width:100%;box-sizing:border-box;cursor:pointer;"><sc-for list="{{ kalEditArten }}" as="o" hint-placeholder-count="5"><option value="{{ o.v }}">{{ o.v }}</option></sc-for></sc-raw-select></label>
+                <label style="display:flex;flex-direction:column;gap:6px;font-size:13.5px;font-weight:600;color:#303640;min-width:0;">Titel<input value="{{ kalE.titel }}" sc-camel-on-change="{{ onKalETitel }}" placeholder="z. B. Abholung Lettmann Granate" style="height:44px;padding:0 12px;border:1px solid #8a9099;border-radius:10px;background:#FFFFFF;font-family:'Inter',sans-serif;font-size:15px;color:#101010;outline:none;min-width:0;width:100%;box-sizing:border-box;"></label>
+                <div style="display:grid;grid-template-columns:minmax(0,1.3fr) minmax(0,1fr);gap:10px;">
+                  <label style="display:flex;flex-direction:column;gap:6px;font-size:13.5px;font-weight:600;color:#303640;min-width:0;">Datum<input value="{{ kalE.datum }}" sc-camel-on-change="{{ onKalEDatum }}" placeholder="TT.MM.JJJJ" style="height:44px;padding:0 12px;border:1px solid #8a9099;border-radius:10px;background:#FFFFFF;font-family:'Inter',sans-serif;font-size:15px;color:#101010;outline:none;min-width:0;width:100%;box-sizing:border-box;font-variant-numeric:tabular-nums;"></label>
+                  <label style="display:flex;flex-direction:column;gap:6px;font-size:13.5px;font-weight:600;color:#303640;min-width:0;">Uhrzeit<input value="{{ kalE.zeit }}" sc-camel-on-change="{{ onKalEZeit }}" placeholder="HH:MM" style="height:44px;padding:0 12px;border:1px solid #8a9099;border-radius:10px;background:#FFFFFF;font-family:'Inter',sans-serif;font-size:15px;color:#101010;outline:none;min-width:0;width:100%;box-sizing:border-box;font-variant-numeric:tabular-nums;"></label>
+                </div>
+                <label style="display:flex;flex-direction:column;gap:6px;font-size:13.5px;font-weight:600;color:#303640;min-width:0;">Ort<input value="{{ kalE.ort }}" sc-camel-on-change="{{ onKalEOrt }}" placeholder="z. B. Laden" style="height:44px;padding:0 12px;border:1px solid #8a9099;border-radius:10px;background:#FFFFFF;font-family:'Inter',sans-serif;font-size:15px;color:#101010;outline:none;min-width:0;width:100%;box-sizing:border-box;"></label>
+                <label style="display:flex;flex-direction:column;gap:6px;font-size:13.5px;font-weight:600;color:#303640;min-width:0;">Notiz<input value="{{ kalE.info }}" sc-camel-on-change="{{ onKalEInfo }}" placeholder="z. B. Kunde K-1205" style="height:44px;padding:0 12px;border:1px solid #8a9099;border-radius:10px;background:#FFFFFF;font-family:'Inter',sans-serif;font-size:15px;color:#101010;outline:none;min-width:0;width:100%;box-sizing:border-box;"></label>
+                <sc-if value="{{ kalHatEditFehler }}" hint-placeholder-val="{{ false }}"><div style="padding:10px 12px;border-radius:12px;background:#fde0e2;border:2px solid #9b1520;color:#9b1520;font-size:14px;font-weight:600;">{{ kalEditFehler }}</div></sc-if>
+                <div style="display:flex;gap:8px;flex-wrap:wrap;">
+                  <button sc-camel-on-click="{{ onKalSpeichern }}" style="appearance:none;cursor:pointer;flex:1 1 120px;height:48px;border-radius:6px;border:0;background:#EF3D2F;color:#FFFFFF;font-size:15px;font-weight:600;" style-hover="background:#FF4E3F;">Speichern</button>
+                  <button sc-camel-on-click="{{ onKalAbbrechen }}" style="appearance:none;cursor:pointer;flex:1 1 100px;height:48px;border-radius:6px;border:1px solid #101010;background:#FFFFFF;color:#101010;font-size:15px;font-weight:600;">Abbrechen</button>
+                </div>
+                <sc-if value="{{ kalEditIstAlt }}" hint-placeholder-val="{{ false }}">
+                  <button sc-camel-on-click="{{ onKalLoeschen }}" style="appearance:none;cursor:pointer;height:44px;border:0;background:transparent;color:#9b1520;font-size:14.5px;font-weight:600;text-decoration:underline;">Termin löschen</button>
+                </sc-if>
+              </div>
+            </sc-if>
+            <sc-if value="{{ kalListe }}" hint-placeholder-val="{{ true }}">
+            <button sc-camel-on-click="{{ onKalNeu }}" style="appearance:none;cursor:pointer;height:44px;border-radius:6px;border:1px solid #101010;background:#FFFFFF;color:#101010;font-size:14.5px;font-weight:600;" style-hover="background:#f4f4f4;">+ Termin an diesem Tag</button>
+            <sc-if value="{{ kalTagLeer }}" hint-placeholder-val="{{ false }}"><div style="font-size:14.5px;color:#545b66;">Keine Termine an diesem Tag.</div></sc-if>
+            <sc-for list="{{ kalTagEvents }}" as="e" hint-placeholder-count="2">
+              <div style="display:flex;flex-direction:column;gap:4px;padding-top:12px;border-top:1px solid #e5e7eb;">
+                <div style="display:flex;align-items:center;gap:8px;"><span style="flex:1;display:flex;align-items:center;gap:6px;font-size:12px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:#545b66;"><span style="width:8px;height:8px;border-radius:999px;background:{{ e.farbe }};"></span>{{ e.typ }}</span><sc-if value="{{ e.bearbeitbar }}" hint-placeholder-val="{{ true }}"><button sc-camel-on-click="{{ e.onEdit }}" style="appearance:none;cursor:pointer;flex:none;height:32px;padding:0 12px;border-radius:6px;border:1px solid #e5e7eb;background:#FFFFFF;color:#101010;font-size:13px;font-weight:600;" style-hover="border-color:#101010;">Bearbeiten</button></sc-if></div>
+                <div style="font-size:15.5px;font-weight:600;line-height:1.3;">{{ e.titel }}</div>
+                <div style="font-size:13.5px;color:#545b66;">{{ e.datum }} · {{ e.zeit }}</div>
+                <div style="font-size:13.5px;color:#545b66;">{{ e.ort }}</div>
+                <div style="font-size:13px;color:#646b76;">{{ e.info }}</div>
+                <sc-if value="{{ e.nurAngebot }}" hint-placeholder-val="{{ false }}"><div style="font-size:12.5px;color:#646b76;">Gültigkeit wird im Angebot geändert.</div></sc-if>
+              </div>
+            </sc-for>
+            </sc-if>
+          </aside>
+        </div>
+      </div>
+      </sc-if>
+
+      <sc-if value="{{ agView }}" hint-placeholder-val="{{ false }}">
+      <div style="display:flex;flex-direction:column;gap:22px;">
+
+        <sc-if value="{{ agListe }}" hint-placeholder-val="{{ true }}">
+        <div style="display:flex;align-items:flex-start;justify-content:space-between;gap:24px;flex-wrap:wrap;row-gap:14px;">
+          <div style="min-width:0;">
+            <div style="font-size:12px;letter-spacing:.14em;text-transform:uppercase;font-weight:600;color:#545b66;">Vertrieb</div>
+            <div class="zk-titel" style="font-family:'Poppins',sans-serif;font-size:34px;font-weight:600;line-height:1.1;color:#101010;margin-top:4px;">Angebote</div>
+            <div style="font-size:16px;color:#545b66;margin-top:4px;">Angebote erstellen, als PDF versenden und nach Zusage direkt in die Kasse übernehmen.</div>
+          </div>
+          <button sc-camel-on-click="{{ onAgNeu }}" style="appearance:none;cursor:pointer;height:48px;padding:0 22px;border-radius:6px;border:0;background:#EF3D2F;color:#FFFFFF;font-size:15.5px;font-weight:600;display:flex;align-items:center;gap:9px;" style-hover="background:#FF4E3F;">
+            <svg sc-camel-view-box="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M5 12h14"></path></svg>Neues Angebot
+          </button>
+        </div>
+
+        <sc-if value="{{ agHatMeldung }}" hint-placeholder-val="{{ false }}">
+          <div style="display:flex;align-items:center;gap:10px;padding:14px 18px;border-radius:10px;background:#dcf3e6;color:#0d5f38;font-size:15px;font-weight:600;">
+            <svg sc-camel-view-box="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"></path></svg>{{ agMeldung }}
+          </div>
+        </sc-if>
+
+        <div class="zk-kpi" style="display:grid;grid-template-columns:{{ kpiRaster }};gap:14px;">
+          <sc-for list="{{ agKennzahlen }}" as="z" hint-placeholder-count="4">
+            <div style="background:#FFFFFF;border:1px solid #e5e7eb;border-radius:16px;padding:16px 18px;display:flex;flex-direction:column;gap:6px;">
+              <div style="font-size:13px;color:#545b66;">{{ z.label }}</div>
+              <div style="font-size:25px;font-weight:700;color:{{ z.color }};font-variant-numeric:tabular-nums;line-height:1.1;white-space:nowrap;">{{ z.value }}</div>
+              <div style="font-size:12.5px;color:#646b76;">{{ z.hint }}</div>
+            </div>
+          </sc-for>
+        </div>
+
+        <div style="position:sticky;top:{{ kasseStickyTop }};z-index:30;margin:0 -6px;padding:{{ kasseStickyPad }} 6px 12px;background:#f4f4f4;display:flex;flex-direction:column;gap:14px;box-shadow:0 10px 12px -12px rgba(9,10,11,.18);">
+        <div style="display:flex;align-items:center;gap:12px;flex-wrap:wrap;">
+          <div style="display:flex;gap:8px;flex-wrap:wrap;">
+            <sc-for list="{{ agFilterChips }}" as="c" hint-placeholder-count="6">
+              <button sc-camel-on-click="{{ c.onClick }}" style="appearance:none;cursor:pointer;height:42px;padding:0 16px;border-radius:6px;border:1px solid {{ c.border }};background:{{ c.bg }};color:{{ c.fg }};font-size:14.5px;font-weight:600;display:flex;align-items:center;gap:8px;transition:all 140ms ease-out;">{{ c.label }}<span style="font-size:12.5px;font-weight:600;opacity:.7;font-variant-numeric:tabular-nums;">{{ c.anzahl }}</span></button>
+            </sc-for>
+          </div>
+          <div style="flex:1 1 260px;display:flex;align-items:center;gap:12px;height:48px;padding:0 18px;background:#FFFFFF;border:1px solid #e5e7eb;border-radius:999px;">
+            <svg sc-camel-view-box="0 0 24 24" width="19" height="19" fill="none" stroke="#545b66" stroke-width="1.8" stroke-linecap="round"><circle cx="11" cy="11" r="7"></circle><path d="M20 20l-3.6-3.6"></path></svg>
+            <input value="{{ agSuche }}" sc-camel-on-change="{{ onAgSuche }}" placeholder="Angebotsnummer, Kunde oder Artikel" style="flex:1;min-width:0;border:0;outline:none;background:transparent;font-size:15.5px;color:#101010;">
+          </div>
+        </div>
+        </div>
+
+        <div style="background:#FFFFFF;border:1px solid #e5e7eb;border-radius:16px;overflow-x:auto;">
+          <div class="zk-tabelle" style="min-width:900px;">
+            <div style="display:grid;grid-template-columns:1.2fr 2.2fr 1.1fr 1fr 1.1fr 1.1fr 40px;gap:14px;padding:14px 20px;background:#e5e7eb;font-size:12.5px;letter-spacing:.1em;text-transform:uppercase;font-weight:600;color:#545b66;">
+              <div>Angebot</div><div>Kunde</div><div>Positionen</div><div>Gültig bis</div><div style="text-align:right;">Summe</div><div>Status</div><div></div>
+            </div>
+            <sc-for list="{{ agListeZeilen }}" as="a" hint-placeholder-count="6">
+              <div sc-camel-on-click="{{ a.onOpen }}" style="cursor:pointer;border-top:1px solid #e5e7eb;display:grid;grid-template-columns:1.2fr 2.2fr 1.1fr 1fr 1.1fr 1.1fr 40px;gap:14px;align-items:center;padding:14px 20px;transition:background 140ms ease-out;" style-hover="background:#f4f4f4;">
+                <div style="min-width:0;">
+                  <div style="font-size:15px;font-weight:600;color:#101010;font-variant-numeric:tabular-nums;">{{ a.nr }}</div>
+                  <div style="font-size:12.5px;color:#646b76;font-variant-numeric:tabular-nums;">{{ a.datum }}</div>
+                </div>
+                <div style="min-width:0;">
+                  <div style="font-size:14.5px;color:#101010;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">{{ a.kunde }}</div>
+                  <div style="font-size:12.5px;color:#646b76;">{{ a.kontakt }}</div>
+                </div>
+                <div style="font-size:14px;color:#545b66;">{{ a.positionen }}</div>
+                <div style="font-size:14.5px;color:#101010;font-variant-numeric:tabular-nums;">{{ a.gueltig }}</div>
+                <div style="text-align:right;font-size:16px;font-weight:700;color:#101010;font-variant-numeric:tabular-nums;white-space:nowrap;">{{ a.summe }}</div>
+                <div><span style="height:28px;padding:0 12px;border-radius:999px;background:{{ a.statusBg }};color:{{ a.statusFg }};font-size:13px;font-weight:600;display:inline-flex;align-items:center;white-space:nowrap;">{{ a.status }}</span></div>
+                <div style="display:flex;justify-content:flex-end;color:#545b66;"><svg sc-camel-view-box="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6"></path></svg></div>
+              </div>
+            </sc-for>
+            <sc-if value="{{ agLeer }}" hint-placeholder-val="{{ false }}">
+              <div style="padding:48px 20px;text-align:center;color:#646b76;font-size:15px;border-top:1px solid #e5e7eb;">Kein Angebot gefunden.</div>
+            </sc-if>
+          </div>
+        </div>
+        <div style="font-size:12.5px;color:#646b76;">Design-Prototyp — Angebote sind Beispieldaten.</div>
+        </sc-if>
+
+        <sc-if value="{{ agEditor }}" hint-placeholder-val="{{ false }}">
+        <div style="display:flex;align-items:flex-start;justify-content:space-between;gap:24px;flex-wrap:wrap;row-gap:14px;">
+          <div style="min-width:0;">
+            <button sc-camel-on-click="{{ onAgZurueck }}" style="appearance:none;cursor:pointer;border:0;background:transparent;padding:0;display:flex;align-items:center;gap:6px;font-size:12px;letter-spacing:.14em;text-transform:uppercase;font-weight:600;color:#545b66;" style-hover="color:#101010;"><svg sc-camel-view-box="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 6l-6 6 6 6"></path></svg>Alle Angebote</button>
+            <div style="display:flex;align-items:center;gap:14px;flex-wrap:wrap;margin-top:6px;">
+              <div class="zk-titel" style="font-family:'Poppins',sans-serif;font-size:34px;font-weight:600;line-height:1.1;color:#101010;font-variant-numeric:tabular-nums;">{{ agNr }}</div>
+              <span style="height:30px;padding:0 13px;border-radius:999px;background:{{ agStatusBg }};color:{{ agStatusFg }};font-size:13.5px;font-weight:600;display:inline-flex;align-items:center;">{{ agStatus }}</span>
+            </div>
+            <div style="font-size:16px;color:#545b66;margin-top:6px;">Erstellt am {{ agDatum }} von {{ agBearbeiter }}</div>
+          </div>
+        </div>
+
+        <sc-if value="{{ agHatMeldung }}" hint-placeholder-val="{{ false }}">
+          <div style="display:flex;align-items:center;gap:10px;padding:14px 18px;border-radius:10px;background:#dcf3e6;color:#0d5f38;font-size:15px;font-weight:600;">
+            <svg sc-camel-view-box="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"></path></svg>{{ agMeldung }}
+          </div>
+        </sc-if>
+
+        <div style="display:flex;gap:18px;align-items:flex-start;flex-wrap:wrap;">
+          <div style="flex:1 1 580px;min-width:0;display:flex;flex-direction:column;gap:16px;">
+
+            <div style="background:#FFFFFF;border:1px solid #e5e7eb;border-radius:16px;padding:20px 22px;display:flex;flex-direction:column;gap:16px;">
+              <div style="font-size:12px;letter-spacing:.12em;text-transform:uppercase;font-weight:600;color:#545b66;">Kunde &amp; Konditionen</div>
+              <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(220px,100%),1fr));gap:14px;">
+                <label style="display:flex;flex-direction:column;gap:6px;grid-column:span 2;min-width:0;">
+                  <span style="font-size:13px;color:#545b66;">Kunde</span>
+                  <sc-raw-select value="{{ agKundeNr }}" sc-camel-on-change="{{ onAgKunde }}" style="height:48px;border:1px solid #e5e7eb;border-radius:14px;padding:0 14px;font-size:15.5px;color:#101010;background:#FFFFFF;outline:none;min-width:0;">
+                    <sc-for list="{{ agKundenOptionen }}" as="o" hint-placeholder-count="4"><option value="{{ o.nr }}">{{ o.label }}</option></sc-for>
+                  </sc-raw-select>
+                </label>
+                <sc-if value="{{ agIstBar }}" hint-placeholder-val="{{ false }}">
+                <label style="display:flex;flex-direction:column;gap:6px;grid-column:span 2;min-width:0;">
+                  <span style="font-size:13px;color:#545b66;">Bezeichnung (optional) — z. B. Vorname oder Merkmal, damit ihr das Angebot wiederfindet</span>
+                  <input value="{{ agBarName }}" sc-camel-on-change="{{ onAgBarName }}" placeholder="z. B. Herr mit Surfski-Anfrage" style="height:48px;border:1px solid #e5e7eb;border-radius:14px;padding:0 14px;font-size:15.5px;color:#101010;background:#FFFFFF;outline:none;min-width:0;">
+                </label>
+                </sc-if>
+                <label style="display:flex;flex-direction:column;gap:6px;min-width:0;">
+                  <span style="font-size:13px;color:#545b66;">Gültig bis</span>
+                  <input value="{{ agGueltig }}" sc-camel-on-change="{{ onAgGueltig }}" placeholder="TT.MM.JJJJ" style="height:48px;border:1px solid #e5e7eb;border-radius:14px;padding:0 14px;font-size:15.5px;color:#101010;background:#FFFFFF;outline:none;font-variant-numeric:tabular-nums;min-width:0;">
+                </label>
+              </div>
+              <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(170px,100%),1fr));gap:12px 24px;padding:14px 16px;background:#f4f4f4;border-radius:14px;font-size:14px;color:#545b66;">
+                <div style="display:flex;flex-direction:column;gap:2px;min-width:0;"><span style="font-size:12.5px;color:#646b76;">Ansprechpartner</span><span style="color:#101010;font-weight:600;overflow-wrap:anywhere;line-height:1.35;">{{ agKundeKontakt }}</span></div>
+                <div style="display:flex;flex-direction:column;gap:2px;min-width:0;"><span style="font-size:12.5px;color:#646b76;">E-Mail</span><span style="color:#101010;overflow-wrap:anywhere;line-height:1.35;">{{ agKundeMail }}</span></div>
+                <div style="display:flex;flex-direction:column;gap:2px;min-width:0;"><span style="font-size:12.5px;color:#646b76;">Zahlung</span><span style="color:#101010;overflow-wrap:anywhere;line-height:1.35;">{{ agKundeZahlung }}</span></div>
+                <div style="display:flex;flex-direction:column;gap:2px;min-width:0;"><span style="font-size:12.5px;color:#646b76;">Kundenrabatt</span><span style="color:#101010;font-weight:600;overflow-wrap:anywhere;line-height:1.35;">{{ agKundeRabatt }}</span></div>
+              </div>
+            </div>
+
+            <div style="background:#FFFFFF;border:1px solid #e5e7eb;border-radius:16px;padding:20px 22px;display:flex;flex-direction:column;gap:16px;">
+              <div style="display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;">
+                <div style="font-size:12px;letter-spacing:.12em;text-transform:uppercase;font-weight:600;color:#545b66;">Positionen</div>
+                <button sc-camel-on-click="{{ onAgFreiePos }}" style="appearance:none;cursor:pointer;height:38px;padding:0 14px;border-radius:6px;border:1px solid #e5e7eb;background:#FFFFFF;color:#101010;font-size:14px;font-weight:600;display:flex;align-items:center;gap:7px;" style-hover="background:#f4f4f4;"><svg sc-camel-view-box="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 5v14M5 12h14"></path></svg>Freie Position</button>
+              </div>
+              <div style="position:relative;">
+                <div style="display:flex;align-items:center;gap:12px;height:50px;padding:0 18px;background:#FFFFFF;border:1px solid #e5e7eb;border-radius:999px;">
+                  <svg sc-camel-view-box="0 0 24 24" width="19" height="19" fill="none" stroke="#545b66" stroke-width="1.8" stroke-linecap="round"><circle cx="11" cy="11" r="7"></circle><path d="M20 20l-3.6-3.6"></path></svg>
+                  <input value="{{ agArtSuche }}" sc-camel-on-change="{{ onAgArtSuche }}" placeholder="Artikel hinzufügen — Name, Marke oder Artikelnummer" style="flex:1;min-width:0;border:0;outline:none;background:transparent;font-size:15.5px;color:#101010;">
+                </div>
+                <sc-if value="{{ agHatArtTreffer }}" hint-placeholder-val="{{ false }}">
+                  <div style="margin-top:8px;border:1px solid #e5e7eb;border-radius:10px;overflow:hidden;background:#FFFFFF;">
+                    <sc-for list="{{ agArtTreffer }}" as="t" hint-placeholder-count="3">
+                      <div sc-camel-on-click="{{ t.onAdd }}" style="cursor:pointer;display:grid;grid-template-columns:minmax(0,1fr) auto auto 32px;gap:14px;align-items:center;padding:12px 16px;border-top:1px solid #eef0f2;" style-hover="background:#f4f4f4;">
+                        <div style="min-width:0;"><div style="font-size:14.5px;font-weight:600;color:#101010;">{{ t.name }}</div><div style="font-size:12.5px;color:#646b76;">{{ t.info }}</div></div>
+                        <div style="font-size:13px;color:{{ t.bestandFg }};white-space:nowrap;">{{ t.bestand }}</div>
+                        <div style="font-size:14.5px;font-weight:700;color:#101010;font-variant-numeric:tabular-nums;white-space:nowrap;">{{ t.preis }}</div>
+                        <div style="width:32px;height:32px;border-radius:10px;background:#101010;color:#FFFFFF;display:flex;align-items:center;justify-content:center;"><svg sc-camel-view-box="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M12 5v14M5 12h14"></path></svg></div>
+                      </div>
+                    </sc-for>
+                  </div>
+                </sc-if>
+              </div>
+
+              <div style="overflow-x:auto;">
+                <div style="min-width:{{ agPosMinBreite }};">
+                  <div style="display:grid;grid-template-columns:22px minmax(90px,2.4fr) 108px 92px 68px 92px 30px;gap:10px;padding:0 0 10px 0;font-size:12px;letter-spacing:.1em;text-transform:uppercase;font-weight:600;color:#646b76;border-bottom:1px solid #e5e7eb;">
+                    <div>#</div><div>Bezeichnung</div><div>Menge</div><div>Einzelpreis</div><div>Rabatt</div><div style="text-align:right;">Summe</div><div></div>
+                  </div>
+                  <sc-for list="{{ agPositionen }}" as="p" hint-placeholder-count="3">
+                    <div style="border-bottom:1px solid #eef0f2;">
+                    <div style="display:grid;grid-template-columns:22px minmax(90px,2.4fr) 108px 92px 68px 92px 30px;gap:10px;align-items:center;padding:12px 0;">
+                      <div style="font-size:13px;color:#646b76;font-variant-numeric:tabular-nums;">{{ p.nr }}</div>
+                      <div style="min-width:0;display:flex;flex-direction:column;gap:2px;">
+                        <input value="{{ p.name }}" sc-camel-on-change="{{ p.onName }}" style="border:0;outline:none;background:transparent;font-size:15px;font-weight:600;color:#101010;padding:0;min-width:0;">
+                        <div style="font-size:12.5px;color:#646b76;">{{ p.sku }}</div>
+                      </div>
+                      <div style="display:flex;align-items:center;height:40px;border:1px solid #e5e7eb;border-radius:12px;overflow:hidden;">
+                        <button sc-camel-on-click="{{ p.onMinus }}" style="appearance:none;cursor:pointer;width:38px;height:100%;border:0;background:#FFFFFF;color:#101010;font-size:18px;" style-hover="background:#f4f4f4;">−</button>
+                        <div style="flex:1;text-align:center;font-size:15px;font-weight:600;font-variant-numeric:tabular-nums;color:#101010;">{{ p.menge }}</div>
+                        <button sc-camel-on-click="{{ p.onPlus }}" style="appearance:none;cursor:pointer;width:38px;height:100%;border:0;background:#FFFFFF;color:#101010;font-size:18px;" style-hover="background:#f4f4f4;">+</button>
+                      </div>
+                      <div style="display:flex;align-items:center;height:40px;border:1px solid #e5e7eb;border-radius:12px;padding:0 10px;gap:4px;"><input value="{{ p.preis }}" sc-camel-on-change="{{ p.onPreis }}" style="flex:1;min-width:0;border:0;outline:none;background:transparent;font-size:14.5px;text-align:right;font-variant-numeric:tabular-nums;color:#101010;"><span style="font-size:13px;color:#646b76;">€</span></div>
+                      <div style="display:flex;align-items:center;height:40px;border:1px solid #e5e7eb;border-radius:12px;padding:0 10px;gap:4px;"><input value="{{ p.rabatt }}" sc-camel-on-change="{{ p.onRabatt }}" style="flex:1;min-width:0;border:0;outline:none;background:transparent;font-size:14.5px;text-align:right;font-variant-numeric:tabular-nums;color:#101010;"><span style="font-size:13px;color:#646b76;">%</span></div>
+                      <div style="text-align:right;font-size:15px;font-weight:700;color:#101010;font-variant-numeric:tabular-nums;white-space:nowrap;">{{ p.summe }}</div>
+                      <button sc-camel-on-click="{{ p.onEntf }}" title="Position entfernen" style="appearance:none;cursor:pointer;width:34px;height:34px;border-radius:6px;border:0;background:transparent;color:#646b76;display:flex;align-items:center;justify-content:center;" style-hover="background:#fde0e2;color:#9b1520;"><svg sc-camel-view-box="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M4 7h16M10 11v6M14 11v6M6 7l1 13h10l1-13M9 7V4h6v3"></path></svg></button>
+                    </div>
+                    <sc-if value="{{ p.hatIds }}" hint-placeholder-val="{{ false }}">
+                      <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;padding:0 0 12px 32px;">
+                        <span style="font-size:12px;letter-spacing:.08em;text-transform:uppercase;font-weight:600;color:#545b66;">Paddel-ID</span>
+                        <sc-for list="{{ p.ids }}" as="pid" hint-placeholder-count="2"><span style="height:28px;padding:0 10px;border-radius:999px;background:#f4f4f4;border:1px solid #e5e7eb;color:#101010;font-size:12.5px;font-weight:600;font-variant-numeric:tabular-nums;display:inline-flex;align-items:center;">{{ pid }}</span></sc-for>
+                      </div>
+                    </sc-if>
+                    </div>
+                  </sc-for>
+                  <sc-if value="{{ agKeinePos }}" hint-placeholder-val="{{ false }}">
+                    <div style="padding:36px 0;text-align:center;color:#646b76;font-size:15px;">Noch keine Positionen — Artikel über die Suche hinzufügen.</div>
+                  </sc-if>
+                </div>
+              </div>
+            </div>
+
+            <div style="background:#FFFFFF;border:1px solid #e5e7eb;border-radius:16px;padding:20px 22px;display:flex;flex-direction:column;gap:12px;">
+              <div style="font-size:12px;letter-spacing:.12em;text-transform:uppercase;font-weight:600;color:#545b66;">Anmerkung zum Angebot</div>
+              <textarea value="{{ agNotiz }}" sc-camel-on-change="{{ onAgNotiz }}" rows="3" placeholder="z. B. Lieferzeit, Sonderkonditionen, Hinweise für den Kunden" style="border:1px solid #e5e7eb;border-radius:14px;padding:12px 14px;font-size:15px;line-height:1.45;color:#101010;background:#FFFFFF;outline:none;resize:vertical;font-family:inherit;"></textarea>
+            </div>
+          </div>
+
+          <div style="flex:1 1 300px;max-width:400px;min-width:0;position:sticky;top:0;display:flex;flex-direction:column;gap:16px;">
+            <div style="background:#FFFFFF;border:1px solid #e5e7eb;border-radius:16px;padding:20px 22px;display:flex;flex-direction:column;gap:12px;">
+              <div style="font-size:12px;letter-spacing:.12em;text-transform:uppercase;font-weight:600;color:#545b66;">Summe</div>
+              <div style="display:flex;justify-content:space-between;font-size:14.5px;color:#545b66;"><span>Listenpreis</span><span style="font-variant-numeric:tabular-nums;color:#101010;">{{ agListenSumme }}</span></div>
+              <div style="display:flex;justify-content:space-between;font-size:14.5px;color:#545b66;"><span>Rabatt</span><span style="font-variant-numeric:tabular-nums;color:#0d5f38;">{{ agRabattSumme }}</span></div>
+              <div style="display:flex;justify-content:space-between;font-size:14.5px;color:#545b66;"><span>Netto</span><span style="font-variant-numeric:tabular-nums;color:#101010;">{{ agNetto }}</span></div>
+              <div style="display:flex;justify-content:space-between;font-size:14.5px;color:#545b66;"><span>zzgl. 19 % USt</span><span style="font-variant-numeric:tabular-nums;color:#101010;">{{ agUst }}</span></div>
+              <div style="display:flex;justify-content:space-between;align-items:baseline;border-top:1px solid #e5e7eb;padding-top:12px;"><span style="font-size:15px;font-weight:600;color:#101010;">Gesamt brutto</span><span style="font-family:'Poppins',sans-serif;font-size:32px;font-weight:600;color:#101010;font-variant-numeric:tabular-nums;">{{ agGesamt }}</span></div>
+            </div>
+
+            <div style="display:flex;flex-direction:column;gap:10px;">
+              <sc-if value="{{ agHatPaddelQr }}" hint-placeholder-val="{{ false }}">
+                <div style="display:flex;flex-direction:column;gap:6px;">
+                  <button sc-camel-on-click="{{ onAgQr }}" style="appearance:none;cursor:pointer;height:52px;border-radius:6px;border:2px solid #101010;background:#FFFFFF;color:#101010;font-size:16px;font-weight:600;display:flex;align-items:center;justify-content:center;gap:9px;"><svg sc-camel-view-box="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"><path d="M4 4h6v6H4zM14 4h6v6h-6zM4 14h6v6H4zM14 14h2.5v2.5H14zM17.5 17.5H20V20h-2.5zM14 19h2M19 14v2"></path></svg>{{ agQrLabel }}</button>
+                  <div style="font-size:12.5px;color:#545b66;text-align:center;">{{ agQrLog }}</div>
+                </div>
+              </sc-if>
+              <sc-if value="{{ agIstAngenommen }}" hint-placeholder-val="{{ false }}">
+                <button sc-camel-on-click="{{ onAgKasse }}" style="appearance:none;cursor:pointer;height:52px;border-radius:6px;border:0;background:#EF3D2F;color:#FFFFFF;font-size:16px;font-weight:600;display:flex;align-items:center;justify-content:center;gap:9px;" style-hover="background:#FF4E3F;"><svg sc-camel-view-box="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M3 10h18M5 6h14a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2zM7 15h4"></path></svg>In Kasse übernehmen</button>
+              </sc-if>
+              <button sc-camel-on-click="{{ onAgVorschau }}" style="appearance:none;cursor:pointer;height:52px;border-radius:6px;border:0;background:{{ agVorschauBg }};color:{{ agVorschauFg }};font-size:16px;font-weight:600;display:flex;align-items:center;justify-content:center;gap:9px;box-shadow:inset 0 0 0 1px #101010;"><svg sc-camel-view-box="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M2.5 12S6 5.5 12 5.5 21.5 12 21.5 12 18 18.5 12 18.5 2.5 12 2.5 12z"></path><circle cx="12" cy="12" r="3"></circle></svg>{{ agVorschauLabel }}</button>
+              <sc-if value="{{ agIstVersendet }}" hint-placeholder-val="{{ false }}">
+                <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;">
+                  <button sc-camel-on-click="{{ onAgAngenommen }}" style="appearance:none;cursor:pointer;height:48px;border-radius:6px;border:0;background:#dcf3e6;color:#0d5f38;font-size:15px;font-weight:600;" style-hover="background:#cdebd9;">Angenommen</button>
+                  <button sc-camel-on-click="{{ onAgAbgelehnt }}" style="appearance:none;cursor:pointer;height:48px;border-radius:6px;border:0;background:#fde0e2;color:#9b1520;font-size:15px;font-weight:600;" style-hover="background:#f8d3d6;">Abgelehnt</button>
+                </div>
+              </sc-if>
+              <button sc-camel-on-click="{{ onAgSpeichern }}" style="appearance:none;cursor:pointer;height:48px;border-radius:6px;border:1px solid #e5e7eb;background:#FFFFFF;color:#101010;font-size:15px;font-weight:600;" style-hover="background:#f4f4f4;">{{ agSpeichernLabel }}</button>
+              <div style="display:flex;gap:10px;">
+                <button sc-camel-on-click="{{ onAgDuplizieren }}" style="appearance:none;cursor:pointer;flex:1;height:44px;border-radius:6px;border:0;background:transparent;color:#545b66;font-size:14.5px;font-weight:600;" style-hover="background:#eef0f2;color:#101010;">Duplizieren</button>
+                <sc-if value="{{ agLoeschbar }}" hint-placeholder-val="{{ false }}">
+                  <button sc-camel-on-click="{{ onAgLoeschen }}" style="appearance:none;cursor:pointer;flex:1;height:44px;border-radius:6px;border:0;background:transparent;color:#9b1520;font-size:14.5px;font-weight:600;" style-hover="background:#fde0e2;">Löschen</button>
+                </sc-if>
+              </div>
+            </div>
+          </div>
+        </div>
+        </sc-if>
+
+        <sc-if value="{{ agVorschau }}" hint-placeholder-val="{{ false }}">
+          <div style="position:fixed;inset:0;z-index:70;background:rgba(9,10,11,.62);display:flex;flex-direction:column;align-items:center;padding:24px;overflow-y:auto;">
+            <div style="width:100%;max-width:840px;display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;margin-bottom:14px;">
+              <div style="font-size:13px;letter-spacing:.14em;text-transform:uppercase;font-weight:600;color:#e5e7eb;">Vorschau · {{ agNr }}</div>
+              <div style="display:flex;gap:8px;flex-wrap:wrap;">
+                <button sc-camel-on-click="{{ onAgVorschauZu }}" style="appearance:none;cursor:pointer;height:44px;padding:0 18px;border-radius:6px;border:0;background:#FFFFFF;color:#101010;font-size:14.5px;font-weight:600;">Bearbeiten</button>
+                <button sc-camel-on-click="{{ onAgPdf }}" style="appearance:none;cursor:pointer;height:44px;padding:0 18px;border-radius:6px;border:0;background:#FFFFFF;color:#101010;font-size:14.5px;font-weight:600;">PDF erzeugen</button>
+                <button sc-camel-on-click="{{ onAgSenden }}" style="appearance:none;cursor:pointer;height:44px;padding:0 18px;border-radius:6px;border:0;background:#0d5f38;color:#FFFFFF;font-size:14.5px;font-weight:600;display:flex;align-items:center;gap:8px;"><svg sc-camel-view-box="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6h18v12H3zM3 7l9 6 9-6"></path></svg>Per Mail senden</button>
+              </div>
+            </div>
+            <div style="width:100%;max-width:840px;background:#FFFFFF;border-radius:6px;padding:56px 60px;display:flex;flex-direction:column;gap:30px;color:#101010;box-shadow:0 20px 60px rgba(0,0,0,.35);">
+              <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:24px;flex-wrap:wrap;">
+                <img src="assets/img/zykol-logo.png" alt="zykol" style="height:46px;width:auto;display:block;">
+                <div style="font-size:12.5px;color:#545b66;line-height:1.5;text-align:right;">zykol Wassersport<br>28857 Syke<br>info@zykol.de</div>
+              </div>
+              <div style="display:flex;justify-content:space-between;gap:24px;flex-wrap:wrap;">
+                <div style="font-size:14.5px;line-height:1.5;">
+                  <div style="font-size:11px;color:#646b76;border-bottom:1px solid #e5e7eb;padding-bottom:4px;margin-bottom:8px;">zykol Wassersport · 28857 Syke</div>
+                  <div style="font-weight:600;">{{ agKundeName }}</div>
+                  <div>z. Hd. {{ agKundeKontakt }}</div>
+                  <div>{{ agKundeOrt }}</div>
+                </div>
+                <div style="display:grid;grid-template-columns:auto auto;gap:4px 18px;font-size:13.5px;align-self:flex-end;">
+                  <span style="color:#545b66;">Angebot</span><span style="font-weight:600;font-variant-numeric:tabular-nums;">{{ agNr }}</span>
+                  <span style="color:#545b66;">Kunden-Nr.</span><span style="font-variant-numeric:tabular-nums;">{{ agKundeNr }}</span>
+                  <span style="color:#545b66;">Datum</span><span style="font-variant-numeric:tabular-nums;">{{ agDatum }}</span>
+                  <span style="color:#545b66;">Gültig bis</span><span style="font-variant-numeric:tabular-nums;">{{ agGueltig }}</span>
+                  <span style="color:#545b66;">Ansprechpartner</span><span>{{ agBearbeiter }}</span>
+                </div>
+              </div>
+              <div>
+                <div class="zk-titel" style="font-family:'Poppins',sans-serif;font-size:34px;font-weight:600;line-height:1;">Angebot</div>
+                <div style="font-size:14.5px;color:#1f2329;line-height:1.55;margin-top:10px;text-wrap:pretty;">Sehr geehrte Damen und Herren, vielen Dank für Ihre Anfrage. Gerne unterbreiten wir Ihnen folgendes Angebot:</div>
+              </div>
+              <div>
+                <div style="display:grid;grid-template-columns:28px minmax(0,1fr) 54px 96px 60px 104px;gap:10px;padding:8px 0;border-bottom:2px solid #101010;font-size:11.5px;letter-spacing:.08em;text-transform:uppercase;font-weight:600;color:#545b66;">
+                  <div>Pos.</div><div>Bezeichnung</div><div style="text-align:right;">Menge</div><div style="text-align:right;">Einzelpreis</div><div style="text-align:right;">Rabatt</div><div style="text-align:right;">Gesamt</div>
+                </div>
+                <sc-for list="{{ agVorschauZeilen }}" as="v" hint-placeholder-count="3">
+                  <div style="display:grid;grid-template-columns:28px minmax(0,1fr) 54px 96px 60px 104px;gap:10px;padding:10px 0;border-bottom:1px solid #e5e7eb;font-size:13.5px;font-variant-numeric:tabular-nums;">
+                    <div style="color:#545b66;">{{ v.nr }}</div>
+                    <div style="min-width:0;"><div style="font-weight:600;">{{ v.name }}</div><div style="font-size:12px;color:#646b76;">{{ v.sku }}</div><sc-if value="{{ v.hatIds }}" hint-placeholder-val="{{ false }}"><div style="font-size:12px;color:#101010;margin-top:2px;">Paddel-ID: {{ v.idText }}</div></sc-if></div>
+                    <div style="text-align:right;">{{ v.menge }}</div>
+                    <div style="text-align:right;">{{ v.einzel }}</div>
+                    <div style="text-align:right;color:#545b66;">{{ v.rabatt }}</div>
+                    <div style="text-align:right;font-weight:600;">{{ v.summe }}</div>
+                  </div>
+                </sc-for>
+                <div style="display:flex;justify-content:flex-end;margin-top:16px;">
+                  <div style="width:100%;max-width:300px;display:flex;flex-direction:column;gap:6px;font-size:13.5px;font-variant-numeric:tabular-nums;">
+                    <div style="display:flex;justify-content:space-between;"><span style="color:#545b66;">Netto</span><span>{{ agNetto }}</span></div>
+                    <div style="display:flex;justify-content:space-between;"><span style="color:#545b66;">zzgl. 19 % USt</span><span>{{ agUst }}</span></div>
+                    <div style="display:flex;justify-content:space-between;border-top:2px solid #101010;padding-top:8px;margin-top:4px;font-size:16px;font-weight:700;"><span>Gesamtbetrag</span><span>{{ agGesamt }}</span></div>
+                  </div>
+                </div>
+              </div>
+              <sc-if value="{{ agHatNotiz }}" hint-placeholder-val="{{ false }}">
+                <div style="font-size:13.5px;line-height:1.55;color:#1f2329;text-wrap:pretty;"><span style="font-weight:600;">Hinweis: </span>{{ agNotiz }}</div>
+              </sc-if>
+              <div style="font-size:13px;line-height:1.55;color:#545b66;text-wrap:pretty;">Zahlungsbedingung: {{ agKundeZahlung }}. Dieses Angebot ist gültig bis {{ agGueltig }}. Wir freuen uns auf Ihren Auftrag.<br>Mit freundlichen Grüßen<br>{{ agBearbeiter }}</div>
+              <div style="border-top:1px solid #e5e7eb;padding-top:12px;font-size:11px;color:#646b76;">zykol Wassersport · 28857 Syke · info@zykol.de</div>
+            </div>
+          </div>
+        </sc-if>
+      </div>
+      </sc-if>

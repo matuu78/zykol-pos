@@ -556,6 +556,7 @@
         return !q || (b.modell + ' ' + b.sn + ' ' + b.kunde + ' ' + b.beleg).toLowerCase().includes(q);
       }).length === 0,
       ...this.angebotVals(st),
+      ...this.bestellbelegListeVals(st),
       ...this.kalenderVals(st),
       ...this.dashboardVals(st),
       einstellungenView: st.view === 'einstellungen',
@@ -1900,7 +1901,7 @@
         weight: n.id === st.view ? 600 : 500,
         justify: st.navOffen ? 'flex-start' : 'center',
         padding: st.navOffen ? '0 16px' : '0',
-        onClick: () => !st.navEdit && ['dashboard', 'kasse', 'artikel', 'transaktionen', 'kunden', 'berichte', 'umsatz', 'bestand', 'lieferanten', 'verkaufteBoote', 'angebote', 'kalender', 'einstellungen'].includes(n.id) && this.setState({view: n.id, cat: 'alle', suche: '', einstellTab: n.id === 'einstellungen' ? null : st.einstellTab})
+        onClick: () => !st.navEdit && ['dashboard', 'kasse', 'artikel', 'transaktionen', 'kunden', 'berichte', 'umsatz', 'bestand', 'lieferanten', 'verkaufteBoote', 'angebote', 'bestellbelege', 'kalender', 'einstellungen'].includes(n.id) && this.setState({view: n.id, cat: 'alle', suche: '', einstellTab: n.id === 'einstellungen' ? null : st.einstellTab})
       })),
       navTipAn: !!st.navTip && !st.navOffen, navTipText: st.navTip ? st.navTip.text : '',
       navTipX: st.navTip ? st.navTip.x + 'px' : '0px', navTipY: st.navTip ? st.navTip.y + 'px' : '0px',
@@ -2264,7 +2265,7 @@
       onFussKorb: () => st.view === 'kasse' ? this.setState(s => ({korbOffen: !s.korbOffen})) : this.setState(Object.assign(this.zurKassePatch(), {korbOffen: true})),
       kasseToastDa: !!st.kasseToast,
       kasseToastText: st.kasseToast ? st.kasseToast.text : '',
-      onKasseToastOeffnen: () => { const nr = st.kasseToast && st.kasseToast.nr; const a = (st.angebote || ANGEBOTE_START).find(x => x.nr === nr); clearTimeout(this._ktT); this.setState(a ? {kasseToast: null, korbOffen: tablet ? false : st.korbOffen, view: 'angebote', agEdit: JSON.parse(JSON.stringify(a)), agArtSuche: '', agVorschau: false} : {kasseToast: null}); },
+      onKasseToastOeffnen: () => { const nr = st.kasseToast && st.kasseToast.nr; const a = (st.angebote || ANGEBOTE_START).find(x => x.nr === nr); clearTimeout(this._ktT); const bbE = !a && (st.bestellbelege || []).find(x => x.nr === nr); this.setState(a ? {kasseToast: null, korbOffen: tablet ? false : st.korbOffen, view: 'angebote', agEdit: JSON.parse(JSON.stringify(a)), agArtSuche: '', agVorschau: false} : bbE ? {kasseToast: null, bb: null, bbAuf: {}, korbOffen: tablet ? false : st.korbOffen, view: 'bestellbelege', bblOffen: nr, bblFilter: null, bblSuche: ''} : {kasseToast: null}); },
       onKasseToastZu: () => { clearTimeout(this._ktT); this.setState({kasseToast: null}); },
       korbAngebotSichtbar: warenkorb.length > 0 && !!this.meineRechte()['Angebote erstellen & versenden'],
       onKorbAlsAngebot: () => {

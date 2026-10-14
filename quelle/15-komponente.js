@@ -174,6 +174,55 @@ class Component extends DCLogic {
     document.documentElement.lang = lang;
     if (this._mo) this._mo.takeRecords();
   }
+  bestellbelegListeVals(st) {
+    const alle = st.bestellbelege || BB_START;
+    const STIL = {Bestellt: ['#fdebc8', '#6b4200'], Abholbereit: ['#dcf3e6', '#0d5f38'], 'Übergeben': ['#e5e7eb', '#545b66']};
+    const q = (st.bblSuche || '').trim().toLowerCase();
+    const treffer = alle.filter(e => !q || (e.nr + ' ' + e.name + ' ' + e.tel + ' ' + e.pos.map(p => p.titel + ' ' + p.pers).join(' ')).toLowerCase().includes(q))
+      .filter(e => !st.bblFilter || e.status === st.bblFilter);
+    const setStatus = (nr, status) => this.setState(s => ({bestellbelege: (s.bestellbelege || BB_START).map(x => x.nr === nr ? Object.assign({}, x, {status}) : x)}));
+    const esc = t => String(t == null ? '' : t).replace(/[&<>"]/g, c => ({'&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;'}[c]));
+    const drucke = e => {
+      const innen = e.html || ('<div style="max-width:720px;margin:0 auto;padding:24px;font-family:Inter,sans-serif;color:#101010;"><div style="font-size:12px;letter-spacing:.12em;text-transform:uppercase;font-weight:600;color:#545b66;">Bestellbeleg</div><h1 style="font-family:Poppins,Inter,sans-serif;font-size:28px;margin:4px 0 6px;">' + esc(e.nr) + '</h1>'
+        + '<div style="color:#545b66;margin-bottom:18px;">' + esc(e.datum) + ' · ' + esc(e.kasse) + ' · ' + esc(e.bearbeiter) + '</div>'
+        + '<div style="margin-bottom:16px;"><b>' + esc(e.name) + '</b><br>' + esc(e.tel) + '<br>' + esc(e.mail) + '<br>' + esc(e.art) + (e.termin ? ' ab ' + esc(e.termin) : '') + (e.anzahlung ? ' · Anzahlung ' + EUR(e.anzahlung) : '') + '</div>'
+        + '<table style="width:100%;border-collapse:collapse;">' + e.pos.map(p => '<tr><td style="padding:10px 0;border-bottom:1px solid #e5e7eb;"><b>' + esc(p.titel) + '</b><br><span style="color:#545b66;">' + esc(p.typ) + (p.pers ? ' · ' + esc(p.pers) : '') + '</span></td><td style="text-align:right;padding:10px 0;border-bottom:1px solid #e5e7eb;">× ' + esc(p.menge) + '</td></tr>').join('') + '</table>'
+        + (e.hinweis ? '<p style="color:#545b66;">' + esc(e.hinweis) + '</p>' : '') + '<div style="margin-top:40px;border-top:1px solid #101010;width:260px;padding-top:6px;font-size:12px;color:#545b66;">Unterschrift Kunde</div></div>');
+      this.druckeHtml('<!doctype html><html><head><meta charset="utf-8"><base hr' + 'ef="' + location.href + '"><title>' + esc(e.nr) + '</title><style>body{margin:0;font-family:Inter,sans-serif;}[data-seite]{box-shadow:none!important;margin:0 auto!important;}[data-seite]+[data-seite]{page-break-before:always;}@page{size:A4;margin:12mm;}</style></head><body>' + innen + '</body></html>', e.nr);
+    };
+    const zahl = s => alle.filter(e => e.status === s).length;
+    return {
+      bblView: st.view === 'bestellbelege',
+      bblSuche: st.bblSuche || '', hatBblSuche: !!q,
+      onBblSuche: e => this.setState({bblSuche: e.target.value}), onBblSucheLoeschen: () => this.setState({bblSuche: ''}),
+      bblKennzahlen: [
+        {label: 'Bestellt', value: String(zahl('Bestellt')), hint: 'Ware bestellt oder in Arbeit', color: '#6b4200'},
+        {label: 'Abholbereit', value: String(zahl('Abholbereit')), hint: 'Kunde kann abholen', color: '#0d5f38'},
+        {label: 'Übergeben', value: String(zahl('Übergeben')), hint: 'abgeschlossen', color: '#101010'},
+        {label: 'Anzahlungen offen', value: EUR(alle.filter(e => e.status !== 'Übergeben').reduce((a, e) => a + (e.anzahlung || 0), 0)), hint: 'bei nicht übergebenen Belegen', color: '#101010'}
+      ],
+      bblFilterChips: ['Alle', 'Bestellt', 'Abholbereit', 'Übergeben'].map(f => { const an = (st.bblFilter || 'Alle') === f; return {label: f, bg: an ? '#101010' : '#FFFFFF', fg: an ? '#FFFFFF' : '#101010', rand: an ? '#101010' : '#e5e7eb', onClick: () => this.setState({bblFilter: f === 'Alle' ? null : f})}; }),
+      bblListe: treffer.map(e => {
+        const offen = st.bblOffen === e.nr;
+        const s = STIL[e.status] || STIL.Bestellt;
+        return {
+          nr: e.nr, datum: e.datum + (e.zeit ? ', ' + e.zeit : ''), name: e.name, tel: e.tel || '—',
+          uebergabe: e.art + (e.termin ? ' ab ' + e.termin : ''), anzahl: e.pos.length === 1 ? '1 Position' : e.pos.length + ' Positionen',
+          anzahlungStr: e.anzahlung ? EUR(e.anzahlung) : '—', summeStr: EUR(e.summe || 0),
+          status: e.status, statusBg: s[0], statusFg: s[1],
+          offen, pfeil: offen ? 'M6 15l6-6 6 6' : 'M6 9l6 6 6-6', rowBg: offen ? '#FFFFFF' : 'transparent',
+          onToggle: () => this.setState({bblOffen: offen ? null : e.nr}),
+          pos: e.pos.map(p => ({titel: p.titel, typ: p.typ, menge: '× ' + p.menge, pers: p.pers || 'Ohne Personalisierung'})),
+          hinweis: e.hinweis || '', hatHinweis: !!e.hinweis,
+          fuss: 'Erstellt ' + e.datum + ' · ' + e.kasse + ' · ' + e.bearbeiter + ' · Gesamt ' + EUR(e.summe || 0),
+          statusKnoepfe: ['Bestellt', 'Abholbereit', 'Übergeben'].map(z => ({label: z, bg: z === e.status ? '#101010' : '#FFFFFF', fg: z === e.status ? '#FFFFFF' : '#101010', rand: z === e.status ? '#101010' : '#e5e7eb', onClick: () => setStatus(e.nr, z)})),
+          onDrucken: () => drucke(e)
+        };
+      }),
+      bblLeer: treffer.length === 0
+    };
+  }
+
   bestellbelegVals(warenkorb, brutto) {
     const st = this.state;
     const bb = st.bb;
@@ -211,7 +260,19 @@ class Component extends DCLogic {
       const w = window.open('', '_blank'); if (!w) return;
       w.document.write('<!doctype html><html><head><meta charset="utf-8"><base hr' + 'ef="' + location.href + '"><title>' + bb.nr + '</title><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Poppins:wght@600&display=swap" rel="stylesheet"><style>body{margin:0;font-family:Inter,sans-serif;}[data-seite]{box-shadow:none!important;margin:0 auto!important;}[data-seite]+[data-seite]{page-break-before:always;}@page{size:A4;margin:12mm;}</style></head><body>' + el.innerHTML + '</body></html>');
       w.document.close(); setTimeout(() => { w.focus(); w.print(); }, 500);
-      this.setState(s => ({bbZaehler: (s.bbZaehler || 0) + 1}));
+      const html = el.innerHTML;
+      this.setState(s => {
+        const alle = s.bestellbelege || BB_START;
+        const alt = alle.find(x => x.nr === bb.nr);
+        const jetzt = new Date();
+        const eintrag = {nr: bb.nr, datum: jetzt.toLocaleDateString('de-DE', {day: '2-digit', month: '2-digit', year: 'numeric'}), zeit: jetzt.toLocaleTimeString('de-DE', {hour: '2-digit', minute: '2-digit'}),
+          name: bb.name.trim() || 'Barkunde', tel: bb.tel, mail: bb.mail, art: bb.art, termin: bb.termin, anzahlung: num(bb.anzahlung), hinweis: bb.hinweis, summe: brutto,
+          kasse: s.aktiveKasseId || 'Verkaufsraum', bearbeiter: (s.angemeldet || {}).name || 'Marko Ahrens', status: alt ? alt.status : 'Bestellt',
+          pos: pos.map(p => ({titel: p.titel, typ: p.typ, menge: p.menge, pers: p.pers})), html};
+        return {bbZaehler: alt ? (s.bbZaehler || 0) : (s.bbZaehler || 0) + 1, bestellbelege: [eintrag].concat(alle.filter(x => x.nr !== bb.nr)),
+          kasseToast: {text: 'Bestellbeleg ' + bb.nr + (alt ? ' aktualisiert' : ' abgelegt') + ' — zu finden unter „Bestellbelege“.', nr: bb.nr}};
+      });
+      clearTimeout(this._ktT); this._ktT = setTimeout(() => this.setState({kasseToast: null}), 6000);
     };
     const tog = (k, lab, hint) => ({label: lab, hinweis: hint, an: !!bb[k], bg: bb[k] ? '#101010' : '#c9ccd1', pos: bb[k] ? 'flex-end' : 'flex-start', onClick: () => set({[k]: !bb[k]})});
     return {
@@ -1025,6 +1086,7 @@ class Component extends DCLogic {
       lieferanten: 'Lieferanten verwalten',
       verkaufteBoote: 'Bootsakten & Seriennummern pflegen',
       angebote: 'Angebote erstellen & versenden',
+      bestellbelege: 'Bestellbeleg personalisiert drucken',
       kunden: 'Kunden verwalten',
       transaktionen: 'Journal & Transaktionen einsehen',
       berichte: 'Berichte einsehen',

@@ -1869,6 +1869,23 @@ Logo|Logótipo
   D['Automatisches Backup · 03:00 Uhr'] = {en: 'Automatic backup · 03:00', fr: 'Sauvegarde automatique · 03:00', es: 'Copia automática · 03:00', pt: 'Cópia automática · 03:00'};
   D['Lieferanten · Mindestbestand unterschritten'] = {en: 'Suppliers · below minimum stock', fr: 'Fournisseurs · stock minimum dépassé', es: 'Proveedores · por debajo del stock mínimo', pt: 'Fornecedores · abaixo do stock mínimo'};
   D['Auf Rechnung abschließen'] = {en: 'Complete on invoice', fr: 'Clôturer sur facture', es: 'Cerrar con factura', pt: 'Concluir com fatura'};
+  D['Bestellbelege'] = {en: 'Order slips', fr: 'Bons de commande', es: 'Hojas de pedido', pt: 'Notas de encomenda'};
+  D['Jeder gedruckte Bestellbeleg wird hier abgelegt – mit Status bis zur Übergabe.'] = {en: 'Every printed order slip is filed here – with its status until handover.', fr: 'Chaque bon de commande imprimé est classé ici – avec son statut jusqu’à la remise.', es: 'Cada hoja de pedido impresa se archiva aquí, con su estado hasta la entrega.', pt: 'Cada nota de encomenda impressa fica guardada aqui – com o estado até à entrega.'};
+  D['Bestellt'] = {en: 'Ordered', fr: 'Commandé', es: 'Pedido', pt: 'Encomendado'};
+  D['Abholbereit'] = {en: 'Ready for pickup', fr: 'Prêt à retirer', es: 'Listo para recoger', pt: 'Pronto para levantamento'};
+  D['Übergeben'] = {en: 'Handed over', fr: 'Remis', es: 'Entregado', pt: 'Entregue'};
+  D['Ware bestellt oder in Arbeit'] = {en: 'Goods ordered or in progress', fr: 'Marchandise commandée ou en cours', es: 'Mercancía pedida o en curso', pt: 'Mercadoria encomendada ou em curso'};
+  D['Kunde kann abholen'] = {en: 'Customer can pick up', fr: 'Le client peut retirer', es: 'El cliente puede recoger', pt: 'O cliente pode levantar'};
+  D['abgeschlossen'] = {en: 'completed', fr: 'terminé', es: 'cerrado', pt: 'concluído'};
+  D['Anzahlungen offen'] = {en: 'Open deposits', fr: 'Acomptes en cours', es: 'Anticipos abiertos', pt: 'Sinais em aberto'};
+  D['bei nicht übergebenen Belegen'] = {en: 'on slips not yet handed over', fr: 'sur les bons non remis', es: 'en hojas aún no entregadas', pt: 'em notas ainda não entregues'};
+  D['Nummer, Kunde, Telefon oder Artikel'] = {en: 'Number, customer, phone or item', fr: 'Numéro, client, téléphone ou article', es: 'Número, cliente, teléfono o artículo', pt: 'Número, cliente, telefone ou artigo'};
+  D['Anzahlung'] = {en: 'Deposit', fr: 'Acompte', es: 'Anticipo', pt: 'Sinal'};
+  D['Ohne Personalisierung'] = {en: 'No personalisation', fr: 'Sans personnalisation', es: 'Sin personalización', pt: 'Sem personalização'};
+  D['Erneut drucken'] = {en: 'Print again', fr: 'Réimprimer', es: 'Volver a imprimir', pt: 'Imprimir novamente'};
+  D['Kein Bestellbeleg gefunden.'] = {en: 'No order slip found.', fr: 'Aucun bon de commande trouvé.', es: 'No se encontró ninguna hoja de pedido.', pt: 'Nenhuma nota de encomenda encontrada.'};
+  D['Neue Bestellbelege entstehen im Warenkorb über „Bestellbeleg“ → „Drucken / PDF“.'] = {en: 'New order slips are created in the cart via “Order slip” → “Print / PDF”.', fr: 'Les nouveaux bons de commande se créent dans le panier via « Bon de commande » → « Imprimer / PDF ».', es: 'Las nuevas hojas de pedido se crean en el carrito con «Hoja de pedido» → «Imprimir / PDF».', pt: 'As novas notas de encomenda criam-se no carrinho em «Nota de encomenda» → «Imprimir / PDF».'};
+  D['1 Position'] = {en: '1 item', fr: '1 position', es: '1 posición', pt: '1 linha'};
   D['Bezahlen'] = {en: 'Pay', fr: 'Payer', es: 'Pagar', pt: 'Pagar'};
   D['Zahlart wählen'] = {en: 'Choose payment method', fr: 'Choisir le mode de paiement', es: 'Elegir forma de pago', pt: 'Escolher meio de pagamento'};
   D['Abschluss auf Rechnung (Rechnungskunden, Paddel-IDs)'] = {en: 'Complete on invoice (invoice customers, paddle IDs)', fr: 'Clôture sur facture (clients sur facture, ID de pagaie)', es: 'Cierre con factura (clientes con factura, ID de palas)', pt: 'Conclusão com fatura (clientes a fatura, ID de pagaias)'};
@@ -1884,6 +1901,11 @@ Logo|Logótipo
     ['Kasse (.+)', {en: 'Register $1', fr: 'Caisse $1', es: 'Caja $1', pt: 'Caixa $1'}],
     ['Zeitraum (.+)', {en: 'Period $1', fr: 'Période $1', es: 'Periodo $1', pt: 'Período $1'}],
     ['(\\d+) Boote · QR-Etiketten mit Seriennummer', {en: '$1 boats · QR labels with serial number', fr: '$1 bateaux · étiquettes QR avec numéro de série', es: '$1 barcos · etiquetas QR con número de serie', pt: '$1 barcos · etiquetas QR com número de série'}],
+    ['(\\d+) Positionen', {en: '$1 items', fr: '$1 positions', es: '$1 posiciones', pt: '$1 linhas'}],
+    ['(Abholung|Lieferung|Versand) ab (\\S+)', {en: '§1 from $2', fr: '§1 à partir du $2', es: '§1 desde el $2', pt: '§1 a partir de $2'}],
+    ['Bestellbeleg (\\S+) abgelegt — zu finden unter „Bestellbelege“\\.', {en: 'Order slip $1 filed — find it under “Order slips”.', fr: 'Bon de commande $1 classé — à retrouver sous « Bons de commande ».', es: 'Hoja de pedido $1 archivada — está en «Hojas de pedido».', pt: 'Nota de encomenda $1 guardada — encontra-a em «Notas de encomenda».'}],
+    ['Bestellbeleg (\\S+) aktualisiert — zu finden unter „Bestellbelege“\\.', {en: 'Order slip $1 updated — find it under “Order slips”.', fr: 'Bon de commande $1 mis à jour — à retrouver sous « Bons de commande ».', es: 'Hoja de pedido $1 actualizada — está en «Hojas de pedido».', pt: 'Nota de encomenda $1 atualizada — encontra-a em «Notas de encomenda».'}],
+    ['Erstellt (\\S+) · (.+) · (.+) · Gesamt (.+)', {en: 'Created $1 · $2 · $3 · Total $4', fr: 'Créé le $1 · $2 · $3 · Total $4', es: 'Creado $1 · $2 · $3 · Total $4', pt: 'Criado $1 · $2 · $3 · Total $4'}],
     ['Berichte · KW (\\d+)', {en: 'Reports · week $1', fr: 'Rapports · semaine $1', es: 'Informes · semana $1', pt: 'Relatórios · semana $1'}]
   ].forEach(function (m) { I.muster.push([new RegExp('^' + m[0] + '$'), m[1]]); });
 })();

@@ -241,7 +241,7 @@ class Component extends DCLogic {
         titel: 'Bestellbeleg', einleitung: 'Vielen Dank für Ihre Bestellung. Wir melden uns, sobald Ihre Ware abholbereit ist.',
         name: kunde ? kunde.name : '', tel: kunde ? (kunde.telefon || '') : '', mail: kunde ? (kunde.mail || '') : '',
         art: 'Abholung', termin: t.toLocaleDateString('de-DE'), anzahlung: '', hinweis: '', fuss: (() => { const d = SHOP_LADEN().daten; return [d.firma, d.ort, 'Mo–Fr ' + d.mofr, 'Sa ' + d.sa, d.so && d.so !== 'geschlossen' ? 'So ' + d.so : ''].filter(Boolean).join(' · '); })(),
-        preise: true, unterschrift: true, werkstatt: false, pers: {}, zahlart: kunde && kunde.typ !== 'Privat' ? 'Rechnung' : 'Offen', ziel: '14'
+        preise: true, unterschrift: true, werkstatt: false, pers: {}, zahlart: kunde && kunde.typ !== 'Privat' ? 'Rechnung' : 'Offen', ziel: kunde && /(\d+) Tage/.test(kunde.zahlung || '') ? kunde.zahlung.match(/(\d+) Tage/)[1] : '14', kundeNr: kunde ? kunde.nr : null
       }, s.bb && s.bb.nr ? {pers: s.bb.pers || {}} : {}), bbAuf: Object.assign({}, s.bbAuf, {kunde: true})}));
     };
     if (!bb) return {bbOffen: false, onBestellbeleg: () => warenkorb.length && oeffnen(), bbKnopfFg: warenkorb.length ? '#101010' : '#8a9099'};
@@ -271,7 +271,7 @@ class Component extends DCLogic {
         const alt = alle.find(x => x.nr === bb.nr);
         const jetzt = new Date();
         const eintrag = {nr: bb.nr, datum: jetzt.toLocaleDateString('de-DE', {day: '2-digit', month: '2-digit', year: 'numeric'}), zeit: jetzt.toLocaleTimeString('de-DE', {hour: '2-digit', minute: '2-digit'}),
-          name: bb.name.trim() || 'Barkunde', tel: bb.tel, mail: bb.mail, art: bb.art, termin: bb.termin, anzahlung: num(bb.anzahlung), hinweis: bb.hinweis, summe: brutto, zahlart: bb.zahlart || 'Offen', ziel: parseInt(bb.ziel, 10) || 14,
+          name: bb.name.trim() || 'Barkunde', tel: bb.tel, mail: bb.mail, art: bb.art, termin: bb.termin, anzahlung: num(bb.anzahlung), hinweis: bb.hinweis, kundeNr: bb.kundeNr || null, summe: brutto, zahlart: bb.zahlart || 'Offen', ziel: parseInt(bb.ziel, 10) || 14,
           kasse: s.aktiveKasseId || 'Verkaufsraum', bearbeiter: (s.angemeldet || {}).name || 'Marko Ahrens', status: alt ? alt.status : 'Bestellt',
           pos: pos.map(p => ({titel: p.titel, typ: p.typ, menge: p.menge, pers: p.pers})), html};
         return {bbZaehler: alt ? (s.bbZaehler || 0) : (s.bbZaehler || 0) + 1, bestellbelege: [eintrag].concat(alle.filter(x => x.nr !== bb.nr)),
@@ -300,6 +300,27 @@ class Component extends DCLogic {
       bbTermin: bb.termin, onBbTermin: e => set({termin: e.target.value}),
       bbAnzahlung: bb.anzahlung, onBbAnzahlung: e => set({anzahlung: e.target.value}),
       bbZahlarten: [['Offen', 'Noch offen'], ['Karte', 'Bezahlt · Karte'], ['Bar', 'Bezahlt · Bar'], ['Rechnung', 'Rechnung']].map(([k, l]) => { const an = (bb.zahlart || 'Offen') === k; return {label: l, bg: an ? '#101010' : '#FFFFFF', fg: an ? '#FFFFFF' : '#101010', border: an ? '#101010' : '#8a9099', onClick: () => set({zahlart: k})}; }),
+      ...(() => {
+        const q = (st.bbKdSuche || '').trim().toLowerCase();
+        const passt = q ? this.kunden().filter(k => (k.name + ' ' + k.nr + ' ' + k.ort + ' ' + k.typ + ' ' + (k.telefon || '')).toLowerCase().includes(q)) : [];
+        const gew = bb.kundeNr ? this.kunden().find(k => k.nr === bb.kundeNr) : null;
+        const waehle = k => this.setState(s => ({kundeNr: k.nr, bbKdSuche: '', bb: Object.assign({}, s.bb, {kundeNr: k.nr, name: k.name, tel: k.telefon || '', mail: k.mail || '',
+          zahlart: k.typ !== 'Privat' ? 'Rechnung' : s.bb.zahlart, ziel: /(\d+) Tage/.test(k.zahlung || '') ? k.zahlung.match(/(\d+) Tage/)[1] : s.bb.ziel})}));
+        return {
+          bbKdSuche: st.bbKdSuche || '', onBbKdSuche: e => this.setState({bbKdSuche: e.target.value}), onBbKdSucheLoeschen: () => this.setState({bbKdSuche: ''}),
+          bbKdSucheOffen: !!q && !gew, bbKdKeinTreffer: !!q && passt.length === 0,
+          bbKdTreffer: passt.slice(0, 6).map(k => ({name: k.name, info: k.nr + ' · ' + k.typ + (k.ort ? ' · ' + k.ort : '') + (k.telefon ? ' · ' + k.telefon : ''),
+            kuerzel: k.name.replace(/[^A-Za-zÄÖÜäöü ]/g, ' ').trim().split(/\s+/).map(w => w[0]).join('').slice(0, 2).toUpperCase(), onClick: () => waehle(k)})),
+          bbKdGewaehlt: !!gew, bbKdSuchfeld: !gew, bbKdName: gew ? gew.name : '', bbKdInfo: gew ? gew.nr + ' · ' + gew.typ + (gew.zahlung ? ' · ' + gew.zahlung : '') : '',
+          onBbKdLoesen: () => this.setState(s => ({kundeNr: null, bb: Object.assign({}, s.bb, {kundeNr: null})})),
+          bbKdNeuMoeglich: !gew && !!bb.name.trim(),
+          onBbKdNeu: () => this.setState(s => {
+            const nr = 'K-' + String(1260 + (s.kundenNeu || []).length);
+            const neu = {nr, name: s.bb.name.trim(), kontakt: '—', typ: 'Privat', ort: '', mail: s.bb.mail || '', telefon: s.bb.tel || '', rabatt: 0, zahlung: 'Barzahlung', umsatz: 0, offen: 0};
+            return {kundenNeu: (s.kundenNeu || []).concat([neu]), kundeNr: nr, bb: Object.assign({}, s.bb, {kundeNr: nr})};
+          })
+        };
+      })(),
       bbIstRechnung: bb.zahlart === 'Rechnung', bbZiel: bb.ziel || '', onBbZiel: e => set({ziel: e.target.value.replace(/[^0-9]/g, '')}),
       bbZahlText: BB_ZAHL({zahlart: bb.zahlart, ziel: bb.ziel}).text,
       bbZahlHinweis: bb.zahlart === 'Offen' ? 'Übergabe erst nach Bezahlung.' : bb.zahlart === 'Rechnung' ? 'Übergabe erlaubt, Zahlung per Rechnung.' : 'Bezahlt – Übergabe erlaubt.',

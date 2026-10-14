@@ -40,7 +40,7 @@
         </div>
         <button sc-camel-on-click="{{ onSperren }}" title="Bildschirm sperren" style="appearance:none;cursor:pointer;display:flex;align-items:center;gap:6px;height:26px;padding:0 10px;border-radius:6px;background:#FFFFFF;border:1px solid #FFFFFF;font-family:'Inter',sans-serif;font-size:12px;font-weight:700;color:#101010;" style-hover="background:#e5e7eb;"><svg sc-camel-view-box="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="11" width="16" height="10" rx="2"></rect><path d="M8 11V7a4 4 0 0 1 8 0v4"></path></svg>Sperren</button>
       </div>
-      <span class="zk-fuss-version" title="Version" style="font-size:11.5px;color:#646b76;font-variant-numeric:tabular-nums;letter-spacing:.04em;white-space:nowrap;">v10.03</span>
+      <span class="zk-fuss-version" title="Version" style="font-size:11.5px;color:#646b76;font-variant-numeric:tabular-nums;letter-spacing:.04em;white-space:nowrap;">v10.04</span>
     </div>
     <sc-if value="{{ fussKorbSichtbar }}" hint-placeholder-val="{{ true }}">
     <button sc-camel-on-click="{{ onFussKorb }}" title="Warenkorb öffnen/schließen" style="appearance:none;border:0;cursor:pointer;background:transparent;display:flex;align-items:baseline;gap:8px;padding:4px 8px;border-radius:6px;transition:background 140ms ease-out;" style-hover="background:#1f2329;">
@@ -323,12 +323,47 @@
               </button>
               <sc-if value="{{ bbKundeAuf.offen }}" hint-placeholder-val="{{ false }}">
               <div style="padding:4px 16px 16px;display:flex;flex-direction:column;gap:12px;">
+              <sc-if value="{{ bbKdSuchfeld }}" hint-placeholder-val="{{ true }}">
+              <div style="display:flex;flex-direction:column;gap:8px;">
+                <div style="display:flex;align-items:center;gap:10px;height:46px;padding:0 14px;background:#FFFFFF;border:2px solid #8a9099;border-radius:12px;">
+                  <svg sc-camel-view-box="0 0 24 24" width="17" height="17" fill="none" stroke="#545b66" stroke-width="1.8" stroke-linecap="round" style="flex:none;"><circle cx="11" cy="11" r="7"></circle><path d="M20 20l-3.5-3.5"></path></svg>
+                  <input value="{{ bbKdSuche }}" sc-camel-on-change="{{ onBbKdSuche }}" placeholder="Kunde suchen — Name, Nummer oder Telefon" style="flex:1;min-width:0;border:0;outline:none;background:transparent;font-size:15px;color:#101010;">
+                </div>
+                <sc-if value="{{ bbKdSucheOffen }}" hint-placeholder-val="{{ false }}">
+                  <div style="display:flex;flex-direction:column;gap:6px;">
+                    <sc-for list="{{ bbKdTreffer }}" as="k" hint-placeholder-count="3">
+                      <button sc-camel-on-click="{{ k.onClick }}" style="appearance:none;cursor:pointer;text-align:left;display:flex;align-items:center;gap:10px;padding:9px 11px;border-radius:6px;border:1px solid #e5e7eb;background:#FFFFFF;" style-hover="background:#f4f4f4;">
+                        <span style="width:32px;height:32px;flex:none;border-radius:10px;background:#e5e7eb;color:#101010;display:flex;align-items:center;justify-content:center;font-size:12.5px;font-weight:700;">{{ k.kuerzel }}</span>
+                        <span style="display:flex;flex-direction:column;line-height:1.25;min-width:0;">
+                          <span style="font-size:14px;font-weight:600;color:#101010;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">{{ k.name }}</span>
+                          <span style="font-size:12px;color:#646b76;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">{{ k.info }}</span>
+                        </span>
+                      </button>
+                    </sc-for>
+                    <sc-if value="{{ bbKdKeinTreffer }}" hint-placeholder-val="{{ false }}">
+                      <div style="font-size:13px;color:#646b76;padding:2px;">Kein Kunde gefunden — unten als neuen Kunden eintragen.</div>
+                    </sc-if>
+                  </div>
+                </sc-if>
+                <div style="font-size:13px;color:#646b76;">Oder neuen Kunden eintragen:</div>
+              </div>
+              </sc-if>
+              <sc-if value="{{ bbKdGewaehlt }}" hint-placeholder-val="{{ false }}">
+                <div style="display:flex;align-items:center;gap:10px;padding:10px 12px;border:1px solid #e5e7eb;border-radius:10px;background:#f4f4f4;">
+                  <span style="display:flex;flex-direction:column;line-height:1.25;min-width:0;flex:1;">
+                    <span style="font-size:14.5px;font-weight:600;color:#101010;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">{{ bbKdName }}</span>
+                    <span style="font-size:12.5px;color:#646b76;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">{{ bbKdInfo }}</span>
+                  </span>
+                  <button sc-camel-on-click="{{ onBbKdLoesen }}" style="appearance:none;cursor:pointer;flex:none;height:32px;padding:0 12px;border-radius:4px;border:1px solid #e5e7eb;background:#FFFFFF;color:#101010;font-size:13.5px;font-weight:600;">Anderer Kunde</button>
+                </div>
+              </sc-if>
               <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(180px,100%),1fr));gap:10px;">
                 <label style="display:flex;flex-direction:column;gap:6px;font-size:13.5px;font-weight:600;color:#303640;min-width:0;">Name<input value="{{ bbName }}" sc-camel-on-change="{{ onBbName }}" placeholder="Kundenname" style="height:48px;padding:0 14px;border-radius:12px;border:2px solid #8a9099;font-size:15.5px;color:#101010;background:#FFFFFF;outline:none;min-width:0;"></label>
                 <label style="display:flex;flex-direction:column;gap:6px;font-size:13.5px;font-weight:600;color:#303640;min-width:0;">Telefon<input value="{{ bbTel }}" sc-camel-on-change="{{ onBbTel }}" placeholder="Telefon" style="height:48px;padding:0 14px;border-radius:12px;border:2px solid #8a9099;font-size:15.5px;color:#101010;background:#FFFFFF;outline:none;min-width:0;"></label>
                 <label style="display:flex;flex-direction:column;gap:6px;font-size:13.5px;font-weight:600;color:#303640;min-width:0;">E-Mail<input value="{{ bbMail }}" sc-camel-on-change="{{ onBbMail }}" placeholder="E-Mail" style="height:48px;padding:0 14px;border-radius:12px;border:2px solid #8a9099;font-size:15.5px;color:#101010;background:#FFFFFF;outline:none;min-width:0;"></label>
               </div>
-              <div style="display:flex;gap:8px;flex-wrap:wrap;"><sc-for list="{{ bbArten }}" as="a" hint-placeholder-count="3"><button sc-camel-on-click="{{ a.onClick }}" style="appearance:none;cursor:pointer;height:44px;padding:0 16px;border-radius:6px;border:2px solid {{ a.border }};background:{{ a.bg }};color:{{ a.fg }};font-size:15px;font-weight:600;">{{ a.label }}</button></sc-for></div>
+              <sc-if value="{{ bbKdNeuMoeglich }}" hint-placeholder-val="{{ false }}"><button sc-camel-on-click="{{ onBbKdNeu }}" style="appearance:none;cursor:pointer;align-self:flex-start;height:40px;padding:0 14px;border-radius:6px;border:1.5px solid #101010;background:#FFFFFF;color:#101010;font-size:14px;font-weight:600;">Als neuen Kunden speichern</button></sc-if>
+<div style="display:flex;gap:8px;flex-wrap:wrap;"><sc-for list="{{ bbArten }}" as="a" hint-placeholder-count="3"><button sc-camel-on-click="{{ a.onClick }}" style="appearance:none;cursor:pointer;height:44px;padding:0 16px;border-radius:6px;border:2px solid {{ a.border }};background:{{ a.bg }};color:{{ a.fg }};font-size:15px;font-weight:600;">{{ a.label }}</button></sc-for></div>
               <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(180px,100%),1fr));gap:10px;">
                 <label style="display:flex;flex-direction:column;gap:6px;font-size:13.5px;font-weight:600;color:#303640;min-width:0;">{{ bbTerminLabel }}<input value="{{ bbTermin }}" sc-camel-on-change="{{ onBbTermin }}" placeholder="TT.MM.JJJJ" style="height:48px;padding:0 14px;border-radius:12px;border:2px solid #8a9099;font-size:15.5px;color:#101010;background:#FFFFFF;outline:none;min-width:0;"></label>
                 <label style="display:flex;flex-direction:column;gap:6px;font-size:13.5px;font-weight:600;color:#303640;min-width:0;">Anzahlung (€)<input value="{{ bbAnzahlung }}" sc-camel-on-change="{{ onBbAnzahlung }}" placeholder="0,00" inputmode="decimal" style="height:48px;padding:0 14px;border-radius:12px;border:2px solid #8a9099;font-size:15.5px;color:#101010;background:#FFFFFF;outline:none;min-width:0;"></label>

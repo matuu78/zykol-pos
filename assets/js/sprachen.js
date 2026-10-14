@@ -1902,6 +1902,11 @@ Logo|Logótipo
   D['Auf Rechnung (14 Tage)'] = {en: 'On invoice (14 days)', fr: 'Sur facture (14 jours)', es: 'Con factura (14 días)', pt: 'Com fatura (14 dias)'};
   D['Übergabe nicht möglich: Die Bestellung ist noch nicht bezahlt.'] = {en: 'Handover not possible: the order has not been paid yet.', fr: 'Remise impossible : la commande n’est pas encore payée.', es: 'Entrega no posible: el pedido aún no está pagado.', pt: 'Entrega impossível: a encomenda ainda não foi paga.'};
   D['Erst kassieren – Bestellung ist noch nicht bezahlt'] = {en: 'Collect payment first – order not yet paid', fr: 'Encaisser d’abord – commande pas encore payée', es: 'Cobrar primero: pedido aún no pagado', pt: 'Cobrar primeiro – encomenda ainda não paga'};
+  D['Kunde suchen — Name, Nummer oder Telefon'] = {en: 'Search customer — name, number or phone', fr: 'Rechercher un client — nom, numéro ou téléphone', es: 'Buscar cliente — nombre, número o teléfono', pt: 'Procurar cliente — nome, número ou telefone'};
+  D['Kein Kunde gefunden — unten als neuen Kunden eintragen.'] = {en: 'No customer found — enter a new customer below.', fr: 'Aucun client trouvé — saisissez un nouveau client ci-dessous.', es: 'No se encontró ningún cliente: introduzca uno nuevo abajo.', pt: 'Nenhum cliente encontrado — introduza um novo cliente abaixo.'};
+  D['Oder neuen Kunden eintragen:'] = {en: 'Or enter a new customer:', fr: 'Ou saisir un nouveau client :', es: 'O introducir un cliente nuevo:', pt: 'Ou introduzir um novo cliente:'};
+  D['Anderer Kunde'] = {en: 'Other customer', fr: 'Autre client', es: 'Otro cliente', pt: 'Outro cliente'};
+  D['Als neuen Kunden speichern'] = {en: 'Save as new customer', fr: 'Enregistrer comme nouveau client', es: 'Guardar como cliente nuevo', pt: 'Guardar como novo cliente'};
   D['Bezahlen'] = {en: 'Pay', fr: 'Payer', es: 'Pagar', pt: 'Pagar'};
   D['Zahlart wählen'] = {en: 'Choose payment method', fr: 'Choisir le mode de paiement', es: 'Elegir forma de pago', pt: 'Escolher meio de pagamento'};
   D['Abschluss auf Rechnung (Rechnungskunden, Paddel-IDs)'] = {en: 'Complete on invoice (invoice customers, paddle IDs)', fr: 'Clôture sur facture (clients sur facture, ID de pagaie)', es: 'Cierre con factura (clientes con factura, ID de palas)', pt: 'Conclusão com fatura (clientes a fatura, ID de pagaias)'};

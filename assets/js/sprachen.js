@@ -1886,6 +1886,22 @@ Logo|Logótipo
   D['Kein Bestellbeleg gefunden.'] = {en: 'No order slip found.', fr: 'Aucun bon de commande trouvé.', es: 'No se encontró ninguna hoja de pedido.', pt: 'Nenhuma nota de encomenda encontrada.'};
   D['Neue Bestellbelege entstehen im Warenkorb über „Bestellbeleg“ → „Drucken / PDF“.'] = {en: 'New order slips are created in the cart via “Order slip” → “Print / PDF”.', fr: 'Les nouveaux bons de commande se créent dans le panier via « Bon de commande » → « Imprimer / PDF ».', es: 'Las nuevas hojas de pedido se crean en el carrito con «Hoja de pedido» → «Imprimir / PDF».', pt: 'As novas notas de encomenda criam-se no carrinho em «Nota de encomenda» → «Imprimir / PDF».'};
   D['1 Position'] = {en: '1 item', fr: '1 position', es: '1 posición', pt: '1 linha'};
+  D['Kunde, Übergabe & Bezahlung'] = {en: 'Customer, handover & payment', fr: 'Client, remise et paiement', es: 'Cliente, entrega y pago', pt: 'Cliente, entrega e pagamento'};
+  D['Bezahlung'] = {en: 'Payment', fr: 'Paiement', es: 'Pago', pt: 'Pagamento'};
+  D['Noch offen'] = {en: 'Not yet paid', fr: 'Pas encore payé', es: 'Pendiente de pago', pt: 'Ainda por pagar'};
+  D['Bezahlt · Karte'] = {en: 'Paid · card', fr: 'Payé · carte', es: 'Pagado · tarjeta', pt: 'Pago · cartão'};
+  D['Bezahlt · Bar'] = {en: 'Paid · cash', fr: 'Payé · espèces', es: 'Pagado · efectivo', pt: 'Pago · numerário'};
+  D['Übergabe erst nach Bezahlung.'] = {en: 'Handover only after payment.', fr: 'Remise uniquement après paiement.', es: 'Entrega solo tras el pago.', pt: 'Entrega só após pagamento.'};
+  D['Übergabe erlaubt, Zahlung per Rechnung.'] = {en: 'Handover allowed, payment by invoice.', fr: 'Remise autorisée, paiement sur facture.', es: 'Entrega permitida, pago con factura.', pt: 'Entrega permitida, pagamento com fatura.'};
+  D['Bezahlt – Übergabe erlaubt.'] = {en: 'Paid – handover allowed.', fr: 'Payé – remise autorisée.', es: 'Pagado – entrega permitida.', pt: 'Pago – entrega permitida.'};
+  D['Noch zu kassieren'] = {en: 'Still to collect', fr: 'Reste à encaisser', es: 'Pendiente de cobro', pt: 'Por cobrar'};
+  D['vor der Übergabe, ohne Rechnungskunden'] = {en: 'before handover, excluding invoice customers', fr: 'avant la remise, hors clients sur facture', es: 'antes de la entrega, sin clientes con factura', pt: 'antes da entrega, sem clientes a fatura'};
+  D['Noch nicht bezahlt – Übergabe erst nach Bezahlung oder mit Zahlungsziel auf Rechnung.'] = {en: 'Not yet paid – handover only after payment or with a payment term on invoice.', fr: 'Pas encore payé – remise uniquement après paiement ou avec délai de paiement sur facture.', es: 'Aún no pagado: entrega solo tras el pago o con plazo de pago en factura.', pt: 'Ainda não pago – entrega só após pagamento ou com prazo de pagamento em fatura.'};
+  D['Bezahlt mit Karte'] = {en: 'Paid by card', fr: 'Payé par carte', es: 'Pagado con tarjeta', pt: 'Pago com cartão'};
+  D['Bezahlt bar'] = {en: 'Paid in cash', fr: 'Payé en espèces', es: 'Pagado en efectivo', pt: 'Pago em numerário'};
+  D['Auf Rechnung (14 Tage)'] = {en: 'On invoice (14 days)', fr: 'Sur facture (14 jours)', es: 'Con factura (14 días)', pt: 'Com fatura (14 dias)'};
+  D['Übergabe nicht möglich: Die Bestellung ist noch nicht bezahlt.'] = {en: 'Handover not possible: the order has not been paid yet.', fr: 'Remise impossible : la commande n’est pas encore payée.', es: 'Entrega no posible: el pedido aún no está pagado.', pt: 'Entrega impossível: a encomenda ainda não foi paga.'};
+  D['Erst kassieren – Bestellung ist noch nicht bezahlt'] = {en: 'Collect payment first – order not yet paid', fr: 'Encaisser d’abord – commande pas encore payée', es: 'Cobrar primero: pedido aún no pagado', pt: 'Cobrar primeiro – encomenda ainda não paga'};
   D['Bezahlen'] = {en: 'Pay', fr: 'Payer', es: 'Pagar', pt: 'Pagar'};
   D['Zahlart wählen'] = {en: 'Choose payment method', fr: 'Choisir le mode de paiement', es: 'Elegir forma de pago', pt: 'Escolher meio de pagamento'};
   D['Abschluss auf Rechnung (Rechnungskunden, Paddel-IDs)'] = {en: 'Complete on invoice (invoice customers, paddle IDs)', fr: 'Clôture sur facture (clients sur facture, ID de pagaie)', es: 'Cierre con factura (clientes con factura, ID de palas)', pt: 'Conclusão com fatura (clientes a fatura, ID de pagaias)'};
@@ -1906,6 +1922,9 @@ Logo|Logótipo
     ['Bestellbeleg (\\S+) abgelegt — zu finden unter „Bestellbelege“\\.', {en: 'Order slip $1 filed — find it under “Order slips”.', fr: 'Bon de commande $1 classé — à retrouver sous « Bons de commande ».', es: 'Hoja de pedido $1 archivada — está en «Hojas de pedido».', pt: 'Nota de encomenda $1 guardada — encontra-a em «Notas de encomenda».'}],
     ['Bestellbeleg (\\S+) aktualisiert — zu finden unter „Bestellbelege“\\.', {en: 'Order slip $1 updated — find it under “Order slips”.', fr: 'Bon de commande $1 mis à jour — à retrouver sous « Bons de commande ».', es: 'Hoja de pedido $1 actualizada — está en «Hojas de pedido».', pt: 'Nota de encomenda $1 atualizada — encontra-a em «Notas de encomenda».'}],
     ['Erstellt (\\S+) · (.+) · (.+) · Gesamt (.+)', {en: 'Created $1 · $2 · $3 · Total $4', fr: 'Créé le $1 · $2 · $3 · Total $4', es: 'Creado $1 · $2 · $3 · Total $4', pt: 'Criado $1 · $2 · $3 · Total $4'}],
+    ['Rechnung · (\\d+) Tage', {en: 'Invoice · $1 days', fr: 'Facture · $1 jours', es: 'Factura · $1 días', pt: 'Fatura · $1 dias'}],
+    ['Noch offen: (.+) \\(Anzahlung (.+) erhalten\\)', {en: 'Still open: $1 (deposit $2 received)', fr: 'Reste dû : $1 (acompte $2 reçu)', es: 'Pendiente: $1 (anticipo $2 recibido)', pt: 'Em aberto: $1 (sinal $2 recebido)'}],
+    ['Noch offen: (.+)', {en: 'Still open: $1', fr: 'Reste dû : $1', es: 'Pendiente: $1', pt: 'Em aberto: $1'}],
     ['Berichte · KW (\\d+)', {en: 'Reports · week $1', fr: 'Rapports · semaine $1', es: 'Informes · semana $1', pt: 'Relatórios · semana $1'}]
   ].forEach(function (m) { I.muster.push([new RegExp('^' + m[0] + '$'), m[1]]); });
 })();

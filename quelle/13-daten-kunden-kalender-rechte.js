@@ -476,12 +476,19 @@ const TX_FILTER = [
 ];
 
 const demoDE = s => { if (!/\d\d\.\d{4}$/.test(s || '')) return s; const a = demoISO(KAL_START(s)), b = demoISO(KAL_ISO(s)), f = x => x.slice(6, 8) + '.' + x.slice(4, 6) + '.' + x.slice(0, 4); return a === b ? f(a) : f(a) + '–' + f(b); };
+const BB_ZAHL = (e) => {
+  const z = e.zahlart || 'Offen', ziel = parseInt(e.ziel, 10) || 14;
+  const text = z === 'Karte' ? 'Bezahlt · Karte' : z === 'Bar' ? 'Bezahlt · Bar' : z === 'Rechnung' ? 'Rechnung · ' + ziel + ' Tage' : 'Noch offen';
+  const bg = z === 'Offen' ? '#fde0e2' : z === 'Rechnung' ? '#eef0f2' : '#dcf3e6';
+  const fg = z === 'Offen' ? '#9b1520' : z === 'Rechnung' ? '#101010' : '#0d5f38';
+  return {z, ziel, text, bg, fg, freigabe: z !== 'Offen', rest: z === 'Offen' ? Math.max(0, (e.summe || 0) - (e.anzahlung || 0)) : 0};
+};
 const BB_START = [
-  {nr:'BB-2026-0086', datum:'29.09.2026', zeit:'15:42', name:'Kanu-Sport Verden e.V.', tel:'04231 95 41 20', mail:'vorstand@kanusport-verden.de', art:'Abholung', termin:'13.10.2026', anzahlung:1000, hinweis:'Abholung durch Trainerin Petra Wilkens.', summe:5768, kasse:'Verkaufsraum', bearbeiter:'Marko Ahrens', status:'Abholbereit',
+  {nr:'BB-2026-0086', datum:'29.09.2026', zeit:'15:42', name:'Kanu-Sport Verden e.V.', tel:'04231 95 41 20', mail:'vorstand@kanusport-verden.de', art:'Abholung', termin:'13.10.2026', anzahlung:1000, hinweis:'Abholung durch Trainerin Petra Wilkens.', summe:5768, kasse:'Verkaufsraum', bearbeiter:'Marko Ahrens', status:'Abholbereit', zahlart:'Offen',
     pos:[{titel:'Nelo K1 Vanquish 7', typ:'Rennkajak K1 · Rot · L', menge:'1', pers:'Bootsname „Weserpfeil“ am Bug, Sitz auf 82 cm Beinlänge'}, {titel:'Brača-Sport IV 750', typ:'Rennpaddel · 214 cm', menge:'2', pers:'Vereinswappen auf beiden Blättern'}]},
-  {nr:'BB-2026-0085', datum:'25.09.2026', zeit:'11:08', name:'Sarah Brinkmann', tel:'0171 448 20 93', mail:'s.brinkmann@web.de', art:'Versand', termin:'09.10.2026', anzahlung:0, hinweis:'', summe:509, kasse:'Verkaufsraum', bearbeiter:'Anke Brandt', status:'Übergeben',
+  {nr:'BB-2026-0085', datum:'25.09.2026', zeit:'11:08', name:'Sarah Brinkmann', tel:'0171 448 20 93', mail:'s.brinkmann@web.de', art:'Versand', termin:'09.10.2026', anzahlung:0, hinweis:'', summe:509, kasse:'Verkaufsraum', bearbeiter:'Anke Brandt', status:'Übergeben', zahlart:'Karte',
     pos:[{titel:'Jantex Gamma 840', typ:'Rennpaddel · 212 cm', menge:'1', pers:'Gravur „S. B.“ am Schaft'}]},
-  {nr:'BB-2026-0084', datum:'30.09.2026', zeit:'17:20', name:'Ruderverein Hoya', tel:'04251 67 12 08', mail:'info@rv-hoya.de', art:'Lieferung', termin:'21.10.2026', anzahlung:2000, hinweis:'Lieferung zur Bootshalle, Anlieferung ab 16 Uhr.', summe:8980, kasse:'KASSE-03 Mobil', bearbeiter:'Marko Ahrens', status:'Bestellt',
+  {nr:'BB-2026-0084', datum:'30.09.2026', zeit:'17:20', name:'Ruderverein Hoya', tel:'04251 67 12 08', mail:'info@rv-hoya.de', art:'Lieferung', termin:'21.10.2026', anzahlung:2000, hinweis:'Lieferung zur Bootshalle, Anlieferung ab 16 Uhr.', summe:8980, kasse:'KASSE-03 Mobil', bearbeiter:'Marko Ahrens', status:'Bestellt', zahlart:'Rechnung', ziel:30,
     pos:[{titel:'Plastex K1 Bullet II', typ:'Rennkajak K1 · Weiß · M', menge:'2', pers:'Vereinsfarben Blau/Weiß, Sitzschiene verlängert'}]}
 ];
 [VERKAUFTE_BOOTE, LIEFERANTEN, SERIEN, SN_HISTORIE, PROTOKOLL, BACKUPS, KUNDEN, KAL_TERMINE, ANGEBOTE_START, BB_START, KAEUFE, KUNDENBOOTE, BENUTZER_START, SCHICHT_START, LAGER, RESERVIERT, BEWEGUNGEN, ZEITRAUM, FZ].forEach(o => D_WALK(o, DEMO_OFF));

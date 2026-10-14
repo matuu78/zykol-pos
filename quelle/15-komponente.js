@@ -178,14 +178,15 @@ class Component extends DCLogic {
     const alle = st.bestellbelege || BB_START;
     const STIL = {Bestellt: ['#fdebc8', '#6b4200'], Abholbereit: ['#dcf3e6', '#0d5f38'], 'Übergeben': ['#e5e7eb', '#545b66']};
     const q = (st.bblSuche || '').trim().toLowerCase();
-    const treffer = alle.filter(e => !q || (e.nr + ' ' + e.name + ' ' + e.tel + ' ' + e.pos.map(p => p.titel + ' ' + p.pers).join(' ')).toLowerCase().includes(q))
+    const treffer = alle.filter(e => !q || (e.nr + ' ' + e.name + ' ' + e.tel + ' ' + BB_ZAHL(e).text + ' ' + e.pos.map(p => p.titel + ' ' + p.pers).join(' ')).toLowerCase().includes(q))
       .filter(e => !st.bblFilter || e.status === st.bblFilter);
-    const setStatus = (nr, status) => this.setState(s => ({bestellbelege: (s.bestellbelege || BB_START).map(x => x.nr === nr ? Object.assign({}, x, {status}) : x)}));
+    const setze = (nr, patch) => this.setState(s => ({bestellbelege: (s.bestellbelege || BB_START).map(x => x.nr === nr ? Object.assign({}, x, patch) : x), bblSperre: null}));
+    const setStatus = (nr, status) => { const e = alle.find(x => x.nr === nr); if (status === 'Übergeben' && e && !BB_ZAHL(e).freigabe) return this.setState({bblSperre: nr}); setze(nr, {status}); };
     const esc = t => String(t == null ? '' : t).replace(/[&<>"]/g, c => ({'&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;'}[c]));
     const drucke = e => {
       const innen = e.html || ('<div style="max-width:720px;margin:0 auto;padding:24px;font-family:Inter,sans-serif;color:#101010;"><div style="font-size:12px;letter-spacing:.12em;text-transform:uppercase;font-weight:600;color:#545b66;">Bestellbeleg</div><h1 style="font-family:Poppins,Inter,sans-serif;font-size:28px;margin:4px 0 6px;">' + esc(e.nr) + '</h1>'
         + '<div style="color:#545b66;margin-bottom:18px;">' + esc(e.datum) + ' · ' + esc(e.kasse) + ' · ' + esc(e.bearbeiter) + '</div>'
-        + '<div style="margin-bottom:16px;"><b>' + esc(e.name) + '</b><br>' + esc(e.tel) + '<br>' + esc(e.mail) + '<br>' + esc(e.art) + (e.termin ? ' ab ' + esc(e.termin) : '') + (e.anzahlung ? ' · Anzahlung ' + EUR(e.anzahlung) : '') + '</div>'
+        + '<div style="margin-bottom:16px;"><b>' + esc(e.name) + '</b><br>' + esc(e.tel) + '<br>' + esc(e.mail) + '<br>' + esc(e.art) + (e.termin ? ' ab ' + esc(e.termin) : '') + (e.anzahlung ? ' · Anzahlung ' + EUR(e.anzahlung) : '') + '<br>Zahlung: ' + esc(BB_ZAHL(e).text) + '</div>'
         + '<table style="width:100%;border-collapse:collapse;">' + e.pos.map(p => '<tr><td style="padding:10px 0;border-bottom:1px solid #e5e7eb;"><b>' + esc(p.titel) + '</b><br><span style="color:#545b66;">' + esc(p.typ) + (p.pers ? ' · ' + esc(p.pers) : '') + '</span></td><td style="text-align:right;padding:10px 0;border-bottom:1px solid #e5e7eb;">× ' + esc(p.menge) + '</td></tr>').join('') + '</table>'
         + (e.hinweis ? '<p style="color:#545b66;">' + esc(e.hinweis) + '</p>' : '') + '<div style="margin-top:40px;border-top:1px solid #101010;width:260px;padding-top:6px;font-size:12px;color:#545b66;">Unterschrift Kunde</div></div>');
       this.druckeHtml('<!doctype html><html><head><meta charset="utf-8"><base hr' + 'ef="' + location.href + '"><title>' + esc(e.nr) + '</title><style>body{margin:0;font-family:Inter,sans-serif;}[data-seite]{box-shadow:none!important;margin:0 auto!important;}[data-seite]+[data-seite]{page-break-before:always;}@page{size:A4;margin:12mm;}</style></head><body>' + innen + '</body></html>', e.nr);
@@ -199,7 +200,7 @@ class Component extends DCLogic {
         {label: 'Bestellt', value: String(zahl('Bestellt')), hint: 'Ware bestellt oder in Arbeit', color: '#6b4200'},
         {label: 'Abholbereit', value: String(zahl('Abholbereit')), hint: 'Kunde kann abholen', color: '#0d5f38'},
         {label: 'Übergeben', value: String(zahl('Übergeben')), hint: 'abgeschlossen', color: '#101010'},
-        {label: 'Anzahlungen offen', value: EUR(alle.filter(e => e.status !== 'Übergeben').reduce((a, e) => a + (e.anzahlung || 0), 0)), hint: 'bei nicht übergebenen Belegen', color: '#101010'}
+        {label: 'Noch zu kassieren', value: EUR(alle.filter(e => e.status !== 'Übergeben').reduce((a, e) => a + BB_ZAHL(e).rest, 0)), hint: 'vor der Übergabe, ohne Rechnungskunden', color: '#9b1520'}
       ],
       bblFilterChips: ['Alle', 'Bestellt', 'Abholbereit', 'Übergeben'].map(f => { const an = (st.bblFilter || 'Alle') === f; return {label: f, bg: an ? '#101010' : '#FFFFFF', fg: an ? '#FFFFFF' : '#101010', rand: an ? '#101010' : '#e5e7eb', onClick: () => this.setState({bblFilter: f === 'Alle' ? null : f})}; }),
       bblListe: treffer.map(e => {
@@ -210,12 +211,16 @@ class Component extends DCLogic {
           uebergabe: e.art + (e.termin ? ' ab ' + e.termin : ''), anzahl: e.pos.length === 1 ? '1 Position' : e.pos.length + ' Positionen',
           anzahlungStr: e.anzahlung ? EUR(e.anzahlung) : '—', summeStr: EUR(e.summe || 0),
           status: e.status, statusBg: s[0], statusFg: s[1],
+          ...(() => { const zb = BB_ZAHL(e); return {zahlText: zb.text, zahlBg: zb.bg, zahlFg: zb.fg, offenZahlung: zb.z === 'Offen' && e.status !== 'Übergeben',
+            restText: 'Noch offen: ' + EUR(zb.rest) + (e.anzahlung ? ' (Anzahlung ' + EUR(e.anzahlung) + ' erhalten)' : ''),
+            gesperrt: st.bblSperre === e.nr,
+            onKarte: () => setze(e.nr, {zahlart: 'Karte'}), onBar: () => setze(e.nr, {zahlart: 'Bar'}), onRechnung: () => setze(e.nr, {zahlart: 'Rechnung', ziel: 14})}; })(),
           offen, pfeil: offen ? 'M6 15l6-6 6 6' : 'M6 9l6 6 6-6', rowBg: offen ? '#FFFFFF' : 'transparent',
           onToggle: () => this.setState({bblOffen: offen ? null : e.nr}),
           pos: e.pos.map(p => ({titel: p.titel, typ: p.typ, menge: '× ' + p.menge, pers: p.pers || 'Ohne Personalisierung'})),
           hinweis: e.hinweis || '', hatHinweis: !!e.hinweis,
           fuss: 'Erstellt ' + e.datum + ' · ' + e.kasse + ' · ' + e.bearbeiter + ' · Gesamt ' + EUR(e.summe || 0),
-          statusKnoepfe: ['Bestellt', 'Abholbereit', 'Übergeben'].map(z => ({label: z, bg: z === e.status ? '#101010' : '#FFFFFF', fg: z === e.status ? '#FFFFFF' : '#101010', rand: z === e.status ? '#101010' : '#e5e7eb', onClick: () => setStatus(e.nr, z)})),
+          statusKnoepfe: ['Bestellt', 'Abholbereit', 'Übergeben'].map(z => { const zu = z === 'Übergeben' && !BB_ZAHL(e).freigabe; return {label: z, bg: z === e.status ? '#101010' : '#FFFFFF', fg: z === e.status ? '#FFFFFF' : zu ? '#8a9099' : '#101010', rand: z === e.status ? '#101010' : '#e5e7eb', titel: zu ? 'Erst kassieren – Bestellung ist noch nicht bezahlt' : z, onClick: () => setStatus(e.nr, z)}; }),
           onDrucken: () => drucke(e)
         };
       }),
@@ -236,8 +241,8 @@ class Component extends DCLogic {
         titel: 'Bestellbeleg', einleitung: 'Vielen Dank für Ihre Bestellung. Wir melden uns, sobald Ihre Ware abholbereit ist.',
         name: kunde ? kunde.name : '', tel: kunde ? (kunde.telefon || '') : '', mail: kunde ? (kunde.mail || '') : '',
         art: 'Abholung', termin: t.toLocaleDateString('de-DE'), anzahlung: '', hinweis: '', fuss: (() => { const d = SHOP_LADEN().daten; return [d.firma, d.ort, 'Mo–Fr ' + d.mofr, 'Sa ' + d.sa, d.so && d.so !== 'geschlossen' ? 'So ' + d.so : ''].filter(Boolean).join(' · '); })(),
-        preise: true, unterschrift: true, werkstatt: false, pers: {}
-      }, s.bb && s.bb.nr ? {pers: s.bb.pers || {}} : {})}));
+        preise: true, unterschrift: true, werkstatt: false, pers: {}, zahlart: kunde && kunde.typ !== 'Privat' ? 'Rechnung' : 'Offen', ziel: '14'
+      }, s.bb && s.bb.nr ? {pers: s.bb.pers || {}} : {}), bbAuf: Object.assign({}, s.bbAuf, {kunde: true})}));
     };
     if (!bb) return {bbOffen: false, onBestellbeleg: () => warenkorb.length && oeffnen(), bbKnopfFg: warenkorb.length ? '#101010' : '#8a9099'};
     const anz = num(bb.anzahlung);
@@ -266,7 +271,7 @@ class Component extends DCLogic {
         const alt = alle.find(x => x.nr === bb.nr);
         const jetzt = new Date();
         const eintrag = {nr: bb.nr, datum: jetzt.toLocaleDateString('de-DE', {day: '2-digit', month: '2-digit', year: 'numeric'}), zeit: jetzt.toLocaleTimeString('de-DE', {hour: '2-digit', minute: '2-digit'}),
-          name: bb.name.trim() || 'Barkunde', tel: bb.tel, mail: bb.mail, art: bb.art, termin: bb.termin, anzahlung: num(bb.anzahlung), hinweis: bb.hinweis, summe: brutto,
+          name: bb.name.trim() || 'Barkunde', tel: bb.tel, mail: bb.mail, art: bb.art, termin: bb.termin, anzahlung: num(bb.anzahlung), hinweis: bb.hinweis, summe: brutto, zahlart: bb.zahlart || 'Offen', ziel: parseInt(bb.ziel, 10) || 14,
           kasse: s.aktiveKasseId || 'Verkaufsraum', bearbeiter: (s.angemeldet || {}).name || 'Marko Ahrens', status: alt ? alt.status : 'Bestellt',
           pos: pos.map(p => ({titel: p.titel, typ: p.typ, menge: p.menge, pers: p.pers})), html};
         return {bbZaehler: alt ? (s.bbZaehler || 0) : (s.bbZaehler || 0) + 1, bestellbelege: [eintrag].concat(alle.filter(x => x.nr !== bb.nr)),
@@ -281,7 +286,7 @@ class Component extends DCLogic {
       bbAnzahlPos: String(pos.length),
       bbKundeAuf: (() => { const o = !!(st.bbAuf || {}).kunde; return {offen: o, pfeil: o ? '90deg' : '0deg', onToggle: () => this.setState(s => ({bbAuf: Object.assign({}, s.bbAuf, {kunde: !(s.bbAuf || {}).kunde})}))}; })(),
       bbGestaltenAuf: (() => { const o = !!(st.bbAuf || {}).gestalten; return {offen: o, pfeil: o ? '90deg' : '0deg', onToggle: () => this.setState(s => ({bbAuf: Object.assign({}, s.bbAuf, {gestalten: !(s.bbAuf || {}).gestalten})}))}; })(),
-      bbKundeKurz: [bb.name.trim() || 'Kein Kunde eingetragen', bb.art + (bb.termin ? ' ab ' + bb.termin : ''), num(bb.anzahlung) > 0 ? 'Anzahlung ' + EUR(num(bb.anzahlung)) : ''].filter(Boolean).join(' · '),
+      bbKundeKurz: [bb.name.trim() || 'Kein Kunde eingetragen', bb.art + (bb.termin ? ' ab ' + bb.termin : ''), BB_ZAHL({zahlart: bb.zahlart, ziel: bb.ziel}).text, num(bb.anzahlung) > 0 ? 'Anzahlung ' + EUR(num(bb.anzahlung)) : ''].filter(Boolean).join(' · '),
       bbGestaltenKurz: [bb.preise ? 'mit Preisen' : 'ohne Preise', bb.unterschrift ? 'Unterschrift' : '', bb.werkstatt ? 'Werkstattkopie' : ''].filter(Boolean).join(' · '),
       bbNr: bb.nr, bbQr: QR(BELEG_URL(bb.nr)), bbQrUrl: BELEG_URL(bb.nr).replace('https://', ''), bbDatum: new Date().toLocaleDateString('de-DE'), bbKasse: st.aktiveKasseId || 'Verkaufsraum', bbBearbeiter: (st.angemeldet || {}).name || '—',
       bbTitel: bb.titel, onBbTitel: e => set({titel: e.target.value}),
@@ -294,6 +299,10 @@ class Component extends DCLogic {
       bbArt: bb.art, bbTerminLabel: bb.art === 'Abholung' ? 'Abholbereit ab' : bb.art === 'Lieferung' ? 'Liefertermin' : 'Versand bis',
       bbTermin: bb.termin, onBbTermin: e => set({termin: e.target.value}),
       bbAnzahlung: bb.anzahlung, onBbAnzahlung: e => set({anzahlung: e.target.value}),
+      bbZahlarten: [['Offen', 'Noch offen'], ['Karte', 'Bezahlt · Karte'], ['Bar', 'Bezahlt · Bar'], ['Rechnung', 'Rechnung']].map(([k, l]) => { const an = (bb.zahlart || 'Offen') === k; return {label: l, bg: an ? '#101010' : '#FFFFFF', fg: an ? '#FFFFFF' : '#101010', border: an ? '#101010' : '#8a9099', onClick: () => set({zahlart: k})}; }),
+      bbIstRechnung: bb.zahlart === 'Rechnung', bbZiel: bb.ziel || '', onBbZiel: e => set({ziel: e.target.value.replace(/[^0-9]/g, '')}),
+      bbZahlText: BB_ZAHL({zahlart: bb.zahlart, ziel: bb.ziel}).text,
+      bbZahlHinweis: bb.zahlart === 'Offen' ? 'Übergabe erst nach Bezahlung.' : bb.zahlart === 'Rechnung' ? 'Übergabe erlaubt, Zahlung per Rechnung.' : 'Bezahlt – Übergabe erlaubt.',
       bbHatAnzahlung: anz > 0, bbAnzahlungStr: EUR(anz), bbRestStr: EUR(Math.max(0, brutto - anz)),
       bbHinweis: bb.hinweis, onBbHinweis: e => set({hinweis: e.target.value}), bbHatHinweis: !!bb.hinweis.trim(),
       bbFuss: bb.fuss, onBbFuss: e => set({fuss: e.target.value}),

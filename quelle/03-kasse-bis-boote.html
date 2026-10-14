@@ -1167,13 +1167,13 @@
         </div>
 
         <div style="background:#FFFFFF;border:1px solid #e5e7eb;border-radius:16px;overflow-x:auto;">
-          <div class="zk-tabelle" style="min-width:940px;">
-            <div style="display:grid;grid-template-columns:1.3fr 1.9fr 1.6fr 1fr 1fr 1.2fr 40px;gap:14px;padding:14px 20px;background:#e5e7eb;font-size:12.5px;letter-spacing:.1em;text-transform:uppercase;font-weight:600;color:#545b66;">
-              <div>Bestellbeleg</div><div>Kunde</div><div>Übergabe</div><div style="text-align:right;">Anzahlung</div><div>Positionen</div><div>Status</div><div></div>
+          <div class="zk-tabelle" style="min-width:1060px;">
+            <div style="display:grid;grid-template-columns:1.3fr 1.8fr 1.5fr 1fr 1.4fr 1fr 1.2fr 40px;gap:14px;padding:14px 20px;background:#e5e7eb;font-size:12.5px;letter-spacing:.1em;text-transform:uppercase;font-weight:600;color:#545b66;">
+              <div>Bestellbeleg</div><div>Kunde</div><div>Übergabe</div><div style="text-align:right;">Anzahlung</div><div>Zahlung</div><div>Positionen</div><div>Status</div><div></div>
             </div>
             <sc-for list="{{ bblListe }}" as="b" hint-placeholder-count="3">
               <div style="border-top:1px solid #e5e7eb;background:{{ b.rowBg }};">
-                <div sc-camel-on-click="{{ b.onToggle }}" style="cursor:pointer;display:grid;grid-template-columns:1.3fr 1.9fr 1.6fr 1fr 1fr 1.2fr 40px;gap:14px;align-items:center;padding:14px 20px;transition:background 140ms ease-out;" style-hover="background:#FFFFFF;">
+                <div sc-camel-on-click="{{ b.onToggle }}" style="cursor:pointer;display:grid;grid-template-columns:1.3fr 1.8fr 1.5fr 1fr 1.4fr 1fr 1.2fr 40px;gap:14px;align-items:center;padding:14px 20px;transition:background 140ms ease-out;" style-hover="background:#FFFFFF;">
                   <div style="min-width:0;">
                     <div style="font-size:15px;font-weight:600;color:#101010;font-variant-numeric:tabular-nums;">{{ b.nr }}</div>
                     <div style="font-size:12.5px;color:#646b76;font-variant-numeric:tabular-nums;">{{ b.datum }}</div>
@@ -1184,6 +1184,7 @@
                   </div>
                   <div style="font-size:14px;color:#101010;">{{ b.uebergabe }}</div>
                   <div style="text-align:right;font-size:15px;font-weight:700;color:#101010;font-variant-numeric:tabular-nums;white-space:nowrap;">{{ b.anzahlungStr }}</div>
+                  <div><span style="height:28px;padding:0 12px;border-radius:999px;background:{{ b.zahlBg }};color:{{ b.zahlFg }};font-size:13px;font-weight:600;display:inline-flex;align-items:center;white-space:nowrap;">{{ b.zahlText }}</span></div>
                   <div style="font-size:13.5px;color:#545b66;">{{ b.anzahl }}</div>
                   <div>
                     <span style="height:28px;padding:0 12px;border-radius:999px;background:{{ b.statusBg }};color:{{ b.statusFg }};font-size:13px;font-weight:600;display:inline-flex;align-items:center;white-space:nowrap;">{{ b.status }}</span>
@@ -1210,10 +1211,24 @@
                     <sc-if value="{{ b.hatHinweis }}" hint-placeholder-val="{{ false }}">
                       <div style="font-size:13.5px;color:#545b66;line-height:1.45;">{{ b.hinweis }}</div>
                     </sc-if>
+                    <sc-if value="{{ b.offenZahlung }}" hint-placeholder-val="{{ false }}">
+                      <div style="display:flex;flex-direction:column;gap:10px;border:1px solid #e5e7eb;border-radius:10px;padding:12px 14px;background:#f4f4f4;">
+                        <div style="font-size:14.5px;font-weight:600;color:#9b1520;">Noch nicht bezahlt – Übergabe erst nach Bezahlung oder mit Zahlungsziel auf Rechnung.</div>
+                        <div style="font-size:13.5px;color:#545b66;">{{ b.restText }}</div>
+                        <div style="display:flex;gap:8px;flex-wrap:wrap;">
+                          <button sc-camel-on-click="{{ b.onKarte }}" style="appearance:none;cursor:pointer;height:40px;padding:0 14px;border-radius:6px;font-size:14px;font-weight:600;display:inline-flex;align-items:center;gap:8px;border:0;background:#EF3D2F;color:#FFFFFF;">Bezahlt mit Karte</button>
+                          <button sc-camel-on-click="{{ b.onBar }}" style="appearance:none;cursor:pointer;height:40px;padding:0 14px;border-radius:6px;font-size:14px;font-weight:600;display:inline-flex;align-items:center;gap:8px;border:1px solid #e5e7eb;background:#e5e7eb;color:#101010;">Bezahlt bar</button>
+                          <button sc-camel-on-click="{{ b.onRechnung }}" style="appearance:none;cursor:pointer;height:40px;padding:0 14px;border-radius:6px;font-size:14px;font-weight:600;display:inline-flex;align-items:center;gap:8px;border:1.5px solid #101010;background:#FFFFFF;color:#101010;">Auf Rechnung (14 Tage)</button>
+                        </div>
+                      </div>
+                    </sc-if>
+                    <sc-if value="{{ b.gesperrt }}" hint-placeholder-val="{{ false }}">
+                      <div style="font-size:13.5px;font-weight:600;color:#9b1520;">Übergabe nicht möglich: Die Bestellung ist noch nicht bezahlt.</div>
+                    </sc-if>
                     <div style="display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;border-top:1px solid #e5e7eb;padding-top:12px;">
                       <div style="display:flex;gap:6px;flex-wrap:wrap;">
                         <sc-for list="{{ b.statusKnoepfe }}" as="k" hint-placeholder-count="3">
-                          <button sc-camel-on-click="{{ k.onClick }}" style="appearance:none;cursor:pointer;height:40px;padding:0 14px;border-radius:6px;font-size:14px;font-weight:600;display:inline-flex;align-items:center;gap:8px;border:1px solid {{ k.rand }};background:{{ k.bg }};color:{{ k.fg }};">{{ k.label }}</button>
+                          <button sc-camel-on-click="{{ k.onClick }}" title="{{ k.titel }}" style="appearance:none;cursor:pointer;height:40px;padding:0 14px;border-radius:6px;font-size:14px;font-weight:600;display:inline-flex;align-items:center;gap:8px;border:1px solid {{ k.rand }};background:{{ k.bg }};color:{{ k.fg }};">{{ k.label }}</button>
                         </sc-for>
                       </div>
                       <button sc-camel-on-click="{{ b.onDrucken }}" style="appearance:none;cursor:pointer;height:40px;padding:0 14px;border-radius:6px;font-size:14px;font-weight:600;display:inline-flex;align-items:center;gap:8px;border:1.5px solid #101010;background:#FFFFFF;color:#101010;"><svg sc-camel-view-box="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9V4h12v5M6 15h12v5H6zM4 11h16v4H4z"></path></svg>Erneut drucken</button>

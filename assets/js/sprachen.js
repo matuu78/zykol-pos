@@ -1868,6 +1868,13 @@ Logo|Logótipo
   D['Kassenbestand 300,00 €'] = {en: 'Cash float 300.00 €', fr: 'Fonds de caisse 300,00 €', es: 'Fondo de caja 300,00 €', pt: 'Fundo de caixa 300,00 €'};
   D['Automatisches Backup · 03:00 Uhr'] = {en: 'Automatic backup · 03:00', fr: 'Sauvegarde automatique · 03:00', es: 'Copia automática · 03:00', pt: 'Cópia automática · 03:00'};
   D['Lieferanten · Mindestbestand unterschritten'] = {en: 'Suppliers · below minimum stock', fr: 'Fournisseurs · stock minimum dépassé', es: 'Proveedores · por debajo del stock mínimo', pt: 'Fornecedores · abaixo do stock mínimo'};
+  D['Auf Rechnung abschließen'] = {en: 'Complete on invoice', fr: 'Clôturer sur facture', es: 'Cerrar con factura', pt: 'Concluir com fatura'};
+  D['Bezahlen'] = {en: 'Pay', fr: 'Payer', es: 'Pagar', pt: 'Pagar'};
+  D['Zahlart wählen'] = {en: 'Choose payment method', fr: 'Choisir le mode de paiement', es: 'Elegir forma de pago', pt: 'Escolher meio de pagamento'};
+  D['Abschluss auf Rechnung (Rechnungskunden, Paddel-IDs)'] = {en: 'Complete on invoice (invoice customers, paddle IDs)', fr: 'Clôture sur facture (clients sur facture, ID de pagaie)', es: 'Cierre con factura (clientes con factura, ID de palas)', pt: 'Conclusão com fatura (clientes a fatura, ID de pagaias)'};
+  D['Etikett für jedes verkaufte Boot, zum Aufkleben am Boot. Der QR-Code führt zur Bootsakte mit Garantie und Service.'] = {en: 'A label for every boat sold, to stick on the boat. The QR code leads to the boat file with warranty and service.', fr: 'Une étiquette pour chaque bateau vendu, à coller sur le bateau. Le QR code mène à la fiche bateau avec garantie et service.', es: 'Una etiqueta para cada barco vendido, para pegar en el barco. El código QR lleva a la ficha del barco con garantía y servicio.', pt: 'Uma etiqueta para cada barco vendido, para colar no barco. O código QR leva à ficha do barco com garantia e assistência.'};
+  D['1 Boot · QR-Etikett mit Seriennummer'] = {en: '1 boat · QR label with serial number', fr: '1 bateau · étiquette QR avec numéro de série', es: '1 barco · etiqueta QR con número de serie', pt: '1 barco · etiqueta QR com número de série'};
+  D['Nachdrucken'] = {en: 'Reprint', fr: 'Réimprimer', es: 'Reimprimir', pt: 'Reimprimir'};
   [
     ['Abgelaufenes Angebot (\\S+) nachfassen', {en: 'Follow up expired quote $1', fr: 'Relancer le devis expiré $1', es: 'Seguimiento del presupuesto vencido $1', pt: 'Acompanhar orçamento expirado $1'}],
     ['Nachfassen: Angebot (\\S+)', {en: 'Follow up: quote $1', fr: 'Relance : devis $1', es: 'Seguimiento: presupuesto $1', pt: 'Acompanhamento: orçamento $1'}],
@@ -1876,6 +1883,7 @@ Logo|Logótipo
     ['gültig bis (\\S+)', {en: 'valid until $1', fr: 'valable jusqu’au $1', es: 'válido hasta $1', pt: 'válido até $1'}],
     ['Kasse (.+)', {en: 'Register $1', fr: 'Caisse $1', es: 'Caja $1', pt: 'Caixa $1'}],
     ['Zeitraum (.+)', {en: 'Period $1', fr: 'Période $1', es: 'Periodo $1', pt: 'Período $1'}],
+    ['(\\d+) Boote · QR-Etiketten mit Seriennummer', {en: '$1 boats · QR labels with serial number', fr: '$1 bateaux · étiquettes QR avec numéro de série', es: '$1 barcos · etiquetas QR con número de serie', pt: '$1 barcos · etiquetas QR com número de série'}],
     ['Berichte · KW (\\d+)', {en: 'Reports · week $1', fr: 'Rapports · semaine $1', es: 'Informes · semana $1', pt: 'Relatórios · semana $1'}]
   ].forEach(function (m) { I.muster.push([new RegExp('^' + m[0] + '$'), m[1]]); });
 })();

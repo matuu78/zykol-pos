@@ -2294,11 +2294,16 @@
       onDetailClose: () => this.setState({detailId: null}),
       stop: (e) => e.stopPropagation(),
       zahlungOffen: !!st.zahlung,
-      zahlungArt: st.zahlung === 'bar' ? 'Barzahlung' : st.zahlung === 'beleg' ? 'Abschluss' : 'Kartenzahlung',
-      zahlungTitel: st.zahlung === 'bar' ? 'Bar kassieren' : st.zahlung === 'beleg' ? 'Vorgang abschließen' : 'Karte bereithalten',
+      zahlungArt: st.zahlung === 'bar' ? 'Barzahlung' : st.zahlung === 'beleg' ? 'Rechnung' : 'Kartenzahlung',
+      zahlungTitel: st.zahlung === 'bar' ? 'Bar kassieren' : st.zahlung === 'beleg' ? 'Auf Rechnung abschließen' : 'Karte bereithalten',
       zahlungStatus: ['TSE-Signatur erstellt', 'Beleg vorbereitet · Belegausgabepflicht', 'Audit-Protokoll aktualisiert'],
-      onKarte: () => anzahl && this.setState({zahlung: 'karte'}),
-      onBar: () => anzahl && this.setState({zahlung: 'bar', barGegeben: ''}),
+      korbZahlStart: !(st.zahlWahl && anzahl),
+      korbZahlWahl: !!(st.zahlWahl && anzahl),
+      bezahlenBg: anzahl ? '#EF3D2F' : '#9aa0a8',
+      onBezahlen: () => anzahl && this.setState({zahlWahl: true}),
+      onZahlWahlZu: () => this.setState({zahlWahl: false}),
+      onKarte: () => anzahl && this.setState({zahlung: 'karte', zahlWahl: false}),
+      onBar: () => anzahl && this.setState({zahlung: 'bar', barGegeben: '', zahlWahl: false}),
       ...(() => {
         const bar = st.zahlung === 'bar';
         const zuZahlen = SHOP_LADEN().daten.barRundung ? Math.round(brutto * 20) / 20 : Math.round(brutto * 100) / 100;
@@ -2326,7 +2331,7 @@
           abschlussBg: bar && (!ok || fehlt) ? '#9aa0a8' : '#EF3D2F'
         };
       })(),
-      onBeleg: () => anzahl && this.setState({zahlung: 'beleg'}),
+      onBeleg: () => anzahl && this.setState({zahlung: 'beleg', zahlWahl: false}),
       onZahlungClose: () => this.setState({zahlung: null}),
       ...(() => {
         const rp = st.zahlung === 'beleg' ? this.rechnungPaddel(st) : [];
@@ -2336,7 +2341,25 @@
         return {rgQrDrucker: QR_DRUCKER.name.split(' · ')[0], rgPaddelHinweis: ids.length > 0, rgRef: ref,
           rgQrLabel: log.length ? 'Nachdrucken' : 'QR-Etiketten drucken',
           rgQrLog: log.length ? 'Gedruckt ' + log[0].zeit + ' · ' + log[0].benutzer : 'Noch nicht gedruckt',
-          onRgQr: () => this.zeigeEtiketten('Paddel · ' + ref, rp.flatMap(x => x.ids.map(c => ({kopf: x.p.brand, name: x.p.name, art: 'Paddel-ID · ' + ref, code: c}))), ref), rgPaddelIds: ids, rgPaddelTitel: ids.length === 1 ? '1 Paddel-ID' : ids.length + ' Paddel-IDs'};
+          onRgQr: () => this.zeigeEtiketten('Paddel · ' + ref, rp.flatMap(x => x.ids.map(c => ({kopf: x.p.brand, name: x.p.name, art: 'Paddel-ID · ' + ref, code: c}))), ref), rgPaddelIds: ids, rgPaddelTitel: ids.length === 1 ? '1 Paddel-ID' : ids.length + ' Paddel-IDs',
+          ...(() => {
+            const korb = this.korbVon(st);
+            const vergeben = new Set(Object.keys(korb).map(k => k.split('::')[3]).filter(Boolean));
+            const boote = Object.keys(korb).flatMap(k => {
+              const t = k.split('::'); const p = PRODUKTE.find(x => x.id === t[0]);
+              if (!p) return [];
+              if (t[3]) return [{p, sn: t[3]}];
+              if (!(SERIEN[p.id] || []).length) return [];
+              return this.serienFrei(p.id).filter(x => !vergeben.has(x.sn)).slice(0, korb[k]).map(x => { vergeben.add(x.sn); return {p, sn: x.sn}; });
+            });
+            const bRef = st.zahlung === 'beleg' ? ref : 'Beleg ' + SHOP_NR('belegPraefix', 'B') + String(419 + (st.belegZaehler || 0)).padStart(4, '0');
+            const bLog = this.qrLogFuer(st, 'Boote ' + bRef);
+            return {zBooteHinweis: !!st.zahlung && boote.length > 0, zBooteSn: boote.map(b => b.sn),
+              zBooteTitel: boote.length === 1 ? '1 Boot · QR-Etikett mit Seriennummer' : boote.length + ' Boote · QR-Etiketten mit Seriennummer',
+              zBooteLabel: bLog.length ? 'Nachdrucken' : 'QR-Etiketten drucken',
+              zBooteLog: bLog.length ? 'Gedruckt ' + bLog[0].zeit + ' · ' + bLog[0].benutzer : 'Noch nicht gedruckt',
+              onBooteQr: () => this.zeigeEtiketten('Boote · ' + bRef, boote.map(b => ({kopf: b.p.brand, name: b.p.name, art: 'Seriennummer', code: b.sn})), 'Boote ' + bRef)};
+          })()};
       })(),
       onAbschluss: () => { const belegQ = dokQuery(); this.setState(s2 => {
         const korb = this.korbVon(s2);

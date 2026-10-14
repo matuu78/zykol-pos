@@ -282,7 +282,17 @@
       const teile = [];
       if (k) teile.push('kunde=' + encodeURIComponent([k.name, k.kontakt || '', k.ort, 'Kundennummer ' + k.nr].filter(Boolean).join('|')));
       const rp = this.rechnungPaddel(st);
-      if (rp.length) teile.push('paddel=' + encodeURIComponent(rp.map(x => x.p.brand + ' ' + x.p.name + ': ' + x.ids.join(', ')).join('|')) + '&rg=' + encodeURIComponent(this.rechnungNr(st)));
+      if (rp.length && st.zahlung !== 'bar' && st.zahlung !== 'karte') teile.push('paddel=' + encodeURIComponent(rp.map(x => x.p.brand + ' ' + x.p.name + ': ' + x.ids.join(', ')).join('|')) + '&rg=' + encodeURIComponent(this.rechnungNr(st)));
+      if (warenkorb.length) teile.push('pos=' + encodeURIComponent(warenkorb.map(w => [w.title + (w.type ? ' · ' + w.type : ''), w.qty, w.price.toFixed(2)].join('~')).join('|')));
+      const za = {karte: 'karte', bar: 'bar', beleg: 'rechnung'}[st.zahlung];
+      if (za) teile.push('zahlart=' + za);
+      if (za === 'bar') {
+        const zz = SHOP_LADEN().daten.barRundung ? Math.round(brutto * 20) / 20 : Math.round(brutto * 100) / 100;
+        const roh = (st.barGegeben || '').trim();
+        const w = !roh ? NaN : roh.includes(',') ? parseFloat(roh.replace(/\./g, '').replace(',', '.')) : /^\d+\.\d{1,2}$/.test(roh) ? parseFloat(roh) : parseFloat(roh.replace(/\./g, ''));
+        const geg = !isNaN(w) && w >= zz ? w : zz;
+        teile.push('gegeben=' + geg.toFixed(2) + '&rueckgeld=' + (Math.round((geg - zz) * 100) / 100).toFixed(2));
+      }
       return teile.length ? '?' + teile.join('&') : '';
     };
     const oeffneDok = (typ) => () => this.setState({dokVorschau: typ, dokQ: null});

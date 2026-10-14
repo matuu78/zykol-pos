@@ -299,7 +299,7 @@
     .doc-seite-screen{display:none;}
   }
 </style>
-<script src="assets/js/doc-page.js?v=10.06"></script>
+<script src="assets/js/doc-page.js?v=10.07"></script>
 <script src="assets/js/qrcode.js"></script>
 </helmet>
 
@@ -507,13 +507,23 @@ const NUM = (n) => n.toLocaleString('de-DE');
 
 const R = (zellen) => zellen;
 
+const _ZQ = new URLSearchParams(location.search);
+const Z_ART = _ZQ.get('zahlart') || 'karte';
+const Z_GEG = parseFloat(_ZQ.get('gegeben')), Z_RUECK = parseFloat(_ZQ.get('rueckgeld'));
+const Z_POS = (_ZQ.get('pos') || '').split('|').filter(Boolean).map(x => { const t = x.split('~'); return {name: t[0], menge: parseInt(t[1]) || 1, preis: parseFloat(t[2]) || 0}; });
+const Z_SUMME = Z_POS.length ? Math.round(Z_POS.reduce((a, x) => a + x.menge * x.preis, 0) * 100) / 100 : 3178;
+const Z_INFO = {
+  karte: {untertitel: 'Kartenzahlung an Terminal 1', zahlart: 'girocard (Commerzbank)', summen: [{k: 'Gegeben (girocard)', v: EUR(Z_SUMME)}]},
+  bar: {untertitel: 'Barverkauf', zahlart: 'Bar', summen: [{k: 'Gegeben (bar)', v: EUR(isNaN(Z_GEG) ? Z_SUMME : Z_GEG)}, {k: 'Rückgeld', v: EUR(isNaN(Z_RUECK) ? 0 : Z_RUECK)}]},
+  rechnung: {untertitel: 'Kauf auf Rechnung', zahlart: 'Rechnung / Überweisung', summen: [{k: 'Offen (auf Rechnung)', v: EUR(Z_SUMME)}]}
+}[Z_ART] || null;
 const DOKUMENTE = {
   beleg: {
     label: 'Kassenbeleg',
     kicker: 'Kassenbeleg',
     titel: 'Kassenbeleg B-2026-0418',
     nummer: 'Beleg B-2026-0418',
-    untertitel: 'Barverkauf / Kartenzahlung an Terminal 1 · Kassierer Marko',
+    untertitel: (Z_INFO ? Z_INFO.untertitel : 'Kartenzahlung an Terminal 1') + ' · Kassierer Marko',
     summeLabel: 'Gesamt brutto',
     linkeBoxTitel: 'Kunde',
     linkeBox: ['Laufkunde', 'keine Kundenzuordnung', '—', '—'],
@@ -521,7 +531,7 @@ const DOKUMENTE = {
       {k: 'Belegdatum', v: D_HEUTE},
       {k: 'Belegzeit', v: '14:32'},
       {k: 'Terminal', v: 'KASSE-01 · Syke'},
-      {k: 'Zahlart', v: 'girocard (Commerzbank)'},
+      {k: 'Zahlart', v: Z_INFO ? Z_INFO.zahlart : 'girocard (Commerzbank)'},
       {k: 'TSE-Signatur', v: 'a41f-9c02'},
       {k: 'Signaturzähler', v: '18.402'}
     ],
@@ -530,16 +540,16 @@ const DOKUMENTE = {
       {label: 'Position', align: 'left'}, {label: 'Menge', align: 'right'},
       {label: 'Einzel', align: 'right'}, {label: 'Summe', align: 'right'}
     ],
-    zeilen: [
+    zeilen: Z_POS.length ? Z_POS.map(x => R([x.name, String(x.menge), EUR(x.preis), EUR(x.preis * x.menge)])) : [
       R(['Lettmann Vampir 520 · Navy / Weiß · M-Sitz', '1', EUR(2899), EUR(2899)]),
       R(['Braca-Sport Braca IV 745 · Carbon Schwarz · 213 cm', '1', EUR(279), EUR(279)])
     ],
     summen: [
-      {k: 'Zwischensumme netto', v: EUR(3178 / 1.19)},
-      {k: '19 % MwSt.', v: EUR(3178 - 3178 / 1.19)},
-      {k: 'Gegeben (girocard)', v: EUR(3178)}
+      {k: 'Zwischensumme netto', v: EUR(Z_SUMME / 1.19)},
+      {k: '19 % MwSt.', v: EUR(Z_SUMME - Z_SUMME / 1.19)},
+      ...(Z_INFO ? Z_INFO.summen : [{k: 'Gegeben (girocard)', v: EUR(3178)}])
     ],
-    summe: EUR(3178),
+    summe: EUR(Z_SUMME),
     hinweise: [
       'Belegausgabepflicht nach § 146a Abs. 2 AO erfüllt.',
       'Prüfwert der TSE als QR-Code auf dem Bondruck enthalten.',

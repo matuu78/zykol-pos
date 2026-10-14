@@ -1,6 +1,6 @@
-// zykol.POS – Bedienungsanleitung (DE, EN, FR, ES, PT). Quelle für die Ansicht in Einstellungen und für das PDF. Stand v8.12.
+// zykol.POS – Bedienungsanleitung (DE, EN, FR, ES, PT). Quelle für die Ansicht in Einstellungen und für das PDF. Stand v10.05.
 window.ZYKOL_ANLEITUNG = {
-  "version": "v8.12",
+  "version": "v10.05",
   "meta": [
     {
       "id": "anmelden",
@@ -25,6 +25,11 @@ window.ZYKOL_ANLEITUNG = {
     {
       "id": "bestellbeleg",
       "view": "kasse",
+      "recht": "Bestellbeleg personalisiert drucken"
+    },
+    {
+      "id": "bestellbelege",
+      "view": "bestellbelege",
       "recht": "Bestellbeleg personalisiert drucken"
     },
     {
@@ -130,6 +135,7 @@ window.ZYKOL_ANLEITUNG = {
             "Im Warenkorb Mengen ändern oder Positionen entfernen. Auf Tablet und Handy öffnet der Warenkorb-Knopf in der Fußleiste den Warenkorb – von jeder Seite aus.",
             "Kunden zuordnen: Namen oder Nummer eingeben oder „Kundenliste öffnen“. Ein hinterlegter Kundenrabatt wird automatisch abgezogen.",
             "Möchte jemand ohne Kundendaten kaufen, „Barkunde (ohne Kundendaten)“ wählen – ohne Kundenrabatt.",
+            "Unter dem Gesamtbetrag stehen drei Knöpfe: „Bezahlen“ (Kapitel Bezahlen), „Bestellbeleg“ (für bestellte oder personalisierte Ware) und „Als Angebot speichern“.",
             "„Kasse“ in der Fußleiste bringt Sie von jeder Seite zurück zur Kasse und schließt offene Fenster."
           ],
           "tipp": "Jede Kasse hat ihren eigenen Warenkorb. Ein Wechsel der Kasse löscht ihn nicht."
@@ -138,25 +144,38 @@ window.ZYKOL_ANLEITUNG = {
           "titel": "Bezahlen und Beleg",
           "intro": "Zahlart wählen, Zahlung abschließen, Beleg ausgeben.",
           "schritte": [
-            "Im Warenkorb „Karte“, „Bar“ oder „Beleg & Abschluss“ antippen.",
+            "Im Warenkorb „Bezahlen“ antippen. Darunter erscheint „Zahlart wählen“ mit Karte, Bar und Rechnung. „Zurück“ klappt die Auswahl wieder zu.",
             "Karte: Der Kunde zahlt am Terminal. Bar: den gegebenen Betrag eingeben oder einen Schnellbetrag wählen, das Rückgeld erscheint sofort.",
-            "„Beleg & Abschluss“ schließt den Vorgang ab, z. B. für Rechnungskunden. Enthält der Einkauf Paddel, werden die Paddel-IDs angezeigt.",
-            "„Beleg als PDF“ öffnet den Beleg, „Bestellbeleg“ druckt zusätzlich einen Bestellbeleg, „Neuer Vorgang“ beginnt den nächsten Verkauf.",
-            "„Zurück“ kehrt ohne Abschluss in den Warenkorb zurück."
+            "Rechnung: für Rechnungskunden wie Vereine und Firmen. Der Vorgang wird auf Rechnung abgeschlossen; enthält der Einkauf Paddel, werden die Paddel-IDs vergeben und angezeigt.",
+            "Enthält der Einkauf ein Boot, zeigt der Dialog seine Seriennummer und „QR-Etiketten drucken“ – bei jeder Zahlart.",
+            "„Beleg als PDF“ öffnet den Beleg, „Bestellbeleg“ druckt zusätzlich einen Bestellbeleg, „Neuer Vorgang“ beginnt den nächsten Verkauf. „Zurück“ kehrt ohne Abschluss in den Warenkorb zurück."
           ],
           "tipp": "Jeder Beleg trägt einen QR-Code, über den Kunden ihn online abrufen. TSE und Kartenzahlung sind im Prototyp simuliert."
         },
         "bestellbeleg": {
           "titel": "Bestellbeleg",
-          "intro": "Für Ware, die bestellt oder personalisiert wird, gibt es einen eigenen Beleg – getrennt vom Kassenbeleg.",
+          "intro": "Für Ware, die bestellt oder personalisiert wird, gibt es einen eigenen Beleg – getrennt vom Kassenbeleg. Kunde und Bezahlung werden schon beim Erstellen festgelegt.",
           "schritte": [
             "Im Warenkorb „Bestellbeleg“ antippen.",
             "Unter „Positionen“ jede Position aufklappen und bei Bedarf die Personalisierung eintragen, z. B. Bootsname, Sitz auf Kundenmaß oder Paddellänge.",
-            "Unter „Kunde & Übergabe“ Name, Telefon, E-Mail, Übergabe (Abholung, Lieferung oder Versand), Termin und eine Anzahlung eintragen.",
-            "Unter „Druckoptionen“ wählen, ob Preise und eine Unterschriftszeile gedruckt werden.",
-            "Die Vorschau unten prüfen und „Drucken / PDF“ antippen."
+            "Unter „Kunde, Übergabe & Bezahlung“ den Kunden suchen (Name, Nummer oder Telefon) und antippen – Name, Telefon und E-Mail werden übernommen. Ist der Kunde neu, die Daten eintragen und „Als neuen Kunden speichern“ antippen.",
+            "Übergabe (Abholung, Lieferung oder Versand), Termin und eine Anzahlung eintragen.",
+            "Unter „Bezahlung“ wählen: Noch offen, Bezahlt · Karte, Bezahlt · Bar oder Rechnung mit Zahlungsziel in Tagen. Bei Vereinen und Firmen ist Rechnung vorgewählt.",
+            "Die Vorschau prüfen und „Drucken / PDF“ antippen. Der Bestellbeleg wird dabei automatisch unter „Bestellbelege“ abgelegt."
           ],
           "tipp": "Der Bestellbeleg ist kein Kassenbeleg. Mit der Unterschrift bestätigt der Kunde die Personalisierung."
+        },
+        "bestellbelege": {
+          "titel": "Bestellbelege verwalten",
+          "intro": "Alle gedruckten Bestellbelege an einem Ort – mit Bezahlung und Status bis zur Übergabe.",
+          "schritte": [
+            "In der Navigation „Bestellbelege“ öffnen. Oben stehen Bestellt, Abholbereit, Übergeben und „Noch zu kassieren“.",
+            "Nach Nummer, Kunde, Telefon oder Artikel suchen oder nach Status filtern.",
+            "Eine Zeile antippen: Positionen mit Personalisierung, Hinweis und Bezahlung erscheinen. Den Status auf Bestellt, Abholbereit oder Übergeben setzen.",
+            "Übergeben geht nur, wenn die Bestellung bezahlt ist oder auf Rechnung läuft. Ist sie noch offen, „Bezahlt mit Karte“, „Bezahlt bar“ oder „Auf Rechnung (14 Tage)“ wählen.",
+            "„Erneut drucken“ druckt den Beleg so, wie er abgelegt wurde."
+          ],
+          "tipp": "Im Prototyp setzt „Bezahlt mit Karte“ nur den Status; es wird kein Kassenbeleg erzeugt."
         },
         "etiketten": {
           "titel": "Paddel-IDs und QR-Etiketten",
@@ -164,8 +183,8 @@ window.ZYKOL_ANLEITUNG = {
           "schritte": [
             "Die Paddel-ID entsteht beim Abschluss mit Rechnung aus Datum und Nummer (z. B. ZKP-261011-416-01) und steht auf der Rechnung.",
             "Enthält ein Abschluss, eine Rechnung oder ein angenommenes Angebot ein Paddel, erscheint „QR-Etiketten drucken“.",
-            "Etiketten auf dem QR-Etikettendrucker ausgeben und am Schaft anbringen.",
-            "Für Boote das Etikett mit der Seriennummer aus der Bootsakte unter „Verkaufte Boote“ drucken."
+            "Wird ein Boot verkauft, zeigt der Bezahldialog seine Seriennummer mit „QR-Etiketten drucken“. Hat das Boot im Warenkorb noch keine Seriennummer, wird die nächste freie genommen.",
+            "Etiketten auf dem QR-Etikettendrucker ausgeben und am Schaft bzw. am Boot anbringen. Ein Nachdruck ist jederzeit auch aus der Bootsakte unter „Verkaufte Boote“ möglich."
           ],
           "tipp": "Jeder Druck wird protokolliert, auch Nachdrucke."
         },
@@ -305,6 +324,7 @@ window.ZYKOL_ANLEITUNG = {
             "Change quantities or remove items in the cart. On tablet and phone, the cart button in the footer opens the cart – from any page.",
             "Assign a customer: type a name or number or tap “Open customer list”. A stored customer discount is deducted automatically.",
             "If someone wants to buy without customer data, choose “Cash customer (no customer data)” – without customer discount.",
+            "Below the total there are three buttons: “Pay” (see Payment), “Order slip” (for ordered or personalised goods) and “Save as quote”.",
             "“Checkout” in the footer takes you back to the register from any page and closes open windows."
           ],
           "tipp": "Each register has its own cart. Switching registers does not delete it."
@@ -313,25 +333,38 @@ window.ZYKOL_ANLEITUNG = {
           "titel": "Payment and receipt",
           "intro": "Choose a payment method, complete the payment, issue the receipt.",
           "schritte": [
-            "In the cart, tap “Card”, “Cash” or “Receipt & completion”.",
+            "In the cart, tap “Pay”. “Choose payment method” appears with Card, Cash and Invoice. “Back” closes the choice again.",
             "Card: the customer pays at the terminal. Cash: enter the amount given or choose a quick amount; the change appears immediately.",
-            "“Receipt & completion” completes the transaction, e.g. for invoice customers. If the purchase includes paddles, the paddle IDs are shown.",
-            "“Receipt as PDF” opens the receipt, “Order slip” also prints an order slip, “New sale” starts the next sale.",
-            "“Back” returns to the cart without completing."
+            "Invoice: for invoice customers such as clubs and companies. The sale is completed on invoice; if it includes paddles, the paddle IDs are assigned and shown.",
+            "If the purchase includes a boat, the dialog shows its serial number and “Print QR labels” – for every payment method.",
+            "“Receipt as PDF” opens the receipt, “Order slip” also prints an order slip, “New sale” starts the next sale. “Back” returns to the cart without completing."
           ],
           "tipp": "Every receipt carries a QR code customers can use to view it online. TSE and card payment are simulated in the prototype."
         },
         "bestellbeleg": {
           "titel": "Order slip",
-          "intro": "Goods that are ordered or personalised get their own slip – separate from the receipt.",
+          "intro": "Goods that are ordered or personalised get their own slip – separate from the receipt. Customer and payment are set when the slip is created.",
           "schritte": [
             "In the cart, tap “Order slip”.",
             "Under “Items”, expand each item and enter the personalisation if needed, e.g. boat name, seat to customer size or paddle length.",
-            "Under “Customer & handover”, enter name, phone, e-mail, handover (pick-up, delivery or shipping), date and a deposit.",
-            "Under “Print options”, choose whether prices and a signature line are printed.",
-            "Check the preview below and tap “Print / PDF”."
+            "Under “Customer, handover & payment”, search for the customer (name, number or phone) and tap it – name, phone and e-mail are filled in. For a new customer, enter the details and tap “Save as new customer”.",
+            "Enter the handover (pick-up, delivery or shipping), date and a deposit.",
+            "Under “Payment”, choose: Not yet paid, Paid · card, Paid · cash or Invoice with a payment term in days. Invoice is preselected for clubs and companies.",
+            "Check the preview and tap “Print / PDF”. The order slip is filed automatically under “Order slips”."
           ],
           "tipp": "The order slip is not a receipt. With their signature the customer confirms the personalisation."
+        },
+        "bestellbelege": {
+          "titel": "Managing order slips",
+          "intro": "All printed order slips in one place – with payment and status until handover.",
+          "schritte": [
+            "Open “Order slips” in the navigation. At the top you see Ordered, Ready for pickup, Handed over and “Still to collect”.",
+            "Search by number, customer, phone or item, or filter by status.",
+            "Tap a row: items with personalisation, note and payment appear. Set the status to Ordered, Ready for pickup or Handed over.",
+            "Handing over is only possible if the order is paid or on invoice. If it is still open, choose “Paid by card”, “Paid in cash” or “On invoice (14 days)”.",
+            "“Print again” prints the slip exactly as it was filed."
+          ],
+          "tipp": "In the prototype “Paid by card” only sets the status; no receipt is created."
         },
         "etiketten": {
           "titel": "Paddle IDs and QR labels",
@@ -339,8 +372,8 @@ window.ZYKOL_ANLEITUNG = {
           "schritte": [
             "The paddle ID is created when closing with an invoice, from date and number (e.g. ZKP-261011-416-01), and appears on the invoice.",
             "If a closing, an invoice or an accepted quote contains a paddle, “Print QR labels” appears.",
-            "Print the labels on the QR label printer and attach them to the shaft.",
-            "For boats, print the label with the serial number from the boat file under “Boats sold”."
+            "When a boat is sold, the payment dialog shows its serial number with “Print QR labels”. If the boat in the cart has no serial number yet, the next free one is used.",
+            "Print the labels on the QR label printer and attach them to the shaft or the boat. Reprints are always possible from the boat file under “Boats sold”."
           ],
           "tipp": "Every print is logged, including reprints."
         },
@@ -480,6 +513,7 @@ window.ZYKOL_ANLEITUNG = {
             "Modifiez les quantités ou retirez des lignes dans le panier. Sur tablette et téléphone, le bouton panier de la barre du bas l’ouvre – depuis n’importe quelle page.",
             "Associer un client : saisissez nom ou numéro ou touchez « Ouvrir la liste des clients ». Une remise client enregistrée est déduite automatiquement.",
             "Si quelqu’un achète sans données client, choisissez « Client comptant (sans données client) » – sans remise client.",
+            "Sous le total figurent trois boutons : « Payer » (voir Paiement), « Bon de commande » (marchandise commandée ou personnalisée) et « Enregistrer comme devis ».",
             "« Caisse » dans la barre du bas vous ramène à la caisse depuis n’importe quelle page et ferme les fenêtres ouvertes."
           ],
           "tipp": "Chaque caisse a son propre panier. Changer de caisse ne le supprime pas."
@@ -488,25 +522,38 @@ window.ZYKOL_ANLEITUNG = {
           "titel": "Paiement et ticket",
           "intro": "Choisir le moyen de paiement, finaliser, remettre le ticket.",
           "schritte": [
-            "Dans le panier, touchez « Carte », « Espèces » ou « Ticket et clôture ».",
+            "Dans le panier, touchez « Payer ». « Choisir le mode de paiement » apparaît avec Carte, Espèces et Facture. « Retour » referme le choix.",
             "Carte : le client paie au terminal. Espèces : saisissez le montant remis ou choisissez un montant rapide ; la monnaie s’affiche aussitôt.",
-            "« Ticket et clôture » finalise l’opération, p. ex. pour les clients sur facture. Si l’achat contient des pagaies, leurs ID s’affichent.",
-            "« Ticket en PDF » ouvre le ticket, « Bon de commande » imprime en plus un bon de commande, « Nouvelle vente » démarre la vente suivante.",
-            "« Retour » revient au panier sans finaliser."
+            "Facture : pour les clients sur facture comme les clubs et entreprises. L’opération est clôturée sur facture ; si l’achat contient des pagaies, leurs ID sont attribués et affichés.",
+            "Si l’achat contient un bateau, la fenêtre affiche son numéro de série et « Imprimer des étiquettes QR » – quel que soit le mode de paiement.",
+            "« Ticket en PDF » ouvre le ticket, « Bon de commande » imprime en plus un bon de commande, « Nouvelle vente » démarre la vente suivante. « Retour » revient au panier sans finaliser."
           ],
           "tipp": "Chaque ticket porte un QR code permettant au client de le consulter en ligne. TSE et paiement par carte sont simulés dans le prototype."
         },
         "bestellbeleg": {
           "titel": "Bon de commande",
-          "intro": "Les articles commandés ou personnalisés ont leur propre bon – séparé du ticket de caisse.",
+          "intro": "Les articles commandés ou personnalisés ont leur propre bon – séparé du ticket de caisse. Client et paiement sont fixés dès la création.",
           "schritte": [
             "Dans le panier, touchez « Bon de commande ».",
             "Sous « Positions », dépliez chaque ligne et saisissez si besoin la personnalisation, p. ex. nom du bateau, siège sur mesure ou longueur de pagaie.",
-            "Sous « Client et remise », saisissez nom, téléphone, e-mail, mode de remise (retrait, livraison ou expédition), date et acompte.",
-            "Sous « Options d’impression », choisissez si les prix et une ligne de signature sont imprimés.",
-            "Vérifiez l’aperçu en bas et touchez « Imprimer / PDF »."
+            "Sous « Client, remise et paiement », recherchez le client (nom, numéro ou téléphone) et touchez-le – nom, téléphone et e-mail sont repris. Pour un nouveau client, saisissez les données et touchez « Enregistrer comme nouveau client ».",
+            "Saisissez le mode de remise (retrait, livraison ou expédition), la date et un acompte.",
+            "Sous « Paiement », choisissez : Pas encore payé, Payé · carte, Payé · espèces ou Facture avec délai de paiement en jours. La facture est présélectionnée pour les clubs et entreprises.",
+            "Vérifiez l’aperçu et touchez « Imprimer / PDF ». Le bon est automatiquement classé sous « Bons de commande »."
           ],
           "tipp": "Le bon de commande n’est pas un ticket de caisse. Par sa signature, le client confirme la personnalisation."
+        },
+        "bestellbelege": {
+          "titel": "Gérer les bons de commande",
+          "intro": "Tous les bons de commande imprimés au même endroit – avec paiement et statut jusqu’à la remise.",
+          "schritte": [
+            "Ouvrez « Bons de commande » dans la navigation. En haut figurent Commandé, Prêt à retirer, Remis et « Reste à encaisser ».",
+            "Recherchez par numéro, client, téléphone ou article, ou filtrez par statut.",
+            "Touchez une ligne : positions avec personnalisation, remarque et paiement s’affichent. Réglez le statut sur Commandé, Prêt à retirer ou Remis.",
+            "La remise n’est possible que si la commande est payée ou sur facture. Si elle est encore ouverte, choisissez « Payé par carte », « Payé en espèces » ou « Sur facture (14 jours) ».",
+            "« Réimprimer » imprime le bon tel qu’il a été classé."
+          ],
+          "tipp": "Dans le prototype, « Payé par carte » ne change que le statut ; aucun ticket n’est créé."
         },
         "etiketten": {
           "titel": "ID de pagaie et étiquettes QR",
@@ -514,8 +561,8 @@ window.ZYKOL_ANLEITUNG = {
           "schritte": [
             "L’ID de pagaie est créé à la clôture avec facture, à partir de la date et du numéro (p. ex. ZKP-261011-416-01), et figure sur la facture.",
             "Si une clôture, une facture ou un devis accepté contient une pagaie, « Imprimer des étiquettes QR » apparaît.",
-            "Imprimez les étiquettes sur l’imprimante QR et collez-les sur le manche.",
-            "Pour les bateaux, imprimez l’étiquette avec le numéro de série depuis la fiche bateau sous « Bateaux vendus »."
+            "Lorsqu’un bateau est vendu, la fenêtre de paiement affiche son numéro de série avec « Imprimer des étiquettes QR ». Si le bateau du panier n’a pas encore de numéro de série, le prochain disponible est utilisé.",
+            "Imprimez les étiquettes sur l’imprimante QR et collez-les sur le manche ou le bateau. Une réimpression reste possible depuis la fiche bateau sous « Bateaux vendus »."
           ],
           "tipp": "Chaque impression est journalisée, réimpressions comprises."
         },
@@ -655,6 +702,7 @@ window.ZYKOL_ANLEITUNG = {
             "Cambie cantidades o quite líneas en el carrito. En tableta y teléfono, el botón del carrito en la barra inferior lo abre desde cualquier página.",
             "Asignar cliente: escriba nombre o número o toque «Abrir lista de clientes». Un descuento de cliente guardado se aplica automáticamente.",
             "Si alguien compra sin datos de cliente, elija «Cliente de contado (sin datos)», sin descuento de cliente.",
+            "Debajo del total hay tres botones: «Pagar» (ver Pago), «Hoja de pedido» (mercancía pedida o personalizada) y «Guardar como presupuesto».",
             "«Caja» en la barra inferior le lleva de vuelta a la caja desde cualquier página y cierra las ventanas abiertas."
           ],
           "tipp": "Cada caja tiene su propio carrito. Cambiar de caja no lo borra."
@@ -663,25 +711,38 @@ window.ZYKOL_ANLEITUNG = {
           "titel": "Pago y ticket",
           "intro": "Elegir forma de pago, cerrar el cobro, entregar el ticket.",
           "schritte": [
-            "En el carrito, toque «Tarjeta», «Efectivo» o «Recibo y cierre».",
+            "En el carrito, toque «Pagar». Aparece «Elegir forma de pago» con Tarjeta, Efectivo y Factura. «Atrás» cierra la selección.",
             "Tarjeta: el cliente paga en el terminal. Efectivo: introduzca el importe entregado o elija un importe rápido; el cambio aparece al momento.",
-            "«Recibo y cierre» cierra la operación, p. ej. para clientes con factura. Si la compra incluye palas, se muestran sus ID.",
-            "«Recibo en PDF» abre el ticket, «Hoja de pedido» imprime además una hoja de pedido, «Nueva venta» inicia la siguiente venta.",
-            "«Atrás» vuelve al carrito sin cerrar."
+            "Factura: para clientes con factura como clubes y empresas. La operación se cierra con factura; si incluye palas, se asignan y muestran sus ID.",
+            "Si la compra incluye un barco, el diálogo muestra su número de serie y «Imprimir etiquetas QR», con cualquier forma de pago.",
+            "«Recibo en PDF» abre el ticket, «Hoja de pedido» imprime además una hoja de pedido, «Nueva venta» inicia la siguiente venta. «Atrás» vuelve al carrito sin cerrar."
           ],
           "tipp": "Cada ticket lleva un código QR con el que el cliente lo consulta en línea. La TSE y el pago con tarjeta están simulados en el prototipo."
         },
         "bestellbeleg": {
           "titel": "Hoja de pedido",
-          "intro": "La mercancía pedida o personalizada tiene su propia hoja, separada del ticket de caja.",
+          "intro": "La mercancía pedida o personalizada tiene su propia hoja, separada del ticket de caja. Cliente y pago se fijan al crearla.",
           "schritte": [
             "En el carrito, toque «Hoja de pedido».",
             "En «Posiciones», despliegue cada línea e indique la personalización si hace falta, p. ej. nombre del barco, asiento a medida o longitud de pala.",
-            "En «Cliente y entrega», indique nombre, teléfono, e-mail, entrega (recogida, entrega o envío), fecha y anticipo.",
-            "En «Opciones de impresión», elija si se imprimen precios y una línea de firma.",
-            "Revise la vista previa abajo y toque «Imprimir / PDF»."
+            "En «Cliente, entrega y pago», busque el cliente (nombre, número o teléfono) y tóquelo: se copian nombre, teléfono y e-mail. Para un cliente nuevo, introduzca los datos y toque «Guardar como cliente nuevo».",
+            "Indique la entrega (recogida, entrega o envío), la fecha y un anticipo.",
+            "En «Pago», elija: Pendiente de pago, Pagado · tarjeta, Pagado · efectivo o Factura con plazo de pago en días. Para clubes y empresas la factura viene preseleccionada.",
+            "Revise la vista previa y toque «Imprimir / PDF». La hoja se archiva automáticamente en «Hojas de pedido»."
           ],
           "tipp": "La hoja de pedido no es un ticket de caja. Con su firma, el cliente confirma la personalización."
+        },
+        "bestellbelege": {
+          "titel": "Gestionar hojas de pedido",
+          "intro": "Todas las hojas de pedido impresas en un solo lugar, con pago y estado hasta la entrega.",
+          "schritte": [
+            "Abra «Hojas de pedido» en la navegación. Arriba aparecen Pedido, Listo para recoger, Entregado y «Pendiente de cobro».",
+            "Busque por número, cliente, teléfono o artículo, o filtre por estado.",
+            "Toque una fila: aparecen las posiciones con personalización, la nota y el pago. Ponga el estado en Pedido, Listo para recoger o Entregado.",
+            "Solo se puede entregar si el pedido está pagado o va con factura. Si sigue pendiente, elija «Pagado con tarjeta», «Pagado en efectivo» o «Con factura (14 días)».",
+            "«Volver a imprimir» imprime la hoja tal como se archivó."
+          ],
+          "tipp": "En el prototipo, «Pagado con tarjeta» solo cambia el estado; no se genera ningún ticket."
         },
         "etiketten": {
           "titel": "ID de palas y etiquetas QR",
@@ -689,8 +750,8 @@ window.ZYKOL_ANLEITUNG = {
           "schritte": [
             "El ID de pala se crea al cerrar con factura, a partir de la fecha y el número (p. ej. ZKP-261011-416-01), y aparece en la factura.",
             "Si un cierre, una factura o un presupuesto aceptado contiene una pala, aparece «Imprimir etiquetas QR».",
-            "Imprima las etiquetas en la impresora QR y péguelas en la caña.",
-            "Para barcos, imprima la etiqueta con el número de serie desde la ficha del barco en «Barcos vendidos»."
+            "Al vender un barco, el diálogo de pago muestra su número de serie con «Imprimir etiquetas QR». Si el barco del carrito aún no tiene número de serie, se usa el siguiente libre.",
+            "Imprima las etiquetas en la impresora QR y péguelas en la caña o en el barco. Siempre puede reimprimir desde la ficha del barco en «Barcos vendidos»."
           ],
           "tipp": "Cada impresión queda registrada, también las reimpresiones."
         },
@@ -830,6 +891,7 @@ window.ZYKOL_ANLEITUNG = {
             "Altere quantidades ou remova linhas no carrinho. No tablet e no telemóvel, o botão do carrinho na barra inferior abre-o a partir de qualquer página.",
             "Atribuir cliente: escreva nome ou número ou toque em «Abrir lista de clientes». Um desconto de cliente guardado é aplicado automaticamente.",
             "Se alguém comprar sem dados de cliente, escolha «Cliente a dinheiro (sem dados)» – sem desconto de cliente.",
+            "Por baixo do total há três botões: «Pagar» (ver Pagamento), «Nota de encomenda» (mercadoria encomendada ou personalizada) e «Guardar como orçamento».",
             "«Caixa» na barra inferior leva-o de volta à caixa a partir de qualquer página e fecha as janelas abertas."
           ],
           "tipp": "Cada caixa tem o seu próprio carrinho. Mudar de caixa não o apaga."
@@ -838,25 +900,38 @@ window.ZYKOL_ANLEITUNG = {
           "titel": "Pagamento e talão",
           "intro": "Escolher o meio de pagamento, concluir o pagamento, emitir o talão.",
           "schritte": [
-            "No carrinho, toque em «Cartão», «Numerário» ou «Talão e conclusão».",
+            "No carrinho, toque em «Pagar». Aparece «Escolher meio de pagamento» com Cartão, Numerário e Fatura. «Voltar» fecha a escolha.",
             "Cartão: o cliente paga no terminal. Numerário: introduza o valor entregue ou escolha um valor rápido; o troco aparece de imediato.",
-            "«Talão e conclusão» conclui a operação, p. ex. para clientes a fatura. Se a compra incluir pagaias, são mostrados os respetivos ID.",
-            "«Talão em PDF» abre o talão, «Nota de encomenda» imprime também uma nota de encomenda, «Nova venda» inicia a venda seguinte.",
-            "«Voltar» regressa ao carrinho sem concluir."
+            "Fatura: para clientes a fatura como clubes e empresas. A operação é concluída com fatura; se incluir pagaias, os respetivos ID são atribuídos e mostrados.",
+            "Se a compra incluir um barco, o diálogo mostra o número de série e «Imprimir etiquetas QR» – com qualquer meio de pagamento.",
+            "«Talão em PDF» abre o talão, «Nota de encomenda» imprime também uma nota de encomenda, «Nova venda» inicia a venda seguinte. «Voltar» regressa ao carrinho sem concluir."
           ],
           "tipp": "Cada talão tem um código QR com o qual o cliente o consulta online. A TSE e o pagamento com cartão são simulados no protótipo."
         },
         "bestellbeleg": {
           "titel": "Nota de encomenda",
-          "intro": "A mercadoria encomendada ou personalizada tem a sua própria nota – separada do talão de caixa.",
+          "intro": "A mercadoria encomendada ou personalizada tem a sua própria nota – separada do talão de caixa. Cliente e pagamento são definidos logo na criação.",
           "schritte": [
             "No carrinho, toque em «Nota de encomenda».",
             "Em «Linhas», abra cada linha e indique a personalização se necessário, p. ex. nome do barco, assento à medida ou comprimento da pagaia.",
-            "Em «Cliente e entrega», indique nome, telefone, e-mail, entrega (levantamento, entrega ou envio), data e sinal.",
-            "Em «Opções de impressão», escolha se os preços e uma linha de assinatura são impressos.",
-            "Verifique a pré-visualização em baixo e toque em «Imprimir / PDF»."
+            "Em «Cliente, entrega e pagamento», procure o cliente (nome, número ou telefone) e toque nele – nome, telefone e e-mail são copiados. Para um cliente novo, introduza os dados e toque em «Guardar como novo cliente».",
+            "Indique a entrega (levantamento, entrega ou envio), a data e um sinal.",
+            "Em «Pagamento», escolha: Ainda por pagar, Pago · cartão, Pago · numerário ou Fatura com prazo de pagamento em dias. Para clubes e empresas a fatura vem pré-selecionada.",
+            "Verifique a pré-visualização e toque em «Imprimir / PDF». A nota fica guardada automaticamente em «Notas de encomenda»."
           ],
           "tipp": "A nota de encomenda não é um talão de caixa. Com a assinatura, o cliente confirma a personalização."
+        },
+        "bestellbelege": {
+          "titel": "Gerir notas de encomenda",
+          "intro": "Todas as notas de encomenda impressas num só lugar – com pagamento e estado até à entrega.",
+          "schritte": [
+            "Abra «Notas de encomenda» na navegação. Em cima estão Encomendado, Pronto para levantamento, Entregue e «Por cobrar».",
+            "Pesquise por número, cliente, telefone ou artigo, ou filtre por estado.",
+            "Toque numa linha: aparecem as linhas com personalização, a observação e o pagamento. Defina o estado como Encomendado, Pronto para levantamento ou Entregue.",
+            "Só é possível entregar se a encomenda estiver paga ou com fatura. Se ainda estiver em aberto, escolha «Pago com cartão», «Pago em numerário» ou «Com fatura (14 dias)».",
+            "«Imprimir novamente» imprime a nota tal como foi guardada."
+          ],
+          "tipp": "No protótipo, «Pago com cartão» apenas altera o estado; não é criado nenhum talão."
         },
         "etiketten": {
           "titel": "ID de pagaias e etiquetas QR",
@@ -864,8 +939,8 @@ window.ZYKOL_ANLEITUNG = {
           "schritte": [
             "O ID da pagaia é criado ao concluir com fatura, a partir da data e do número (p. ex. ZKP-261011-416-01), e consta da fatura.",
             "Se uma conclusão, uma fatura ou um orçamento aceite contiver uma pagaia, aparece «Imprimir etiquetas QR».",
-            "Imprima as etiquetas na impressora QR e cole-as no cabo.",
-            "Para barcos, imprima a etiqueta com o número de série a partir da ficha do barco em «Barcos vendidos»."
+            "Quando um barco é vendido, o diálogo de pagamento mostra o número de série com «Imprimir etiquetas QR». Se o barco no carrinho ainda não tiver número de série, é usado o próximo livre.",
+            "Imprima as etiquetas na impressora QR e cole-as no cabo ou no barco. A reimpressão é sempre possível a partir da ficha do barco em «Barcos vendidos»."
           ],
           "tipp": "Cada impressão fica registada, incluindo reimpressões."
         },

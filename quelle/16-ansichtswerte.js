@@ -8,7 +8,7 @@
       stock: Math.max(0, this.bestandVon(p) + (st.stockDelta[p.id] || 0))
     }));
     const tq = st.txSuche.trim().toLowerCase();
-    const TXS = TX.map(t => st.txStatus[t.beleg] ? Object.assign({}, t, {status: st.txStatus[t.beleg]}) : t);
+    const TXS = (st.txNeu || []).concat(TX).map(t => st.txStatus[t.beleg] ? Object.assign({}, t, {status: st.txStatus[t.beleg]}) : t);
     const txKasse = TXS.filter(t => t.kasse === st.aktiveKasseId);
     const isoD = d => { const p = d.split('.'); return p[2] + '-' + p[1] + '-' + p[0]; };
     const txAlleIso = TX.map(t => isoD(t.datum)).sort();
@@ -277,12 +277,13 @@
       }
     } : null;
 
-    const dokQuery = () => {
+    const dokQuery = (opt) => { opt = opt || {};
       const k = this.kunden().find(x => x.nr === st.kundeNr);
       const teile = [];
       if (k) teile.push('kunde=' + encodeURIComponent([k.name, k.kontakt || '', k.ort, 'Kundennummer ' + k.nr].filter(Boolean).join('|')));
       const rp = this.rechnungPaddel(st);
-      if (rp.length && st.zahlung !== 'bar' && st.zahlung !== 'karte') teile.push('paddel=' + encodeURIComponent(rp.map(x => x.p.brand + ' ' + x.p.name + ': ' + x.ids.join(', ')).join('|')) + '&rg=' + encodeURIComponent(this.rechnungNr(st)));
+      if (opt.nr) teile.push('nr=' + encodeURIComponent(opt.nr));
+      if (rp.length && (opt.rg || (!opt.bon && st.zahlung !== 'bar' && st.zahlung !== 'karte'))) teile.push('paddel=' + encodeURIComponent(rp.map(x => x.p.brand + ' ' + x.p.name + ': ' + x.ids.join(', ')).join('|')) + '&rg=' + encodeURIComponent(this.rechnungNr(st)));
       if (warenkorb.length) teile.push('pos=' + encodeURIComponent(warenkorb.map(w => [w.title + (w.type ? ' · ' + w.type : ''), w.qty, w.price.toFixed(2)].join('~')).join('|')));
       const za = {karte: 'karte', bar: 'bar', beleg: 'rechnung'}[st.zahlung];
       if (za) teile.push('zahlart=' + za);
@@ -293,6 +294,7 @@
         const geg = !isNaN(w) && w >= zz ? w : zz;
         teile.push('gegeben=' + geg.toFixed(2) + '&rueckgeld=' + (Math.round((geg - zz) * 100) / 100).toFixed(2));
       }
+      if (opt.rg && !rp.length) teile.push('rg=' + encodeURIComponent(this.rechnungNr(st)));
       return teile.length ? '?' + teile.join('&') : '';
     };
     const oeffneDok = (typ) => () => this.setState({dokVorschau: typ, dokQ: null});
@@ -1827,8 +1829,16 @@
         zeilen: tx.pos.map(p => ({menge: p[1], name: p[0], summe: EUR(p[1] * p[2])})),
         netto: EUR(txSumme(tx) / 1.19),
         mwst: EUR(txSumme(tx) - txSumme(tx) / 1.19),
-        betragStr: EUR(txSumme(tx))
+        betragStr: EUR(txSumme(tx)),
+        anhaenge: (tx.anhaenge || (() => { const q = '?' + ['pos=' + encodeURIComponent(tx.pos.map(p => [p[0], p[1], Number(p[2]).toFixed(2)].join('~')).join('|')), 'zahlart=' + ({Karte: 'karte', Bar: 'bar', Rechnung: 'rechnung'}[tx.zahlart] || 'karte'), 'nr=' + encodeURIComponent(tx.beleg)].join('&');
+          const a = tx.zahlart === 'Rechnung' ? [] : [{art: 'beleg', titel: 'Bon ' + tx.beleg, info: 'gedruckt', q}];
+          if (tx.zahlart === 'Rechnung') a.push({art: 'rechnung', titel: 'Rechnung ' + tx.beleg.replace(/^[A-Z]+-/, 'R-'), info: 'gedruckt', q: q + '&rg=' + encodeURIComponent(tx.beleg.replace(/^[A-Z]+-/, 'R-'))});
+          return a; })()).map(a => ({titel: a.titel, info: a.info, art: a.art === 'rechnung' ? 'Rechnung' : 'Bon',
+          onAnsehen: () => this.setState({dokVorschau: a.art, dokQ: (a.q || '?') + '&einzeln=1'}),
+          onDrucken: () => this.druckeUrl('dokumentvorlage.html' + (a.q || '?') + '&einzeln=1&druck=1#' + a.art, a.titel)}))
       } : null,
+      txDruckLabel: tx && (tx.anhaenge ? !tx.anhaenge.some(a => a.art === 'beleg') : tx.zahlart === 'Rechnung') ? 'Rechnung drucken' : 'Bon drucken',
+      onTxBonDrucken: () => { const a = vals.txDetail && vals.txDetail.anhaenge[0]; if (a) a.onDrucken(); },
       onTxClose: () => this.setState({txBeleg: null}),
       kennzahlen: [
         {label: 'Artikel aktiv', value: String(PRODUKTE.length), hint: this.kats().length - 1 + ' Rubriken', color: '#101010',
@@ -2275,7 +2285,7 @@
       onFussKorb: () => st.view === 'kasse' ? this.setState(s => ({korbOffen: !s.korbOffen})) : this.setState(Object.assign(this.zurKassePatch(), {korbOffen: true})),
       kasseToastDa: !!st.kasseToast,
       kasseToastText: st.kasseToast ? st.kasseToast.text : '',
-      onKasseToastOeffnen: () => { const nr = st.kasseToast && st.kasseToast.nr; const a = (st.angebote || ANGEBOTE_START).find(x => x.nr === nr); clearTimeout(this._ktT); const bbE = !a && (st.bestellbelege || []).find(x => x.nr === nr); this.setState(a ? {kasseToast: null, korbOffen: tablet ? false : st.korbOffen, view: 'angebote', agEdit: JSON.parse(JSON.stringify(a)), agArtSuche: '', agVorschau: false} : bbE ? {kasseToast: null, bb: null, bbAuf: {}, korbOffen: tablet ? false : st.korbOffen, view: 'bestellbelege', bblOffen: nr, bblFilter: null, bblSuche: ''} : {kasseToast: null}); },
+      onKasseToastOeffnen: () => { const nr = st.kasseToast && st.kasseToast.nr; const a = (st.angebote || ANGEBOTE_START).find(x => x.nr === nr); clearTimeout(this._ktT); const bbE = !a && (st.bestellbelege || []).find(x => x.nr === nr); this.setState(a ? {kasseToast: null, korbOffen: tablet ? false : st.korbOffen, view: 'angebote', agEdit: JSON.parse(JSON.stringify(a)), agArtSuche: '', agVorschau: false} : bbE ? {kasseToast: null, bb: null, bbAuf: {}, korbOffen: tablet ? false : st.korbOffen, view: 'bestellbelege', bblOffen: nr, bblFilter: null, bblSuche: ''} : (TXS.find(x => x.beleg === nr) ? {kasseToast: null, korbOffen: tablet ? false : st.korbOffen, view: 'transaktionen', txBeleg: nr} : {kasseToast: null})); },
       onKasseToastZu: () => { clearTimeout(this._ktT); this.setState({kasseToast: null}); },
       korbAngebotSichtbar: warenkorb.length > 0 && !!this.meineRechte()['Angebote erstellen & versenden'],
       onKorbAlsAngebot: () => {
@@ -2313,8 +2323,8 @@
       bezahlenBg: anzahl ? '#EF3D2F' : '#9aa0a8',
       onBezahlen: () => anzahl && this.setState({zahlWahl: true}),
       onZahlWahlZu: () => this.setState({zahlWahl: false}),
-      onKarte: () => anzahl && this.setState({zahlung: 'karte', zahlWahl: false}),
-      onBar: () => anzahl && this.setState({zahlung: 'bar', barGegeben: '', zahlWahl: false}),
+      onKarte: () => anzahl && this.setState({zahlung: 'karte', zahlWahl: false, zAusgabe: false}),
+      onBar: () => anzahl && this.setState({zahlung: 'bar', barGegeben: '', zahlWahl: false, zAusgabe: false}),
       ...(() => {
         const bar = st.zahlung === 'bar';
         const zuZahlen = SHOP_LADEN().daten.barRundung ? Math.round(brutto * 20) / 20 : Math.round(brutto * 100) / 100;
@@ -2342,8 +2352,29 @@
           abschlussBg: bar && (!ok || fehlt) ? '#9aa0a8' : '#EF3D2F'
         };
       })(),
-      onBeleg: () => anzahl && this.setState({zahlung: 'beleg', zahlWahl: false}),
-      onZahlungClose: () => this.setState({zahlung: null}),
+      onBeleg: () => anzahl && this.setState({zahlung: 'beleg', zahlWahl: false, zAusgabe: false}),
+      onZahlungClose: () => this.setState({zahlung: null, zAusgabe: false}),
+      ...(() => {
+        const ausg = !!st.zAusgabe, rg = st.zRg || null, pflicht = st.zahlung === 'beleg', bon = !pflicht;
+        const mailOk = /^[^@\s]+@[^@\s]+\.[^@\s]+$/.test((st.zRgMail || '').trim());
+        const opt = (an) => ({bg: an ? '#f4f4f4' : '#FFFFFF', rand: an ? '#101010' : '#e5e7eb', zeichen: an ? '✓' : '', kreisBg: an ? '#101010' : '#FFFFFF'});
+        const wahl = (w) => () => this.setState(s2 => ({zRg: s2.zRg === w ? (s2.zahlung === 'beleg' ? w : null) : w}));
+        return {
+          zSchritt1: !ausg, zAusgabe: ausg,
+          zRgDruck: opt(rg === 'druck'), zRgMailOpt: opt(rg === 'mail'), zRgMailAktiv: rg === 'mail',
+          zRgPflicht: pflicht, zBonPflicht: !pflicht,
+          zRgDruckInfo: pflicht ? 'Direkt am Drucker' : 'Zusätzlich zum Bon, direkt am Drucker',
+          zAblageInfo: pflicht ? 'Die Rechnung wird am Vorgang abgelegt (Transaktionen).' : 'Bon und Rechnung werden am Vorgang abgelegt (Transaktionen).',
+          zRgMail: st.zRgMail || '',
+          onZRgMail: e => this.setState({zRgMail: e.target.value}),
+          onZRgDruck: wahl('druck'), onZRgMailWahl: wahl('mail'),
+          zMailRand: rg === 'mail' && !mailOk ? '#b3262f' : '#e5e7eb',
+          zAbschlussSperre: rg === 'mail' && !mailOk,
+          zAbschlussText: 'Abschließen · ' + (bon ? (rg === 'druck' ? 'Bon + Rechnung drucken' : rg === 'mail' ? 'Bon drucken, Rechnung senden' : 'Bon drucken') : (rg === 'mail' ? 'Rechnung senden' : 'Rechnung drucken')),
+          onZBezahlen: () => { const k = this.kunden().find(x => x.nr === st.kundeNr); this.setState({zAusgabe: true, zRg: st.zahlung === 'beleg' ? 'druck' : null, zRgMail: (k && k.mail) || ''}); },
+          onZAusgabeZurueck: () => this.setState({zAusgabe: false})
+        };
+      })(),
       ...(() => {
         const rp = st.zahlung === 'beleg' ? this.rechnungPaddel(st) : [];
         const ids = rp.flatMap(x => x.ids);
@@ -2372,7 +2403,26 @@
               onBooteQr: () => this.zeigeEtiketten('Boote · ' + bRef, boote.map(b => ({kopf: b.p.brand, name: b.p.name, art: 'Seriennummer', code: b.sn})), 'Boote ' + bRef)};
           })()};
       })(),
-      onAbschluss: () => { const belegQ = dokQuery(); this.setState(s2 => {
+      onAbschluss: () => {
+        const bNr = SHOP_NR('belegPraefix', 'B') + String(419 + (st.belegZaehler || 0)).padStart(4, '0');
+        const rgArt = st.zRg || (st.zahlung === 'beleg' ? 'druck' : null);
+        const bonDruck = st.zahlung !== 'beleg';
+        const rNr = this.rechnungNr(st);
+        const bonQ = dokQuery({nr: bNr, bon: true});
+        const rgQ = rgArt ? dokQuery({nr: bNr, rg: true}) : '';
+        const mail = (st.zRgMail || '').trim();
+        const jetzt = new Date();
+        const kd = this.kunden().find(k => k.nr === st.kundeNr);
+        const anh = bonDruck ? [{art: 'beleg', titel: 'Bon ' + bNr, info: 'gedruckt', q: bonQ}] : [];
+        if (rgArt) anh.push({art: 'rechnung', titel: 'Rechnung ' + rNr, info: rgArt === 'mail' ? 'per E-Mail an ' + mail : 'gedruckt', q: rgQ});
+        const txN = {beleg: bNr, kasse: st.aktiveKasseId, datum: DTX('27.08.2026'), zeit: String(jetzt.getHours()).padStart(2, '0') + ':' + String(jetzt.getMinutes()).padStart(2, '0'),
+          kassierer: String((st.angemeldet || {}).name || 'root').split(' ')[0], zahlart: {karte: 'Karte', bar: 'Bar', beleg: 'Rechnung'}[st.zahlung] || 'Karte',
+          status: st.zahlung === 'beleg' ? 'Offen' : 'Abgeschlossen', tse: Math.random().toString(16).slice(2, 6) + '-' + Math.random().toString(16).slice(2, 6),
+          pos: warenkorb.map(w => [w.title + (w.type ? ' · ' + w.type : ''), w.qty, w.price]), kunde: kd ? kd.name : '', anhaenge: anh};
+        if (bonDruck) this.druckeUrl('dokumentvorlage.html' + bonQ + '&einzeln=1&druck=1#beleg', 'Bon ' + bNr);
+        if (rgArt === 'druck') setTimeout(() => this.druckeUrl('dokumentvorlage.html' + rgQ + '&einzeln=1&druck=1#rechnung', 'Rechnung ' + rNr), bonDruck ? 1800 : 0);
+        clearTimeout(this._ktT); this._ktT = setTimeout(() => this.setState({kasseToast: null}), 7000);
+        this.setState(s2 => {
         const korb = this.korbVon(s2);
         const istRg = s2.zahlung === 'beleg';
         const rgPaddel = istRg ? this.rechnungPaddel(s2) : [];
@@ -2418,10 +2468,11 @@
         }
         return Object.assign({
           zahlung: null,
-          dokVorschau: istRg ? 'rechnung' : 'beleg',
-          dokQ: belegQ,
+          zAusgabe: false, zRg: null, zRgMail: '',
+          txNeu: [txN].concat(s2.txNeu || []),
+          kasseToast: {text: 'Vorgang ' + bNr + ' abgeschlossen — ' + [bonDruck ? 'Bon gedruckt' : '', rgArt === 'druck' ? 'Rechnung ' + rNr + ' gedruckt' : rgArt === 'mail' ? 'Rechnung ' + rNr + ' an ' + mail + ' gesendet' : ''].filter(Boolean).join(', ') + '. Belege hängen am Vorgang.', nr: bNr},
           belegZaehler: (s2.belegZaehler || 0) + 1,
-          rechnungZaehler: (s2.rechnungZaehler || 0) + (istRg ? 1 : 0),
+          rechnungZaehler: (s2.rechnungZaehler || 0) + (rgArt ? 1 : 0),
           paddelVorgabe: null, paddelVorgabeAg: null,
           etikett: rgPaddel.length && !this.qrLogFuer(s2, 'Rechnung ' + rgPaddel[0].nr).length ? {ref: 'Rechnung ' + rgPaddel[0].nr, titel: 'Paddel · Rechnung ' + rgPaddel[0].nr, items: rgPaddel.flatMap(x => x.ids.map(c => ({kopf: x.p.brand, name: x.p.name, art: 'Paddel-ID · Rechnung ' + x.nr, code: c})))} : s2.etikett,
           kaufExtra: kaufExtra,

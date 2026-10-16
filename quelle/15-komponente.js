@@ -1195,6 +1195,15 @@ class Component extends DCLogic {
     });
   }
 
+  druckeUrl(url, titel) {
+    // Druckt ein Dokument aus der Dokumentvorlage direkt, ohne Vorschau einzublenden (dokumentvorlage.html ruft mit druck=1 selbst print() auf)
+    const f = document.createElement('iframe');
+    f.title = titel || 'Druck';
+    f.setAttribute('style', 'position:fixed;right:0;bottom:0;width:0;height:0;border:0;opacity:0;');
+    f.src = url;
+    document.body.appendChild(f);
+    setTimeout(() => f.remove(), 60000);
+  }
   druckeHtml(html, titel) {
     const alt = document.getElementById('zykol-druck');
     if (alt) alt.remove();

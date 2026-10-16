@@ -207,6 +207,8 @@
           <span style="font-size:15px;color:#646b76;">Zu zahlen</span>
           <span style="font-size:34px;font-weight:700;font-variant-numeric:tabular-nums;">{{ gesamtStr }}</span>
         </div>
+        <sc-if value="{{ zSchritt1 }}" hint-placeholder-val="{{ true }}">
+        <div style="display:flex;flex-direction:column;gap:18px;">
         <sc-if value="{{ barAktiv }}" hint-placeholder-val="{{ false }}">
           <div style="display:flex;flex-direction:column;gap:12px;">
             <label style="display:flex;flex-direction:column;gap:6px;">
@@ -267,10 +269,44 @@
         <div style="font-size:12.5px;color:#646b76;line-height:1.4;">Design-Prototyp — keine Bestätigung steuerrechtlicher Konformität (TSE, KassenSichV, DSFinV-K, §146a AO).</div>
         <div style="display:flex;gap:10px;">
           <button sc-camel-on-click="{{ onZahlungClose }}" style="appearance:none;cursor:pointer;flex:none;height:56px;padding:0 22px;border-radius:6px;border:1px solid #e5e7eb;background:#e5e7eb;color:#101010;font-size:16px;font-weight:600;">Zurück</button>
-          <button sc-camel-on-click="{{ dok.beleg }}" style="appearance:none;cursor:pointer;flex:none;height:56px;padding:0 20px;border-radius:6px;border:1.5px solid #101010;background:transparent;color:#101010;font-size:16px;font-weight:600;">Beleg als PDF</button>
           <button sc-camel-on-click="{{ onBestellbeleg }}" style="appearance:none;cursor:pointer;flex:none;height:56px;padding:0 20px;border-radius:6px;border:1.5px solid #101010;background:transparent;color:#101010;font-size:16px;font-weight:600;">Bestellbeleg</button>
-          <button sc-camel-on-click="{{ onAbschluss }}" disabled="{{ barSperre }}" style="appearance:none;cursor:pointer;flex:1;height:56px;border-radius:6px;border:0;background:{{ abschlussBg }};color:#FFFFFF;font-size:16.5px;font-weight:600;" style-hover="background:#FF4E3F;">Neuer Vorgang</button>
+          <button sc-camel-on-click="{{ onZBezahlen }}" disabled="{{ barSperre }}" style="appearance:none;cursor:pointer;flex:1;height:56px;border-radius:6px;border:0;background:{{ abschlussBg }};color:#FFFFFF;font-size:16.5px;font-weight:600;" style-hover="background:#FF4E3F;">Bezahlen</button>
         </div>
+        </div>
+        </sc-if>
+        <sc-if value="{{ zAusgabe }}" hint-placeholder-val="{{ false }}">
+          <div class="zk-ausgabe" style="display:flex;flex-direction:column;gap:12px;">
+            <div style="font-size:14px;font-weight:600;color:#101010;">Belegausgabe</div>
+            <sc-if value="{{ zBonPflicht }}" hint-placeholder-val="{{ true }}">
+            <div style="display:flex;align-items:center;gap:14px;padding:14px 16px;border-radius:10px;border:1px solid #e5e7eb;background:#dcf3e6;">
+              <span style="width:26px;height:26px;border-radius:999px;background:#0d5f38;color:#FFFFFF;display:flex;align-items:center;justify-content:center;font-size:15px;font-weight:700;flex:none;">✓</span>
+              <span style="display:flex;flex-direction:column;gap:2px;min-width:0;flex:1;"><span style="font-size:16px;font-weight:600;color:#0d5f38;">Bon drucken</span><span style="font-size:13.5px;color:#0d5f38;">Wird immer gedruckt</span></span>
+            </div>
+            </sc-if>
+            <button sc-camel-on-click="{{ onZRgDruck }}" title="Rechnung drucken" style="appearance:none;cursor:pointer;display:flex;align-items:center;gap:14px;padding:14px 16px;border-radius:10px;border:1.5px solid {{ zRgDruck.rand }};background:{{ zRgDruck.bg }};text-align:left;">
+              <span style="width:26px;height:26px;border-radius:999px;border:1.5px solid #101010;background:{{ zRgDruck.kreisBg }};color:#FFFFFF;display:flex;align-items:center;justify-content:center;font-size:15px;font-weight:700;flex:none;">{{ zRgDruck.zeichen }}</span>
+              <span style="display:flex;flex-direction:column;gap:2px;min-width:0;flex:1;"><span style="font-size:16px;font-weight:600;color:#101010;">Rechnung drucken</span><span style="font-size:13.5px;color:#545b66;">{{ zRgDruckInfo }}</span></span>
+            </button>
+            <button sc-camel-on-click="{{ onZRgMailWahl }}" title="Rechnung per E-Mail senden" style="appearance:none;cursor:pointer;display:flex;align-items:center;gap:14px;padding:14px 16px;border-radius:10px;border:1.5px solid {{ zRgMailOpt.rand }};background:{{ zRgMailOpt.bg }};text-align:left;">
+              <span style="width:26px;height:26px;border-radius:999px;border:1.5px solid #101010;background:{{ zRgMailOpt.kreisBg }};color:#FFFFFF;display:flex;align-items:center;justify-content:center;font-size:15px;font-weight:700;flex:none;">{{ zRgMailOpt.zeichen }}</span>
+              <span style="display:flex;flex-direction:column;gap:2px;min-width:0;flex:1;"><span style="font-size:16px;font-weight:600;color:#101010;">Rechnung per E-Mail senden</span><span style="font-size:13.5px;color:#545b66;">Als PDF an den Kunden</span></span>
+            </button>
+            <sc-if value="{{ zRgMailAktiv }}" hint-placeholder-val="{{ false }}">
+              <label style="display:flex;flex-direction:column;gap:6px;">
+                <span style="font-size:14px;font-weight:600;color:#101010;">E-Mail-Adresse</span>
+                <input value="{{ zRgMail }}" sc-camel-on-change="{{ onZRgMail }}" type="email" inputmode="email" placeholder="name@beispiel.de" aria-label="E-Mail-Adresse für die Rechnung" style="height:52px;border:1.5px solid {{ zMailRand }};border-radius:10px;padding:0 14px;font-size:16px;color:#101010;background:#FFFFFF;outline:none;min-width:0;">
+              </label>
+            </sc-if>
+            <sc-if value="{{ zRgPflicht }}" hint-placeholder-val="{{ false }}">
+              <div style="font-size:13.5px;color:#545b66;">Bei Zahlart Rechnung gibt es keinen Bon. Die Rechnung ist Pflicht: drucken oder per E-Mail senden.</div>
+            </sc-if>
+            <div style="font-size:13.5px;color:#545b66;">{{ zAblageInfo }}</div>
+            <div style="display:flex;gap:10px;flex-wrap:wrap;">
+              <button sc-camel-on-click="{{ onZAusgabeZurueck }}" style="appearance:none;cursor:pointer;flex:1;min-width:120px;height:56px;border-radius:6px;border:1px solid #e5e7eb;background:#e5e7eb;color:#101010;font-size:16px;font-weight:600;">Zurück</button>
+              <button sc-camel-on-click="{{ onAbschluss }}" disabled="{{ zAbschlussSperre }}" style="appearance:none;cursor:pointer;flex:2;min-width:200px;min-height:56px;padding:8px 16px;border-radius:6px;border:0;background:#EF3D2F;color:#FFFFFF;font-size:16px;font-weight:600;" style-hover="background:#FF4E3F;">{{ zAbschlussText }}</button>
+            </div>
+          </div>
+        </sc-if>
       </div>
     </div>
   </sc-if>

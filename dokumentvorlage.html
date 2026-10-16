@@ -512,6 +512,10 @@ const Z_ART = _ZQ.get('zahlart') || 'karte';
 const Z_GEG = parseFloat(_ZQ.get('gegeben')), Z_RUECK = parseFloat(_ZQ.get('rueckgeld'));
 const Z_POS = (_ZQ.get('pos') || '').split('|').filter(Boolean).map(x => { const t = x.split('~'); return {name: t[0], menge: parseInt(t[1]) || 1, preis: parseFloat(t[2]) || 0}; });
 const Z_SUMME = Z_POS.length ? Math.round(Z_POS.reduce((a, x) => a + x.menge * x.preis, 0) * 100) / 100 : 3178;
+const Z_NR = _ZQ.get('nr') || 'B-2026-0418';
+const Z_RG = _ZQ.get('rg') || 'R-2026-0415';
+const Z_EINZELN = _ZQ.get('einzeln') === '1', Z_DRUCK = _ZQ.get('druck') === '1';
+const Z_RG_INFO = {bar: ['Bezahlt bar · ' + D_HEUTE, 'Betrag bar erhalten am ' + D_HEUTE + '. Vielen Dank.'], karte: ['Bezahlt mit Karte · ' + D_HEUTE, 'Betrag per Karte bezahlt am ' + D_HEUTE + '. Vielen Dank.']}[_ZQ.get('zahlart')] || null;
 const Z_INFO = {
   karte: {untertitel: 'Kartenzahlung an Terminal 1', zahlart: 'girocard (Commerzbank)', summen: [{k: 'Gegeben (girocard)', v: EUR(Z_SUMME)}]},
   bar: {untertitel: 'Barverkauf', zahlart: 'Bar', summen: [{k: 'Gegeben (bar)', v: EUR(isNaN(Z_GEG) ? Z_SUMME : Z_GEG)}, {k: 'Rückgeld', v: EUR(isNaN(Z_RUECK) ? 0 : Z_RUECK)}]},
@@ -521,8 +525,8 @@ const DOKUMENTE = {
   beleg: {
     label: 'Kassenbeleg',
     kicker: 'Kassenbeleg',
-    titel: 'Kassenbeleg B-2026-0418',
-    nummer: 'Beleg B-2026-0418',
+    titel: 'Kassenbeleg ' + Z_NR,
+    nummer: 'Beleg ' + Z_NR,
     untertitel: (Z_INFO ? Z_INFO.untertitel : 'Kartenzahlung an Terminal 1') + ' · Kassierer Marko',
     summeLabel: 'Gesamt brutto',
     linkeBoxTitel: 'Kunde',
@@ -559,40 +563,40 @@ const DOKUMENTE = {
   rechnung: {
     label: 'Rechnung',
     kicker: 'Rechnung',
-    titel: 'Rechnung R-2026-0415',
-    nummer: 'Rechnung R-2026-0415',
-    untertitel: 'Rechnungskauf · Zahlungsziel 30 Tage netto',
+    titel: 'Rechnung ' + Z_RG,
+    nummer: 'Rechnung ' + Z_RG,
+    untertitel: Z_RG_INFO ? Z_RG_INFO[0] : 'Rechnungskauf · Zahlungsziel 30 Tage netto',
     summeLabel: 'Rechnungsbetrag',
     linkeBoxTitel: 'Rechnungsempfänger',
     linkeBox: ['Kanu-Club Weser Syke e.V.', 'Bernd Ahlers (Vorstand)', 'Am Bootshaus 3', '28857 Syke', 'Kundennummer K-1042'],
     meta: [
       {k: 'Rechnungsdatum', v: D_HEUTE},
       {k: 'Leistungsdatum', v: D_HEUTE},
-      {k: 'Zahlungsziel', v: D_ZIEL},
-      {k: 'Rahmenrabatt', v: '12 %'},
+      ...(Z_RG_INFO ? [] : [{k: 'Zahlungsziel', v: D_ZIEL}]),
+      ...(Z_POS.length ? [] : [{k: 'Rahmenrabatt', v: '12 %'}]),
       {k: 'Bearbeiter', v: 'Anke'},
-      {k: 'Beleg-Referenz', v: 'B-2026-0415'}
+      {k: 'Beleg-Referenz', v: _ZQ.get('nr') || 'B-2026-0415'}
     ],
     raster: '2.6fr 0.9fr 0.7fr 1fr 1.1fr',
     spalten: [
       {label: 'Artikel', align: 'left'}, {label: 'Art.-Nr.', align: 'left'},
       {label: 'Menge', align: 'right'}, {label: 'Einzel', align: 'right'}, {label: 'Summe', align: 'right'}
     ],
-    zeilen: [
+    zeilen: Z_POS.length ? Z_POS.map(x => R([x.name, '—', String(x.menge), EUR(x.preis), EUR(x.preis * x.menge)])) : [
       R(['Lettmann Nomade 16 · Canadier · Grün', 'LM-NOM-16', '1', EUR(2190), EUR(2190)]),
       R(['Braca-Sport Marathon C1 · 150 cm · Paddel-ID ZKP-260827-415-01, ZKP-260827-415-02', 'BR-MAR-C1', '2', EUR(249), EUR(498)]),
       R(['Zhik PFD 50N · Rot · M', 'ZH-PFD-50', '4', EUR(129), EUR(516)]),
       R(['Rabatt Rahmenvereinbarung 12 %', '—', '1', '', '− ' + EUR(384.48)])
     ],
-    summen: [
+    summen: Z_POS.length ? [{k: 'Netto', v: EUR(Z_SUMME / 1.19)}, {k: '19 % MwSt.', v: EUR(Z_SUMME - Z_SUMME / 1.19)}] : [
       {k: 'Zwischensumme brutto', v: EUR(3204)},
       {k: 'Rabatt 12 %', v: '− ' + EUR(384.48)},
       {k: 'Netto', v: EUR(2819.52 / 1.19)},
       {k: '19 % MwSt.', v: EUR(2819.52 - 2819.52 / 1.19)}
     ],
-    summe: EUR(2819.52),
+    summe: EUR(Z_POS.length ? Z_SUMME : 2819.52),
     hinweise: [
-      'Zahlbar ohne Abzug bis ' + D_ZIEL + ' auf das unten genannte Konto.',
+      Z_RG_INFO ? Z_RG_INFO[1] : 'Zahlbar ohne Abzug bis ' + D_ZIEL + ' auf das unten genannte Konto.',
       'Bitte geben Sie bei der Zahlung die Rechnungsnummer an.',
       'Eigentumsvorbehalt bis zur vollständigen Bezahlung.'
     ]
@@ -822,6 +826,8 @@ class Component extends DCLogic {
     } catch (e) {}
     const h = (location.hash || '').replace('#', '');
     if (DOKUMENTE[h]) this.setState({typ: h});
+    if (Z_EINZELN) { const st = document.createElement('style'); st.textContent = '.no-print > div:not(:first-child){display:none !important}'; document.head.appendChild(st); }
+    if (Z_DRUCK) setTimeout(() => { try { window.print(); } catch (e) {} }, 900);
     try {
       const k = new URLSearchParams(location.search).get('kunde');
       if (k) this.setState({kunde: k.split('|').filter(Boolean)});

@@ -863,6 +863,17 @@ const STANDARD = {
 const SPEICHER = 'zykol.kasse.briefkopf.v2';
 let QR_BASIS = 'https://beleg.zykol.de/b/';
 const BELEG_URL = (nr) => QR_BASIS + nr;
+// Demo ohne Server: die Belegdaten stehen im QR-Link hinter '#' (gehen nicht an den Server); beleg.html zeigt sie an
+const CENT = (t) => { const x = String(t).replace(/[^0-9,\-−–]/g, '').replace(/[−–]/g, '-').replace(',', '.'); const n = Math.round(parseFloat(x) * 100); return isNaN(n) ? 0 : n; };
+const DEMO_LINK = (d, daten, typ) => {
+  try {
+    const p = d.zeilen.map(z => { const m = parseFloat(String(z[z.length - 3]).replace(',', '.')) || 1; return [String(z[0]).slice(0, 40), m, CENT(z[z.length - 2]) || Math.round(CENT(z[z.length - 1]) / m)]; });
+    const j = {v: 1, t: typ === 'rechnung' ? 'r' : 'b', n: d.nummer.split(' ').pop(), d: D_HEUTE, f: [daten.firma, daten.strasse, daten.ort, daten.ustid],
+      p, s: CENT(d.summe), z: typ === 'rechnung' ? 'rechnung' : Z_ART};
+    const b64 = btoa(unescape(encodeURIComponent(JSON.stringify(j)))).replace(/\+/g, '-').replace(/\//g, '_').replace(/=+$/, '');
+    return BELEG_URL(j.n) + '#' + b64;
+  } catch (e) { return BELEG_URL(d.nummer.split(' ').pop()); }
+};
 const QR = (txt) => { try { if (!window.qrcode) return ''; const q = qrcode(0, 'M'); q.addData(txt); q.make(); return 'data:image/svg+xml;charset=utf-8,' + encodeURIComponent(q.createSvgTag({cellSize: 4, margin: 0, scalable: true})); } catch (e) { return ''; } };
 
 class Component extends DCLogic {
@@ -1013,7 +1024,7 @@ class Component extends DCLogic {
       bonHatKunde: !!(this.state.kunde && this.state.kunde.length),
       bonKunde: (this.state.kunde || []).filter(x => !/^Kundennummer/.test(x)).slice(0, 1).join('') + ((this.state.kunde || []).find(x => /^Kundennummer/.test(x)) ? ' · ' + (this.state.kunde || []).find(x => /^Kundennummer/.test(x)).replace('Kundennummer ', '') : ''),
       bonPos: this.state.typ === 'beleg' ? d.zeilen.map(z => ({name: z[0], menge: z[1], einzel: z[2], summe: z[3]})) : [],
-      qrSrc: QR(BELEG_URL(d.nummer.split(' ').pop())),
+      qrSrc: QR(DEMO_LINK(d, this.state.daten, this.state.typ)),
       qrUrl: BELEG_URL(d.nummer.split(' ').pop()).replace('https://', '')
     };
   }

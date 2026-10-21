@@ -1742,6 +1742,10 @@ Logo|Logótipo
   var I = window.ZYKOL_I18N; if (!I) return;
   var D = I.dict;
   var add = function (de, en, fr, es, pt) { D[de] = {en: en, fr: fr, es: es, pt: pt}; };
+  // v11.13: Übersichtsseite Warenwirtschaft
+  add('Artikel, Bestände, Einkauf und Bootsakten an einem Ort.', 'Items, stock, purchasing and boat records in one place.', 'Articles, stocks, achats et dossiers bateaux au même endroit.', 'Artículos, existencias, compras y fichas de barcos en un solo lugar.', 'Artigos, stock, compras e fichas de barcos num só lugar.');
+  add('Übersicht', 'Overview', 'Aperçu', 'Resumen', 'Visão geral');
+  add('Warenwirtschaft', 'Inventory', 'Gestion des stocks', 'Inventario', 'Gestão de stock');
   // v11.12: Schichtplan im Kalender (nur Ansicht)
   add('Schichtplan · Woche 35', 'Shift plan · week 35', 'Planning des équipes · semaine 35', 'Plan de turnos · semana 35', 'Escala de turnos · semana 35');
   add('Nur zur Ansicht. Geplant wird unter Einstellungen → Benutzer & Rollen.', 'View only. Planning is done under Settings → Users & roles.', 'Consultation uniquement. La planification se fait sous Paramètres → Utilisateurs et rôles.', 'Solo lectura. La planificación se hace en Ajustes → Usuarios y roles.', 'Apenas visualização. O planeamento faz-se em Definições → Utilizadores e funções.');

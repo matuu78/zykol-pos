@@ -164,7 +164,7 @@
   }
 
   // Mögliche Seitenumbrüche (in CSS-Pixeln ab Oberkante des Ziels): Unterkanten von Blöcken,
-  // erzwungene Umbrüche vor Elementen mit break-before/page-break-before oder [data-seite]
+  // erzwungene Umbrüche vor Elementen mit break-before/page-break-before oder [data-seite]; nicht innerhalb von [data-pdf-zusammen]
   function umbrueche(d, ziel) {
     var win = d.defaultView, oben = ziel.getBoundingClientRect().top, frei = [], fest = [];
     Array.prototype.forEach.call(ziel.querySelectorAll('*'), function (el) {
@@ -177,6 +177,9 @@
       if (/page|always/.test(cs.breakBefore + ' ' + cs.pageBreakBefore) || (el.matches('[data-seite]') && el.previousElementSibling && el.previousElementSibling.matches('[data-seite]'))) fest.push(r.top - oben);
       if (/page|always/.test(cs.breakAfter + ' ' + cs.pageBreakAfter)) fest.push(r.bottom - oben);
     });
+    // Blöcke mit data-pdf-zusammen (Summen, Hinweise mit QR-Code …) nicht teilen
+    var bloecke = Array.prototype.map.call(ziel.querySelectorAll('[data-pdf-zusammen]'), function (el) { var r = el.getBoundingClientRect(); return [r.top - oben, r.bottom - oben]; });
+    frei = frei.filter(function (v) { return !bloecke.some(function (b) { return v > b[0] + 1 && v < b[1] - 1; }); });
     var zahl = function (a, b) { return a - b; };
     return {frei: frei.sort(zahl), fest: fest.filter(function (y) { return y > 1; }).sort(zahl)};
   }
@@ -200,6 +203,104 @@
       y = ende;
     }
     return seiten;
+  }
+
+  // ---- A4 mit laufendem Kopf und Fuß (doc-page: slot="header"/"footer") ----
+  // Kopf auf jeder Seite oben, Fuß unten mit 10 mm Abstand zum Blattrand; geht eine Seite mitten in der
+  // Positionstabelle ([data-pdf-tabelle], Zeilen mit data-pdf-betrag) zu Ende, stehen dort Zwischensumme
+  // und Übertrag, auf der Folgeseite Übertrag und Tabellenkopf.
+  var FUSS_RAND = 10, ABSTAND = 6, ZS_H = 13, UE_H = 9;
+  function eur(n) { return n.toLocaleString('de-DE', {minimumFractionDigits: 2, maximumFractionDigits: 2}) + ' €'; }
+  function tabelle(ziel) {
+    var t = ziel.querySelector('[data-pdf-tabelle]'), k = t && t.querySelector('[data-pdf-tkopf]');
+    if (!k) return null;
+    var o = ziel.getBoundingClientRect().top, kr = k.getBoundingClientRect();
+    var zeilen = Array.prototype.map.call(t.querySelectorAll('[data-pdf-betrag]'), function (z) {
+      var r = z.getBoundingClientRect();
+      return {oben: r.top - o, unten: r.bottom - o, betrag: parseFloat(z.getAttribute('data-pdf-betrag')) || 0};
+    });
+    if (!zeilen.length) return null;
+    return {kopfOben: kr.top - o, kopfH: kr.height, zeilen: zeilen, anfang: zeilen[0].oben, ende: zeilen[zeilen.length - 1].unten};
+  }
+  function a4Plan(H, br, tab, rand, F, kopfH, fussH) {
+    var oben = rand[0] * MM + (kopfH ? kopfH + ABSTAND * MM : 0);
+    var unten = fussH ? (F.hoehe - FUSS_RAND) * MM - fussH - ABSTAND * MM : (F.hoehe - rand[0]) * MM;
+    var imTab = function (v) { return tab && v > tab.anfang + 1 && v < tab.ende - 1; };
+    var zeilenEnde = function (v) { return tab.zeilen.some(function (z) { return Math.abs(z.unten - v) < 1; }); };
+    var plan = [], y = 0, fort = null;
+    while (y < H - 2) {
+      var platz = unten - oben - (fort !== null ? UE_H * MM + tab.kopfH : 0), grenze = y + platz, ende;
+      if (grenze >= H) ende = H;
+      else {
+        if (tab && grenze > tab.anfang && grenze < tab.ende) grenze -= ZS_H * MM;
+        var f = br.fest.filter(function (v) { return v > y + 1 && v <= grenze; })[0];
+        if (f) ende = f;
+        else {
+          var gut = br.frei.filter(function (v) {
+            return v > y + platz * 0.4 && v <= grenze && !(tab && v > tab.kopfOben - 1 && v < tab.zeilen[0].unten - 1) && (!imTab(v) || zeilenEnde(v));
+          });
+          ende = gut.length ? gut[gut.length - 1] : grenze;
+        }
+      }
+      var summe = null;
+      if (ende < H && imTab(ende)) summe = tab.zeilen.reduce(function (a, z) { return z.unten <= ende + 1 ? a + z.betrag : a; }, 0);
+      plan.push({y: y, ende: ende, uebertrag: fort, zwischensumme: summe});
+      fort = summe; y = ende;
+    }
+    return plan;
+  }
+  function a4Blatt(c, s, i, n, kopfC, kopfH, fussC, tab, rand, F) {
+    var px = SKALA * MM, S = SKALA;
+    var blatt = document.createElement('canvas');
+    blatt.width = Math.round(F.breite * px); blatt.height = Math.round(F.hoehe * px);
+    var g = blatt.getContext('2d'); g.fillStyle = '#fff'; g.fillRect(0, 0, blatt.width, blatt.height);
+    var x0 = Math.round(rand[1] * px), rechts = x0 + c.width, y = Math.round(rand[0] * px);
+    var text = function (t, x, yy, fett, gross, farbe, ausr) {
+      g.font = (fett ? '700 ' : '400 ') + (gross * S) + 'px Inter, Arial, sans-serif';
+      g.fillStyle = farbe; g.textAlign = ausr; g.textBaseline = 'alphabetic'; g.fillText(t, x, yy);
+    };
+    if (kopfC) { g.drawImage(kopfC, x0, y); y += Math.round((kopfH + ABSTAND * MM) * S); }
+    if (s.uebertrag !== null) {
+      text('Übertrag von Seite ' + i + ': ' + eur(s.uebertrag), rechts, y + 5 * px, true, 12.7, '#101010', 'right');
+      y += Math.round(UE_H * px);
+      g.drawImage(c, 0, Math.round(tab.kopfOben * S), c.width, Math.round(tab.kopfH * S), x0, y, c.width, Math.round(tab.kopfH * S));
+      y += Math.round(tab.kopfH * S);
+    }
+    var sy = Math.round(s.y * S), sh = Math.min(Math.round((s.ende - s.y) * S), c.height - sy);
+    if (sh > 0) { g.drawImage(c, 0, sy, c.width, sh, x0, y, c.width, sh); y += sh; }
+    if (s.zwischensumme !== null) {
+      text('Zwischensumme / Übertrag: ' + eur(s.zwischensumme), rechts, y + 5.5 * px, true, 12.7, '#101010', 'right');
+      text('Fortsetzung auf Seite ' + (i + 2), x0, y + 11 * px, false, 11.3, '#545b66', 'left');
+    }
+    if (fussC) g.drawImage(fussC, x0, Math.round((F.hoehe - FUSS_RAND) * px) - fussC.height);
+    return {jpeg: jpeg(blatt, 0.8), px: [blatt.width, blatt.height], mm: [F.breite, F.hoehe]};
+  }
+  function a4Laufend(d, ziel, kopf, fuss, zeichne, opt, rand, F) {
+    var seiteEl = kopf && kopf.querySelector('.zk-pdf-seite');
+    var kopfZeichnen = function (txt) {
+      if (seiteEl) { seiteEl.textContent = txt; seiteEl.style.display = txt ? 'block' : 'none'; }
+      return kopf ? zeichne(kopf, opt) : Promise.resolve(null);
+    };
+    var kopfC, fussC, kAnz = kopf && kopf.style.display, fAnz = fuss && fuss.style.display;
+    // Kopf mit Seitenzeile messen (größte Höhe), damit alle Seiten denselben Satzspiegel haben
+    return kopfZeichnen(seiteEl ? 'Seite 9 von 9' : '').then(function (k) { kopfC = k; return fuss ? zeichne(fuss, opt) : null; }).then(function (fc) {
+      fussC = fc;
+      if (kopf) kopf.style.display = 'none';
+      if (fuss) fuss.style.display = 'none';
+      return warten(60);
+    }).then(function () {
+      var br = umbrueche(d, ziel), tab = tabelle(ziel), kopfH = kopfC ? kopfC.height / SKALA : 0;
+      return zeichne(ziel, opt).then(function (c) {
+        var plan = a4Plan(c.height / SKALA, br, tab, rand, F, kopfH, fussC ? fussC.height / SKALA : 0), koepfe = [];
+        if (kopf) kopf.style.display = kAnz;
+        return plan.reduce(function (p, s, i) {
+          return p.then(function () { return kopfZeichnen(plan.length > 1 ? 'Seite ' + (i + 1) + ' von ' + plan.length : '').then(function (k) { koepfe.push(k); }); });
+        }, Promise.resolve()).then(function () {
+          if (fuss) fuss.style.display = fAnz;
+          return plan.map(function (s, i) { return a4Blatt(c, s, i, plan.length, koepfe[i], kopfH, fussC, tab, rand, F); });
+        });
+      });
+    });
   }
 
   function erzeugen(o) {
@@ -231,6 +332,8 @@
           }, Promise.resolve([]));
         }
         var ziel = (o.auswahl && d.querySelector(o.auswahl)) || (format === 'bon' && d.querySelector('.bon')) || d.querySelector('.zk-pdf-blatt') || d.body;
+        var kopf = format === 'a4' && ziel.querySelector('[slot="header"]'), fuss = format === 'a4' && ziel.querySelector('[slot="footer"]');
+        if (kopf || fuss) return a4Laufend(d, ziel, kopf, fuss, zeichne, opt, rand, F);
         var br = format === 'a4' ? umbrueche(d, ziel) : null;
         return zeichne(ziel, opt).then(function (c) {
           if (format === 'bon') return [{jpeg: jpeg(c), px: [c.width, c.height], mm: [F.breite, c.height / SKALA / MM]}];

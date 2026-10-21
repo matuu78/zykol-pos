@@ -423,12 +423,14 @@
         <div style="line-height:1.2;">
           <div style="font-size:12.5pt;font-weight:700;color:{{ akzent }};">{{ firma }}</div>
           <div style="font-size:8.5pt;letter-spacing:.1em;text-transform:uppercase;color:#545b66;">{{ zusatz }}</div>
+          <div style="font-size:7.5pt;color:#545b66;margin-top:2pt;">{{ kopfKontakt }}</div>
         </div>
       </div>
       <div style="text-align:right;line-height:1.35;font-size:8.5pt;color:#545b66;">
         <div style="font-weight:600;color:#101010;font-size:9.5pt;">{{ dokTitel }}</div>
-        <div>{{ dokNummer }}</div>
+        <sc-if value="{{ hatDokNummer }}" hint-placeholder-val="{{ false }}"><div>{{ dokNummer }}</div></sc-if>
         <div>{{ ausgabe }}</div>
+        <div class="zk-pdf-seite" style="display:none;"></div>
       </div>
     </div>
 
@@ -464,14 +466,14 @@
         </div>
       </div>
 
-      <div>
-        <div style="display:grid;grid-template-columns:{{ spaltenRaster }};gap:10pt;padding:7pt 10pt;background:{{ akzent }};color:#FFFFFF;border-radius:4px 4px 0 0;font-size:8pt;letter-spacing:.08em;text-transform:uppercase;font-weight:700;">
+      <div data-pdf-tabelle="">
+        <div data-pdf-tkopf="" style="display:grid;grid-template-columns:{{ spaltenRaster }};gap:10pt;padding:7pt 10pt;background:{{ akzent }};color:#FFFFFF;border-radius:4px 4px 0 0;font-size:8pt;letter-spacing:.08em;text-transform:uppercase;font-weight:700;">
           <sc-for list="{{ spalten }}" as="s" hint-placeholder-count="5">
             <div style="text-align:{{ s.align }};">{{ s.label }}</div>
           </sc-for>
         </div>
         <sc-for list="{{ zeilen }}" as="z" hint-placeholder-count="8">
-          <div style="display:grid;grid-template-columns:{{ spaltenRaster }};gap:10pt;padding:7pt 10pt;border-bottom:1px solid #eef0f2;background:{{ z.bg }};font-size:9.5pt;">
+          <div data-pdf-betrag="{{ z.betrag }}" style="display:grid;grid-template-columns:{{ spaltenRaster }};gap:10pt;padding:7pt 10pt;border-bottom:1px solid #eef0f2;background:{{ z.bg }};font-size:9.5pt;">
             <sc-for list="{{ z.zellen }}" as="c" hint-placeholder-count="5">
               <div style="text-align:{{ c.align }};font-weight:{{ c.weight }};color:{{ c.color }};font-variant-numeric:tabular-nums;">{{ c.text }}</div>
             </sc-for>
@@ -479,7 +481,7 @@
         </sc-for>
       </div>
 
-      <div style="display:flex;justify-content:flex-end;">
+      <div data-pdf-zusammen="" style="display:flex;justify-content:flex-end;">
         <div style="width:230pt;display:flex;flex-direction:column;gap:4pt;">
           <sc-for list="{{ summen }}" as="s" hint-placeholder-count="3">
             <div style="display:flex;justify-content:space-between;gap:12pt;font-size:9.5pt;padding:3pt 0;">
@@ -496,7 +498,7 @@
       </div>
 
       <sc-if value="{{ hatPaddel }}" hint-placeholder-val="{{ false }}">
-        <div style="border:1px solid #e5e7eb;border-radius:10px;padding:10pt 13pt;display:flex;flex-direction:column;gap:4pt;">
+        <div data-pdf-zusammen="" style="border:1px solid #e5e7eb;border-radius:10px;padding:10pt 13pt;display:flex;flex-direction:column;gap:4pt;">
           <div style="font-size:8pt;letter-spacing:.1em;text-transform:uppercase;font-weight:700;color:#545b66;">Paddel-IDs · vergeben mit {{ paddelRef }}</div>
           <sc-for list="{{ paddelZeilen }}" as="z" hint-placeholder-count="1">
             <div style="font-size:9.5pt;line-height:1.5;color:#101010;font-variant-numeric:tabular-nums;">{{ z }}</div>
@@ -504,7 +506,7 @@
         </div>
       </sc-if>
 
-      <div style="border-top:1px solid #e5e7eb;padding-top:10pt;display:flex;align-items:flex-start;justify-content:space-between;gap:18pt;">
+      <div data-pdf-zusammen="" style="border-top:1px solid #e5e7eb;padding-top:10pt;display:flex;align-items:flex-start;justify-content:space-between;gap:18pt;">
         <div style="min-width:0;display:flex;flex-direction:column;gap:5pt;">
           <div style="font-size:8pt;letter-spacing:.1em;text-transform:uppercase;font-weight:700;color:#545b66;">Hinweise</div>
           <sc-for list="{{ hinweise }}" as="h" hint-placeholder-count="3">
@@ -527,19 +529,16 @@
       </div>
     </div>
 
-    <div slot="footer" style="padding-top:8px;border-top:1px solid #e5e7eb;display:flex;align-items:flex-end;justify-content:space-between;gap:16px;font-size:7.5pt;color:#646b76;line-height:1.45;">
+    <div slot="footer" style="padding-top:8px;border-top:1px solid #e5e7eb;display:grid;grid-template-columns:1.35fr 1fr 0.8fr;gap:16px;font-size:7.5pt;color:#646b76;line-height:1.45;">
       <div>
-        <div style="font-weight:600;color:#545b66;">{{ absender }}</div>
-        <div>{{ kontakt }}</div>
+        <sc-for list="{{ fussLinks }}" as="z" hint-placeholder-count="3"><div>{{ z }}</div></sc-for>
       </div>
-      <div style="text-align:center;">
-        <div>{{ bank }}</div>
-          <div>{{ fusszeile }}</div>
-        <div>zykol.POS {{ version }} · {{ dokNummer }}</div>
+      <div>
+        <sc-for list="{{ fussMitte }}" as="z" hint-placeholder-count="2"><div>{{ z }}</div></sc-for>
+        <sc-if value="{{ hatFussUst }}" hint-placeholder-val="{{ true }}"><div style="margin-top:3pt;">{{ fussUst }}</div></sc-if>
       </div>
-      <div style="text-align:right;">
-        <div style="font-weight:600;color:#545b66;">{{ ausgabe }}</div>
-        <div>Seite <span class="doc-seite"></span><span class="doc-seite-screen" style="font-weight:600;">1</span></div>
+      <div>
+        <sc-for list="{{ fussRechts }}" as="z" hint-placeholder-count="4"><div>{{ z }}</div></sc-for>
       </div>
     </div>
 
@@ -636,8 +635,7 @@ const DOKUMENTE = {
       {k: 'Leistungsdatum', v: Z_DATUM},
       ...(Z_RG_INFO ? [] : [{k: 'Zahlungsziel', v: Z_ZIEL}]),
       ...(Z_POS.length ? [] : [{k: 'Rahmenrabatt', v: '12 %'}]),
-      {k: 'Bearbeiter', v: _ZQ.get('kassierer') ? Z_KASSIERER : 'Anke'},
-      {k: 'Beleg-Referenz', v: _ZQ.get('nr') || 'B-2026-0415'}
+      {k: 'Bearbeiter', v: _ZQ.get('kassierer') ? Z_KASSIERER : 'Anke'}
     ],
     raster: '2.6fr 0.9fr 0.7fr 1fr 1.1fr',
     spalten: [
@@ -855,6 +853,16 @@ const FELDER = [
   {id: 'iban', label: 'IBAN', platzhalter: 'DE12 2004 0000 0123 4567 89'}
 ];
 
+// IBAN prüfen (Länge je Land und Prüfsumme Modulo 97); ungültige IBANs werden nicht gedruckt
+const IBAN_LAENGE = {DE: 22, AT: 20, CH: 21, NL: 18, BE: 16, FR: 27, IT: 27, ES: 24, LU: 20, DK: 18, PL: 28};
+const IBAN_OK = (roh) => {
+  const i = String(roh || '').replace(/\s+/g, '').toUpperCase();
+  if (!/^[A-Z]{2}\d{2}[A-Z0-9]{10,30}$/.test(i) || (IBAN_LAENGE[i.slice(0, 2)] && IBAN_LAENGE[i.slice(0, 2)] !== i.length)) return false;
+  const z = (i.slice(4) + i.slice(0, 4)).replace(/[A-Z]/g, c => String(c.charCodeAt(0) - 55));
+  let r = 0; for (const c of z) r = (r * 10 + +c) % 97;
+  return r === 1;
+};
+
 const STANDARD = {
   firma: 'zykol Wassersport GmbH',
   zusatz: 'Demoshop · Kanusport & Ausrüstung',
@@ -865,6 +873,9 @@ const STANDARD = {
   ustid: 'DE812446071',
   bankname: 'Commerzbank Syke',
   iban: 'DE12 2004 0000 0123 4567 89',
+  gesellschaft: 'Zykol GmbH',
+  gf: 'Marko Ruschin und Jens Röhling',
+  register: 'HRB 123456 (fiktiv)',
   akzent: '#101010',
   dankText: 'Vielen Dank für Ihren Einkauf!'
 };
@@ -981,6 +992,13 @@ class Component extends DCLogic {
       absender: zeile([g.firma, g.strasse, g.ort]),
       kontakt: zeile([g.telefon && 'Tel. ' + g.telefon, g.email, g.website, g.ustid && 'USt-IdNr. ' + g.ustid]),
       bank: zeile([g.kontoinhaber, g.bankname, g.iban, g.bic && 'BIC ' + g.bic]),
+      kopfKontakt: zeile([g.telefon && 'Tel. ' + g.telefon, g.email]),
+      hatDokNummer: d.nummer !== d.titel,
+      fussLinks: [g.firma, g.strasse, g.ort].filter(Boolean),
+      fussMitte: [g.bankname, g.iban && (IBAN_OK(g.iban) ? 'IBAN: ' + g.iban : 'Demo – keine Zahlung vornehmen'), g.bic && IBAN_OK(g.iban) && 'BIC: ' + g.bic].filter(Boolean),
+      hatFussUst: !!g.ustid,
+      fussUst: 'USt-IdNr.: ' + (g.ustid || ''),
+      fussRechts: [g.gesellschaft || g.firma, g.gf && 'Geschäftsführer:', g.gf, g.register, g.fusszeile].filter(Boolean),
       fusszeile: zeile([g.register, g.gf && 'Geschäftsführung ' + g.gf, g.steuernr && 'St.-Nr. ' + g.steuernr, g.zahlungsziel && 'Zahlbar innerhalb ' + g.zahlungsziel + ' Tagen', g.rueckgabe && 'Rückgabe innerhalb ' + g.rueckgabe + ' Tagen', g.fusszeile]),
       akzent: /^#[0-9a-fA-F]{6}$/.test(g.akzent || '') && g.akzent.toUpperCase() !== '#101010' ? g.akzent : '#101010',
       typen: Object.keys(DOKUMENTE).map(id => ({
@@ -1007,6 +1025,7 @@ class Component extends DCLogic {
       spaltenRaster: d.raster,
       spalten: d.spalten,
       zeilen: d.zeilen.map((z, i) => ({
+        betrag: String((String(z[z.length - 1]).indexOf('−') === 0 ? -1 : 1) * (parseFloat(String(z[z.length - 1]).replace(/[^\d,]/g, '').replace(',', '.')) || 0)),
         bg: i % 2 ? '#f9f9f9' : '#FFFFFF',
         zellen: z.map((c, j) => ({
           text: c,
@@ -1016,7 +1035,7 @@ class Component extends DCLogic {
         }))
       })),
       summen: d.summen,
-      hinweise: d.hinweise,
+      hinweise: IBAN_OK(g.iban) ? d.hinweise : d.hinweise.map(h => /unten genannte Konto/.test(h) ? 'Demo-Rechnung – bitte keine Zahlung vornehmen.' : h),
       hatPaddel: !!this.state.paddel && (this.state.typ === 'beleg' || this.state.typ === 'rechnung'),
       paddelZeilen: this.state.paddel || [],
       paddelRef: 'Rechnung ' + (this.state.rg || ''),

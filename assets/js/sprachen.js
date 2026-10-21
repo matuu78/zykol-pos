@@ -1742,6 +1742,10 @@ Logo|Logótipo
   var I = window.ZYKOL_I18N; if (!I) return;
   var D = I.dict;
   var add = function (de, en, fr, es, pt) { D[de] = {en: en, fr: fr, es: es, pt: pt}; };
+  // v11.11: Arbeitszeiterfassung als eigene Seite
+  add('Personal', 'Staff', 'Personnel', 'Personal', 'Pessoal');
+  add('Kommen und Gehen stempeln, Stunden und Saldo je Mitarbeitende.', 'Clock in and out, hours and balance per employee.', 'Pointer arrivées et départs, heures et solde par collaborateur.', 'Fichar entradas y salidas, horas y saldo por empleado.', 'Registar entradas e saídas, horas e saldo por colaborador.');
+  add('Stempelübersicht', 'Time clock overview', 'Aperçu des pointages', 'Resumen de fichajes', 'Resumo de registos');
   [
     ['Januar','January','Janvier','Enero','Janeiro'], ['Februar','February','Février','Febrero','Fevereiro'], ['März','March','Mars','Marzo','Março'],
     ['April','April','Avril','Abril','Abril'], ['Mai','May','Mai','Mayo','Maio'], ['Juni','June','Juin','Junio','Junho'], ['Juli','July','Juillet','Julio','Julho'],

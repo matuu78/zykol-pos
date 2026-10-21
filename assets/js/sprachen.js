@@ -1742,6 +1742,18 @@ Logo|Logótipo
   var I = window.ZYKOL_I18N; if (!I) return;
   var D = I.dict;
   var add = function (de, en, fr, es, pt) { D[de] = {en: en, fr: fr, es: es, pt: pt}; };
+  // v12.08: Bestellvorschlag je Lieferant, neuer Artikel
+  add('Günstigster Lieferant', 'Cheapest supplier', 'Fournisseur le moins cher', 'Proveedor más barato', 'Fornecedor mais barato');
+  add('Schnellster Lieferant', 'Fastest supplier', 'Fournisseur le plus rapide', 'Proveedor más rápido', 'Fornecedor mais rápido');
+  add('Bestellungen je Lieferant', 'Orders per supplier', 'Commandes par fournisseur', 'Pedidos por proveedor', 'Encomendas por fornecedor');
+  add('Lieferanten (mehrere möglich)', 'Suppliers (several possible)', 'Fournisseurs (plusieurs possibles)', 'Proveedores (varios posibles)', 'Fornecedores (vários possíveis)');
+  add('Hersteller / Marke *', 'Manufacturer / brand *', 'Fabricant / marque *', 'Fabricante / marca *', 'Fabricante / marca *');
+  add('Anfangsbestand', 'Opening stock', 'Stock initial', 'Existencias iniciales', 'Stock inicial');
+  add('Lagerort', 'Storage location', 'Emplacement', 'Ubicación', 'Localização');
+  add('Artikel anlegen', 'Create item', 'Créer l’article', 'Crear artículo', 'Criar artigo');
+  add('Bitte Hersteller, Bezeichnung und Verkaufspreis eintragen.', 'Please enter manufacturer, name and sales price.', 'Veuillez saisir fabricant, désignation et prix de vente.', 'Introduzca fabricante, denominación y precio de venta.', 'Indique fabricante, designação e preço de venda.');
+  add('Bisher nicht bei diesem Lieferanten', 'Not yet with this supplier', 'Pas encore chez ce fournisseur', 'Aún no con este proveedor', 'Ainda não neste fornecedor');
+  add('Artikelverwaltung', 'Item management', 'Gestion des articles', 'Gestión de artículos', 'Gestão de artigos');
   // v12.07: Bestellungen (Kunden/Lieferanten), Kundenakte, Firmendaten
   add('Kundenbestellungen', 'Customer orders', 'Commandes clients', 'Pedidos de clientes', 'Encomendas de clientes');
   add('Lieferantenbestellungen', 'Supplier orders', 'Commandes fournisseurs', 'Pedidos a proveedores', 'Encomendas a fornecedores');

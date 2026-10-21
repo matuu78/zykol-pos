@@ -1742,6 +1742,14 @@ Logo|Logótipo
   var I = window.ZYKOL_I18N; if (!I) return;
   var D = I.dict;
   var add = function (de, en, fr, es, pt) { D[de] = {en: en, fr: fr, es: es, pt: pt}; };
+  // v12.01: Urlaubsantrag im Schichtplan
+  add('Urlaub beantragen', 'Request leave', 'Demander un congé', 'Solicitar vacaciones', 'Pedir férias');
+  add('Bemerkung (optional)', 'Note (optional)', 'Remarque (facultatif)', 'Nota (opcional)', 'Observação (opcional)');
+  add('z. B. Familienfeier', 'e.g. family celebration', 'p. ex. fête de famille', 'p. ej. celebración familiar', 'p. ex. festa de família');
+  add('Antrag senden', 'Send request', 'Envoyer la demande', 'Enviar solicitud', 'Enviar pedido');
+  add('Bitte Beginn und Ende angeben.', 'Please enter start and end.', 'Veuillez indiquer le début et la fin.', 'Indique el inicio y el fin.', 'Indique o início e o fim.');
+  add('Das Ende liegt vor dem Beginn.', 'The end is before the start.', 'La fin est avant le début.', 'El fin es anterior al inicio.', 'O fim é anterior ao início.');
+  add('Zeiterfassung', 'Time tracking', 'Pointage', 'Fichaje', 'Ponto');
   // v11.13: Übersichtsseite Warenwirtschaft
   add('Artikel, Bestände, Einkauf und Bootsakten an einem Ort.', 'Items, stock, purchasing and boat records in one place.', 'Articles, stocks, achats et dossiers bateaux au même endroit.', 'Artículos, existencias, compras y fichas de barcos en un solo lugar.', 'Artigos, stock, compras e fichas de barcos num só lugar.');
   add('Übersicht', 'Overview', 'Aperçu', 'Resumen', 'Visão geral');

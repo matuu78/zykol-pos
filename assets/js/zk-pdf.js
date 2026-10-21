@@ -6,7 +6,7 @@
   'use strict';
   var MM = 96 / 25.4;                     // CSS-Pixel je Millimeter
   var PT = 72 / 25.4;                     // PDF-Punkte je Millimeter
-  var SKALA = 3;                          // Renderschärfe: Bon/Etikett ≈ 290 dpi, A4 ≈ 190 dpi (siehe erzeugen)
+  var SKALA = 3, JPEG_Q = 0;                          // Renderschärfe: Bon/Etikett ≈ 290 dpi, A4 ≈ 190 dpi (siehe erzeugen)
   var FORMATE = {
     bon: {breite: 80, label: function () { return t('bon') + ' · 80 mm'; }},
     etikett: {breite: 50, hoehe: 24, label: function () { return t('etikett') + ' · 50 × 24 mm'; }},
@@ -95,7 +95,7 @@
     return new Blob(teile, {type: 'application/pdf'});
   }
   function jpeg(canvas, q) {
-    var b64 = canvas.toDataURL('image/jpeg', q || 0.92).split(',')[1], bin = atob(b64), u = new Uint8Array(bin.length);
+    var b64 = canvas.toDataURL('image/jpeg', JPEG_Q || q || 0.92).split(',')[1], bin = atob(b64), u = new Uint8Array(bin.length);
     for (var i = 0; i < bin.length; i++) u[i] = bin.charCodeAt(i);
     return u;
   }
@@ -204,7 +204,8 @@
 
   function erzeugen(o) {
     var format = formatErkennen(o), F = FORMATE[format] || FORMATE.a4;
-    SKALA = format === 'a4' ? 2 : 3;
+    SKALA = o.skala || (format === 'a4' ? 2 : 3);
+    JPEG_Q = o.qualitaet || 0;
     var f = rahmen(F.breite);
     var zeichne, d, rand = [0, 0];
     return geladen(f, o.url, o.html).then(function () { return warten(o.url ? 1300 : 300); }).then(function () {

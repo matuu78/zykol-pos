@@ -562,13 +562,22 @@ const R = (zellen) => zellen;
 
 const _ZQ = new URLSearchParams(location.search);
 const Z_ART = _ZQ.get('zahlart') || 'karte';
+// Daten der Transaktion (Journal): Datum, Uhrzeit, Kassierer, Kasse. Ohne Angabe: heute bzw. Demo-Werte.
+const Z_DATUM = /^\d{2}\.\d{2}\.\d{4}$/.test(_ZQ.get('datum') || '') ? _ZQ.get('datum') : D_HEUTE;
+const Z_ZEIT = /^\d{1,2}:\d{2}$/.test(_ZQ.get('zeit') || '') ? _ZQ.get('zeit') : new Date().toLocaleTimeString('de-DE', {hour: '2-digit', minute: '2-digit'});
+const Z_KASSIERER = (_ZQ.get('kassierer') || 'Marko').slice(0, 40);
+const Z_KASSE = (_ZQ.get('kasse') || '').slice(0, 40);
+// TSE-Kurzsignatur der Transaktion (Journal) und Signaturzähler aus der Belegnummer (B-2026-0418 → 18.402)
+const Z_SIG = /^[0-9a-f]{4}-[0-9a-f]{4}$/i.test(_ZQ.get('sig') || '') ? _ZQ.get('sig') : 'a41f-9c02';
+const Z_SIGZ = (() => { const m = /(\d+)$/.exec(_ZQ.get('nr') || ''); return NUM(m ? 17566 + 2 * parseInt(m[1], 10) : 18402); })();
+const Z_ZIEL = (() => { const t = Z_DATUM.split('.').map(Number); return _F(new Date(t[2], t[1] - 1, t[0] + 30)); })();
 const Z_GEG = parseFloat(_ZQ.get('gegeben')), Z_RUECK = parseFloat(_ZQ.get('rueckgeld'));
 const Z_POS = (_ZQ.get('pos') || '').split('|').filter(Boolean).map(x => { const t = x.split('~'); return {name: t[0], menge: parseInt(t[1]) || 1, preis: parseFloat(t[2]) || 0}; });
 const Z_SUMME = Z_POS.length ? Math.round(Z_POS.reduce((a, x) => a + x.menge * x.preis, 0) * 100) / 100 : 3178;
 const Z_NR = _ZQ.get('nr') || 'B-2026-0418';
 const Z_RG = _ZQ.get('rg') || 'R-2026-0415';
 const Z_EINZELN = _ZQ.get('einzeln') === '1', Z_DRUCK = _ZQ.get('druck') === '1';
-const Z_RG_INFO = {bar: ['Bezahlt bar · ' + D_HEUTE, 'Betrag bar erhalten am ' + D_HEUTE + '. Vielen Dank.'], karte: ['Bezahlt mit Karte · ' + D_HEUTE, 'Betrag per Karte bezahlt am ' + D_HEUTE + '. Vielen Dank.']}[_ZQ.get('zahlart')] || null;
+const Z_RG_INFO = {bar: ['Bezahlt bar · ' + Z_DATUM, 'Betrag bar erhalten am ' + Z_DATUM + '. Vielen Dank.'], karte: ['Bezahlt mit Karte · ' + Z_DATUM, 'Betrag per Karte bezahlt am ' + Z_DATUM + '. Vielen Dank.']}[_ZQ.get('zahlart')] || null;
 const Z_INFO = {
   karte: {untertitel: 'Kartenzahlung an Terminal 1', zahlart: 'girocard (Commerzbank)', summen: [{k: 'Gegeben (girocard)', v: EUR(Z_SUMME)}]},
   bar: {untertitel: 'Barverkauf', zahlart: 'Bar', summen: [{k: 'Gegeben (bar)', v: EUR(isNaN(Z_GEG) ? Z_SUMME : Z_GEG)}, {k: 'Rückgeld', v: EUR(isNaN(Z_RUECK) ? 0 : Z_RUECK)}]},
@@ -580,17 +589,17 @@ const DOKUMENTE = {
     kicker: 'Kassenbeleg',
     titel: 'Kassenbeleg ' + Z_NR,
     nummer: 'Beleg ' + Z_NR,
-    untertitel: (Z_INFO ? Z_INFO.untertitel : 'Kartenzahlung an Terminal 1') + ' · Kassierer Marko',
+    untertitel: (Z_INFO ? Z_INFO.untertitel : 'Kartenzahlung an Terminal 1') + ' · Kassierer ' + Z_KASSIERER,
     summeLabel: 'Gesamt brutto',
     linkeBoxTitel: 'Kunde',
     linkeBox: ['Laufkunde', 'keine Kundenzuordnung', '—', '—'],
     meta: [
-      {k: 'Belegdatum', v: D_HEUTE},
-      {k: 'Belegzeit', v: '14:32'},
-      {k: 'Terminal', v: 'KASSE-01 · Syke'},
+      {k: 'Belegdatum', v: Z_DATUM},
+      {k: 'Belegzeit', v: Z_ZEIT},
+      {k: 'Terminal', v: Z_KASSE ? Z_KASSE + ' · Syke' : 'KASSE-01 · Syke'},
       {k: 'Zahlart', v: Z_INFO ? Z_INFO.zahlart : 'girocard (Commerzbank)'},
-      {k: 'TSE-Signatur', v: 'a41f-9c02'},
-      {k: 'Signaturzähler', v: '18.402'}
+      {k: 'TSE-Signatur', v: Z_SIG},
+      {k: 'Signaturzähler', v: Z_SIGZ}
     ],
     raster: '3.2fr 0.7fr 1.1fr 1.1fr',
     spalten: [
@@ -623,11 +632,11 @@ const DOKUMENTE = {
     linkeBoxTitel: 'Rechnungsempfänger',
     linkeBox: ['Kanu-Club Weser Syke e.V.', 'Bernd Ahlers (Vorstand)', 'Am Bootshaus 3', '28857 Syke', 'Kundennummer K-1042'],
     meta: [
-      {k: 'Rechnungsdatum', v: D_HEUTE},
-      {k: 'Leistungsdatum', v: D_HEUTE},
-      ...(Z_RG_INFO ? [] : [{k: 'Zahlungsziel', v: D_ZIEL}]),
+      {k: 'Rechnungsdatum', v: Z_DATUM},
+      {k: 'Leistungsdatum', v: Z_DATUM},
+      ...(Z_RG_INFO ? [] : [{k: 'Zahlungsziel', v: Z_ZIEL}]),
       ...(Z_POS.length ? [] : [{k: 'Rahmenrabatt', v: '12 %'}]),
-      {k: 'Bearbeiter', v: 'Anke'},
+      {k: 'Bearbeiter', v: _ZQ.get('kassierer') ? Z_KASSIERER : 'Anke'},
       {k: 'Beleg-Referenz', v: _ZQ.get('nr') || 'B-2026-0415'}
     ],
     raster: '2.6fr 0.9fr 0.7fr 1fr 1.1fr',
@@ -649,7 +658,7 @@ const DOKUMENTE = {
     ],
     summe: EUR(Z_POS.length ? Z_SUMME : 2819.52),
     hinweise: [
-      Z_RG_INFO ? Z_RG_INFO[1] : 'Zahlbar ohne Abzug bis ' + D_ZIEL + ' auf das unten genannte Konto.',
+      Z_RG_INFO ? Z_RG_INFO[1] : 'Zahlbar ohne Abzug bis ' + Z_ZIEL + ' auf das unten genannte Konto.',
       'Bitte geben Sie bei der Zahlung die Rechnungsnummer an.',
       'Eigentumsvorbehalt bis zur vollständigen Bezahlung.'
     ]
@@ -868,7 +877,7 @@ const CENT = (t) => { const x = String(t).replace(/[^0-9,\-−–]/g, '').replac
 const DEMO_LINK = (d, daten, typ) => {
   try {
     const p = d.zeilen.map(z => { const m = parseFloat(String(z[z.length - 3]).replace(',', '.')) || 1; return [String(z[0]).slice(0, 40), m, CENT(z[z.length - 2]) || Math.round(CENT(z[z.length - 1]) / m)]; });
-    const j = {v: 1, t: typ === 'rechnung' ? 'r' : 'b', n: d.nummer.split(' ').pop(), d: D_HEUTE, f: [daten.firma, daten.strasse, daten.ort, daten.ustid],
+    const j = {v: 1, t: typ === 'rechnung' ? 'r' : 'b', n: d.nummer.split(' ').pop(), d: typ === 'rechnung' ? Z_DATUM : Z_DATUM + ' ' + Z_ZEIT, f: [daten.firma, daten.strasse, daten.ort, daten.ustid],
       p, s: CENT(d.summe), z: typ === 'rechnung' ? 'rechnung' : Z_ART};
     const b64 = btoa(unescape(encodeURIComponent(JSON.stringify(j)))).replace(/\+/g, '-').replace(/\//g, '_').replace(/=+$/, '');
     return BELEG_URL(j.n) + '#' + b64;
@@ -987,7 +996,7 @@ class Component extends DCLogic {
       dokTitel: d.titel,
       dokNummer: d.nummer,
       untertitel: d.untertitel,
-      ausgabe: 'Ausgegeben ' + D_HEUTE + ', 14:40',
+      ausgabe: 'Ausgegeben ' + (this.state.typ === 'beleg' || this.state.typ === 'rechnung' ? Z_DATUM + ', ' + Z_ZEIT : D_HEUTE + ', 14:40'),
       summeLabel: d.summeLabel,
       summeWert: d.summe,
       linkeBoxTitel: d.linkeBoxTitel,

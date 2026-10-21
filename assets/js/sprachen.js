@@ -1742,6 +1742,21 @@ Logo|Logótipo
   var I = window.ZYKOL_I18N; if (!I) return;
   var D = I.dict;
   var add = function (de, en, fr, es, pt) { D[de] = {en: en, fr: fr, es: es, pt: pt}; };
+  // v12.10: Rechnung nur mit Kunden, Rabatt nur ab Filialleitung
+  add('Rechnungsempfänger', 'Invoice recipient', 'Destinataire de la facture', 'Destinatario de la factura', 'Destinatário da fatura');
+  add('Ändern', 'Change', 'Modifier', 'Cambiar', 'Alterar');
+  add('Eine Rechnung braucht einen Kunden. Bitte Rechnungsempfänger wählen.', 'An invoice needs a customer. Please choose the recipient.', 'Une facture nécessite un client. Veuillez choisir le destinataire.', 'Una factura necesita un cliente. Elija el destinatario.', 'Uma fatura precisa de um cliente. Escolha o destinatário.');
+  add('Kunde suchen – Name, Nummer oder Ort', 'Search customer – name, number or town', 'Rechercher un client – nom, numéro ou ville', 'Buscar cliente: nombre, número o ciudad', 'Pesquisar cliente – nome, número ou localidade');
+  add('+ Neuen Kunden anlegen', '+ Create new customer', '+ Créer un client', '+ Crear cliente nuevo', '+ Criar novo cliente');
+  add('Neuer Kunde', 'New customer', 'Nouveau client', 'Cliente nuevo', 'Novo cliente');
+  add('Neue Kunden starten ohne Rabatt. Rabatte vergibt die Filialleitung im Kundenstamm.', 'New customers start without a discount. Discounts are granted by the store manager in the customer records.', 'Les nouveaux clients commencent sans remise. Les remises sont accordées par la direction du magasin.', 'Los clientes nuevos empiezan sin descuento. Los descuentos los concede la dirección de tienda.', 'Novos clientes começam sem desconto. Os descontos são atribuídos pela gerência da loja.');
+  add('Anlegen & als Empfänger wählen', 'Create & choose as recipient', 'Créer et choisir comme destinataire', 'Crear y elegir como destinatario', 'Criar e escolher como destinatário');
+  add('Für die Rechnung bitte Name, Straße und PLZ/Ort eintragen.', 'For the invoice please enter name, street and postcode/town.', 'Pour la facture, veuillez saisir nom, rue et code postal/ville.', 'Para la factura, introduzca nombre, calle y código postal/ciudad.', 'Para a fatura, indique nome, rua e código postal/localidade.');
+  add('Name / Firma *', 'Name / company *', 'Nom / société *', 'Nombre / empresa *', 'Nome / empresa *');
+  add('Straße und Hausnummer *', 'Street and number *', 'Rue et numéro *', 'Calle y número *', 'Rua e número *');
+  add('PLZ und Ort *', 'Postcode and town *', 'Code postal et ville *', 'Código postal y ciudad *', 'Código postal e localidade *');
+  add('Rabatt % (nur Filialleitung)', 'Discount % (store manager only)', 'Remise % (direction uniquement)', 'Descuento % (solo dirección)', 'Desconto % (só gerência)');
+  add('Rabatt nur durch Filialleitung oder Admin', 'Discount only by store manager or admin', 'Remise uniquement par la direction ou l’admin', 'Descuento solo por dirección o administrador', 'Desconto só pela gerência ou admin');
   // v12.08: Bestellvorschlag je Lieferant, neuer Artikel
   add('Günstigster Lieferant', 'Cheapest supplier', 'Fournisseur le moins cher', 'Proveedor más barato', 'Fornecedor mais barato');
   add('Schnellster Lieferant', 'Fastest supplier', 'Fournisseur le plus rapide', 'Proveedor más rápido', 'Fornecedor mais rápido');

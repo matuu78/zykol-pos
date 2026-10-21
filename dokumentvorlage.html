@@ -571,7 +571,7 @@ const Z_SIG = /^[0-9a-f]{4}-[0-9a-f]{4}$/i.test(_ZQ.get('sig') || '') ? _ZQ.get(
 const Z_SIGZ = (() => { const m = /(\d+)$/.exec(_ZQ.get('nr') || ''); return NUM(m ? 17566 + 2 * parseInt(m[1], 10) : 18402); })();
 const Z_ZIEL = (() => { const t = Z_DATUM.split('.').map(Number); return _F(new Date(t[2], t[1] - 1, t[0] + 30)); })();
 const Z_GEG = parseFloat(_ZQ.get('gegeben')), Z_RUECK = parseFloat(_ZQ.get('rueckgeld'));
-const Z_POS = (_ZQ.get('pos') || '').split('|').filter(Boolean).map(x => { const t = x.split('~'); return {name: t[0], menge: parseInt(t[1]) || 1, preis: parseFloat(t[2]) || 0}; });
+const Z_POS = (_ZQ.get('pos') || '').split('|').filter(Boolean).map(x => { const t = x.split('~'); return {name: t[0], menge: parseInt(t[1]) || 1, preis: parseFloat(t[2]) || 0, artnr: (t[3] || '').slice(0, 24)}; });
 const Z_SUMME = Z_POS.length ? Math.round(Z_POS.reduce((a, x) => a + x.menge * x.preis, 0) * 100) / 100 : 3178;
 const Z_NR = _ZQ.get('nr') || 'B-2026-0418';
 const Z_RG = _ZQ.get('rg') || 'R-2026-0415';
@@ -642,7 +642,7 @@ const DOKUMENTE = {
       {label: 'Artikel', align: 'left'}, {label: 'Art.-Nr.', align: 'left'},
       {label: 'Menge', align: 'right'}, {label: 'Einzel', align: 'right'}, {label: 'Summe', align: 'right'}
     ],
-    zeilen: Z_POS.length ? Z_POS.map(x => R([x.name, '—', String(x.menge), EUR(x.preis), EUR(x.preis * x.menge)])) : [
+    zeilen: Z_POS.length ? Z_POS.map(x => R([x.name, x.artnr || '—', String(x.menge), EUR(x.preis), EUR(x.preis * x.menge)])) : [
       R(['Lettmann Nomade 16 · Canadier · Grün', 'LM-NOM-16', '1', EUR(2190), EUR(2190)]),
       R(['Braca-Sport Marathon C1 · 150 cm · Paddel-ID ZKP-260827-415-01, ZKP-260827-415-02', 'BR-MAR-C1', '2', EUR(249), EUR(498)]),
       R(['Zhik PFD 50N · Rot · M', 'ZH-PFD-50', '4', EUR(129), EUR(516)]),
@@ -1035,7 +1035,9 @@ class Component extends DCLogic {
         }))
       })),
       summen: d.summen,
-      hinweise: IBAN_OK(g.iban) ? d.hinweise : d.hinweise.map(h => /unten genannte Konto/.test(h) ? 'Demo-Rechnung – bitte keine Zahlung vornehmen.' : h),
+      // Ohne gültige IBAN: Hinweise wie in der abgestimmten Beispielrechnung (fiktive Daten, keine Zahlung)
+      hinweise: IBAN_OK(g.iban) ? d.hinweise : this.state.typ === 'rechnung' && !Z_RG_INFO ? ['Fiktive Artikel und Firmendaten. Keine Zahlung vornehmen.', 'Zahlungsziel: ' + Z_ZIEL + '.', 'Bitte geben Sie bei Zahlungen die Rechnungsnummer an.', 'Eigentumsvorbehalt bis zur vollständigen Bezahlung.']
+        : d.hinweise.map(h => /unten genannte Konto/.test(h) ? 'Fiktive Artikel und Firmendaten. Keine Zahlung vornehmen.' : h),
       hatPaddel: !!this.state.paddel && (this.state.typ === 'beleg' || this.state.typ === 'rechnung'),
       paddelZeilen: this.state.paddel || [],
       paddelRef: 'Rechnung ' + (this.state.rg || ''),
@@ -1044,7 +1046,7 @@ class Component extends DCLogic {
       dankText: g.dankText || '',
       qrTitel: this.state.typ === 'rechnung' ? 'Rechnung online abrufen' : 'Beleg online abrufen',
       istBon: this.state.typ === 'beleg', istA4: this.state.typ !== 'beleg',
-      bonKopf: [g.zusatz, zeile([g.strasse, g.ort]), g.telefon && 'Tel. ' + g.telefon, g.ustid && 'USt-IdNr. ' + g.ustid].filter(Boolean),
+      bonKopf: [g.zusatz, zeile([g.strasse, g.ort]), zeile([g.telefon && 'Tel. ' + g.telefon, g.email]), g.ustid && 'USt-IdNr. ' + g.ustid].filter(Boolean),
       bonNr: d.nummer.split(' ').pop(),
       bonUntertitel: d.untertitel || '',
       bonMeta: d.meta.filter(m => !/TSE|Signatur/.test(m.k)),

@@ -2638,3 +2638,33 @@ Logo|Logótipo
   var D = I.dict;
   D['Werkstatt (Technik)'] = {en: 'Workshop technician', fr: 'Technicien atelier', es: 'Técnico de taller', pt: 'Técnico de oficina'};
 })();
+
+/* v12.25 Notion-Import Ausschreibungen */
+(function () {
+  var I = window.ZYKOL_I18N; if (!I) return;
+  var D = I.dict;
+  [
+    ['Aus Notion importieren', 'Import from Notion', 'Importer depuis Notion', 'Importar desde Notion', 'Importar do Notion'],
+    ['Neu & zu prüfen', 'New & to review', 'Nouveaux & à vérifier', 'Nuevas y por revisar', 'Novos e a verificar'],
+    ['Alle offenen (inkl. nicht relevant)', 'All open (incl. not relevant)', 'Tous ouverts (y c. non pertinents)', 'Todas abiertas (incl. no relevantes)', 'Todos em aberto (incl. não relevantes)'],
+    ['Bereits übernommen', 'Already imported', 'Déjà importés', 'Ya importadas', 'Já importados'],
+    ['Übernehmen', 'Import', 'Importer', 'Importar', 'Importar'],
+    ['Auswählen', 'Select', 'Sélectionner', 'Seleccionar', 'Selecionar'],
+    ['✓ Ausgewählt', '✓ Selected', '✓ Sélectionné', '✓ Seleccionada', '✓ Selecionado'],
+    ['Bekanntmachung öffnen ↗', 'Open notice ↗', 'Ouvrir l’avis ↗', 'Abrir anuncio ↗', 'Abrir anúncio ↗'],
+    ['Ausschreibung öffnen', 'Open tender', 'Ouvrir l’appel d’offres', 'Abrir licitación', 'Abrir concurso'],
+    ['Keine Einträge in diesem Filter.', 'No entries in this filter.', 'Aucune entrée dans ce filtre.', 'Sin entradas en este filtro.', 'Sem entradas neste filtro.'],
+    ['Vergabestelle wird als Kunde (Öffentliche Hand) angelegt', 'Contracting authority will be created as customer (public sector)', 'L’acheteur sera créé comme client (secteur public)', 'El órgano de contratación se creará como cliente (sector público)', 'A entidade adjudicante será criada como cliente (setor público)'],
+    ['Nichts übernommen – die Auswahl ist schon vorhanden.', 'Nothing imported – the selection already exists.', 'Rien importé – la sélection existe déjà.', 'Nada importado: la selección ya existe.', 'Nada importado – a seleção já existe.'],
+    ['Notion: Neu', 'Notion: New', 'Notion : nouveau', 'Notion: nueva', 'Notion: novo'],
+    ['Notion: Nicht relevant', 'Notion: Not relevant', 'Notion : non pertinent', 'Notion: no relevante', 'Notion: não relevante'],
+    ['Notion: Prüfen', 'Notion: Review', 'Notion : à vérifier', 'Notion: revisar', 'Notion: verificar'],
+    ['Momentaufnahme der Notion-Datenbank „Ausschreibungen“ (TED und service.bund.de). Später kann eine Server-Anbindung an Notion die Liste direkt laden. Übernommene Einträge starten mit Status „Gesichtet“; Doppelte erkennt die Kasse an Vergabenummer oder Link.', 'Snapshot of the Notion database “Tenders” (TED and service.bund.de). Later a server connection to Notion can load the list directly. Imported entries start with status “Screened”; duplicates are detected by tender number or link.', 'Instantané de la base Notion « Appels d’offres » (TED et service.bund.de). Plus tard, une connexion serveur à Notion pourra charger la liste directement. Les entrées importées commencent au statut « Repéré » ; les doublons sont détectés par numéro ou lien.', 'Instantánea de la base de Notion «Licitaciones» (TED y service.bund.de). Más adelante, una conexión de servidor con Notion podrá cargar la lista directamente. Las entradas importadas empiezan con estado «Revisado»; los duplicados se detectan por número o enlace.', 'Instantâneo da base Notion «Concursos» (TED e service.bund.de). Mais tarde, uma ligação de servidor ao Notion poderá carregar a lista diretamente. As entradas importadas começam com o estado «Analisado»; os duplicados são detetados pelo número ou link.']
+  ].forEach(function (r) { if (!D[r[0]]) D[r[0]] = {en: r[1], fr: r[2], es: r[3], pt: r[4]}; });
+  I.muster.push([/^Notion-Stand vom ([\d.]+) · (\d+) Einträge, davon (\d+) noch nicht übernommen$/, {en: 'Notion snapshot of $1 · $2 entries, $3 not yet imported', fr: 'État Notion du $1 · $2 entrées, dont $3 non importées', es: 'Estado de Notion del $1 · $2 entradas, $3 sin importar', pt: 'Estado do Notion de $1 · $2 entradas, $3 por importar'}]);
+  I.muster.push([/^Auswahl übernehmen \((\d+)\)$/, {en: 'Import selection ($1)', fr: 'Importer la sélection ($1)', es: 'Importar selección ($1)', pt: 'Importar seleção ($1)'}]);
+  I.muster.push([/^Vergabestelle vorhanden: (.+)$/, {en: 'Contracting authority exists: $1', fr: 'Acheteur existant : $1', es: 'Órgano existente: $1', pt: 'Entidade existente: $1'}]);
+  I.muster.push([/^Bereits übernommen als (.+)$/, {en: 'Already imported as $1', fr: 'Déjà importé comme $1', es: 'Ya importada como $1', pt: 'Já importado como $1'}]);
+  I.muster.push([/^Aus Notion übernommen · Quelle (.+) · Stand (.+)$/, {en: 'Imported from Notion · source $1 · as of $2', fr: 'Importé de Notion · source $1 · état $2', es: 'Importada de Notion · fuente $1 · estado $2', pt: 'Importado do Notion · fonte $1 · estado $2'}]);
+  I.muster.push([/^(\d+) Ausschreibungen? als „Gesichtet“ übernommen \((.+)\)(.*)$/, {en: '$1 tender(s) imported as “Screened” ($2)$3', fr: '$1 appel(s) d’offres importé(s) comme « Repéré » ($2)$3', es: '$1 licitación(es) importada(s) como «Revisado» ($2)$3', pt: '$1 concurso(s) importado(s) como «Analisado» ($2)$3'}]);
+})();

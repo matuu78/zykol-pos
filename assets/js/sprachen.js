@@ -2362,3 +2362,61 @@ Logo|Logótipo
   ].forEach(function (r) { if (!D[r[0]]) D[r[0]] = {en: r[1], fr: r[2], es: r[3], pt: r[4]}; });
   I.muster.push([/^Am Lagerort (.+) sind nur (\d+) Stück\.$/, {en: 'Only $2 pcs at $1.', fr: 'Seulement $2 pièces à $1.', es: 'Solo hay $2 uds. en $1.', pt: 'Só há $2 un. em $1.'}]);
 })();
+
+/* v12.21 Zahlungsarten */
+(function () {
+  var I = window.ZYKOL_I18N; if (!I) return;
+  var D = I.dict;
+  [
+    ['Zahlungsarten', 'Payment methods', 'Moyens de paiement', 'Formas de pago', 'Meios de pagamento'],
+    ['Zahlungsarten an der Kasse', 'Payment methods at checkout', 'Moyens de paiement en caisse', 'Formas de pago en caja', 'Meios de pagamento na caixa'],
+    ['Welche Zahlungsarten die Kasse anbietet und in welcher Reihenfolge. Anbindungen sind im Prototyp simuliert; Schlüssel und Passwörter werden nicht gespeichert.', 'Which payment methods the checkout offers and in which order. Connections are simulated in the prototype; keys and passwords are not stored.', 'Quels moyens de paiement la caisse propose et dans quel ordre. Les connexions sont simulées ; clés et mots de passe ne sont pas enregistrés.', 'Qué formas de pago ofrece la caja y en qué orden. Las conexiones están simuladas; las claves y contraseñas no se guardan.', 'Que meios de pagamento a caixa oferece e por que ordem. As ligações são simuladas; chaves e palavras-passe não são guardadas.'],
+    ['Bargeld ist gesetzliches Zahlungsmittel. Bar nur ausblenden, wenn Barzahlung ausdrücklich ausgeschlossen ist.', 'Cash is legal tender. Only hide cash if cash payment is expressly excluded.', 'Les espèces ont cours légal. Ne masquer les espèces que si le paiement en espèces est expressément exclu.', 'El efectivo es de curso legal. Oculte el efectivo solo si el pago en efectivo está excluido expresamente.', 'O numerário tem curso legal. Só oculte o numerário se o pagamento em numerário estiver expressamente excluído.'],
+    ['Mindestens eine Zahlungsart muss aktiv bleiben.', 'At least one payment method must stay active.', 'Au moins un moyen de paiement doit rester actif.', 'Al menos una forma de pago debe seguir activa.', 'Pelo menos um meio de pagamento tem de ficar ativo.'],
+    ['Aktiv', 'Active', 'Actif', 'Activo', 'Ativo'],
+    ['Aus', 'Off', 'Désactivé', 'Desactivado', 'Desligado'],
+    ['Ausblenden', 'Hide', 'Masquer', 'Ocultar', 'Ocultar'],
+    ['Anbindung', 'Connection', 'Connexion', 'Conexión', 'Ligação'],
+    ['Anbindung schließen', 'Close connection', 'Fermer la connexion', 'Cerrar conexión', 'Fechar ligação'],
+    ['Verbindung testen', 'Test connection', 'Tester la connexion', 'Probar conexión', 'Testar ligação'],
+    ['Nicht getestet', 'Not tested', 'Non testé', 'No probado', 'Não testado'],
+    ['Nach oben', 'Move up', 'Monter', 'Subir', 'Subir'],
+    ['Nach unten', 'Move down', 'Descendre', 'Bajar', 'Descer'],
+    ['PayPal', 'PayPal', 'PayPal', 'PayPal', 'PayPal'],
+    ['Gutschein', 'Gift voucher', 'Bon d’achat', 'Vale', 'Vale'],
+    ['Vorkasse', 'Prepayment', 'Paiement anticipé', 'Pago anticipado', 'Pagamento antecipado'],
+    ['Bargeld, Kassenlade', 'Cash, cash drawer', 'Espèces, tiroir-caisse', 'Efectivo, cajón', 'Numerário, gaveta'],
+    ['girocard/EC, Kreditkarte, Apple Pay, Google Pay', 'girocard/debit, credit card, Apple Pay, Google Pay', 'girocard/EC, carte de crédit, Apple Pay, Google Pay', 'girocard/débito, tarjeta de crédito, Apple Pay, Google Pay', 'girocard/débito, cartão de crédito, Apple Pay, Google Pay'],
+    ['QR-Code an der Kasse oder PayPal-Terminal', 'QR code at checkout or PayPal terminal', 'QR code en caisse ou terminal PayPal', 'Código QR en caja o terminal PayPal', 'Código QR na caixa ou terminal PayPal'],
+    ['Kauf auf Rechnung, nur mit Kunde', 'Purchase on invoice, customer required', 'Achat sur facture, client requis', 'Compra a crédito, con cliente', 'Compra a fatura, com cliente'],
+    ['Geschenkgutscheine einlösen', 'Redeem gift vouchers', 'Encaisser des bons d’achat', 'Canjear vales', 'Resgatar vales'],
+    ['Überweisung vor der Übergabe', 'Bank transfer before handover', 'Virement avant remise', 'Transferencia antes de la entrega', 'Transferência antes da entrega'],
+    ['Kassenlade-Anschluss', 'Cash drawer connection', 'Raccordement du tiroir', 'Conexión del cajón', 'Ligação da gaveta'],
+    ['Terminal-Anbieter', 'Terminal provider', 'Fournisseur du terminal', 'Proveedor del terminal', 'Fornecedor do terminal'],
+    ['Verbindungsart', 'Connection type', 'Type de connexion', 'Tipo de conexión', 'Tipo de ligação'],
+    ['Terminal-ID', 'Terminal ID', 'ID du terminal', 'ID del terminal', 'ID do terminal'],
+    ['IP-Adresse : Port (ZVT)', 'IP address : port (ZVT)', 'Adresse IP : port (ZVT)', 'Dirección IP : puerto (ZVT)', 'Endereço IP : porta (ZVT)'],
+    ['API-Schlüssel', 'API key', 'Clé API', 'Clave API', 'Chave API'],
+    ['Modus', 'Mode', 'Mode', 'Modo', 'Modo'],
+    ['Händler-ID / E-Mail', 'Merchant ID / e-mail', 'ID marchand / e-mail', 'ID de comercio / e-mail', 'ID de comerciante / e-mail'],
+    ['Umgebung', 'Environment', 'Environnement', 'Entorno', 'Ambiente'],
+    ['Client-ID', 'Client ID', 'ID client', 'ID de cliente', 'ID de cliente'],
+    ['Client-Secret', 'Client secret', 'Secret client', 'Secreto de cliente', 'Segredo de cliente'],
+    ['1. Mahnung nach (Tagen)', '1st reminder after (days)', '1re relance après (jours)', '1.er recordatorio tras (días)', '1.º lembrete após (dias)'],
+    ['2. Mahnung nach (Tagen)', '2nd reminder after (days)', '2e relance après (jours)', '2.º recordatorio tras (días)', '2.º lembrete após (dias)'],
+    ['3. Mahnung nach (Tagen)', '3rd reminder after (days)', '3e relance après (jours)', '3.er recordatorio tras (días)', '3.º lembrete após (dias)'],
+    ['Gültigkeit (Jahre)', 'Validity (years)', 'Validité (années)', 'Validez (años)', 'Validade (anos)'],
+    ['Nummernkreis-Präfix', 'Number prefix', 'Préfixe de numérotation', 'Prefijo de numeración', 'Prefixo de numeração'],
+    ['Verwendungszweck ({nr} = Belegnummer)', 'Payment reference ({nr} = receipt number)', 'Référence ({nr} = numéro de ticket)', 'Concepto ({nr} = número de ticket)', 'Referência ({nr} = número do talão)'],
+    ['nicht hinterlegt', 'not stored', 'non enregistré', 'no guardado', 'não guardado'],
+    ['•••••••• hinterlegt', '•••••••• stored', '•••••••• enregistré', '•••••••• guardado', '•••••••• guardado'],
+    ['PayPal-QR zeigen', 'Show PayPal QR', 'Afficher le QR PayPal', 'Mostrar QR de PayPal', 'Mostrar QR PayPal'],
+    ['Gutschein einlösen', 'Redeem voucher', 'Encaisser le bon', 'Canjear vale', 'Resgatar vale'],
+    ['Vorkasse prüfen', 'Check prepayment', 'Vérifier le paiement anticipé', 'Comprobar pago anticipado', 'Verificar pagamento antecipado'],
+    ['Zahlungsarten konfigurieren', 'Configure payment methods', 'Configurer les moyens de paiement', 'Configurar formas de pago', 'Configurar meios de pagamento'],
+    ['Bezahlt · PayPal', 'Paid · PayPal', 'Payé · PayPal', 'Pagado · PayPal', 'Pago · PayPal']
+  ].forEach(function (r) { if (!D[r[0]]) D[r[0]] = {en: r[1], fr: r[2], es: r[3], pt: r[4]}; });
+  I.muster.push([/^DSFinV-K: (.+)$/, {en: 'DSFinV-K: $1', fr: 'DSFinV-K : $1', es: 'DSFinV-K: $1', pt: 'DSFinV-K: $1'}]);
+  I.muster.push([/^Verbunden \(Simulation\) · (\d\d:\d\d)$/, {en: 'Connected (simulation) · $1', fr: 'Connecté (simulation) · $1', es: 'Conectado (simulación) · $1', pt: 'Ligado (simulação) · $1'}]);
+  I.muster.push([/^Fehlt: (.+)$/, {en: 'Missing: §1', fr: 'Manque : §1', es: 'Falta: §1', pt: 'Em falta: §1'}]);
+})();

@@ -299,7 +299,7 @@
     .doc-seite-screen{display:none;}
   }
 </style>
-<script src="assets/js/doc-page.js?v=12.20"></script>
+<script src="assets/js/doc-page.js?v=12.21"></script>
 <script src="assets/js/qrcode.js"></script>
 </helmet>
 
@@ -576,11 +576,14 @@ const Z_SUMME = Z_POS.length ? Math.round(Z_POS.reduce((a, x) => a + x.menge * x
 const Z_NR = _ZQ.get('nr') || 'B-2026-0418';
 const Z_RG = _ZQ.get('rg') || 'R-2026-0415';
 const Z_EINZELN = _ZQ.get('einzeln') === '1', Z_DRUCK = _ZQ.get('druck') === '1';
-const Z_RG_INFO = {bar: ['Bezahlt bar · ' + Z_DATUM, 'Betrag bar erhalten am ' + Z_DATUM + '. Vielen Dank.'], karte: ['Bezahlt mit Karte · ' + Z_DATUM, 'Betrag per Karte bezahlt am ' + Z_DATUM + '. Vielen Dank.']}[_ZQ.get('zahlart')] || null;
+const Z_RG_INFO = {bar: ['Bezahlt bar · ' + Z_DATUM, 'Betrag bar erhalten am ' + Z_DATUM + '. Vielen Dank.'], karte: ['Bezahlt mit Karte · ' + Z_DATUM, 'Betrag per Karte bezahlt am ' + Z_DATUM + '. Vielen Dank.'], paypal: ['Bezahlt mit PayPal · ' + Z_DATUM, 'Betrag per PayPal bezahlt am ' + Z_DATUM + '. Vielen Dank.'], gutschein: ['Bezahlt mit Gutschein · ' + Z_DATUM, 'Betrag per Gutschein beglichen am ' + Z_DATUM + '. Vielen Dank.'], vorkasse: ['Bezahlt per Vorkasse · ' + Z_DATUM, 'Betrag per Überweisung erhalten. Vielen Dank.']}[_ZQ.get('zahlart')] || null;
 const Z_INFO = {
   karte: {untertitel: 'Kartenzahlung an Terminal 1', zahlart: 'girocard (Commerzbank)', summen: [{k: 'Gegeben (girocard)', v: EUR(Z_SUMME)}]},
   bar: {untertitel: 'Barverkauf', zahlart: 'Bar', summen: [{k: 'Gegeben (bar)', v: EUR(isNaN(Z_GEG) ? Z_SUMME : Z_GEG)}, {k: 'Rückgeld', v: EUR(isNaN(Z_RUECK) ? 0 : Z_RUECK)}]},
-  rechnung: {untertitel: 'Kauf auf Rechnung', zahlart: 'Rechnung / Überweisung', summen: [{k: 'Offen (auf Rechnung)', v: EUR(Z_SUMME)}]}
+  rechnung: {untertitel: 'Kauf auf Rechnung', zahlart: 'Rechnung / Überweisung', summen: [{k: 'Offen (auf Rechnung)', v: EUR(Z_SUMME)}]},
+  paypal: {untertitel: 'PayPal-Zahlung an der Kasse', zahlart: 'PayPal', summen: [{k: 'Bezahlt (PayPal)', v: EUR(Z_SUMME)}]},
+  gutschein: {untertitel: 'Einlösung Gutschein', zahlart: 'Gutschein', summen: [{k: 'Eingelöst (Gutschein)', v: EUR(Z_SUMME)}]},
+  vorkasse: {untertitel: 'Vorkasse per Überweisung', zahlart: 'Vorkasse / Überweisung', summen: [{k: 'Erhalten (Überweisung)', v: EUR(Z_SUMME)}]}
 }[Z_ART] || null;
 const DOKUMENTE = {
   beleg: {
@@ -684,7 +687,8 @@ const DOKUMENTE = {
       {label: 'Anteil', align: 'right'}, {label: 'Netto', align: 'right'}, {label: 'Brutto', align: 'right'}
     ],
     zeilen: [
-      R(['girocard / EC (Commerzbank)', '3', '54 %', EUR(2607.24), EUR(3102.62)]),
+      R(['girocard / EC (Commerzbank)', '3', '49 %', EUR(2364.39), EUR(2813.62)]),
+      R(['PayPal (QR an der Kasse)', '1', '5 %', EUR(242.86), EUR(289.00)]),
       R(['Bar', '2', '19 %', EUR(917.02), EUR(1091.26)]),
       R(['Rechnung (Vereine, Firmen)', '1', '27 %', EUR(1303.62), EUR(1550.12)]),
       R(['Storno (protokolliert)', '1', '—', '− ' + EUR(2184.03), '− ' + EUR(2599)])

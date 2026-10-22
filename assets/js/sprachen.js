@@ -2470,3 +2470,101 @@ Logo|Logótipo
   I.muster.push([/^(\d+) Pflichtangaben fehlen$/, {en: '$1 mandatory details missing', fr: '$1 mentions obligatoires manquantes', es: 'Faltan $1 datos obligatorios', pt: 'Faltam $1 dados obrigatórios'}]);
   I.muster.push([/^Rechnung · (ZUGFeRD|XRechnung) (✓|⚠)$/, {en: 'Invoice · $1 $2', fr: 'Facture · $1 $2', es: 'Factura · $1 $2', pt: 'Fatura · $1 $2'}]);
 })();
+
+/* v12.23 Ausschreibungen */
+(function () {
+  var I = window.ZYKOL_I18N; if (!I) return;
+  var D = I.dict;
+  [
+    ['Ausschreibungen', 'Tenders', 'Appels d’offres', 'Licitaciones', 'Concursos'],
+    ['Ausschreibung', 'Tender', 'Appel d’offres', 'Licitación', 'Concurso'],
+    ['Öffentliche Vergaben von der Sichtung bis zum Zuschlag – mit Fristen, Nachweisen und Angebot.', 'Public tenders from screening to award – with deadlines, certificates and quote.', 'Marchés publics de la veille à l’attribution – avec délais, justificatifs et offre.', 'Licitaciones públicas desde la revisión hasta la adjudicación, con plazos, certificados y oferta.', 'Concursos públicos da análise à adjudicação – com prazos, certificados e proposta.'],
+    ['Neue Ausschreibung', 'New tender', 'Nouvel appel d’offres', 'Nueva licitación', 'Novo concurso'],
+    ['Offen', 'Open', 'Ouvert', 'Abierto', 'Aberto'],
+    ['Frist diese Woche', 'Deadline this week', 'Échéance cette semaine', 'Plazo esta semana', 'Prazo esta semana'],
+    ['Abgegeben', 'Submitted', 'Remis', 'Presentado', 'Entregue'],
+    ['Zuschlagsquote', 'Win rate', 'Taux d’attribution', 'Tasa de adjudicación', 'Taxa de adjudicação'],
+    ['gesichtet bis Angebot in Arbeit', 'screened to quote in progress', 'de la veille à l’offre en cours', 'de revisado a oferta en curso', 'de analisado a proposta em curso'],
+    ['Angebotsabgabe < 7 Tage', 'Submission < 7 days', 'Remise < 7 jours', 'Entrega < 7 días', 'Entrega < 7 dias'],
+    ['warten auf Zuschlag', 'awaiting award', 'en attente d’attribution', 'esperando adjudicación', 'a aguardar adjudicação'],
+    ['Zuschlag', 'Award', 'Attribution', 'Adjudicación', 'Adjudicação'],
+    ['Absage / Aufgehoben', 'Rejected / cancelled', 'Rejeté / annulé', 'Rechazado / anulado', 'Rejeitado / anulado'],
+    ['Alle Vergabestellen', 'All contracting authorities', 'Tous les pouvoirs adjudicateurs', 'Todos los órganos de contratación', 'Todas as entidades adjudicantes'],
+    ['Titel, Vergabenummer oder Vergabestelle', 'Title, tender number or authority', 'Titre, numéro de marché ou acheteur', 'Título, número o órgano de contratación', 'Título, número ou entidade'],
+    ['Keine Ausschreibungen gefunden.', 'No tenders found.', 'Aucun appel d’offres trouvé.', 'No se encontraron licitaciones.', 'Nenhum concurso encontrado.'],
+    ['← Alle Ausschreibungen', '← All tenders', '← Tous les appels d’offres', '← Todas las licitaciones', '← Todos os concursos'],
+    ['Nur Ansicht – Ihre Rolle darf Ausschreibungen nicht bearbeiten.', 'View only – your role may not edit tenders.', 'Lecture seule – votre rôle ne peut pas modifier les appels d’offres.', 'Solo lectura: su rol no puede editar licitaciones.', 'Só leitura – a sua função não pode editar concursos.'],
+    ['Status & nächster Schritt', 'Status & next step', 'Statut & étape suivante', 'Estado y siguiente paso', 'Estado e próximo passo'],
+    ['Grund / Notiz zur Entscheidung', 'Reason / note on the decision', 'Motif / note sur la décision', 'Motivo / nota de la decisión', 'Motivo / nota da decisão'],
+    ['Vergabe', 'Procurement', 'Marché', 'Contratación', 'Contratação'],
+    ['Vergabestelle', 'Contracting authority', 'Pouvoir adjudicateur', 'Órgano de contratación', 'Entidade adjudicante'],
+    ['Vergabeart', 'Procedure', 'Procédure', 'Procedimiento', 'Procedimento'],
+    ['Titel', 'Title', 'Titre', 'Título', 'Título'],
+    ['Vergabenummer', 'Tender number', 'Numéro de marché', 'Número de licitación', 'Número do concurso'],
+    ['Vergabeplattform (Link)', 'Tender platform (link)', 'Plateforme (lien)', 'Plataforma (enlace)', 'Plataforma (ligação)'],
+    ['Leistungsbeschreibung', 'Specification', 'Cahier des charges', 'Pliego de prescripciones', 'Caderno de encargos'],
+    ['+ Unterlage (Platzhalter)', '+ Document (placeholder)', '+ Document (espace réservé)', '+ Documento (marcador)', '+ Documento (marcador)'],
+    ['Keine Unterlagen', 'No documents', 'Aucun document', 'Sin documentos', 'Sem documentos'],
+    ['Lose', 'Lots', 'Lots', 'Lotes', 'Lotes'],
+    ['+ Los', '+ Lot', '+ Lot', '+ Lote', '+ Lote'],
+    ['Fristen', 'Deadlines', 'Délais', 'Plazos', 'Prazos'],
+    ['Bieterfragen bis', 'Bidder questions until', 'Questions jusqu’au', 'Preguntas hasta', 'Perguntas até'],
+    ['Angebotsabgabe bis', 'Submission until', 'Remise jusqu’au', 'Entrega hasta', 'Entrega até'],
+    ['Bindefrist bis', 'Binding period until', 'Délai de validité jusqu’au', 'Plazo de vinculación hasta', 'Prazo de vinculação até'],
+    ['Ausführung ab', 'Execution from', 'Exécution à partir du', 'Ejecución desde', 'Execução a partir de'],
+    ['Ausführung bis', 'Execution until', 'Exécution jusqu’au', 'Ejecución hasta', 'Execução até'],
+    ['Eignungsnachweise', 'Qualification certificates', 'Justificatifs de capacité', 'Certificados de aptitud', 'Certificados de habilitação'],
+    ['Gewerbeanmeldung', 'Business registration', 'Déclaration d’activité', 'Alta de actividad', 'Registo de atividade'],
+    ['Handelsregisterauszug', 'Commercial register extract', 'Extrait Kbis', 'Extracto del registro mercantil', 'Certidão comercial'],
+    ['Unbedenklichkeitsbescheinigung Finanzamt', 'Tax clearance certificate', 'Attestation de régularité fiscale', 'Certificado de estar al corriente (Hacienda)', 'Certidão de não dívida (Finanças)'],
+    ['Unbedenklichkeitsbescheinigung Krankenkasse', 'Social security clearance', 'Attestation de régularité sociale', 'Certificado de estar al corriente (Seg. Social)', 'Certidão de não dívida (Seg. Social)'],
+    ['Berufsgenossenschaft', 'Employers’ liability insurance', 'Assurance accidents du travail', 'Mutua de accidentes', 'Seguro de acidentes de trabalho'],
+    ['Referenzen (3 vergleichbare Aufträge)', 'References (3 comparable contracts)', 'Références (3 marchés comparables)', 'Referencias (3 contratos comparables)', 'Referências (3 contratos comparáveis)'],
+    ['Eigenerklärung §§ 123/124 GWB', 'Self-declaration §§ 123/124 GWB', 'Déclaration sur l’honneur §§ 123/124 GWB', 'Declaración responsable §§ 123/124 GWB', 'Declaração §§ 123/124 GWB'],
+    ['Tariftreueerklärung', 'Collective wage declaration', 'Déclaration de respect des conventions', 'Declaración de cumplimiento salarial', 'Declaração de cumprimento salarial'],
+    ['liegt vor', 'available', 'disponible', 'disponible', 'disponível'],
+    ['läuft vor Abgabe ab', 'expires before submission', 'expire avant la remise', 'caduca antes de la entrega', 'expira antes da entrega'],
+    ['gültig bis', 'valid until', 'valable jusqu’au', 'válido hasta', 'válido até'],
+    ['Gültig bis', 'Valid until', 'Valable jusqu’au', 'Válido hasta', 'Válido até'],
+    ['Kalkulation (netto)', 'Calculation (net)', 'Calcul (HT)', 'Cálculo (neto)', 'Cálculo (líquido)'],
+    ['Marge', 'Margin', 'Marge', 'Margen', 'Margem'],
+    ['Position', 'Item', 'Poste', 'Posición', 'Posição'],
+    ['Unterlagen und Abgabe laufen über die Vergabeplattform. Der Prototyp hält Status, Fristen und Nachweise lokal.', 'Documents and submission go through the tender platform. The prototype keeps status, deadlines and certificates locally.', 'Documents et remise passent par la plateforme. Le prototype garde statut, délais et justificatifs en local.', 'Los documentos y la entrega se hacen en la plataforma. El prototipo guarda estado, plazos y certificados en local.', 'Documentos e entrega passam pela plataforma. O protótipo guarda estado, prazos e certificados localmente.'],
+    ['Gesichtet', 'Screened', 'Repéré', 'Revisado', 'Analisado'],
+    ['In Prüfung', 'Under review', 'En examen', 'En revisión', 'Em análise'],
+    ['Teilnahme beschlossen', 'Participation decided', 'Participation décidée', 'Participación decidida', 'Participação decidida'],
+    ['Angebot in Arbeit', 'Quote in progress', 'Offre en cours', 'Oferta en curso', 'Proposta em curso'],
+    ['Absage', 'Rejected', 'Rejeté', 'Rechazado', 'Rejeitado'],
+    ['Aufgehoben', 'Cancelled', 'Annulé', 'Anulado', 'Anulado'],
+    ['Keine Teilnahme', 'Not participating', 'Pas de participation', 'Sin participación', 'Sem participação'],
+    ['Zur Prüfung', 'To review', 'À examiner', 'A revisión', 'Para análise'],
+    ['Teilnahme: ja', 'Participate: yes', 'Participer : oui', 'Participar: sí', 'Participar: sim'],
+    ['Teilnahme: nein', 'Participate: no', 'Participer : non', 'Participar: no', 'Participar: não'],
+    ['Angebot erzeugen', 'Create quote', 'Créer l’offre', 'Crear oferta', 'Criar proposta'],
+    ['Angebot öffnen', 'Open quote', 'Ouvrir l’offre', 'Abrir oferta', 'Abrir proposta'],
+    ['Angebot freigeben & abgeben', 'Approve & submit quote', 'Valider & remettre l’offre', 'Aprobar y presentar oferta', 'Aprovar e entregar proposta'],
+    ['Zuschlag erhalten', 'Contract awarded', 'Marché attribué', 'Adjudicado', 'Adjudicado'],
+    ['In Warenkorb laden (Rechnung)', 'Load into cart (invoice)', 'Charger dans le panier (facture)', 'Cargar en el carrito (factura)', 'Carregar no carrinho (fatura)'],
+    ['Bitte einen Grund für die Absage der Teilnahme eintragen.', 'Please give a reason for not participating.', 'Veuillez indiquer un motif de non-participation.', 'Indique un motivo para no participar.', 'Indique um motivo para não participar.'],
+    ['Das Angebot hat noch keine Preise – bitte erst kalkulieren.', 'The quote has no prices yet – please calculate first.', 'L’offre n’a pas encore de prix – veuillez d’abord chiffrer.', 'La oferta aún no tiene precios: calcule primero.', 'A proposta ainda não tem preços – calcule primeiro.'],
+    ['Vergabenummer', 'Tender number', 'Numéro de marché', 'Número de licitación', 'Número do concurso'],
+    ['UVgO – Öffentliche Ausschreibung', 'UVgO – open tender', 'UVgO – appel d’offres ouvert', 'UVgO – licitación abierta', 'UVgO – concurso público'],
+    ['UVgO – Beschränkte Ausschreibung', 'UVgO – restricted tender', 'UVgO – appel d’offres restreint', 'UVgO – licitación restringida', 'UVgO – concurso limitado'],
+    ['UVgO – Verhandlungsvergabe (freihändig)', 'UVgO – negotiated award', 'UVgO – procédure négociée', 'UVgO – procedimiento negociado', 'UVgO – ajuste direto'],
+    ['VgV – Offenes Verfahren', 'VgV – open procedure', 'VgV – procédure ouverte', 'VgV – procedimiento abierto', 'VgV – procedimento aberto'],
+    ['VgV – Nicht offenes Verfahren', 'VgV – restricted procedure', 'VgV – procédure restreinte', 'VgV – procedimiento restringido', 'VgV – procedimento restrito'],
+    ['Ausschreibungen ansehen', 'View tenders', 'Consulter les appels d’offres', 'Ver licitaciones', 'Ver concursos'],
+    ['Ausschreibungen bearbeiten', 'Edit tenders', 'Modifier les appels d’offres', 'Editar licitaciones', 'Editar concursos'],
+    ['Teilnahme entscheiden & Angebot freigeben', 'Decide participation & approve quote', 'Décider la participation & valider l’offre', 'Decidir participación y aprobar oferta', 'Decidir participação e aprovar proposta']
+  ].forEach(function (r) { if (!D[r[0]]) D[r[0]] = {en: r[1], fr: r[2], es: r[3], pt: r[4]}; });
+  I.muster.push([/^Abgabe (\d\d\.\d\d\.\d{4}) · in (\d+) Tagen$/, {en: 'Submission $1 · in $2 days', fr: 'Remise $1 · dans $2 jours', es: 'Entrega $1 · en $2 días', pt: 'Entrega $1 · em $2 dias'}]);
+  I.muster.push([/^(\d+) von (\d+) Nachweisen liegen vor$/, {en: '$1 of $2 certificates available', fr: '$1 justificatifs sur $2 disponibles', es: '$1 de $2 certificados disponibles', pt: '$1 de $2 certificados disponíveis'}]);
+  I.muster.push([/^Angebotsabgabe in (\d+) Tagen: (.+)$/, {en: 'Submission in $1 days: $2', fr: 'Remise dans $1 jours : $2', es: 'Entrega en $1 días: $2', pt: 'Entrega em $1 dias: $2'}]);
+})();
+
+/* v12.23b Dashboard-Hinweis */
+(function () {
+  var I = window.ZYKOL_I18N; if (!I) return;
+  var D = I.dict;
+  if (!D['Ausschreibungen · Frist in weniger als 7 Tagen']) D['Ausschreibungen · Frist in weniger als 7 Tagen'] = {en: 'Tenders · deadline in less than 7 days', fr: 'Appels d’offres · échéance dans moins de 7 jours', es: 'Licitaciones · plazo en menos de 7 días', pt: 'Concursos · prazo em menos de 7 dias'};
+})();

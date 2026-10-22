@@ -2337,3 +2337,28 @@ Logo|Logótipo
   I.muster.push([/^Innerhalb von (\d+) % – keine erneute Freigabe nötig\.$/, {en: 'Within $1 % – no new approval needed.', fr: 'Moins de $1 % – pas de nouvel accord nécessaire.', es: 'Dentro del $1 %: no hace falta nueva aprobación.', pt: 'Dentro de $1 % – não é necessária nova aprovação.'}]);
   I.muster.push([/^Mehr als (\d+) % Abweichung – der Kunde muss erneut freigeben\.$/, {en: 'More than $1 % deviation – the customer must approve again.', fr: 'Écart de plus de $1 % – le client doit à nouveau accepter.', es: 'Desviación superior al $1 %: el cliente debe aprobar de nuevo.', pt: 'Desvio superior a $1 % – o cliente tem de aprovar novamente.'}]);
 })();
+
+/* v12.20 Bestand je Lagerort */
+(function () {
+  var I = window.ZYKOL_I18N; if (!I) return;
+  var D = I.dict;
+  [
+    ['Umlagern', 'Transfer', 'Transférer', 'Trasladar', 'Transferir'],
+    ['Von', 'From', 'De', 'Desde', 'De'],
+    ['Nach', 'To', 'Vers', 'Hacia', 'Para'],
+    ['Abgang von Lagerort', 'Remove from location', 'Sortie de l’emplacement', 'Salida de la ubicación', 'Saída da localização'],
+    ['Zugang an Lagerort', 'Add to location', 'Entrée à l’emplacement', 'Entrada en la ubicación', 'Entrada na localização'],
+    ['Grund (optional)', 'Reason (optional)', 'Motif (facultatif)', 'Motivo (opcional)', 'Motivo (opcional)'],
+    ['z. B. für die Ausstellung', 'e.g. for the display', 'p. ex. pour l’exposition', 'p. ej. para la exposición', 'p. ex. para a exposição'],
+    ['Bitte einen anderen Ziel-Lagerort wählen.', 'Please choose a different target location.', 'Veuillez choisir un autre emplacement cible.', 'Elija otra ubicación de destino.', 'Escolha outra localização de destino.'],
+    ['+ weiterer Lagerort', '+ another location', '+ autre emplacement', '+ otra ubicación', '+ outra localização'],
+    ['Bestand je Lagerort', 'Stock by location', 'Stock par emplacement', 'Existencias por ubicación', 'Stock por localização'],
+    ['Kein Bestand', 'No stock', 'Pas de stock', 'Sin existencias', 'Sem stock'],
+    ['Bestand umlagern', 'Transfer stock', 'Transférer du stock', 'Trasladar existencias', 'Transferir stock'],
+    ['Bestand wird je Lagerort geführt. Neue Ware kommt an den Standardplatz des Artikels, beim Wareneingang lässt sie sich auf mehrere Orte aufteilen.', 'Stock is kept per location. New goods go to the item’s default location and can be split across locations at goods receipt.', 'Le stock est tenu par emplacement. La marchandise arrive à l’emplacement par défaut et peut être répartie à la réception.', 'Las existencias se llevan por ubicación. La mercancía nueva va a la ubicación predeterminada y puede repartirse en la entrada.', 'O stock é gerido por localização. A mercadoria nova vai para a localização predefinida e pode ser repartida na receção.'],
+    ['Stundensatz für Arbeitszeit und ab welcher Abweichung vom Voranschlag der Kunde erneut freigeben muss.', 'Hourly labour rate and the deviation from the estimate at which the customer must approve again.', 'Taux horaire et écart par rapport au devis à partir duquel le client doit accepter à nouveau.', 'Tarifa por hora y desviación respecto al presupuesto a partir de la cual el cliente debe aprobar de nuevo.', 'Taxa horária e desvio face ao orçamento a partir do qual o cliente tem de aprovar novamente.'],
+    ['Stundensatz Arbeitszeit (€ brutto)', 'Hourly labour rate (€ gross)', 'Taux horaire (€ TTC)', 'Tarifa por hora (€ brutos)', 'Taxa horária (€ brutos)'],
+    ['Erneute Freigabe ab Abweichung (%)', 'New approval from deviation (%)', 'Nouvel accord à partir d’un écart de (%)', 'Nueva aprobación a partir de desviación (%)', 'Nova aprovação a partir de desvio (%)']
+  ].forEach(function (r) { if (!D[r[0]]) D[r[0]] = {en: r[1], fr: r[2], es: r[3], pt: r[4]}; });
+  I.muster.push([/^Am Lagerort (.+) sind nur (\d+) Stück\.$/, {en: 'Only $2 pcs at $1.', fr: 'Seulement $2 pièces à $1.', es: 'Solo hay $2 uds. en $1.', pt: 'Só há $2 un. em $1.'}]);
+})();

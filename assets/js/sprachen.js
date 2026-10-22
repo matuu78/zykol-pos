@@ -2104,3 +2104,49 @@ Logo|Logótipo
     ['(.+) öffnen', {en: 'Open §1', fr: 'Ouvrir §1', es: 'Abrir §1', pt: 'Abrir §1'}]
   ].forEach(function (m) { I.muster.push([new RegExp('^' + m[0] + '$'), m[1]]); });
 })();
+
+/* v12.16 Artikel & Bestand */
+(function () {
+  var I = window.ZYKOL_I18N; if (!I) return;
+  var D = I.dict;
+  [
+    ['Artikel & Bestand', 'Products & stock', 'Articles & stock', 'Artículos y existencias', 'Artigos e stock'],
+    ['Lager & Historie', 'Stock & history', 'Stock & historique', 'Existencias e historial', 'Stock e histórico'],
+    ['Bestand ändert sich nur durch Verkauf, Wareneingang oder eine Buchung mit Grund.', 'Stock only changes through sales, goods receipts or a booking with a reason.', 'Le stock ne change que par une vente, une réception de marchandises ou une écriture motivée.', 'Las existencias solo cambian por ventas, entradas de mercancía o un asiento con motivo.', 'O stock só muda por vendas, receção de mercadoria ou um lançamento com motivo.'],
+    ['Wareneingang buchen', 'Book goods receipt', 'Enregistrer une réception', 'Registrar entrada de mercancía', 'Registar receção de mercadoria'],
+    ['Buchen', 'Book', 'Enregistrer', 'Registrar', 'Registar'],
+    ['Bestand buchen', 'Book stock change', 'Enregistrer un mouvement', 'Registrar movimiento', 'Registar movimento'],
+    ['Bestandshistorie', 'Stock history', 'Historique du stock', 'Historial de existencias', 'Histórico de stock'],
+    ['Bestandsbuchungen wirken in diesem Prototyp nur lokal — keine Anbindung an Warenwirtschaft oder TSE.', 'Stock bookings in this prototype are local only — no connection to inventory management or TSE.', 'Dans ce prototype, les mouvements de stock restent locaux — sans liaison à la gestion des stocks ni à la TSE.', 'En este prototipo los movimientos de existencias solo son locales — sin conexión con la gestión de inventario ni la TSE.', 'Neste protótipo os movimentos de stock são apenas locais — sem ligação à gestão de stock nem à TSE.'],
+    ['Buchungen im Prototyp wirken nur lokal und ersetzen keine dokumentierte Inventur.', 'Bookings in the prototype are local only and do not replace a documented stocktake.', 'Les écritures du prototype restent locales et ne remplacent pas un inventaire documenté.', 'Los asientos del prototipo solo son locales y no sustituyen un inventario documentado.', 'Os lançamentos do protótipo são apenas locais e não substituem um inventário documentado.'],
+    ['Art der Buchung', 'Booking type', 'Type d’écriture', 'Tipo de asiento', 'Tipo de lançamento'],
+    ['Schwund', 'Shrinkage', 'Démarque', 'Merma', 'Quebra'],
+    ['Defekt', 'Defect', 'Défaut', 'Defecto', 'Defeito'],
+    ['Sonstiges', 'Other', 'Autre', 'Otros', 'Outro'],
+    ['Richtung', 'Direction', 'Sens', 'Dirección', 'Sentido'],
+    ['Abgang', 'Outgoing', 'Sortie', 'Salida', 'Saída'],
+    ['Zugang', 'Incoming', 'Entrée', 'Entrada', 'Entrada'],
+    ['Menge', 'Quantity', 'Quantité', 'Cantidad', 'Quantidade'],
+    ['Grund (Pflicht)', 'Reason (required)', 'Motif (obligatoire)', 'Motivo (obligatorio)', 'Motivo (obrigatório)'],
+    ['Wareneingang gibt es nur zu einer Lieferantenbestellung. Gelieferte Mengen je Position eintragen.', 'Goods receipts are only possible for a supplier order. Enter the delivered quantity per line.', 'Une réception n’est possible que pour une commande fournisseur. Saisir les quantités livrées par ligne.', 'Las entradas de mercancía solo son posibles para un pedido a proveedor. Indique la cantidad entregada por línea.', 'A receção de mercadoria só é possível para uma encomenda a fornecedor. Indique a quantidade entregue por linha.'],
+    ['Lieferantenbestellung', 'Supplier order', 'Commande fournisseur', 'Pedido a proveedor', 'Encomenda a fornecedor'],
+    ['Geliefert', 'Delivered', 'Livré', 'Entregado', 'Entregue'],
+    ['Lieferschein-Nr. (optional)', 'Delivery note no. (optional)', 'N° de bon de livraison (facultatif)', 'N.º de albarán (opcional)', 'N.º da guia de remessa (opcional)'],
+    ['Bestellung wählen …', 'Choose order …', 'Choisir une commande …', 'Elegir pedido …', 'Escolher encomenda …'],
+    ['Keine offene Lieferantenbestellung', 'No open supplier order', 'Aucune commande fournisseur ouverte', 'Ningún pedido a proveedor abierto', 'Nenhuma encomenda a fornecedor aberta'],
+    ['Noch keine Buchungen für diesen Artikel.', 'No bookings for this item yet.', 'Aucune écriture pour cet article.', 'Aún no hay asientos para este artículo.', 'Ainda sem lançamentos para este artigo.'],
+    ['Der Bestand startet bei 0 und kommt über den Wareneingang einer Lieferantenbestellung.', 'Stock starts at 0 and comes in through the goods receipt of a supplier order.', 'Le stock démarre à 0 et entre par la réception d’une commande fournisseur.', 'Las existencias empiezan en 0 y entran con la entrada de mercancía de un pedido a proveedor.', 'O stock começa em 0 e entra pela receção de mercadoria de uma encomenda a fornecedor.'],
+    ['Bitte eine Menge ab 1 eintragen.', 'Please enter a quantity of at least 1.', 'Veuillez saisir une quantité d’au moins 1.', 'Introduzca una cantidad de al menos 1.', 'Introduza uma quantidade de pelo menos 1.'],
+    ['Bitte einen Grund angeben – ohne Grund wird nicht gebucht.', 'Please give a reason – nothing is booked without one.', 'Veuillez indiquer un motif – sans motif, rien n’est enregistré.', 'Indique un motivo: sin motivo no se registra nada.', 'Indique um motivo – sem motivo nada é registado.'],
+    ['Bitte eine offene Lieferantenbestellung wählen.', 'Please choose an open supplier order.', 'Veuillez choisir une commande fournisseur ouverte.', 'Elija un pedido a proveedor abierto.', 'Escolha uma encomenda a fornecedor aberta.'],
+    ['Bitte mindestens eine gelieferte Menge eintragen.', 'Please enter at least one delivered quantity.', 'Veuillez saisir au moins une quantité livrée.', 'Indique al menos una cantidad entregada.', 'Indique pelo menos uma quantidade entregue.'],
+    ['Ihre Rolle darf keinen Wareneingang buchen.', 'Your role may not book goods receipts.', 'Votre rôle ne permet pas d’enregistrer des réceptions.', 'Su rol no puede registrar entradas de mercancía.', 'A sua função não pode registar receções de mercadoria.'],
+    ['Keine Berechtigung', 'No permission', 'Pas d’autorisation', 'Sin permiso', 'Sem permissão'],
+    ['Bestand buchen (Schwund, Defekt, Sonstiges)', 'Book stock changes (shrinkage, defect, other)', 'Enregistrer des mouvements (démarque, défaut, autre)', 'Registrar movimientos (merma, defecto, otros)', 'Registar movimentos (quebra, defeito, outro)'],
+    ['Bestandshistorie einsehen', 'View stock history', 'Consulter l’historique du stock', 'Ver historial de existencias', 'Ver histórico de stock'],
+    ['z. B. bei Inventur nicht auffindbar', 'e.g. not found at stocktake', 'p. ex. introuvable lors de l’inventaire', 'p. ej. no encontrado en el inventario', 'p. ex. não encontrado no inventário'],
+    ['z. B. Transportschaden, Riss im Rumpf', 'e.g. transport damage, crack in the hull', 'p. ex. dommage de transport, fissure de coque', 'p. ej. daño de transporte, grieta en el casco', 'p. ex. dano de transporte, fissura no casco'],
+    ['z. B. Vorführmodell an Verein, Fund bei Inventur', 'e.g. demo model to a club, found at stocktake', 'p. ex. modèle de démonstration à un club, trouvé à l’inventaire', 'p. ej. modelo de demostración a un club, hallado en inventario', 'p. ex. modelo de demonstração a um clube, encontrado no inventário']
+  ].forEach(function (r) { if (!D[r[0]]) D[r[0]] = {en: r[1], fr: r[2], es: r[3], pt: r[4]}; });
+  I.muster.push([/^(Schwund|Defekt|Sonstiges|Verkauf) · (.+)$/, {en: '§1 · $2', fr: '§1 · $2', es: '§1 · $2', pt: '§1 · $2'}]);
+})();

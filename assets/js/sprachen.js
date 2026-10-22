@@ -2060,4 +2060,6 @@ Logo|Logótipo
   D['In Warenkorb laden'] = {en: 'Load into cart', fr: 'Charger dans le panier', es: 'Cargar en el carrito', pt: 'Carregar no carrinho'};
   D['Barkunde (ohne Kundendaten)'] = {en: 'Cash customer (no customer data)', fr: 'Client comptant (sans données client)', es: 'Cliente de contado (sin datos)', pt: 'Cliente a dinheiro (sem dados)'};
   D['Barkunde'] = {en: 'Cash customer', fr: 'Client comptant', es: 'Cliente de contado', pt: 'Cliente a dinheiro'};
+  // v12.11: Überschrift Umsatz-Dashboard
+  D['Umsatz-Dashboard Kanurennsport'] = {en: 'Sales dashboard canoe sprint', fr: 'Tableau des ventes canoë-kayak de course en ligne', es: 'Panel de ventas piragüismo de velocidad', pt: 'Painel de vendas canoagem de velocidade'};
 })();

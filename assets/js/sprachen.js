@@ -2150,3 +2150,18 @@ Logo|Logótipo
   ].forEach(function (r) { if (!D[r[0]]) D[r[0]] = {en: r[1], fr: r[2], es: r[3], pt: r[4]}; });
   I.muster.push([/^(Schwund|Defekt|Sonstiges|Verkauf) · (.+)$/, {en: '§1 · $2', fr: '§1 · $2', es: '§1 · $2', pt: '§1 · $2'}]);
 })();
+
+/* v12.17 Angebot im Warenkorb */
+(function () {
+  var I = window.ZYKOL_I18N; if (!I) return;
+  var D = I.dict;
+  [
+    ['Im Warenkorb zusammenstellen', 'Build in cart', 'Composer dans le panier', 'Montar en el carrito', 'Montar no carrinho'],
+    ['Ins Angebot übernehmen', 'Apply to quote', 'Reprendre dans le devis', 'Pasar al presupuesto', 'Passar para o orçamento'],
+    ['Angebotsmodus · keine Zahlung, kein Beleg', 'Quote mode · no payment, no receipt', 'Mode devis · ni paiement, ni ticket', 'Modo presupuesto · sin pago ni ticket', 'Modo orçamento · sem pagamento nem talão'],
+    ['Kasse im Angebotsmodus öffnen: Artikel per Kachel, Suche oder Scanner hinzufügen', 'Open checkout in quote mode: add items by tile, search or scanner', 'Ouvrir la caisse en mode devis : ajouter des articles par tuile, recherche ou scanner', 'Abrir la caja en modo presupuesto: añadir artículos por mosaico, búsqueda o escáner', 'Abrir a caixa em modo orçamento: adicionar artigos por mosaico, pesquisa ou leitor'],
+    ['Artikel & Bestand ansehen', 'View products & stock', 'Consulter articles & stock', 'Ver artículos y existencias', 'Ver artigos e stock']
+  ].forEach(function (r) { if (!D[r[0]]) D[r[0]] = {en: r[1], fr: r[2], es: r[3], pt: r[4]}; });
+  I.muster.push([/^(\d+) Positionen aus dem Warenkorb übernommen – bitte speichern\.$/, {en: '$1 lines taken from the cart – please save.', fr: '$1 lignes reprises du panier – veuillez enregistrer.', es: '$1 líneas tomadas del carrito: guarde, por favor.', pt: '$1 linhas retiradas do carrinho – guarde, por favor.'}]);
+  I.muster.push([/^Angebot (\S+) · (.+)$/, {en: 'Quote $1 · $2', fr: 'Devis $1 · $2', es: 'Presupuesto $1 · $2', pt: 'Orçamento $1 · $2'}]);
+})();

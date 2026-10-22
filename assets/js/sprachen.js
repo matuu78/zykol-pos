@@ -2568,3 +2568,73 @@ Logo|Logótipo
   var D = I.dict;
   if (!D['Ausschreibungen · Frist in weniger als 7 Tagen']) D['Ausschreibungen · Frist in weniger als 7 Tagen'] = {en: 'Tenders · deadline in less than 7 days', fr: 'Appels d’offres · échéance dans moins de 7 jours', es: 'Licitaciones · plazo en menos de 7 días', pt: 'Concursos · prazo em menos de 7 dias'};
 })();
+
+/* v12.24 Werkstatt-Katalog, Menü, ZUGFeRD-PDF */
+(function () {
+  var I = window.ZYKOL_I18N; if (!I) return;
+  var D = I.dict;
+  [
+    ['Werkstatt-Leistungen', 'Workshop services', 'Prestations d’atelier', 'Servicios de taller', 'Serviços de oficina'],
+    ['+ Arbeitsschritt', '+ Work step', '+ Étape', '+ Paso de trabajo', '+ Passo de trabalho'],
+    ['+ Arbeitsschritt aus Katalog', '+ Work step from catalogue', '+ Étape du catalogue', '+ Paso del catálogo', '+ Passo do catálogo'],
+    ['Katalog schließen', 'Close catalogue', 'Fermer le catalogue', 'Cerrar catálogo', 'Fechar catálogo'],
+    ['Arbeitsschritt suchen', 'Search work step', 'Rechercher une étape', 'Buscar paso', 'Procurar passo'],
+    ['Kein passender Arbeitsschritt.', 'No matching work step.', 'Aucune étape correspondante.', 'Ningún paso coincidente.', 'Nenhum passo correspondente.'],
+    ['Keine Standard-Teile', 'No standard parts', 'Aucune pièce standard', 'Sin piezas estándar', 'Sem peças padrão'],
+    ['+ Standard-Teil', '+ Standard part', '+ Pièce standard', '+ Pieza estándar', '+ Peça padrão'],
+    ['Teile leeren', 'Clear parts', 'Vider les pièces', 'Vaciar piezas', 'Limpar peças'],
+    ['Min.', 'Min.', 'Min.', 'Min.', 'Min.'],
+    ['Pauschale €', 'Flat rate €', 'Forfait €', 'Tarifa plana €', 'Valor fixo €'],
+    ['Pauschal', 'Flat rate', 'Forfait', 'Tarifa plana', 'Valor fixo'],
+    ['Teil', 'Part', 'Pièce', 'Pieza', 'Peça'],
+    ['Arbeit', 'Labour', 'Main-d’œuvre', 'Mano de obra', 'Mão de obra'],
+    ['Frei', 'Free', 'Libre', 'Libre', 'Livre'],
+    ['Kajak/Kanadier', 'Kayak/canoe', 'Kayak/canoë', 'Kayak/canoa', 'Caiaque/canoa'],
+    ['Bekleidung/Neopren', 'Clothing/neoprene', 'Vêtements/néoprène', 'Ropa/neopreno', 'Vestuário/neopreno'],
+    ['Rettungswesten', 'Buoyancy aids', 'Gilets', 'Chalecos', 'Coletes'],
+    ['Finne tauschen', 'Replace fin', 'Changer l’aileron', 'Cambiar quilla', 'Trocar quilha'],
+    ['Finnenkasten neu einkleben', 'Re-bond fin box', 'Recoller le boîtier d’aileron', 'Volver a pegar caja de quilla', 'Recolar caixa da quilha'],
+    ['Steuerseil erneuern', 'Renew rudder cable', 'Remplacer le câble de gouvernail', 'Renovar cable de timón', 'Substituir cabo do leme'],
+    ['Ruderanlage einstellen', 'Adjust rudder', 'Régler le gouvernail', 'Ajustar timón', 'Ajustar leme'],
+    ['Rumpf spachteln / Gelcoat ausbessern', 'Fill hull / repair gelcoat', 'Mastiquer la coque / réparer le gelcoat', 'Enmasillar casco / reparar gelcoat', 'Betumar casco / reparar gelcoat'],
+    ['Kielschutzband aufbringen', 'Apply keel strip', 'Poser une bande de quille', 'Colocar banda de quilla', 'Aplicar fita de quilha'],
+    ['Lukendeckel tauschen', 'Replace hatch cover', 'Changer le couvercle de trappe', 'Cambiar tapa de escotilla', 'Trocar tampa da escotilha'],
+    ['Sitz / Rückenlehne erneuern', 'Renew seat / backrest', 'Remplacer siège / dossier', 'Renovar asiento / respaldo', 'Substituir assento / encosto'],
+    ['Fußstützen tauschen', 'Replace footrests', 'Changer les cale-pieds', 'Cambiar reposapiés', 'Trocar apoios dos pés'],
+    ['Paddelschaft kürzen', 'Shorten paddle shaft', 'Raccourcir le manche', 'Acortar pala', 'Encurtar haste'],
+    ['Paddelblatt reparieren', 'Repair paddle blade', 'Réparer la pale', 'Reparar hoja', 'Reparar pá'],
+    ['Teilungsverbindung tauschen', 'Replace ferrule', 'Changer le raccord', 'Cambiar unión', 'Trocar união'],
+    ['SUP-Ventil tauschen', 'Replace SUP valve', 'Changer la valve SUP', 'Cambiar válvula SUP', 'Trocar válvula SUP'],
+    ['SUP-Naht kleben', 'Glue SUP seam', 'Recoller la couture SUP', 'Pegar costura SUP', 'Colar costura SUP'],
+    ['Trockenanzug: Halsmanschette erneuern', 'Drysuit: replace neck seal', 'Combinaison étanche : changer le manchon de cou', 'Traje seco: cambiar cuello', 'Fato seco: trocar vedante do pescoço'],
+    ['Trockenanzug: Armmanschetten erneuern', 'Drysuit: replace wrist seals', 'Combinaison étanche : changer les manchons', 'Traje seco: cambiar puños', 'Fato seco: trocar punhos'],
+    ['Reißverschluss tauschen', 'Replace zip', 'Changer la fermeture éclair', 'Cambiar cremallera', 'Trocar fecho'],
+    ['Neopren-Naht kleben', 'Glue neoprene seam', 'Recoller la couture néoprène', 'Pegar costura de neopreno', 'Colar costura de neopreno'],
+    ['Rettungsweste: Sichtprüfung', 'Buoyancy aid: visual check', 'Gilet : contrôle visuel', 'Chaleco: inspección visual', 'Colete: inspeção visual'],
+    ['Automatikweste warten / Patrone tauschen', 'Service auto lifejacket / replace cylinder', 'Entretien gilet auto / changer la cartouche', 'Mantener chaleco automático / cambiar cartucho', 'Manutenção colete automático / trocar cartucho'],
+    ['Spritzdecke: Gummizug tauschen', 'Spray deck: replace bungee', 'Jupe : changer l’élastique', 'Cubrebañeras: cambiar elástico', 'Saia: trocar elástico'],
+    ['Bootswagen: Reifen tauschen', 'Boat trolley: replace tyres', 'Chariot : changer les pneus', 'Carro: cambiar ruedas', 'Carrinho: trocar pneus'],
+    ['Inspektion / Sicherheitscheck Boot', 'Boat inspection / safety check', 'Inspection / contrôle sécurité bateau', 'Inspección / control de seguridad', 'Inspeção / verificação de segurança'],
+    ['Inspektion SUP', 'SUP inspection', 'Inspection SUP', 'Inspección SUP', 'Inspeção SUP'],
+    ['Reinigung / Desinfektion', 'Cleaning / disinfection', 'Nettoyage / désinfection', 'Limpieza / desinfección', 'Limpeza / desinfeção'],
+    ['Bootswagen: Achse richten', 'Boat trolley: straighten axle', 'Chariot : redresser l’essieu', 'Carro: enderezar eje', 'Carrinho: endireitar eixo'],
+    ['Kanadier: Süllrand reparieren', 'Canoe: repair gunwale', 'Canoë : réparer le plat-bord', 'Canoa: reparar borda', 'Canoa: reparar borda'],
+    ['Wintereinlagerung vorbereiten', 'Prepare winter storage', 'Préparer l’hivernage', 'Preparar almacenaje invernal', 'Preparar armazenamento de inverno'],
+    ['Standard wiederherstellen', 'Restore default', 'Rétablir par défaut', 'Restaurar predeterminado', 'Repor predefinição'],
+    ['Eigene Reihenfolge verwerfen', 'Discard own order', 'Abandonner l’ordre personnel', 'Descartar orden propio', 'Descartar ordem própria'],
+    ['Dashboard steht fest oben', 'Dashboard is fixed at the top', 'Le tableau de bord reste en haut', 'El panel está fijo arriba', 'O painel fica fixo no topo'],
+    ['E-Rechnung (PDF mit XML)', 'E-invoice (PDF with XML)', 'Facture électronique (PDF avec XML)', 'Factura electrónica (PDF con XML)', 'Fatura eletrónica (PDF com XML)'],
+    ['Sichtkopie (PDF)', 'Visual copy (PDF)', 'Copie visuelle (PDF)', 'Copia visual (PDF)', 'Cópia visual (PDF)'],
+    ['PDF wird erzeugt …', 'Creating PDF …', 'Création du PDF …', 'Creando PDF …', 'A criar PDF …'],
+    ['ZUGFeRD: PDF mit eingebetteter factur-x.xml (PDF/A-3-Anhang, XMP-Metadaten). Nicht vollständig PDF/A-3-konform: Seiten als Bild, ohne ICC-Farbprofil; nicht mit veraPDF geprüft. XRechnung bleibt reines XML, das PDF ist nur eine Sichtkopie.', 'ZUGFeRD: PDF with embedded factur-x.xml (PDF/A-3 attachment, XMP metadata). Not fully PDF/A-3 compliant: pages as images, no ICC colour profile; not checked with veraPDF. XRechnung stays pure XML, the PDF is only a visual copy.', 'ZUGFeRD : PDF avec factur-x.xml intégré (pièce jointe PDF/A-3, métadonnées XMP). Pas entièrement conforme PDF/A-3 : pages en image, sans profil ICC ; non vérifié avec veraPDF. XRechnung reste du XML pur, le PDF n’est qu’une copie visuelle.', 'ZUGFeRD: PDF con factur-x.xml incrustado (adjunto PDF/A-3, metadatos XMP). No totalmente conforme a PDF/A-3: páginas como imagen, sin perfil ICC; no validado con veraPDF. XRechnung sigue siendo XML puro; el PDF es solo una copia visual.', 'ZUGFeRD: PDF com factur-x.xml incorporado (anexo PDF/A-3, metadados XMP). Não totalmente conforme PDF/A-3: páginas como imagem, sem perfil ICC; não validado com veraPDF. A XRechnung continua XML puro, o PDF é só uma cópia visual.'],
+    ['Feste Arbeitsschritte für Voranschlag und Reparaturprotokoll: Richtzeit oder Pauschalpreis, dazu Standard-Teile.', 'Fixed work steps for estimate and repair log: standard time or flat rate, plus standard parts.', 'Étapes fixes pour devis et journal : temps de référence ou forfait, plus pièces standard.', 'Pasos fijos para presupuesto y registro: tiempo de referencia o tarifa plana, más piezas estándar.', 'Passos fixos para orçamento e registo: tempo de referência ou valor fixo, mais peças padrão.']
+  ].forEach(function (r) { if (!D[r[0]]) D[r[0]] = {en: r[1], fr: r[2], es: r[3], pt: r[4]}; });
+  I.muster.push([/^(\d+) aktive Arbeitsschritte$/, {en: '$1 active work steps', fr: '$1 étapes actives', es: '$1 pasos activos', pt: '$1 passos ativos'}]);
+})();
+
+/* v12.24b Rolle Werkstatt */
+(function () {
+  var I = window.ZYKOL_I18N; if (!I) return;
+  var D = I.dict;
+  D['Werkstatt (Technik)'] = {en: 'Workshop technician', fr: 'Technicien atelier', es: 'Técnico de taller', pt: 'Técnico de oficina'};
+})();

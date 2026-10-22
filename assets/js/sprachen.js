@@ -2165,3 +2165,34 @@ Logo|Logótipo
   I.muster.push([/^(\d+) Positionen aus dem Warenkorb übernommen – bitte speichern\.$/, {en: '$1 lines taken from the cart – please save.', fr: '$1 lignes reprises du panier – veuillez enregistrer.', es: '$1 líneas tomadas del carrito: guarde, por favor.', pt: '$1 linhas retiradas do carrinho – guarde, por favor.'}]);
   I.muster.push([/^Angebot (\S+) · (.+)$/, {en: 'Quote $1 · $2', fr: 'Devis $1 · $2', es: 'Presupuesto $1 · $2', pt: 'Orçamento $1 · $2'}]);
 })();
+
+/* v12.18 Shop & Lagerorte */
+(function () {
+  var I = window.ZYKOL_I18N; if (!I) return;
+  var D = I.dict;
+  [
+    ['Shop & Lagerorte', 'Shop & storage locations', 'Boutique & emplacements', 'Tienda y ubicaciones', 'Loja e localizações'],
+    ['Ebenen der Lagerorte', 'Location levels', 'Niveaux d’emplacement', 'Niveles de ubicación', 'Níveis de localização'],
+    ['Wie fein wird gelagert? Von nur „Hauptlager“ bis Lager › Zone › Regal › Fach. Die Namen der Ebenen sind frei wählbar.', 'How fine-grained is storage? From just “main warehouse” to warehouse › zone › shelf › bin. Level names are up to you.', 'Quel niveau de détail ? De « entrepôt principal » seul à entrepôt › zone › étagère › casier. Les noms des niveaux sont libres.', '¿Con qué detalle se almacena? Desde solo «almacén principal» hasta almacén › zona › estante › casilla. Los nombres de los niveles son libres.', 'Com que detalhe se armazena? Desde só «armazém principal» até armazém › zona › prateleira › compartimento. Os nomes dos níveis são livres.'],
+    ['Anzahl Ebenen', 'Number of levels', 'Nombre de niveaux', 'Número de niveles', 'Número de níveis'],
+    ['Lagerorte', 'Storage locations', 'Emplacements', 'Ubicaciones', 'Localizações'],
+    ['Typ „Lager“ oder „Verkaufsfläche“ gilt für den ganzen Zweig. Lagerorte mit Bestand lassen sich nicht deaktivieren.', 'Type “warehouse” or “sales floor” applies to the whole branch. Locations holding stock cannot be deactivated.', 'Le type « entrepôt » ou « surface de vente » vaut pour toute la branche. Un emplacement avec du stock ne peut pas être désactivé.', 'El tipo «almacén» o «zona de venta» se aplica a toda la rama. Las ubicaciones con existencias no se pueden desactivar.', 'O tipo «armazém» ou «área de venda» aplica-se a todo o ramo. Localizações com stock não podem ser desativadas.'],
+    ['Neuer Lagerort', 'New location', 'Nouvel emplacement', 'Nueva ubicación', 'Nova localização'],
+    ['Oberste Ebene', 'Top level', 'Niveau supérieur', 'Nivel superior', 'Nível superior'],
+    ['Aktivieren', 'Activate', 'Activer', 'Activar', 'Ativar'],
+    ['Deaktivieren', 'Deactivate', 'Désactiver', 'Desactivar', 'Desativar'],
+    ['Lager', 'Warehouse', 'Entrepôt', 'Almacén', 'Armazém'],
+    ['Verkaufsfläche', 'Sales floor', 'Surface de vente', 'Zona de venta', 'Área de venda'],
+    ['Zone', 'Zone', 'Zone', 'Zona', 'Zona'],
+    ['Regal', 'Shelf', 'Étagère', 'Estante', 'Prateleira'],
+    ['Fach', 'Bin', 'Casier', 'Casilla', 'Compartimento'],
+    ['Einlagern', 'Put away to', 'Stocker dans', 'Almacenar en', 'Armazenar em'],
+    ['Standardplatz', 'Default location', 'Emplacement par défaut', 'Ubicación predeterminada', 'Localização predefinida'],
+    ['Verschieben', 'Move', 'Déplacer', 'Mover', 'Mover'],
+    ['Shop & Lagerorte konfigurieren', 'Configure shop & locations', 'Configurer boutique & emplacements', 'Configurar tienda y ubicaciones', 'Configurar loja e localizações'],
+    ['Jeder Artikel hat einen Standardplatz. Der Bestand wird dort geführt; beim Wareneingang lässt sich ein anderer Einlagerort angeben.', 'Every item has a default location where its stock is kept; a different location can be chosen at goods receipt.', 'Chaque article a un emplacement par défaut où son stock est tenu ; un autre emplacement peut être choisi à la réception.', 'Cada artículo tiene una ubicación predeterminada donde se llevan sus existencias; en la entrada de mercancía se puede elegir otra.', 'Cada artigo tem uma localização predefinida onde o stock é gerido; na receção de mercadoria pode escolher-se outra.']
+  ].forEach(function (r) { if (!D[r[0]]) D[r[0]] = {en: r[1], fr: r[2], es: r[3], pt: r[4]}; });
+  I.muster.push([/^Ebene (\d)$/, {en: 'Level $1', fr: 'Niveau $1', es: 'Nivel $1', pt: 'Nível $1'}]);
+  I.muster.push([/^(.+) · (\d+) Stück$/, {en: '§1 · $2 pcs', fr: '§1 · $2 pièces', es: '§1 · $2 uds.', pt: '§1 · $2 un.'}]);
+  I.muster.push([/^\+ (.+)$/, {en: '+ §1', fr: '+ §1', es: '+ §1', pt: '+ §1'}]);
+})();

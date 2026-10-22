@@ -2420,3 +2420,53 @@ Logo|Logótipo
   I.muster.push([/^Verbunden \(Simulation\) · (\d\d:\d\d)$/, {en: 'Connected (simulation) · $1', fr: 'Connecté (simulation) · $1', es: 'Conectado (simulación) · $1', pt: 'Ligado (simulação) · $1'}]);
   I.muster.push([/^Fehlt: (.+)$/, {en: 'Missing: §1', fr: 'Manque : §1', es: 'Falta: §1', pt: 'Em falta: §1'}]);
 })();
+
+/* v12.22 E-Rechnung */
+(function () {
+  var I = window.ZYKOL_I18N; if (!I) return;
+  var D = I.dict;
+  [
+    ['E-Rechnung', 'E-invoice', 'Facture électronique', 'Factura electrónica', 'Fatura eletrónica'],
+    ['ZUGFeRD 2.3 – Profil', 'ZUGFeRD 2.3 – profile', 'ZUGFeRD 2.3 – profil', 'ZUGFeRD 2.3 – perfil', 'ZUGFeRD 2.3 – perfil'],
+    ['XRechnung 3.0 – Syntax', 'XRechnung 3.0 – syntax', 'XRechnung 3.0 – syntaxe', 'XRechnung 3.0 – sintaxis', 'XRechnung 3.0 – sintaxe'],
+    ['Rechnungen an Firmen, Vereine, Verbände und Schulen gehen als ZUGFeRD, an die Öffentliche Hand als XRechnung (mit Leitweg-ID). Privatkunden erhalten weiter PDF.', 'Invoices to companies, clubs, associations and schools are sent as ZUGFeRD, to public authorities as XRechnung (with routing ID). Private customers keep receiving PDF.', 'Les factures aux entreprises, clubs, fédérations et écoles partent en ZUGFeRD, au secteur public en XRechnung (avec Leitweg-ID). Les particuliers reçoivent toujours un PDF.', 'Las facturas a empresas, clubes, federaciones y escuelas se envían como ZUGFeRD, al sector público como XRechnung (con Leitweg-ID). Los particulares siguen recibiendo PDF.', 'As faturas a empresas, clubes, federações e escolas seguem em ZUGFeRD, ao setor público em XRechnung (com Leitweg-ID). Os particulares continuam a receber PDF.'],
+    ['Pflichtangaben des Verkäufers', 'Mandatory seller details', 'Mentions obligatoires du vendeur', 'Datos obligatorios del vendedor', 'Dados obrigatórios do vendedor'],
+    ['Kommen aus Einstellungen → Shop.', 'Taken from Settings → Shop.', 'Issus de Paramètres → Boutique.', 'Proceden de Ajustes → Tienda.', 'Vêm de Definições → Loja.'],
+    ['Übermittlung', 'Transmission', 'Transmission', 'Transmisión', 'Transmissão'],
+    ['Im Prototyp simuliert – es wird nichts übertragen.', 'Simulated in the prototype – nothing is transmitted.', 'Simulé dans le prototype – rien n’est transmis.', 'Simulado en el prototipo: no se transmite nada.', 'Simulado no protótipo – nada é transmitido.'],
+    ['E-Mail an die E-Rechnungs-Adresse des Kunden', 'E-mail to the customer’s e-invoice address', 'E-mail à l’adresse de facturation électronique du client', 'E-mail a la dirección de factura electrónica del cliente', 'E-mail para o endereço de fatura eletrónica do cliente'],
+    ['DATEV (Belegtransfer / Rechnungsdatenservice)', 'DATEV (document transfer / invoice data service)', 'DATEV (transfert de pièces / service de données)', 'DATEV (transferencia de documentos / servicio de datos)', 'DATEV (transferência de documentos / serviço de dados)'],
+    ['Peppol-Netzwerk', 'Peppol network', 'Réseau Peppol', 'Red Peppol', 'Rede Peppol'],
+    ['ZRE / OZG-RE-Portal (Bund und Länder)', 'ZRE / OZG-RE portal (federal and state)', 'Portail ZRE / OZG-RE (État fédéral et Länder)', 'Portal ZRE / OZG-RE (federación y estados)', 'Portal ZRE / OZG-RE (federação e estados)'],
+    ['An', 'On', 'Activé', 'Activado', 'Ligado'],
+    ['DATEV Beraternummer', 'DATEV consultant number', 'Numéro de conseiller DATEV', 'Número de asesor DATEV', 'Número de consultor DATEV'],
+    ['DATEV Mandantennummer', 'DATEV client number', 'Numéro de mandant DATEV', 'Número de cliente DATEV', 'Número de cliente DATEV'],
+    ['Peppol-Teilnehmer-ID (z. B. 0204:…)', 'Peppol participant ID (e.g. 0204:…)', 'ID participant Peppol (p. ex. 0204:…)', 'ID de participante Peppol (p. ej. 0204:…)', 'ID de participante Peppol (p. ex. 0204:…)'],
+    ['ZRE/OZG-RE Benutzerkonto', 'ZRE/OZG-RE user account', 'Compte utilisateur ZRE/OZG-RE', 'Cuenta de usuario ZRE/OZG-RE', 'Conta de utilizador ZRE/OZG-RE'],
+    ['vorhanden', 'present', 'présent', 'presente', 'presente'],
+    ['fehlt', 'missing', 'manquant', 'falta', 'em falta'],
+    ['Firmenname', 'Company name', 'Raison sociale', 'Razón social', 'Nome da empresa'],
+    ['USt-IdNr. oder Steuernummer', 'VAT ID or tax number', 'N° TVA ou numéro fiscal', 'NIF-IVA o número fiscal', 'NIF-IVA ou número fiscal'],
+    ['Bankverbindung (IBAN)', 'Bank details (IBAN)', 'Coordonnées bancaires (IBAN)', 'Datos bancarios (IBAN)', 'Dados bancários (IBAN)'],
+    ['XML anzeigen', 'Show XML', 'Afficher le XML', 'Mostrar XML', 'Mostrar XML'],
+    ['XML herunterladen', 'Download XML', 'Télécharger le XML', 'Descargar XML', 'Transferir XML'],
+    ['KoSIT prüfen', 'KoSIT check', 'Contrôle KoSIT', 'Validar KoSIT', 'Validar KoSIT'],
+    ['Übermitteln', 'Transmit', 'Transmettre', 'Transmitir', 'Transmitir'],
+    ['Pflichtfelder geprüft', 'Mandatory fields checked', 'Champs obligatoires vérifiés', 'Campos obligatorios comprobados', 'Campos obrigatórios verificados'],
+    ['Simulation: PDF und XML liegen getrennt vor; die Einbettung als PDF/A-3 (ZUGFeRD-Hybrid) folgt mit der Anbindung.', 'Simulation: PDF and XML are separate; embedding as PDF/A-3 (ZUGFeRD hybrid) follows with the integration.', 'Simulation : PDF et XML sont séparés ; l’intégration en PDF/A-3 (hybride ZUGFeRD) suivra avec la connexion.', 'Simulación: PDF y XML están separados; la incrustación como PDF/A-3 (híbrido ZUGFeRD) llegará con la integración.', 'Simulação: PDF e XML estão separados; a incorporação em PDF/A-3 (híbrido ZUGFeRD) virá com a integração.'],
+    ['Keine E-Rechnung für diesen Kunden (Privatkunde oder abgewählt).', 'No e-invoice for this customer (private or deselected).', 'Pas de facture électronique pour ce client (particulier ou désactivé).', 'Sin factura electrónica para este cliente (particular o desactivada).', 'Sem fatura eletrónica para este cliente (particular ou desativada).'],
+    ['Keine E-Rechnung – der Rechnung ist kein Kunde zugeordnet.', 'No e-invoice – no customer is assigned to this invoice.', 'Pas de facture électronique – aucun client n’est associé.', 'Sin factura electrónica: la factura no tiene cliente.', 'Sem fatura eletrónica – a fatura não tem cliente.'],
+    ['Öffentliche Hand', 'Public sector', 'Secteur public', 'Sector público', 'Setor público'],
+    ['Leitweg-ID', 'Routing ID (Leitweg-ID)', 'Leitweg-ID', 'Leitweg-ID', 'Leitweg-ID'],
+    ['Leitweg-ID (Pflicht bei Öffentlicher Hand)', 'Routing ID (required for public sector)', 'Leitweg-ID (obligatoire pour le secteur public)', 'Leitweg-ID (obligatorio para el sector público)', 'Leitweg-ID (obrigatório no setor público)'],
+    ['E-Rechnungs-E-Mail', 'E-invoice e-mail', 'E-mail de facturation électronique', 'E-mail de factura electrónica', 'E-mail de fatura eletrónica'],
+    ['Käuferreferenz', 'Buyer reference', 'Référence acheteur', 'Referencia del comprador', 'Referência do comprador'],
+    ['Automatisch', 'Automatic', 'Automatique', 'Automático', 'Automático'],
+    ['Keine', 'None', 'Aucune', 'Ninguna', 'Nenhuma'],
+    ['keine', 'none', 'aucune', 'ninguna', 'nenhuma'],
+    ['Für Öffentliche Hand ist die Leitweg-ID Pflicht (XRechnung).', 'A routing ID is required for the public sector (XRechnung).', 'La Leitweg-ID est obligatoire pour le secteur public (XRechnung).', 'La Leitweg-ID es obligatoria para el sector público (XRechnung).', 'A Leitweg-ID é obrigatória para o setor público (XRechnung).'],
+    ['E-Rechnung konfigurieren', 'Configure e-invoicing', 'Configurer la facture électronique', 'Configurar factura electrónica', 'Configurar fatura eletrónica']
+  ].forEach(function (r) { if (!D[r[0]]) D[r[0]] = {en: r[1], fr: r[2], es: r[3], pt: r[4]}; });
+  I.muster.push([/^(\d+) Pflichtangaben fehlen$/, {en: '$1 mandatory details missing', fr: '$1 mentions obligatoires manquantes', es: 'Faltan $1 datos obligatorios', pt: 'Faltam $1 dados obrigatórios'}]);
+  I.muster.push([/^Rechnung · (ZUGFeRD|XRechnung) (✓|⚠)$/, {en: 'Invoice · $1 $2', fr: 'Facture · $1 $2', es: 'Factura · $1 $2', pt: 'Fatura · $1 $2'}]);
+})();

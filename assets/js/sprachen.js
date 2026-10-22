@@ -2063,3 +2063,44 @@ Logo|Logótipo
   // v12.11: Überschrift Umsatz-Dashboard
   D['Umsatz-Dashboard Kanurennsport'] = {en: 'Sales dashboard canoe sprint', fr: 'Tableau des ventes canoë-kayak de course en ligne', es: 'Panel de ventas piragüismo de velocidad', pt: 'Painel de vendas canoagem de velocidade'};
 })();
+// v12.13: restliche Texte aus Umsatz-Dashboard, Fußleiste, Kalender und Bedienhilfen (aria-label)
+(function () {
+  var I = window.ZYKOL_I18N; if (!I || !I.dict) return;
+  var D = I.dict, add = function (de, en, fr, es, pt) { D[de] = {en: en, fr: fr, es: es, pt: pt}; };
+  [
+    ['bis', 'to', 'à', 'a', 'a'],
+    ['Stand:', 'As of:', 'État :', 'Estado:', 'Estado:'],
+    ['Basis:', 'Based on:', 'Base :', 'Base:', 'Base:'],
+    ['Verkaufsraum', 'Sales floor', 'Surface de vente', 'Sala de ventas', 'Área de venda'],
+    ['Laden', 'Store', 'Magasin', 'Tienda', 'Loja'],
+    ['Laufkundschaft', 'Walk-in customers', 'Clients de passage', 'Clientes de paso', 'Clientes de passagem'],
+    ['Paketdienst', 'Parcel service', 'Service colis', 'Mensajería', 'Serviço de encomendas'],
+    ['Einzelkunde', 'Individual customer', 'Client individuel', 'Cliente individual', 'Cliente individual'],
+    ['Transaktionen', 'Transactions', 'Transactions', 'Transacciones', 'Transações'],
+    ['Steueranlage K1 Sete tauschen', 'Replace rudder system K1 Sete', 'Remplacer le gouvernail K1 Sete', 'Cambiar timón K1 Sete', 'Trocar leme K1 Sete'],
+    ['Steuerseil Surfski erneuern', 'Renew surfski rudder cable', 'Remplacer le câble de gouvernail du surfski', 'Renovar cable de timón del surfski', 'Renovar cabo do leme do surfski'],
+    ['Sitzanpassung Rennboot', 'Seat fitting racing boat', 'Réglage du siège bateau de course', 'Ajuste de asiento barco de competición', 'Ajuste do assento barco de competição'],
+    ['Aufgabe verteilen', 'Assign task', 'Attribuer la tâche', 'Asignar tarea', 'Atribuir tarefa'],
+    ['Fällig am', 'Due on', 'Échéance', 'Vence el', 'Prazo'],
+    ['Terminart', 'Appointment type', 'Type de rendez-vous', 'Tipo de cita', 'Tipo de compromisso'],
+    ['Zur Kasse', 'To checkout', 'Vers la caisse', 'A caja', 'Para a caixa'],
+    ['Zuweisen an', 'Assign to', 'Attribuer à', 'Asignar a', 'Atribuir a'],
+    ['Berichte öffnen', 'Open reports', 'Ouvrir les rapports', 'Abrir informes', 'Abrir relatórios'],
+    ['Transaktionen ·', 'Transactions ·', 'Transactions ·', 'Transacciones ·', 'Transações ·']
+  ].forEach(function (r) { add.apply(null, r); });
+  var K = '(Jan|Feb|Mär|Apr|Mai|Jun|Jul|Aug|Sep|Okt|Nov|Dez)';
+  [
+    [K + ' (\\d{2,4}) – ' + K + ' (\\d{2,4})', {en: '§1 $2 – §3 $4', fr: '§1 $2 – §3 $4', es: '§1 $2 – §3 $4', pt: '§1 $2 – §3 $4'}],
+    [K + ' (\\d{2})', {en: '§1 $2', fr: '§1 $2', es: '§1 $2', pt: '§1 $2'}],
+    ['Rennkajak (K\\d)', {en: 'Racing kayak $1', fr: 'Kayak de course $1', es: 'Kayak de competición $1', pt: 'Caiaque de competição $1'}],
+    ['Renncanadier (C\\d)', {en: 'Racing canoe $1', fr: 'Canoë de course $1', es: 'Canoa de competición $1', pt: 'Canoa de competição $1'}],
+    ['Wareneingang (.+)', {en: 'Goods receipt $1', fr: 'Réception $1', es: 'Entrada de mercancía $1', pt: 'Receção de mercadoria $1'}],
+    ['Großhandel: (.+)', {en: 'Wholesale: $1', fr: 'Grossistes : $1', es: 'Mayoristas: $1', pt: 'Grossistas: $1'}],
+    ['Mo – So, KW (\\d+)', {en: 'Mon – Sun, week $1', fr: 'lun. – dim., semaine $1', es: 'lun. – dom., semana $1', pt: 'seg. – dom., semana $1'}],
+    ['(\\d+) Hersteller', {en: '$1 manufacturers', fr: '$1 fabricants', es: '$1 fabricantes', pt: '$1 fabricantes'}],
+    ['(\\d+) Artikel unter Meldebestand', {en: '$1 items below reorder level', fr: '$1 articles sous le seuil de commande', es: '$1 artículos bajo el punto de pedido', pt: '$1 artigos abaixo do ponto de encomenda'}],
+    ['([\\d.,]+) € EK netto', {en: '$1 € net purchase', fr: '$1 € achat HT', es: '$1 € compra neto', pt: '$1 € compra líquido'}],
+    ['Angebot (\\S+) öffnen', {en: 'Open quote $1', fr: 'Ouvrir le devis $1', es: 'Abrir presupuesto $1', pt: 'Abrir orçamento $1'}],
+    ['(.+) öffnen', {en: 'Open §1', fr: 'Ouvrir §1', es: 'Abrir §1', pt: 'Abrir §1'}]
+  ].forEach(function (m) { I.muster.push([new RegExp('^' + m[0] + '$'), m[1]]); });
+})();

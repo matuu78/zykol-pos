@@ -2668,3 +2668,26 @@ Logo|Logótipo
   I.muster.push([/^Aus Notion übernommen · Quelle (.+) · Stand (.+)$/, {en: 'Imported from Notion · source $1 · as of $2', fr: 'Importé de Notion · source $1 · état $2', es: 'Importada de Notion · fuente $1 · estado $2', pt: 'Importado do Notion · fonte $1 · estado $2'}]);
   I.muster.push([/^(\d+) Ausschreibungen? als „Gesichtet“ übernommen \((.+)\)(.*)$/, {en: '$1 tender(s) imported as “Screened” ($2)$3', fr: '$1 appel(s) d’offres importé(s) comme « Repéré » ($2)$3', es: '$1 licitación(es) importada(s) como «Revisado» ($2)$3', pt: '$1 concurso(s) importado(s) como «Analisado» ($2)$3'}]);
 })();
+
+/* v12.26 Rolle Werkstatt, Übergabe an Kasse */
+(function () {
+  var I = window.ZYKOL_I18N; if (!I) return;
+  var D = I.dict;
+  [
+    ['+ Neuer Kunde', '+ New customer', '+ Nouveau client', '+ Nuevo cliente', '+ Novo cliente'],
+    ['Neuer Kunde', 'New customer', 'Nouveau client', 'Nuevo cliente', 'Novo cliente'],
+    ['Name *', 'Name *', 'Nom *', 'Nombre *', 'Nome *'],
+    ['PLZ / Ort', 'Postcode / town', 'CP / ville', 'CP / localidad', 'CP / localidade'],
+    ['Kunde anlegen & wählen', 'Create & select customer', 'Créer et choisir le client', 'Crear y elegir cliente', 'Criar e escolher cliente'],
+    ['Zur Abrechnung an Kasse übergeben', 'Hand over to till for billing', 'Transmettre à la caisse pour facturation', 'Pasar a caja para cobrar', 'Passar à caixa para faturar'],
+    ['Abrechnen darf der Verkauf an der Kasse.', 'Sales staff bill this at the till.', 'La vente facture à la caisse.', 'Ventas cobra en caja.', 'As vendas faturam na caixa.'],
+    ['Bitte den Namen des Kunden eintragen.', 'Please enter the customer’s name.', 'Veuillez saisir le nom du client.', 'Introduzca el nombre del cliente.', 'Introduza o nome do cliente.'],
+    ['Bitte Telefon oder E-Mail eintragen, damit die Werkstatt den Kunden erreicht.', 'Please enter phone or e-mail so the workshop can reach the customer.', 'Veuillez saisir téléphone ou e-mail pour joindre le client.', 'Introduzca teléfono o e-mail para contactar al cliente.', 'Introduza telefone ou e-mail para contactar o cliente.'],
+    ['Termine dieser Kasse', 'Appointments at this till', 'Rendez-vous de cette caisse', 'Citas de esta caja', 'Marcações desta caixa'],
+    ['Termine dieser Woche', 'Appointments this week', 'Rendez-vous de la semaine', 'Citas de esta semana', 'Marcações desta semana'],
+    ['Werkstatt öffnen', 'Open workshop', 'Ouvrir l’atelier', 'Abrir taller', 'Abrir oficina']
+  ].forEach(function (r) { if (!D[r[0]]) D[r[0]] = {en: r[1], fr: r[2], es: r[3], pt: r[4]}; });
+  I.muster.push([/^Zur Abrechnung an die Kasse übergeben am ([\d.]+) von (.+) – Verkauf rechnet ab\.$/, {en: 'Handed over to the till for billing on $1 by $2 – sales will bill it.', fr: 'Transmis à la caisse le $1 par $2 – la vente facture.', es: 'Pasado a caja el $1 por $2: ventas lo cobra.', pt: 'Passado à caixa em $1 por $2 – as vendas faturam.'}]);
+  I.muster.push([/^Werkstatt abrechnen: (.+)$/, {en: 'Bill workshop job: $1', fr: 'Facturer l’atelier : $1', es: 'Cobrar taller: $1', pt: 'Faturar oficina: $1'}]);
+  I.muster.push([/^An Kasse übergeben am ([\d.]+) von (.+)$/, {en: 'Handed to till on $1 by $2', fr: 'Transmis à la caisse le $1 par $2', es: 'Pasado a caja el $1 por $2', pt: 'Passado à caixa em $1 por $2'}]);
+})();

@@ -468,6 +468,9 @@
     const tpl = document.createElement("template");
     //! nosemgrep: direct-inner-html-assignment
     tpl.innerHTML = encodeCase(html);
+    // zykol: Safari wirft beim Parsen Vorlagen-Elemente (sc-for/sc-if) innerhalb von <select> heraus. Der Lader schreibt <select> deshalb als
+    // <sc-zk-select>; hier wird daraus per DOM wieder ein echtes <select> – DOM-Operationen unterliegen den Parser-Regeln nicht.
+    tpl.content.querySelectorAll("sc-zk-select").forEach((z) => { const s = z.ownerDocument.createElement("select"); for (const a of [...z.attributes]) s.setAttribute(a.name, a.value); while (z.firstChild) s.appendChild(z.firstChild); z.replaceWith(s); });
     let tplN = 0;
     (function stamp(node) {
       if (node.nodeType === Node.ELEMENT_NODE) {

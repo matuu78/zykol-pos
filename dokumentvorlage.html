@@ -299,7 +299,7 @@
     .doc-seite-screen{display:none;}
   }
 </style>
-<script src="assets/js/doc-page.js?v=12.30"></script>
+<script src="assets/js/doc-page.js?v=12.31"></script>
 <script src="assets/js/qrcode.js"></script>
 </helmet>
 
@@ -376,6 +376,9 @@
       <sc-for list="{{ bonMeta }}" as="m" hint-placeholder-count="4">
         <div style="display:flex;justify-content:space-between;gap:8px;font-size:11px;"><span>{{ m.k }}</span><span style="text-align:right;">{{ m.v }}</span></div>
       </sc-for>
+      <sc-if value="{{ hatWs }}" hint-placeholder-val="{{ false }}">
+        <div style="margin-top:5px;font-size:11px;"><sc-for list="{{ wsZeilen }}" as="z" hint-placeholder-count="2"><div>{{ z }}</div></sc-for></div>
+      </sc-if>
       <sc-if value="{{ bonHatKunde }}" hint-placeholder-val="{{ false }}">
         <div style="margin-top:5px;font-size:11px;"><span style="font-weight:600;">Kunde:</span> {{ bonKunde }}</div>
       </sc-if>
@@ -496,6 +499,13 @@
           </div>
         </div>
       </div>
+
+      <sc-if value="{{ hatWs }}" hint-placeholder-val="{{ false }}">
+        <div data-pdf-zusammen="" style="border:1px solid #e5e7eb;border-radius:10px;padding:10pt 13pt;display:flex;flex-direction:column;gap:4pt;">
+          <div style="font-size:8pt;letter-spacing:.1em;text-transform:uppercase;font-weight:700;color:#545b66;">Werkstatt</div>
+          <sc-for list="{{ wsZeilen }}" as="z" hint-placeholder-count="2"><div style="font-size:9.5pt;line-height:1.5;color:#101010;">{{ z }}</div></sc-for>
+        </div>
+      </sc-if>
 
       <sc-if value="{{ hatPaddel }}" hint-placeholder-val="{{ false }}">
         <div data-pdf-zusammen="" style="border:1px solid #e5e7eb;border-radius:10px;padding:10pt 13pt;display:flex;flex-direction:column;gap:4pt;">
@@ -931,6 +941,8 @@ class Component extends DCLogic {
     try {
       const k = new URLSearchParams(location.search).get('kunde');
       if (k) this.setState({kunde: k.split('|').filter(Boolean)});
+      const ws = new URLSearchParams(location.search).get('ws');
+      if (ws) this.setState({ws: ws.split('|').filter(Boolean)});
       const pd = new URLSearchParams(location.search).get('paddel');
       if (pd) this.setState({paddel: pd.split('|').filter(Boolean), rg: new URLSearchParams(location.search).get('rg') || ''});
     } catch (e) {}
@@ -1043,6 +1055,7 @@ class Component extends DCLogic {
       hinweise: IBAN_OK(g.iban) ? d.hinweise : this.state.typ === 'rechnung' && !Z_RG_INFO ? ['Fiktive Artikel und Firmendaten. Keine Zahlung vornehmen.', 'Zahlungsziel: ' + Z_ZIEL + '.', 'Bitte geben Sie bei Zahlungen die Rechnungsnummer an.', 'Eigentumsvorbehalt bis zur vollständigen Bezahlung.']
         : d.hinweise.map(h => /unten genannte Konto/.test(h) ? 'Fiktive Artikel und Firmendaten. Keine Zahlung vornehmen.' : h),
       hatPaddel: !!this.state.paddel && (this.state.typ === 'beleg' || this.state.typ === 'rechnung'),
+      hatWs: !!this.state.ws && (this.state.typ === 'beleg' || this.state.typ === 'rechnung'), wsZeilen: this.state.ws || [],
       paddelZeilen: this.state.paddel || [],
       paddelRef: 'Rechnung ' + (this.state.rg || ''),
       hatQr: this.state.typ === 'beleg' || this.state.typ === 'rechnung',

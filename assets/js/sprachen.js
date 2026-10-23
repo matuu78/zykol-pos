@@ -2691,3 +2691,47 @@ Logo|Logótipo
   I.muster.push([/^Werkstatt abrechnen: (.+)$/, {en: 'Bill workshop job: $1', fr: 'Facturer l’atelier : $1', es: 'Cobrar taller: $1', pt: 'Faturar oficina: $1'}]);
   I.muster.push([/^An Kasse übergeben am ([\d.]+) von (.+)$/, {en: 'Handed to till on $1 by $2', fr: 'Transmis à la caisse le $1 par $2', es: 'Pasado a caja el $1 por $2', pt: 'Passado à caixa em $1 por $2'}]);
 })();
+
+
+/* v12.27 Werkstatt-Vorschläge und Material */
+(function () {
+  var I = window.ZYKOL_I18N; if (!I) return;
+  var D = I.dict;
+  [
+    ['Auftrag öffnen', 'Open job', 'Ouvrir l’ordre', 'Abrir orden', 'Abrir ordem'],
+    ['— Material / Ersatzteil wählen —', '— Choose material / spare part —', '— Choisir matériel / pièce —', '— Elegir material / repuesto —', '— Escolher material / peça —'],
+    ['— Material aus dem Bestand verbauen —', '— Fit material from stock —', '— Monter du matériel du stock —', '— Montar material del stock —', '— Montar material do stock —'],
+    ['Kratzer am Rumpf', 'Scratches on hull', 'Rayures sur la coque', 'Arañazos en el casco', 'Riscos no casco'],
+    ['Riss im Gelcoat', 'Crack in gelcoat', 'Fissure dans le gelcoat', 'Grieta en el gelcoat', 'Fissura no gelcoat'],
+    ['Delle am Bug', 'Dent at bow', 'Bosse à la proue', 'Abolladura en la proa', 'Mossa na proa'],
+    ['Naht undicht', 'Seam leaking', 'Couture non étanche', 'Costura con fuga', 'Costura com fuga'],
+    ['Ventil undicht', 'Valve leaking', 'Valve non étanche', 'Válvula con fuga', 'Válvula com fuga'],
+    ['Steuerseil gerissen', 'Rudder cable broken', 'Câble de gouvernail cassé', 'Cable de timón roto', 'Cabo do leme partido'],
+    ['Sitz lose', 'Seat loose', 'Siège desserré', 'Asiento suelto', 'Assento solto'],
+    ['Fußstütze defekt', 'Footrest broken', 'Cale-pied défectueux', 'Reposapiés roto', 'Apoio de pé avariado'],
+    ['Lukendeckel spröde', 'Hatch cover brittle', 'Couvercle de trappe cassant', 'Tapa de escotilla quebradiza', 'Tampa da escotilha quebradiça'],
+    ['Keine sichtbaren Schäden', 'No visible damage', 'Aucun dommage visible', 'Sin daños visibles', 'Sem danos visíveis'],
+    ['Paddel', 'Paddle', 'Pagaie', 'Pala', 'Pagaia'],
+    ['Spritzdecke', 'Spray deck', 'Jupe', 'Cubrebañeras', 'Saia'],
+    ['Lukendeckel', 'Hatch cover', 'Couvercle de trappe', 'Tapa de escotilla', 'Tampa da escotilha'],
+    ['Pumpe', 'Pump', 'Pompe', 'Bomba', 'Bomba'],
+    ['Finne', 'Fin', 'Aileron', 'Quilla', 'Quilha'],
+    ['Tragegurte', 'Carry straps', 'Sangles', 'Correas', 'Alças'],
+    ['Bootswagen', 'Boat trolley', 'Chariot', 'Carro', 'Carrinho'],
+    ['Packsack', 'Dry bag', 'Sac étanche', 'Bolsa estanca', 'Saco estanque'],
+    ['Kein Zubehör', 'No accessories', 'Aucun accessoire', 'Sin accesorios', 'Sem acessórios'],
+    ['Kostenvoranschlag vor Reparatur', 'Estimate before repair', 'Devis avant réparation', 'Presupuesto antes de reparar', 'Orçamento antes da reparação'],
+    ['Bis zum Wochenende fertig', 'Ready by the weekend', 'Prêt pour le week-end', 'Listo para el fin de semana', 'Pronto até ao fim de semana'],
+    ['Anruf vor Arbeitsbeginn', 'Call before starting', 'Appeler avant de commencer', 'Llamar antes de empezar', 'Ligar antes de começar'],
+    ['Altteile zurück', 'Return old parts', 'Rendre les pièces usagées', 'Devolver piezas viejas', 'Devolver peças velhas'],
+    ['Jahreswartung', 'Annual service', 'Entretien annuel', 'Mantenimiento anual', 'Manutenção anual'],
+    ['Nur prüfen, nicht reparieren', 'Check only, do not repair', 'Contrôler seulement', 'Solo revisar, no reparar', 'Só verificar, não reparar'],
+    ['Arbeiten mit dem Kunden durchgesprochen.', 'Work discussed with the customer.', 'Travaux expliqués au client.', 'Trabajos explicados al cliente.', 'Trabalhos explicados ao cliente.'],
+    ['Boot gereinigt übergeben.', 'Boat handed over clean.', 'Bateau rendu nettoyé.', 'Barco entregado limpio.', 'Barco entregue limpo.'],
+    ['Dichtigkeit geprüft, ohne Befund.', 'Leak test passed.', 'Étanchéité contrôlée, sans défaut.', 'Estanqueidad comprobada, sin fallos.', 'Estanquidade verificada, sem defeitos.'],
+    ['Altteile an den Kunden übergeben.', 'Old parts given to the customer.', 'Pièces usagées remises au client.', 'Piezas viejas entregadas al cliente.', 'Peças velhas entregues ao cliente.'],
+    ['Pflegehinweise erklärt.', 'Care instructions explained.', 'Conseils d’entretien expliqués.', 'Instrucciones de cuidado explicadas.', 'Instruções de cuidado explicadas.'],
+    ['Nächste Wartung in 12 Monaten empfohlen.', 'Next service recommended in 12 months.', 'Prochain entretien conseillé dans 12 mois.', 'Próximo mantenimiento en 12 meses.', 'Próxima manutenção em 12 meses.'],
+    ['Arbeiten mit dem Kunden durchgesprochen. Boot gereinigt übergeben.', 'Work discussed with the customer. Boat handed over clean.', 'Travaux expliqués au client. Bateau rendu nettoyé.', 'Trabajos explicados al cliente. Barco entregado limpio.', 'Trabalhos explicados ao cliente. Barco entregue limpo.']
+  ].forEach(function (r) { if (!D[r[0]]) D[r[0]] = {en: r[1], fr: r[2], es: r[3], pt: r[4]}; });
+})();

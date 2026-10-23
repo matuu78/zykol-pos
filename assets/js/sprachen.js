@@ -2735,3 +2735,70 @@ Logo|Logótipo
     ['Arbeiten mit dem Kunden durchgesprochen. Boot gereinigt übergeben.', 'Work discussed with the customer. Boat handed over clean.', 'Travaux expliqués au client. Bateau rendu nettoyé.', 'Trabajos explicados al cliente. Barco entregado limpio.', 'Trabalhos explicados ao cliente. Barco entregue limpo.']
   ].forEach(function (r) { if (!D[r[0]]) D[r[0]] = {en: r[1], fr: r[2], es: r[3], pt: r[4]}; });
 })();
+
+/* v12.29 Urlaub, Standorte & Feiertage */
+(function () {
+  var I = window.ZYKOL_I18N; if (!I) return;
+  var D = I.dict;
+  [
+    ['Baden-Württemberg', 'Baden-Württemberg', 'Bade-Wurtemberg', 'Baden-Wurtemberg', 'Baden-Württemberg'],
+    ['Bayern', 'Bavaria', 'Bavière', 'Baviera', 'Baviera'],
+    ['Berlin', 'Berlin', 'Berlin', 'Berlín', 'Berlim'],
+    ['Brandenburg', 'Brandenburg', 'Brandebourg', 'Brandeburgo', 'Brandemburgo'],
+    ['Bremen', 'Bremen', 'Brême', 'Bremen', 'Bremen'],
+    ['Hamburg', 'Hamburg', 'Hambourg', 'Hamburgo', 'Hamburgo'],
+    ['Hessen', 'Hesse', 'Hesse', 'Hesse', 'Hesse'],
+    ['Mecklenburg-Vorpommern', 'Mecklenburg-Western Pomerania', 'Mecklembourg-Poméranie-Occidentale', 'Mecklemburgo-Pomerania Occidental', 'Meclemburgo-Pomerânia Ocidental'],
+    ['Niedersachsen', 'Lower Saxony', 'Basse-Saxe', 'Baja Sajonia', 'Baixa Saxónia'],
+    ['Nordrhein-Westfalen', 'North Rhine-Westphalia', 'Rhénanie-du-Nord-Westphalie', 'Renania del Norte-Westfalia', 'Renânia do Norte-Vestefália'],
+    ['Rheinland-Pfalz', 'Rhineland-Palatinate', 'Rhénanie-Palatinat', 'Renania-Palatinado', 'Renânia-Palatinado'],
+    ['Saarland', 'Saarland', 'Sarre', 'Sarre', 'Sarre'],
+    ['Sachsen', 'Saxony', 'Saxe', 'Sajonia', 'Saxónia'],
+    ['Sachsen-Anhalt', 'Saxony-Anhalt', 'Saxe-Anhalt', 'Sajonia-Anhalt', 'Saxónia-Anhalt'],
+    ['Schleswig-Holstein', 'Schleswig-Holstein', 'Schleswig-Holstein', 'Schleswig-Holstein', 'Schleswig-Holstein'],
+    ['Thüringen', 'Thuringia', 'Thuringe', 'Turingia', 'Turíngia'],
+    ['Stempeln', 'Clock in/out', 'Pointage', 'Fichar', 'Picar ponto'],
+    ['Urlaub', 'Leave', 'Congés', 'Vacaciones', 'Férias'],
+    ['Urlaub beantragen', 'Request leave', 'Demander un congé', 'Solicitar vacaciones', 'Pedir férias'],
+    ['Antrag stellen', 'Submit request', 'Envoyer la demande', 'Enviar solicitud', 'Enviar pedido'],
+    ['Meine Anträge', 'My requests', 'Mes demandes', 'Mis solicitudes', 'Os meus pedidos'],
+    ['Noch keine Anträge.', 'No requests yet.', 'Aucune demande.', 'Aún no hay solicitudes.', 'Ainda sem pedidos.'],
+    ['Offene Urlaubsanträge', 'Open leave requests', 'Demandes de congé en attente', 'Solicitudes pendientes', 'Pedidos de férias pendentes'],
+    ['Genehmigen', 'Approve', 'Approuver', 'Aprobar', 'Aprovar'],
+    ['Ablehnen', 'Reject', 'Refuser', 'Rechazar', 'Recusar'],
+    ['Genehmigt', 'Approved', 'Approuvé', 'Aprobado', 'Aprovado'],
+    ['Beantragt', 'Requested', 'Demandé', 'Solicitado', 'Pedido'],
+    ['Abgelehnt', 'Rejected', 'Refusé', 'Rechazado', 'Recusado'],
+    ['Keine offenen Anträge.', 'No open requests.', 'Aucune demande en attente.', 'No hay solicitudes pendientes.', 'Sem pedidos pendentes.'],
+    ['Genehmigen oder ablehnen – genehmigter Urlaub erscheint im Kalender.', 'Approve or reject – approved leave appears in the calendar.', 'Approuver ou refuser – les congés approuvés apparaissent dans le calendrier.', 'Aprobar o rechazar: las vacaciones aprobadas aparecen en el calendario.', 'Aprovar ou recusar – as férias aprovadas aparecem no calendário.'],
+    ['Urlaubsübersicht aller Mitarbeitenden', 'Leave overview of all staff', 'Aperçu des congés du personnel', 'Resumen de vacaciones del personal', 'Resumo de férias de todos'],
+    ['Anspruch, Rest aus dem Vorjahr und Arbeitstage je Woche (Teilzeit) pflegen. Feiertage nach dem Bundesland des Standorts.', 'Maintain entitlement, carry-over and working days per week (part-time). Public holidays follow the location’s state.', 'Gérer droits, report et jours travaillés par semaine (temps partiel). Jours fériés selon le Land du site.', 'Gestionar derecho, remanente y días laborables por semana (tiempo parcial). Festivos según el estado de la sede.', 'Gerir direito, saldo do ano anterior e dias úteis por semana (tempo parcial). Feriados conforme o estado da loja.'],
+    ['Nur Ansicht – Ansprüche pflegen Admin und Filialleitung.', 'View only – entitlements are maintained by admin and branch management.', 'Lecture seule – droits gérés par l’admin et la direction.', 'Solo lectura: el derecho lo gestionan admin y gerencia.', 'Só leitura – direitos geridos por admin e gerência.'],
+    ['Entschiedene Anträge', 'Decided requests', 'Demandes traitées', 'Solicitudes resueltas', 'Pedidos decididos'],
+    ['Anspruch', 'Entitlement', 'Droit', 'Derecho', 'Direito'],
+    ['Rest Vorjahr', 'Carry-over', 'Report N-1', 'Remanente año anterior', 'Saldo ano anterior'],
+    ['Genommen', 'Taken', 'Pris', 'Tomados', 'Gozados'],
+    ['Geplant (genehmigt)', 'Planned (approved)', 'Prévu (approuvé)', 'Planificado (aprobado)', 'Planeado (aprovado)'],
+    ['Rest', 'Remaining', 'Reste', 'Restante', 'Restante'],
+    ['Tage', 'days', 'jours', 'días', 'dias'],
+    ['Tage/Woche', 'Days/week', 'Jours/semaine', 'Días/semana', 'Dias/semana'],
+    ['Vorjahr', 'Previous year', 'Année N-1', 'Año anterior', 'Ano anterior'],
+    ['Geplant', 'Planned', 'Prévu', 'Planificado', 'Planeado'],
+    ['Standort', 'Location', 'Site', 'Sede', 'Local'],
+    ['Standorte & Feiertage', 'Locations & public holidays', 'Sites et jours fériés', 'Sedes y festivos', 'Locais e feriados'],
+    ['Bundesland je Standort – danach richten sich die gesetzlichen Feiertage beim Zählen der Urlaubstage. Standard: Berlin.', 'State per location – public holidays for counting leave days follow it. Default: Berlin.', 'Land par site – les jours fériés pour le décompte des congés en dépendent. Par défaut : Berlin.', 'Estado por sede: determina los festivos al contar vacaciones. Predeterminado: Berlín.', 'Estado por local – define os feriados na contagem de férias. Padrão: Berlim.'],
+    ['Antrag prüfen', 'Review request', 'Examiner la demande', 'Revisar solicitud', 'Rever pedido'],
+    ['Urlaub genehmigen', 'Approve leave', 'Approuver les congés', 'Aprobar vacaciones', 'Aprovar férias'],
+    ['Urlaubsanspruch pflegen', 'Maintain leave entitlement', 'Gérer les droits à congés', 'Gestionar derecho a vacaciones', 'Gerir direito a férias'],
+    ['Im Zeitraum liegen keine Arbeitstage.', 'There are no working days in this period.', 'Aucun jour travaillé dans cette période.', 'No hay días laborables en el periodo.', 'Não há dias úteis no período.'],
+    ['Für diesen Zeitraum gibt es schon einen Antrag.', 'There is already a request for this period.', 'Une demande existe déjà pour cette période.', 'Ya existe una solicitud para este periodo.', 'Já existe um pedido para este período.'],
+    ['Das Systemkonto hat keinen Urlaubsanspruch.', 'The system account has no leave entitlement.', 'Le compte système n’a pas de droit à congés.', 'La cuenta del sistema no tiene vacaciones.', 'A conta de sistema não tem férias.'],
+    ['Kommen und Gehen stempeln, Stunden und Saldo je Mitarbeitende – und Urlaub beantragen und genehmigen.', 'Clock in and out, hours and balance per employee – and request and approve leave.', 'Pointer arrivées et départs, heures et solde par personne – et demander/approuver les congés.', 'Fichar entradas y salidas, horas y saldo por persona, y solicitar y aprobar vacaciones.', 'Picar entradas e saídas, horas e saldo por pessoa – e pedir e aprovar férias.']
+  ].forEach(function (r) { if (!D[r[0]]) D[r[0]] = {en: r[1], fr: r[2], es: r[3], pt: r[4]}; });
+  I.muster.push([/^(\d+) Arbeitstage$/, {en: '$1 working days', fr: '$1 jours ouvrés', es: '$1 días laborables', pt: '$1 dias úteis'}]);
+  I.muster.push([/^= (\d+) Arbeitstage \(ohne Wochenenden und Feiertage in (.+)\)$/, {en: '= $1 working days (excl. weekends and public holidays in $2)', fr: '= $1 jours ouvrés (hors week-ends et jours fériés en $2)', es: '= $1 días laborables (sin fines de semana ni festivos en $2)', pt: '= $1 dias úteis (sem fins de semana e feriados em $2)'}]);
+  I.muster.push([/^Mein Urlaub (\d{4}) · (.+)$/, {en: 'My leave $1 · $2', fr: 'Mes congés $1 · $2', es: 'Mis vacaciones $1 · $2', pt: 'As minhas férias $1 · $2'}]);
+  I.muster.push([/^Urlaubsantrag (.+): (.+)$/, {en: 'Leave request $1: $2', fr: 'Demande de congé $1 : $2', es: 'Solicitud de vacaciones $1: $2', pt: 'Pedido de férias $1: $2'}]);
+  I.muster.push([/^Urlaub (.+)$/, {en: 'Leave $1', fr: 'Congé $1', es: 'Vacaciones $1', pt: 'Férias $1'}]);
+  I.muster.push([/^Antrag gestellt: (\d+) Arbeitstage\. Er liegt jetzt bei der Leitung zur Genehmigung\.$/, {en: 'Request submitted: $1 working days. It is now with management for approval.', fr: 'Demande envoyée : $1 jours ouvrés. Elle attend l’approbation de la direction.', es: 'Solicitud enviada: $1 días laborables. Pendiente de aprobación.', pt: 'Pedido enviado: $1 dias úteis. Aguarda aprovação da gerência.'}]);
+})();

@@ -380,6 +380,8 @@
 
   // Ist schon eine Vorschau offen (z. B. Bon und danach Rechnung), wird die nächste nach dem Schließen gezeigt
   function zeigen(o) {
+    // Vorschau, die ohne „Schließen“ aus dem DOM verschwunden ist, darf keine weiteren Belege blockieren
+    if (offen && !offen.el.isConnected) { if (offen.url) URL.revokeObjectURL(offen.url); document.removeEventListener('keydown', offen.taste); offen = null; }
     if (offen) { schlange.push(o); var k = offen.el.querySelector('.f'); if (k && k.textContent.indexOf(t('weitere')) < 0) k.textContent += ' · ' + t('weitere'); return Promise.resolve(null); }
     var el = huelle(o.titel);
     var mein = offen;
@@ -407,5 +409,7 @@
     });
   }
 
-  window.ZK_PDF = {zeigen: zeigen, erzeugen: erzeugen, schliessen: schliessen};
+  // alles schließen, auch wartende Belege (z. B. vor einem neuen Werkstatt-Beleg)
+  function leeren() { schlange = []; schliessen(); }
+  window.ZK_PDF = {zeigen: zeigen, erzeugen: erzeugen, schliessen: schliessen, leeren: leeren};
 })();

@@ -2802,3 +2802,28 @@ Logo|Logótipo
   I.muster.push([/^Urlaub (.+)$/, {en: 'Leave $1', fr: 'Congé $1', es: 'Vacaciones $1', pt: 'Férias $1'}]);
   I.muster.push([/^Antrag gestellt: (\d+) Arbeitstage\. Er liegt jetzt bei der Leitung zur Genehmigung\.$/, {en: 'Request submitted: $1 working days. It is now with management for approval.', fr: 'Demande envoyée : $1 jours ouvrés. Elle attend l’approbation de la direction.', es: 'Solicitud enviada: $1 días laborables. Pendiente de aprobación.', pt: 'Pedido enviado: $1 dias úteis. Aguarda aprovação da gerência.'}]);
 })();
+
+/* v12.32 Werkstatt-Beleg Bon/Rechnung */
+(function () {
+  var I = window.ZYKOL_I18N; if (!I) return;
+  var D = I.dict;
+  [
+    ['Bon (80 mm)', 'Receipt (80 mm)', 'Ticket (80 mm)', 'Ticket (80 mm)', 'Talão (80 mm)'],
+    ['Rechnung (A4)', 'Invoice (A4)', 'Facture (A4)', 'Factura (A4)', 'Fatura (A4)'],
+    ['Beleg:', 'Document:', 'Justificatif :', 'Comprobante:', 'Documento:'],
+    ['Bon anzeigen', 'Show receipt', 'Afficher le ticket', 'Mostrar ticket', 'Mostrar talão'],
+    ['Rechnung anzeigen', 'Show invoice', 'Afficher la facture', 'Mostrar factura', 'Mostrar fatura'],
+    ['Bon zur Rechnung erstellen', 'Create receipt for invoice', 'Créer un ticket pour la facture', 'Crear ticket para la factura', 'Criar talão para a fatura'],
+    ['Rechnung zum Bon erstellen', 'Create invoice for receipt', 'Créer une facture pour le ticket', 'Crear factura para el ticket', 'Criar fatura para o talão'],
+    ['Vorschlag wäre Rechnung', 'Suggestion: invoice', 'Suggestion : facture', 'Sugerencia: factura', 'Sugestão: fatura'],
+    ['Rechnungsanschrift', 'Billing address', 'Adresse de facturation', 'Dirección de facturación', 'Morada de faturação'],
+    ['Name / Firma', 'Name / company', 'Nom / société', 'Nombre / empresa', 'Nome / empresa'],
+    ['Straße und Hausnummer', 'Street and number', 'Rue et numéro', 'Calle y número', 'Rua e número'],
+    ['PLZ und Ort', 'Postcode and town', 'CP et ville', 'CP y localidad', 'CP e localidade'],
+    ['Gilt für diesen Auftrag; die Kundendaten bleiben unverändert.', 'Applies to this job; customer data stays unchanged.', 'Valable pour cet ordre ; les données client restent inchangées.', 'Vale para esta orden; los datos del cliente no cambian.', 'Aplica-se a esta ordem; os dados do cliente não mudam.'],
+    ['Für die Rechnung bitte die Rechnungsanschrift eintragen.', 'Please enter the billing address for the invoice.', 'Veuillez saisir l’adresse de facturation.', 'Introduzca la dirección de facturación.', 'Introduza a morada de faturação.'],
+    ['Für die Rechnung bitte zuerst die Rechnungsanschrift eintragen.', 'Please enter the billing address first.', 'Veuillez d’abord saisir l’adresse de facturation.', 'Introduzca primero la dirección de facturación.', 'Introduza primeiro a morada de faturação.'],
+    ['— Anschrift fehlt —', '— address missing —', '— adresse manquante —', '— falta la dirección —', '— morada em falta —']
+  ].forEach(function (r) { if (!D[r[0]]) D[r[0]] = {en: r[1], fr: r[2], es: r[3], pt: r[4]}; });
+  I.muster.push([/^Abgerechnet am ([\d.]+) · (.+)$/, {en: 'Billed on $1 · $2', fr: 'Facturé le $1 · $2', es: 'Cobrado el $1 · $2', pt: 'Faturado em $1 · $2'}]);
+})();

@@ -10,6 +10,7 @@
   var FORMATE = {
     bon: {breite: 80, label: function () { return t('bon') + ' · 80 mm'; }},
     etikett: {breite: 50, hoehe: 24, label: function () { return t('etikett') + ' · 50 × 24 mm'; }},
+    paket: {breite: 100, hoehe: 150, label: function () { return 'Paketlabel · 100 × 150 mm'; }},
     a4: {breite: 210, hoehe: 297, label: function () { return 'A4'; }}
   };
   // Texte in den fünf App-Sprachen (Reihenfolge wie SPR); Sprache aus <html lang>
@@ -128,7 +129,7 @@
     if (o.format) return o.format;
     if (o.url) return /#beleg\b/.test(o.url) ? 'bon' : 'a4';
     var m = /@page\s*\{[^}]*size:\s*([\d.]+)mm\s+([\d.]+)mm/.exec(o.html || '');
-    if (m) return +m[1] <= 60 ? 'etikett' : +m[1] <= 90 ? 'bon' : 'a4';
+    if (m) return +m[1] <= 60 ? 'etikett' : +m[1] <= 90 ? 'bon' : (+m[1] <= 110 && +m[2] >= 140 && +m[2] <= 160) ? 'paket' : 'a4';
     return 'a4';
   }
 
@@ -331,6 +332,8 @@
             });
           }, Promise.resolve([]));
         }
+        // Paketlabel (100 × 150 mm, DHL/UPS/DPD): eine Seite in fester Größe
+        if (format === 'paket') return zeichne(d.body, opt).then(function (c) { return [{jpeg: jpeg(c), px: [c.width, c.height], mm: [F.breite, F.hoehe]}]; });
         var ziel = (o.auswahl && d.querySelector(o.auswahl)) || (format === 'bon' && d.querySelector('.bon')) || d.querySelector('.zk-pdf-blatt') || d.body;
         var kopf = format === 'a4' && ziel.querySelector('[slot="header"]'), fuss = format === 'a4' && ziel.querySelector('[slot="footer"]');
         if (kopf || fuss) return a4Laufend(d, ziel, kopf, fuss, zeichne, opt, rand, F);

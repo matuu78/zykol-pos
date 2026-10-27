@@ -3008,3 +3008,78 @@ Logo|Logótipo
   I.muster.push([/^Abrechnungsnummern: Paket (\d+) · Kleinpaket (\d+) · International (\d+)$/, {en: 'Billing numbers: parcel $1 · small parcel $2 · international $3', fr: 'Numéros de facturation : colis $1 · petit colis $2 · international $3', es: 'Números de facturación: paquete $1 · pequeño $2 · internacional $3', pt: 'Números de faturação: encomenda $1 · pequena $2 · internacional $3'}]);
   I.muster.push([/^Postnummer (\S+) · (.+)$/, {en: 'Postnummer $1 · $2', fr: 'Postnummer $1 · $2', es: 'Postnummer $1 · $2', pt: 'Postnummer $1 · $2'}]);
 })();
+
+/* v12.33 Kassenabschluss */
+(function () {
+  var I = window.ZYKOL_I18N; if (!I) return;
+  var D = I.dict;
+  [
+    ['Kassenabschluss', 'Cash-up', 'Clôture de caisse', 'Cierre de caja', 'Fecho de caixa'],
+    ['Kassensturz', 'Cash count', 'Comptage de caisse', 'Arqueo de caja', 'Contagem de caixa'],
+    ['Kartenzahlungen und PayPal abgleichen, Bargeld zählen, Z-Bericht drucken.', 'Reconcile card and PayPal payments, count cash, print Z report.', 'Rapprocher cartes et PayPal, compter les espèces, imprimer le rapport Z.', 'Conciliar tarjetas y PayPal, contar efectivo, imprimir informe Z.', 'Conciliar cartões e PayPal, contar dinheiro, imprimir relatório Z.'],
+    ['1 · Unbare Zahlungen', '1 · Cashless payments', '1 · Paiements sans espèces', '1 · Pagos sin efectivo', '1 · Pagamentos sem numerário'],
+    ['2 · Bargeld zählen', '2 · Count cash', '2 · Compter les espèces', '2 · Contar efectivo', '2 · Contar dinheiro'],
+    ['3 · Abschluss', '3 · Close day', '3 · Clôture', '3 · Cierre', '3 · Fecho'],
+    ['Verlauf', 'History', 'Historique', 'Historial', 'Histórico'],
+    ['Kartenzahlungen', 'Card payments', 'Paiements par carte', 'Pagos con tarjeta', 'Pagamentos com cartão'],
+    ['PayPal-Zahlungen', 'PayPal payments', 'Paiements PayPal', 'Pagos PayPal', 'Pagamentos PayPal'],
+    ['Summe laut Terminal-Tagesbericht (€)', 'Total per terminal daily report (€)', 'Total selon le rapport du terminal (€)', 'Total según informe del terminal (€)', 'Total segundo relatório do terminal (€)'],
+    ['Summe laut PayPal-Tagesbericht (€)', 'Total per PayPal daily report (€)', 'Total selon le rapport PayPal (€)', 'Total según informe PayPal (€)', 'Total segundo relatório PayPal (€)'],
+    ['noch nicht abgeglichen', 'not yet reconciled', 'pas encore rapproché', 'aún no conciliado', 'ainda não conciliado'],
+    ['stimmt überein', 'matches', 'concorde', 'coincide', 'confere'],
+    ['Heute keine Zahlungen.', 'No payments today.', 'Aucun paiement aujourd’hui.', 'Hoy no hay pagos.', 'Sem pagamentos hoje.'],
+    ['Scheine', 'Notes', 'Billets', 'Billetes', 'Notas'],
+    ['Münzen', 'Coins', 'Pièces', 'Monedas', 'Moedas'],
+    ['Rollen', 'Rolls', 'Rouleaux', 'Cartuchos', 'Rolos'],
+    ['Soll', 'Expected', 'Théorique', 'Teórico', 'Esperado'],
+    ['Ist (gezählt)', 'Actual (counted)', 'Réel (compté)', 'Real (contado)', 'Real (contado)'],
+    ['Differenz', 'Difference', 'Écart', 'Diferencia', 'Diferença'],
+    ['Kasse stimmt', 'Till balanced', 'Caisse juste', 'Caja cuadrada', 'Caixa certa'],
+    ['Überschuss', 'Surplus', 'Excédent', 'Sobrante', 'Excedente'],
+    ['Fehlbetrag', 'Shortfall', 'Manque', 'Faltante', 'Falta'],
+    ['noch nicht gezählt', 'not counted yet', 'pas encore compté', 'aún sin contar', 'ainda não contado'],
+    ['Zurücksetzen', 'Reset', 'Réinitialiser', 'Restablecer', 'Repor'],
+    ['Zwischenspeichern', 'Save draft', 'Enregistrer', 'Guardar borrador', 'Guardar rascunho'],
+    ['Bargeld', 'Cash', 'Espèces', 'Efectivo', 'Numerário'],
+    ['Begründung der Differenz', 'Reason for difference', 'Motif de l’écart', 'Motivo de la diferencia', 'Motivo da diferença'],
+    ['Pflicht bei Differenz', 'required if there is a difference', 'obligatoire en cas d’écart', 'obligatorio si hay diferencia', 'obrigatório se houver diferença'],
+    ['Wechselgeld für morgen (€)', 'Float for tomorrow (€)', 'Fonds de caisse pour demain (€)', 'Cambio para mañana (€)', 'Troco para amanhã (€)'],
+    ['Bankeinzahlung / Entnahme', 'Bank deposit / withdrawal', 'Dépôt bancaire / retrait', 'Ingreso bancario / retirada', 'Depósito bancário / levantamento'],
+    ['Entnahmen & Auszahlungen heute', 'Withdrawals & payouts today', 'Retraits et paiements aujourd’hui', 'Retiradas y pagos hoy', 'Levantamentos e pagamentos hoje'],
+    ['+ Entnahme', '+ Withdrawal', '+ Retrait', '+ Retirada', '+ Levantamento'],
+    ['Grund', 'Reason', 'Motif', 'Motivo', 'Motivo'],
+    ['Tag abschließen & Z-Bericht drucken', 'Close day & print Z report', 'Clôturer la journée et imprimer le rapport Z', 'Cerrar el día e imprimir informe Z', 'Fechar o dia e imprimir relatório Z'],
+    ['Z-Bon', 'Z receipt', 'Ticket Z', 'Ticket Z', 'Talão Z'],
+    ['A4-Bericht', 'A4 report', 'Rapport A4', 'Informe A4', 'Relatório A4'],
+    ['Kassenabschluss durchführen', 'Perform cash-up', 'Effectuer la clôture de caisse', 'Realizar cierre de caja', 'Efetuar fecho de caixa'],
+    ['Kassenabschluss öffnen', 'Open cash-up', 'Ouvrir la clôture', 'Abrir cierre de caja', 'Abrir fecho de caixa'],
+    ['Kassensturz: Bargeld zählen und mit dem Soll vergleichen. Den Tagesabschluss machen Admin, Filialleitung oder Teamleitung.', 'Cash count: count cash and compare with the expected amount. The daily close is done by admin, branch or team management.', 'Comptage : compter les espèces et comparer au théorique. La clôture est faite par l’admin ou la direction.', 'Arqueo: contar el efectivo y compararlo con el teórico. El cierre lo hace admin o gerencia.', 'Contagem: contar o dinheiro e comparar com o esperado. O fecho é feito pelo admin ou gerência.'],
+    ['Bitte zuerst das Bargeld zählen.', 'Please count the cash first.', 'Veuillez d’abord compter les espèces.', 'Cuente primero el efectivo.', 'Conte primeiro o dinheiro.'],
+    ['Zählung zurückgesetzt.', 'Count reset.', 'Comptage réinitialisé.', 'Conteo restablecido.', 'Contagem reposta.'],
+    ['Das Wechselgeld für morgen ist höher als der gezählte Bestand.', 'Tomorrow’s float is higher than the counted cash.', 'Le fonds de caisse dépasse le montant compté.', 'El cambio para mañana supera el efectivo contado.', 'O troco para amanhã excede o dinheiro contado.'],
+    ['Für eine Entnahme bitte Betrag und Grund eintragen.', 'Please enter amount and reason for a withdrawal.', 'Veuillez saisir montant et motif du retrait.', 'Introduzca importe y motivo de la retirada.', 'Introduza valor e motivo do levantamento.'],
+    ['Tagesumsatz', 'Daily sales', 'Ventes du jour', 'Ventas del día', 'Vendas do dia'],
+    ['weniger', 'less', 'moins', 'menos', 'menos'],
+    ['mehr', 'more', 'plus', 'más', 'mais']
+  ].forEach(function (r) { if (!D[r[0]]) D[r[0]] = {en: r[1], fr: r[2], es: r[3], pt: r[4]}; });
+  I.muster.push([/^Kasse (.+) · ([\d.]+)$/, {en: 'Till $1 · $2', fr: 'Caisse $1 · $2', es: 'Caja $1 · $2', pt: 'Caixa $1 · $2'}]);
+  I.muster.push([/^Rolle = (\d+) Stück$/, {en: 'Roll = $1 pcs', fr: 'Rouleau = $1 pièces', es: 'Cartucho = $1 uds.', pt: 'Rolo = $1 unid.'}]);
+  I.muster.push([/^(\d+) Zahlung(en)?$/, {en: '$1 payment(s)', fr: '$1 paiement(s)', es: '$1 pago(s)', pt: '$1 pagamento(s)'}]);
+  I.muster.push([/^Differenz ([+−-]?[\d.,]+ €)$/, {en: 'Difference $1', fr: 'Écart $1', es: 'Diferencia $1', pt: 'Diferença $1'}]);
+  I.muster.push([/^Kassendifferenz (.+) – bitte eine Begründung eintragen\.$/, {en: 'Cash difference $1 – please enter a reason.', fr: 'Écart de caisse $1 – veuillez indiquer un motif.', es: 'Diferencia de caja $1: indique un motivo.', pt: 'Diferença de caixa $1 – indique um motivo.'}]);
+  I.muster.push([/^Zwischenstand gespeichert \((.+)\)\.$/, {en: 'Draft saved ($1).', fr: 'Brouillon enregistré ($1).', es: 'Borrador guardado ($1).', pt: 'Rascunho guardado ($1).'}]);
+  I.muster.push([/^Tag abgeschlossen am ([\d.]+) um ([\d:]+) von (.+) \((.+)\) – nur noch Ansicht\.$/, {en: 'Day closed on $1 at $2 by $3 ($4) – view only.', fr: 'Journée clôturée le $1 à $2 par $3 ($4) – lecture seule.', es: 'Día cerrado el $1 a las $2 por $3 ($4): solo lectura.', pt: 'Dia fechado em $1 às $2 por $3 ($4) – só leitura.'}]);
+})();
+
+/* v12.41 Versand: Etikett-Vorschau, Kacheln */
+(function () {
+  var I = window.ZYKOL_I18N; if (!I) return;
+  var D = I.dict;
+  [
+    ['Etikett-Vorschau', 'Label preview', 'Aperçu de l’étiquette', 'Vista previa de la etiqueta', 'Pré-visualização da etiqueta'],
+    ['Zu packen anzeigen', 'Show to pack', 'Afficher à emballer', 'Mostrar por empaquetar', 'Mostrar por embalar'],
+    ['Versandbereit anzeigen', 'Show ready to ship', 'Afficher prêt à expédier', 'Mostrar listo para enviar', 'Mostrar pronto a enviar'],
+    ['Heute übergeben anzeigen', 'Show handed over today', 'Afficher remis aujourd’hui', 'Mostrar entregado hoy', 'Mostrar entregue hoje'],
+    ['Retouren offen anzeigen', 'Show open returns', 'Afficher retours ouverts', 'Mostrar devoluciones abiertas', 'Mostrar devoluções abertas']
+  ].forEach(function (r) { if (!D[r[0]]) D[r[0]] = {en: r[1], fr: r[2], es: r[3], pt: r[4]}; });
+})();

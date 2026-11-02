@@ -129,7 +129,8 @@
     if (o.format) return o.format;
     if (o.url) return /#beleg\b/.test(o.url) ? 'bon' : 'a4';
     var m = /@page\s*\{[^}]*size:\s*([\d.]+)mm\s+([\d.]+)mm/.exec(o.html || '');
-    if (m) return +m[1] <= 60 ? 'etikett' : +m[1] <= 90 ? 'bon' : (+m[1] <= 110 && +m[2] >= 140 && +m[2] <= 160) ? 'paket' : 'a4';
+    if (m && +m[1] > 90 && +m[1] <= 115 && +m[2] >= 140 && +m[2] <= 210) { o.mm = [+m[1], +m[2]]; return 'paket'; }
+    if (m) return +m[1] <= 60 ? 'etikett' : +m[1] <= 90 ? 'bon' : 'a4';
     return 'a4';
   }
 
@@ -306,6 +307,8 @@
 
   function erzeugen(o) {
     var format = formatErkennen(o), F = FORMATE[format] || FORMATE.a4;
+    // Paketlabel in der Größe aus @page (DHL 103 × 199, DPD 105 × 148, UPS 101,6 × 152,4, Thermo 100 × 150)
+    if (format === 'paket' && o.mm) F = {breite: o.mm[0], hoehe: o.mm[1], label: function () { return 'Paketlabel · ' + String(o.mm[0]).replace('.', ',') + ' × ' + String(o.mm[1]).replace('.', ',') + ' mm'; }};
     SKALA = o.skala || (format === 'a4' ? 2 : 3);
     JPEG_Q = o.qualitaet || 0;
     var f = rahmen(F.breite);
@@ -343,7 +346,7 @@
           return a4Seiten(c, br, rand, F);
         });
       });
-    }).then(function (seiten) { f.remove(); return {blob: pdfAusSeiten(seiten), format: format, seiten: seiten.length}; },
+    }).then(function (seiten) { f.remove(); return {blob: pdfAusSeiten(seiten), format: format, seiten: seiten.length, F: F}; },
       function (e) { f.remove(); throw e; });
   }
 
@@ -391,7 +394,7 @@
     return erzeugen(o).then(function (r) {
       if (offen !== mein) return r;
       var url = URL.createObjectURL(r.blob); offen.url = url;
-      var F = FORMATE[r.format];
+      var F = r.F || FORMATE[r.format];
       el.querySelector('.f').textContent = F.label() + ' · ' + r.seiten + ' ' + (r.format === 'etikett' ? t('etiketten') : t(r.seiten === 1 ? 'seite' : 'seiten')) + (schlange.length ? ' · ' + t('weitere') : '');
       var inhalt = el.querySelector('.inhalt');
       inhalt.textContent = '';

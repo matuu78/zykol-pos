@@ -3083,3 +3083,12 @@ Logo|Logótipo
     ['Retouren offen anzeigen', 'Show open returns', 'Afficher retours ouverts', 'Mostrar devoluciones abiertas', 'Mostrar devoluções abertas']
   ].forEach(function (r) { if (!D[r[0]]) D[r[0]] = {en: r[1], fr: r[2], es: r[3], pt: r[4]}; });
 })();
+
+/* v12.42 Etiketten-Nachbildung */
+(function () {
+  var I = window.ZYKOL_I18N; if (!I) return;
+  var D = I.dict;
+  [
+    ['Vorschau als Nachbildung der Dienstleister-Vorlage (DHL 103 × 199 mm, DPD A6, UPS 4 × 6″). Im Echtbetrieb liefert die Dienstleister-API das offizielle Etikett als PDF/ZPL.', 'Preview as a replica of the carrier template (DHL 103 × 199 mm, DPD A6, UPS 4 × 6″). In production the carrier API supplies the official label as PDF/ZPL.', 'Aperçu reproduisant le modèle du transporteur (DHL 103 × 199 mm, DPD A6, UPS 4 × 6″). En production, l’API du transporteur fournit l’étiquette officielle en PDF/ZPL.', 'Vista previa como réplica de la plantilla del transportista (DHL 103 × 199 mm, DPD A6, UPS 4 × 6″). En producción, la API del transportista entrega la etiqueta oficial en PDF/ZPL.', 'Pré-visualização como réplica do modelo da transportadora (DHL 103 × 199 mm, DPD A6, UPS 4 × 6″). Em produção, a API da transportadora fornece a etiqueta oficial em PDF/ZPL.']
+  ].forEach(function (r) { if (!D[r[0]]) D[r[0]] = {en: r[1], fr: r[2], es: r[3], pt: r[4]}; });
+})();

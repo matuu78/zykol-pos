@@ -3092,3 +3092,51 @@ Logo|Logótipo
     ['Vorschau als Nachbildung der Dienstleister-Vorlage (DHL 103 × 199 mm, DPD A6, UPS 4 × 6″). Im Echtbetrieb liefert die Dienstleister-API das offizielle Etikett als PDF/ZPL.', 'Preview as a replica of the carrier template (DHL 103 × 199 mm, DPD A6, UPS 4 × 6″). In production the carrier API supplies the official label as PDF/ZPL.', 'Aperçu reproduisant le modèle du transporteur (DHL 103 × 199 mm, DPD A6, UPS 4 × 6″). En production, l’API du transporteur fournit l’étiquette officielle en PDF/ZPL.', 'Vista previa como réplica de la plantilla del transportista (DHL 103 × 199 mm, DPD A6, UPS 4 × 6″). En producción, la API del transportista entrega la etiqueta oficial en PDF/ZPL.', 'Pré-visualização como réplica do modelo da transportadora (DHL 103 × 199 mm, DPD A6, UPS 4 × 6″). Em produção, a API da transportadora fornece a etiqueta oficial em PDF/ZPL.']
   ].forEach(function (r) { if (!D[r[0]]) D[r[0]] = {en: r[1], fr: r[2], es: r[3], pt: r[4]}; });
 })();
+
+/* v12.43 Kanu-News im Dashboard */
+(function () {
+  var I = window.ZYKOL_I18N; if (!I) return;
+  var D = I.dict;
+  [
+    ['News', 'News', 'Actus', 'Noticias', 'Notícias'],
+    ['Kanu-', 'Canoe ', 'Canoë · ', 'Canoa · ', 'Canoagem · '],
+    ['Alle News', 'All news', 'Toutes les actus', 'Todas las noticias', 'Todas as notícias'],
+    ['Artikel öffnen →', 'Open article →', 'Ouvrir l’article →', 'Abrir artículo →', 'Abrir artigo →'],
+    ['Sport', 'Sport', 'Sport', 'Deporte', 'Desporto'],
+    ['Produkte', 'Products', 'Produits', 'Productos', 'Produtos'],
+    ['Revier', 'Waters', 'Plan d’eau', 'Aguas', 'Águas'],
+    ['Beispielmeldung', 'Sample item', 'Exemple', 'Ejemplo', 'Exemplo'],
+    ['Beispielmeldungen', 'Sample news', 'Actus d’exemple', 'Noticias de ejemplo', 'Notícias de exemplo'],
+    ['Beispielmeldungen · n8n-Adresse in den Einstellungen eintragen', 'Sample news · enter the n8n address in Settings', 'Actus d’exemple · saisir l’adresse n8n dans les paramètres', 'Noticias de ejemplo · introduzca la dirección n8n en Ajustes', 'Notícias de exemplo · introduza o endereço n8n nas Definições'],
+    ['Kanu-News im Dashboard', 'Canoe news on the dashboard', 'Actus canoë sur le tableau de bord', 'Noticias de canoa en el panel', 'Notícias de canoagem no painel'],
+    ['Newsticker für alle Mitarbeitenden. Die Meldungen kommen täglich aus dem n8n-Workflow „Kanu-News“ (Adresse der Daten-API, endet auf /webhook/pos/news).', 'News ticker for all staff. Items arrive daily from the n8n workflow “Kanu-News” (data API address, ends in /webhook/pos/news).', 'Fil d’actus pour tout le personnel. Les infos arrivent chaque jour du workflow n8n « Kanu-News » (adresse de l’API, se termine par /webhook/pos/news).', 'Teletipo de noticias para todo el personal. Las noticias llegan a diario desde el flujo n8n «Kanu-News» (dirección de la API, termina en /webhook/pos/news).', 'Faixa de notícias para toda a equipa. As notícias chegam diariamente do fluxo n8n «Kanu-News» (endereço da API, termina em /webhook/pos/news).'],
+    ['n8n-Adresse', 'n8n address', 'Adresse n8n', 'Dirección n8n', 'Endereço n8n'],
+    ['Verbindung testen', 'Test connection', 'Tester la connexion', 'Probar conexión', 'Testar ligação'],
+    ['Wird abgerufen …', 'Fetching …', 'Récupération …', 'Obteniendo …', 'A obter …'],
+    ['Keine Adresse eingetragen.', 'No address entered.', 'Aucune adresse saisie.', 'No se ha introducido ninguna dirección.', 'Nenhum endereço introduzido.']
+  ].forEach(function (r) { if (!D[r[0]]) D[r[0]] = {en: r[1], fr: r[2], es: r[3], pt: r[4]}; });
+})();
+
+/* v12.43 Wetter im Kalender */
+(function () {
+  var I = window.ZYKOL_I18N; if (!I) return;
+  var D = I.dict;
+  [
+    ["Wetter im Kalender", "Weather in the calendar", "Météo dans le calendrier", "Tiempo en el calendario", "Meteorologia no calendário"],
+    ["Tageswetter für jeden Tag im Kalender: 16 Tage Vorhersage, für vergangene Tage die gemessenen Werte. Ohne Eingabe gilt der Ort aus den Shopdaten.", "Daily weather for every calendar day: 16-day forecast, measured values for past days. If left empty, the town from the shop details is used.", "Météo pour chaque jour du calendrier : prévisions sur 16 jours, valeurs mesurées pour les jours passés. Sans saisie, la ville des données du magasin est utilisée.", "Tiempo diario para cada día del calendario: previsión de 16 días y valores medidos para los días pasados. Si se deja vacío, se usa la localidad de los datos de la tienda.", "Meteorologia diária para cada dia do calendário: previsão de 16 dias e valores medidos para dias passados. Se vazio, usa-se a localidade dos dados da loja."],
+    ["Ort für das Wetter", "Location for weather", "Lieu pour la météo", "Lugar para el tiempo", "Local para a meteorologia"],
+    ["Noch keine Wetterdaten geladen.", "No weather data loaded yet.", "Aucune donnée météo chargée.", "Aún no hay datos meteorológicos.", "Ainda sem dados meteorológicos."],
+    ["Sonnig", "Sunny", "Ensoleillé", "Soleado", "Ensolarado"],
+    ["Heiter", "Mostly sunny", "Éclaircies", "Poco nuboso", "Pouco nublado"],
+    ["Bewölkt", "Cloudy", "Nuageux", "Nublado", "Nublado"],
+    ["Nebel", "Fog", "Brouillard", "Niebla", "Nevoeiro"],
+    ["Nieselregen", "Drizzle", "Bruine", "Llovizna", "Chuvisco"],
+    ["Regen", "Rain", "Pluie", "Lluvia", "Chuva"],
+    ["Schnee", "Snow", "Neige", "Nieve", "Neve"],
+    ["Regenschauer", "Showers", "Averses", "Chubascos", "Aguaceiros"],
+    ["Schneeschauer", "Snow showers", "Averses de neige", "Chubascos de nieve", "Aguaceiros de neve"],
+    ["Gewitter", "Thunderstorm", "Orage", "Tormenta", "Trovoada"],
+    ["Vorhersage", "Forecast", "Prévision", "Previsión", "Previsão"],
+    ["Gemessen", "Measured", "Mesuré", "Medido", "Medido"]
+  ].forEach(function (r) { if (!D[r[0]]) D[r[0]] = {en: r[1], fr: r[2], es: r[3], pt: r[4]}; });
+})();

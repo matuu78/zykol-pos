@@ -187,6 +187,8 @@
   }
   function a4Seiten(c, br, rand, F) {
     var px = SKALA * MM, hoeheCss = c.height / SKALA;
+    // nur bis zur Unterkante des Inhalts aufteilen – sonst entsteht bei kurzen Dokumenten eine leere Folgeseite (v12.46)
+    var inhalt = br.frei.concat(br.fest); if (inhalt.length) hoeheCss = Math.min(hoeheCss, Math.max.apply(null, inhalt) + 4);
     var nutzH = (F.hoehe - 2 * rand[0]) * MM, seiten = [], y = 0;
     while (y < hoeheCss - 2) {
       var grenze = y + nutzH, ende = grenze;

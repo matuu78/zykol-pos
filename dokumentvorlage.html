@@ -299,7 +299,7 @@
     .doc-seite-screen{display:none;}
   }
 </style>
-<script src="assets/js/doc-page.js?v=12.53"></script>
+<script src="assets/js/doc-page.js?v=12.54"></script>
 <script src="assets/js/qrcode.js"></script>
 </helmet>
 
@@ -579,6 +579,15 @@ const Z_KASSE = (_ZQ.get('kasse') || '').slice(0, 40);
 // TSE-Kurzsignatur der Transaktion (Journal) und Signaturzähler aus der Belegnummer (B-2026-0418 → 18.402)
 const Z_SIG = /^[0-9a-f]{4}-[0-9a-f]{4}$/i.test(_ZQ.get('sig') || '') ? _ZQ.get('sig') : 'a41f-9c02';
 const Z_SIGZ = (() => { const m = /(\d+)$/.exec(_ZQ.get('nr') || ''); return NUM(m ? 17566 + 2 * parseInt(m[1], 10) : 18402); })();
+// Echte TSE-Daten vom zykol ERP (zk-erp.js): Signatur oder Ausfall. Ohne Angabe: Demo-Werte.
+const Z_TSE = (() => { try { return JSON.parse(_ZQ.get('tse') || 'null'); } catch (e) { return null; } })();
+const TSE_ZEIT = (iso) => { const d = new Date(iso); return isNaN(d) ? String(iso || '') : d.toLocaleDateString('de-DE') + ' ' + d.toLocaleTimeString('de-DE'); };
+const TSE_META = () => !Z_TSE ? [{k: 'TSE-Signatur', v: Z_SIG}, {k: 'Signaturzähler', v: Z_SIGZ}]
+  : Z_TSE.ausfall ? [{k: 'TSE', v: 'ausgefallen – Beleg ohne Signatur'}, {k: 'TSE-Ausfall seit', v: TSE_ZEIT(Z_TSE.zeit)}]
+  : [{k: 'TSE-Transaktion', v: String(Z_TSE.transaktionsNummer)}, {k: 'TSE-Signaturzähler', v: String(Z_TSE.signaturZaehler)},
+    {k: 'TSE-Start', v: TSE_ZEIT(Z_TSE.start)}, {k: 'TSE-Ende', v: TSE_ZEIT(Z_TSE.ende)},
+    {k: 'TSE-Seriennummer', v: Z_TSE.tseSeriennummer}, {k: 'TSE-Kasse', v: Z_TSE.kassenSeriennummer},
+    {k: 'TSE-Signatur', v: Z_TSE.signatur}].concat(Z_TSE.zertifiziert === false ? [{k: 'TSE-Hinweis', v: 'Simulator – nur Testbetrieb'}] : []);
 const Z_ZIEL = (() => { const t = Z_DATUM.split('.').map(Number); return _F(new Date(t[2], t[1] - 1, t[0] + 30)); })();
 const Z_GEG = parseFloat(_ZQ.get('gegeben')), Z_RUECK = parseFloat(_ZQ.get('rueckgeld'));
 const Z_POS = (_ZQ.get('pos') || '').split('|').filter(Boolean).map(x => { const t = x.split('~'); return {name: t[0], menge: parseInt(t[1]) || 1, preis: parseFloat(t[2]) || 0, artnr: (t[3] || '').slice(0, 24)}; });
@@ -610,8 +619,7 @@ const DOKUMENTE = {
       {k: 'Belegzeit', v: Z_ZEIT},
       {k: 'Terminal', v: Z_KASSE ? Z_KASSE + ' · Syke' : 'KASSE-01 · Syke'},
       {k: 'Zahlart', v: Z_INFO ? Z_INFO.zahlart : 'girocard (Commerzbank)'},
-      {k: 'TSE-Signatur', v: Z_SIG},
-      {k: 'Signaturzähler', v: Z_SIGZ}
+      ...TSE_META()
     ],
     raster: '3.2fr 0.7fr 1.1fr 1.1fr',
     spalten: [
@@ -1061,7 +1069,7 @@ class Component extends DCLogic {
       hatQr: this.state.typ === 'beleg' || this.state.typ === 'rechnung',
       hatDank: !!g.dankText && (this.state.typ === 'beleg' || this.state.typ === 'rechnung'),
       dankText: g.dankText || '',
-      qrTitel: this.state.typ === 'rechnung' ? 'Rechnung online abrufen' : 'Beleg online abrufen',
+      qrTitel: Z_TSE && Z_TSE.qr && this.state.typ !== 'rechnung' ? 'TSE-Prüfcode (DSFinV-K)' : this.state.typ === 'rechnung' ? 'Rechnung online abrufen' : 'Beleg online abrufen',
       istBon: this.state.typ === 'beleg', istA4: this.state.typ !== 'beleg',
       bonKopf: [g.zusatz, zeile([g.strasse, g.ort]), zeile([g.telefon && 'Tel. ' + g.telefon, g.email]), g.ustid && 'USt-IdNr. ' + g.ustid].filter(Boolean),
       bonNr: d.nummer.split(' ').pop(),
@@ -1071,8 +1079,8 @@ class Component extends DCLogic {
       bonHatKunde: !!(this.state.kunde && this.state.kunde.length),
       bonKunde: (this.state.kunde || []).filter(x => !/^Kundennummer/.test(x)).slice(0, 1).join('') + ((this.state.kunde || []).find(x => /^Kundennummer/.test(x)) ? ' · ' + (this.state.kunde || []).find(x => /^Kundennummer/.test(x)).replace('Kundennummer ', '') : ''),
       bonPos: this.state.typ === 'beleg' ? d.zeilen.map(z => ({name: z[0], menge: z[1], einzel: z[2], summe: z[3]})) : [],
-      qrSrc: QR(DEMO_LINK(d, this.state.daten, this.state.typ)),
-      qrUrl: BELEG_URL(d.nummer.split(' ').pop()).replace('https://', '')
+      qrSrc: Z_TSE && Z_TSE.qr && this.state.typ !== 'rechnung' ? QR(Z_TSE.qr) : QR(DEMO_LINK(d, this.state.daten, this.state.typ)),
+      qrUrl: Z_TSE && Z_TSE.qr && this.state.typ !== 'rechnung' ? '' : BELEG_URL(d.nummer.split(' ').pop()).replace('https://', '')
     };
   }
 }

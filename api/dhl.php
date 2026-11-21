@@ -94,7 +94,10 @@ if ($aktion === 'pruefen') {
 
 if ($aktion === 'etikett') {
   $s = sendung($in['sendung'] ?? []);
-  $q = http_build_query(['docFormat' => 'PDF', 'printFormat' => $K['druckformat'] ?? '910-300-610', 'includeDocs' => 'include']);
+  // Original-Etikettformate von DHL (printFormat); das PDF wird unverändert weitergegeben
+  $formate = ['A4', '910-300-600', '910-300-610', '910-300-700', '910-300-700-oz', '910-300-710', '910-300-300', '910-300-300-oz', '910-300-400', '910-300-410', '100x70mm'];
+  $fmt = in_array($in['druckformat'] ?? '', $formate, true) ? $in['druckformat'] : ($K['druckformat'] ?? '910-300-610');
+  $q = http_build_query(['docFormat' => 'PDF', 'printFormat' => $fmt, 'includeDocs' => 'include']);
   [$code, $j] = dhl('POST', '/orders?' . $q, ['profile' => PROFIL, 'shipments' => [$s]]);
   $it = $j['items'][0] ?? [];
   $ok = $code >= 200 && $code < 300 && !empty($it['shipmentNo']);

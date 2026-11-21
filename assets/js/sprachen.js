@@ -3251,3 +3251,22 @@ Logo|Logótipo
     [/^DHL-Sandbox hat die Sendung (\S+) angelegt(.*)\. Mit „Etikett drucken“ das PDF von DHL öffnen\.$/, {en: 'DHL sandbox created shipment $1$2. Use “Print label” to open the PDF from DHL.', fr: 'La sandbox DHL a créé l’envoi $1$2. « Imprimer l’étiquette » ouvre le PDF de DHL.', es: 'La sandbox de DHL creó el envío $1$2. «Imprimir etiqueta» abre el PDF de DHL.', pt: 'A sandbox DHL criou o envio $1$2. «Imprimir etiqueta» abre o PDF da DHL.'}]
   ].forEach(function (m) { I.muster.push(m); });
 })();
+
+/* v12.59 DHL-Etikettformate */
+(function () {
+  var I = window.ZYKOL_I18N; if (!I) return;
+  var D = I.dict;
+  [
+    ['Etikettformat (Original von DHL)', 'Label format (DHL original)', 'Format d’étiquette (original DHL)', 'Formato de etiqueta (original de DHL)', 'Formato da etiqueta (original DHL)'],
+    ['DHL liefert das Etikett als PDF in diesem Format, die Kasse gibt es unverändert aus.', 'DHL delivers the label as a PDF in this format; the POS outputs it unchanged.', 'DHL fournit l’étiquette en PDF dans ce format ; la caisse l’imprime sans modification.', 'DHL entrega la etiqueta en PDF en este formato; la caja la emite sin cambios.', 'A DHL entrega a etiqueta em PDF neste formato; a caixa emite-a sem alterações.'],
+    ['A4 Normalpapier', 'A4 plain paper', 'A4 papier normal', 'A4 papel normal', 'A4 papel normal'],
+    ['Thermo 103 × 199 mm (910-300-610)', 'Thermal 103 × 199 mm (910-300-610)', 'Thermique 103 × 199 mm (910-300-610)', 'Térmica 103 × 199 mm (910-300-610)', 'Térmica 103 × 199 mm (910-300-610)'],
+    ['Thermo 103 × 199 mm (910-300-600)', 'Thermal 103 × 199 mm (910-300-600)', 'Thermique 103 × 199 mm (910-300-600)', 'Térmica 103 × 199 mm (910-300-600)', 'Térmica 103 × 199 mm (910-300-600)'],
+    ['Thermo 103 × 150 mm (910-300-410)', 'Thermal 103 × 150 mm (910-300-410)', 'Thermique 103 × 150 mm (910-300-410)', 'Térmica 103 × 150 mm (910-300-410)', 'Térmica 103 × 150 mm (910-300-410)'],
+    ['Thermo 103 × 150 mm (910-300-400)', 'Thermal 103 × 150 mm (910-300-400)', 'Thermique 103 × 150 mm (910-300-400)', 'Térmica 103 × 150 mm (910-300-400)', 'Térmica 103 × 150 mm (910-300-400)'],
+    ['Laser-Etikett (910-300-700)', 'Laser label (910-300-700)', 'Étiquette laser (910-300-700)', 'Etiqueta láser (910-300-700)', 'Etiqueta laser (910-300-700)'],
+    ['Laser-Etikett (910-300-710)', 'Laser label (910-300-710)', 'Étiquette laser (910-300-710)', 'Etiqueta láser (910-300-710)', 'Etiqueta laser (910-300-710)'],
+    ['Laser A6 (910-300-300)', 'Laser A6 (910-300-300)', 'Laser A6 (910-300-300)', 'Láser A6 (910-300-300)', 'Laser A6 (910-300-300)'],
+    ['100 × 70 mm (nur Kleinpaket)', '100 × 70 mm (small parcel only)', '100 × 70 mm (petit colis uniquement)', '100 × 70 mm (solo paquete pequeño)', '100 × 70 mm (só pacote pequeno)']
+  ].forEach(function (r) { D[r[0]] = {en: r[1], fr: r[2], es: r[3], pt: r[4]}; });
+})();

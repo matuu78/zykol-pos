@@ -148,7 +148,8 @@ window.ZYKOL_ANLEITUNG = {
         "Versand ansehen": "Versand ansehen",
         "Artikel & Bestand ansehen": "Artikel & Bestand ansehen",
         "Ausschreibungen ansehen": "Ausschreibungen ansehen",
-        "Inventur zählen": "Inventur zählen"
+        "Inventur zählen": "Inventur zählen",
+        "Versanddienstleister konfigurieren": "Versanddienstleister konfigurieren"
       },
       "kapitel": {
         "anmelden": {
@@ -468,7 +469,8 @@ window.ZYKOL_ANLEITUNG = {
         "Versand ansehen": "View shipping",
         "Artikel & Bestand ansehen": "View products & stock",
         "Ausschreibungen ansehen": "View tenders",
-        "Inventur zählen": "Count stocktake"
+        "Inventur zählen": "Count stocktake",
+        "Versanddienstleister konfigurieren": "Configure carriers"
       },
       "kapitel": {
         "anmelden": {
@@ -788,7 +790,8 @@ window.ZYKOL_ANLEITUNG = {
         "Versand ansehen": "Consulter l’expédition",
         "Artikel & Bestand ansehen": "Consulter articles & stock",
         "Ausschreibungen ansehen": "Consulter les appels d’offres",
-        "Inventur zählen": "Compter l’inventaire"
+        "Inventur zählen": "Compter l’inventaire",
+        "Versanddienstleister konfigurieren": "Configurer les transporteurs"
       },
       "kapitel": {
         "anmelden": {
@@ -1108,7 +1111,8 @@ window.ZYKOL_ANLEITUNG = {
         "Versand ansehen": "Ver envíos",
         "Artikel & Bestand ansehen": "Ver artículos y existencias",
         "Ausschreibungen ansehen": "Ver licitaciones",
-        "Inventur zählen": "Contar inventario"
+        "Inventur zählen": "Contar inventario",
+        "Versanddienstleister konfigurieren": "Configurar transportistas"
       },
       "kapitel": {
         "anmelden": {
@@ -1428,7 +1432,8 @@ window.ZYKOL_ANLEITUNG = {
         "Versand ansehen": "Ver envios",
         "Artikel & Bestand ansehen": "Ver artigos e stock",
         "Ausschreibungen ansehen": "Ver concursos",
-        "Inventur zählen": "Contar inventário"
+        "Inventur zählen": "Contar inventário",
+        "Versanddienstleister konfigurieren": "Configurar transportadoras"
       },
       "kapitel": {
         "anmelden": {

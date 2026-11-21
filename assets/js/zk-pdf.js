@@ -295,7 +295,9 @@
     }).then(function () {
       var br = umbrueche(d, ziel), tab = tabelle(ziel), kopfH = kopfC ? kopfC.height / SKALA : 0;
       return zeichne(ziel, opt).then(function (c) {
-        var plan = a4Plan(c.height / SKALA, br, tab, rand, F, kopfH, fussC ? fussC.height / SKALA : 0), koepfe = [];
+        // nur bis zur Unterkante des Inhalts planen – sonst entsteht eine leere Folgeseite (wie a4Seiten, v12.64)
+        var H = c.height / SKALA, inhalt = br.frei.concat(br.fest); if (inhalt.length) H = Math.min(H, Math.max.apply(null, inhalt) + 4);
+        var plan = a4Plan(H, br, tab, rand, F, kopfH, fussC ? fussC.height / SKALA : 0), koepfe = [];
         if (kopf) kopf.style.display = kAnz;
         return plan.reduce(function (p, s, i) {
           return p.then(function () { return kopfZeichnen(plan.length > 1 ? 'Seite ' + (i + 1) + ' von ' + plan.length : '').then(function (k) { koepfe.push(k); }); });

@@ -249,7 +249,7 @@ window.ZYKOL_ANLEITUNG = {
             "Unter „Angebote“ ein neues Angebot anlegen, Kunden wählen und Positionen mit Rabatt hinzufügen. Die PDF-Vorschau prüfen und versenden.",
             "Positionen bequem zusammenstellen: „Im Warenkorb zusammenstellen“ öffnet die Kasse im Angebotsmodus. Artikel wie gewohnt auswählen und „Ins Angebot übernehmen“ antippen. Kassiert wird dabei nicht, ein angefangener Warenkorb bleibt erhalten.",
             "Den Status pflegen: Entwurf, Versendet, Angenommen, Abgelehnt, Abgelaufen. Angenommene Angebote mit „In Kasse übernehmen“ abrechnen.",
-            "Angenommenes Angebot weiterführen: „Versandauftrag anlegen“ legt einen offenen Auftrag (V-Nummer) im Versand an, mit Kunde, Anschrift und Positionen. „Werkstattauftrag anlegen“ legt einen Werkstattauftrag an, die Positionen werden als Voranschlag übernommen, Arbeitszeiten tragen Sie in der Werkstatt nach. Das Angebot zeigt danach die Auftragsnummer.",
+            "Angenommenes Angebot weiterführen: „Versandauftrag anlegen“ legt einen offenen Auftrag (V-Nummer) im Versand an, mit Kunde, Anschrift und Positionen. „Werkstattauftrag anlegen“ legt einen Werkstattauftrag (WA-Nummer) im Werkstatt-Eingang an, die Positionen werden als Voranschlag übernommen, Arbeitszeiten tragen Sie in der Werkstatt nach. Das Angebot zeigt danach die Auftragsnummer, und die beiden Knöpfe verschwinden – so entsteht kein Auftrag doppelt.",
             "Aus dem Warenkorb: „Als Angebot speichern“ legt den Inhalt als Angebot (Entwurf) ab. Ohne Kunde wird das Angebot für einen Barkunden gespeichert.",
             "Später in der Kasse „Angebote aus der Kasse“ öffnen und beim gewünschten Angebot „In Warenkorb laden“ antippen."
           ],
@@ -271,7 +271,7 @@ window.ZYKOL_ANLEITUNG = {
           "intro": "Werkstattaufträge vom Eingang bis zur Übergabe, auch für Boote und Ausrüstung, die nicht bei Ihnen gekauft wurden (Fremdprodukte).",
           "schritte": [
             "In der Navigation „Werkstatt“ öffnen. Oben stehen Eingang & Voranschlag, In Arbeit, Zur Übergabe und Fremdprodukte; darunter alle Aufträge mit Filter nach Schritt.",
-            "„Neuer Werkstattauftrag“ antippen, den Kunden wählen (oder „Kunde anlegen & wählen“) und das Gerät angeben. Ist es kein Produkt aus Ihrem Laden, mit „+ Fremdprodukt anlegen“ erfassen; es wird beim Kunden hinterlegt. „Eingangsbeleg drucken“ gibt dem Kunden eine Quittung.",
+            "Werkstattaufträge entstehen auch direkt aus einem angenommenen Angebot (Kapitel Angebote). Sonst „Neuer Werkstattauftrag“ antippen, den Kunden wählen (oder „Kunde anlegen & wählen“) und das Gerät angeben. Ist es kein Produkt aus Ihrem Laden, mit „+ Fremdprodukt anlegen“ erfassen; es wird beim Kunden hinterlegt. „Eingangsbeleg drucken“ gibt dem Kunden eine Quittung.",
             "Ein Auftrag durchläuft sechs Schritte: 1 Eingang, 2 Voranschlag, 3 Auftrag, 4 Reparatur, 5 Abweichungen, 6 Übergabe. Der nächste Schritt öffnet sich erst, wenn der vorige erledigt ist.",
             "Voranschlag: Arbeitsschritte aus dem Katalog und Material aus der Artikelliste wählen, „Voranschlag drucken“. Danach „Kunde gibt frei“ oder „Kunde lehnt ab“.",
             "Reparatur: Arbeitszeit, Material und Textbausteine im Reparaturprotokoll eintragen. Verbrauchtes Material bucht den Bestand ab.",
@@ -285,7 +285,7 @@ window.ZYKOL_ANLEITUNG = {
           "intro": "Versandaufträge kommissionieren, packen, mit Etikett an DHL, UPS oder DPD übergeben und Retouren bearbeiten.",
           "schritte": [
             "In der Navigation „Versand“ öffnen. Die Kacheln Zu packen, Versandbereit, Heute übergeben und Retouren offen führen direkt zum passenden Reiter.",
-            "Reiter „Aufträge“: Versandaufträge aus Kasse, Webshop und Bestellungen. Mit „Versandauftrag anlegen“ einen neuen Auftrag erfassen.",
+            "Reiter „Aufträge“: Versandaufträge aus Kasse, Webshop und Bestellungen. Mit „Versandauftrag anlegen“ einen neuen Auftrag erfassen. Aus einem angenommenen Angebot entsteht ein Versandauftrag direkt am Angebot (Kapitel Angebote).",
             "Reiter „Kommissionieren & Packen“: Ware entnehmen („Alles entnommen“), „Als kommissioniert markieren“, an der Packstation „Paket fertig“ antippen und „Weiter zum Etikett“.",
             "Reiter „Etiketten & Tracking“: „Etikett erstellen“, mit „Etikett-Vorschau“ prüfen und „Etikett drucken“. Am Ende „Tagesabschluss und übergeben“; „Sendungsstatus abrufen“ zeigt den Stand der Sendungen.",
             "Reiter „Retouren“: „Retoure anlegen“ oder „Retoure mit Etikett anlegen“. Beim Eintreffen „Eingang buchen“ und die Ware als „Einwandfrei“ (zurück ins Lager) oder „Beschädigt“ einstufen.",
@@ -569,7 +569,7 @@ window.ZYKOL_ANLEITUNG = {
             "Under “Quotes”, create a new quote, choose a customer and add items with discount. Check the PDF preview and send it.",
             "Build items easily: “Build in cart” opens the register in quote mode. Choose products as usual and tap “Apply to quote”. Nothing is charged, and a started cart is kept.",
             "Maintain the status: Draft, Sent, Accepted, Declined, Expired. Bill accepted quotes with “Move to register”.",
-            "Continue an accepted quote: “Create shipping order” creates an open order (V number) in Shipping with customer, address and items. “Create repair order” creates a workshop order; the items are taken over as the estimate, and you add labour time in the workshop. The quote then shows the order number.",
+            "Continue an accepted quote: “Create shipping order” creates an open order (V number) in Shipping with customer, address and items. “Create repair order” creates a workshop order (WA number) in workshop intake; the items are taken over as the estimate, and you add labour time in the workshop. The quote then shows the order number and both buttons disappear, so no order is created twice.",
             "From the cart: “Save as quote” stores the contents as a quote (draft). Without a customer it is saved for a walk-in customer.",
             "Later, open “Quotes from the register” in the register and tap “Load into cart” on the quote you want."
           ],
@@ -591,7 +591,7 @@ window.ZYKOL_ANLEITUNG = {
           "intro": "Repair orders from intake to handover, also for boats and equipment not bought from you (third-party products).",
           "schritte": [
             "Open “Workshop” in the navigation. The top shows Intake & estimate, In progress, Ready for handover and Third-party products; below are all orders with a filter by step.",
-            "Tap “New repair order”, choose the customer (or “Create & select customer”) and enter the item. If it is not a product from your shop, record it with “+ Add third-party product”; it is stored with the customer. “Print intake receipt” gives the customer a receipt.",
+            "Repair orders can also be created straight from an accepted quote (chapter Quotes). Otherwise, tap “New repair order”, choose the customer (or “Create & select customer”) and enter the item. If it is not a product from your shop, record it with “+ Add third-party product”; it is stored with the customer. “Print intake receipt” gives the customer a receipt.",
             "An order passes six steps: 1 Intake, 2 Estimate, 3 Order, 4 Repair, 5 Deviations, 6 Handover. The next step only opens when the previous one is done.",
             "Estimate: choose work steps from the catalogue and material from the product list, then “Print estimate”. Afterwards “Customer approves” or “Customer declines”.",
             "Repair: enter working time, material and text snippets in the repair log. Material used is deducted from stock.",
@@ -605,7 +605,7 @@ window.ZYKOL_ANLEITUNG = {
           "intro": "Pick and pack shipping orders, hand them to DHL, UPS or DPD with a label, and process returns.",
           "schritte": [
             "Open “Shipping” in the navigation. The tiles To pack, Ready to ship, Handed over today and Open returns lead straight to the right tab.",
-            "Tab “Orders”: shipping orders from register, web shop and orders. “Create shipping order” adds a new one.",
+            "Tab “Orders”: shipping orders from register, web shop and orders. “Create shipping order” adds a new one. A shipping order can also be created directly from an accepted quote (chapter Quotes).",
             "Tab “Picking & packing”: take the goods (“All picked”), “Mark as picked”, tap “Parcel ready” at the packing station and “Continue to label”.",
             "Tab “Labels & tracking”: “Create label”, check it with “Label preview” and “Print label”. At the end “Daily closing and hand over”; “Get shipment status” shows where shipments are.",
             "Tab “Returns”: “Create return” or “Create return with label”. On arrival “Book receipt” and grade the goods as “Fine” (back to stock) or “Damaged”.",
@@ -889,7 +889,7 @@ window.ZYKOL_ANLEITUNG = {
             "Sous « Devis », créez un nouveau devis, choisissez le client et ajoutez des lignes avec remise. Vérifiez l’aperçu PDF et envoyez-le.",
             "Composer facilement : « Composer dans le panier » ouvre la caisse en mode devis. Choisissez les articles comme d’habitude et touchez « Reprendre dans le devis ». Rien n’est encaissé et un panier commencé est conservé.",
             "Tenez le statut à jour : Brouillon, Envoyé, Accepté, Refusé, Expiré. Facturez les devis acceptés avec « Reprendre en caisse ».",
-            "Poursuivre un devis accepté : « Créer un ordre d’expédition » crée une commande ouverte (numéro V) dans Expédition avec client, adresse et positions. « Créer un ordre d’atelier » crée un ordre d’atelier ; les positions sont reprises comme devis estimatif, les temps de travail se saisissent dans l’atelier. Le devis affiche ensuite le numéro d’ordre.",
+            "Poursuivre un devis accepté : « Créer un ordre d’expédition » crée une commande ouverte (numéro V) dans Expédition avec client, adresse et positions. « Créer un ordre d’atelier » crée un ordre d’atelier (numéro WA) à la réception de l’atelier ; les positions sont reprises comme devis estimatif, les temps de travail se saisissent dans l’atelier. Le devis affiche ensuite le numéro d’ordre et les deux boutons disparaissent : aucun ordre n’est créé deux fois.",
             "Depuis le panier : « Enregistrer comme devis » enregistre le contenu comme devis (brouillon). Sans client, il est enregistré pour un client de passage.",
             "Plus tard, ouvrez « Devis de la caisse » dans la caisse et touchez « Charger dans le panier » sur le devis voulu."
           ],
@@ -911,7 +911,7 @@ window.ZYKOL_ANLEITUNG = {
           "intro": "Ordres d’atelier de l’entrée à la remise, aussi pour les bateaux et équipements non achetés chez vous (produits tiers).",
           "schritte": [
             "Ouvrez « Atelier » dans la navigation. En haut : Entrée & devis, En cours, À remettre et Produits tiers ; en dessous tous les ordres avec filtre par étape.",
-            "Touchez « Nouvel ordre d’atelier », choisissez le client (ou « Créer et choisir le client ») et indiquez l’objet. S’il ne vient pas de votre boutique, saisissez-le avec « + Ajouter un produit tiers » ; il est enregistré chez le client. « Imprimer le reçu d’entrée » remet un reçu au client.",
+            "Les ordres d’atelier peuvent aussi être créés directement depuis un devis accepté (chapitre Devis). Sinon, touchez « Nouvel ordre d’atelier », choisissez le client (ou « Créer et choisir le client ») et indiquez l’objet. S’il ne vient pas de votre boutique, saisissez-le avec « + Ajouter un produit tiers » ; il est enregistré chez le client. « Imprimer le reçu d’entrée » remet un reçu au client.",
             "Un ordre passe par six étapes : 1 Entrée, 2 Devis, 3 Ordre, 4 Réparation, 5 Écarts, 6 Remise. L’étape suivante ne s’ouvre que lorsque la précédente est terminée.",
             "Devis : choisissez les opérations dans le catalogue et le matériel dans la liste d’articles, puis « Imprimer le devis ». Ensuite « Le client accepte » ou « Le client refuse ».",
             "Réparation : saisissez le temps de travail, le matériel et des textes types dans le protocole de réparation. Le matériel utilisé est déduit du stock.",
@@ -925,7 +925,7 @@ window.ZYKOL_ANLEITUNG = {
           "intro": "Préparer et emballer les ordres d’expédition, les remettre avec étiquette à DHL, UPS ou DPD et traiter les retours.",
           "schritte": [
             "Ouvrez « Expédition » dans la navigation. Les tuiles À emballer, Prêt à expédier, Remis aujourd’hui et Retours ouverts mènent directement au bon onglet.",
-            "Onglet « Ordres » : ordres d’expédition venant de la caisse, de la boutique en ligne et des commandes. « Créer un ordre d’expédition » en ajoute un.",
+            "Onglet « Ordres » : ordres d’expédition venant de la caisse, de la boutique en ligne et des commandes. « Créer un ordre d’expédition » en ajoute un. Un ordre d’expédition peut aussi être créé directement depuis un devis accepté (chapitre Devis).",
             "Onglet « Préparation & emballage » : prélevez la marchandise (« Tout prélevé »), « Marquer comme préparé », touchez « Colis prêt » au poste d’emballage puis « Continuer vers l’étiquette ».",
             "Onglet « Étiquettes & suivi » : « Créer l’étiquette », la vérifier avec « Aperçu de l’étiquette » et « Imprimer l’étiquette ». En fin de journée « Clôture et remise » ; « Obtenir le statut » montre où en sont les envois.",
             "Onglet « Retours » : « Créer un retour » ou « Créer un retour avec étiquette ». À l’arrivée, « Enregistrer l’entrée » et classez la marchandise « En parfait état » (retour en stock) ou « Endommagée ».",
@@ -1209,7 +1209,7 @@ window.ZYKOL_ANLEITUNG = {
             "En «Presupuestos», cree uno nuevo, elija el cliente y añada líneas con descuento. Revise la vista previa en PDF y envíelo.",
             "Montar las líneas fácilmente: «Montar en el carrito» abre la caja en modo presupuesto. Elija los artículos como siempre y toque «Pasar al presupuesto». No se cobra nada y un carrito empezado se conserva.",
             "Mantenga el estado: Borrador, Enviado, Aceptado, Rechazado, Caducado. Cobre los aceptados con «Pasar a caja».",
-            "Continuar un presupuesto aceptado: «Crear orden de envío» crea un pedido abierto (número V) en Envíos con cliente, dirección y posiciones. «Crear orden de taller» crea una orden de taller; las posiciones pasan como presupuesto de reparación y las horas de trabajo se añaden en el taller. Después el presupuesto muestra el número de orden.",
+            "Continuar un presupuesto aceptado: «Crear orden de envío» crea un pedido abierto (número V) en Envíos con cliente, dirección y posiciones. «Crear orden de taller» crea una orden de taller (número WA) en la recepción del taller; las posiciones pasan como presupuesto de reparación y las horas de trabajo se añaden en el taller. Después el presupuesto muestra el número de orden y los dos botones desaparecen, así no se crea ninguna orden dos veces.",
             "Desde el carrito: «Guardar como presupuesto» guarda el contenido como presupuesto (borrador). Sin cliente se guarda para un cliente de paso.",
             "Más tarde, abra «Presupuestos de la caja» en la caja y toque «Cargar en el carrito» en el presupuesto deseado."
           ],
@@ -1231,7 +1231,7 @@ window.ZYKOL_ANLEITUNG = {
           "intro": "Órdenes de taller desde la entrada hasta la entrega, también para barcos y equipos no comprados en su tienda (productos de terceros).",
           "schritte": [
             "Abra «Taller» en la navegación. Arriba: Entrada y presupuesto, En curso, Para entregar y Productos de terceros; debajo todas las órdenes con filtro por paso.",
-            "Toque «Nueva orden de taller», elija el cliente (o «Crear y elegir cliente») e indique el objeto. Si no es un producto de su tienda, regístrelo con «+ Añadir producto de terceros»; se guarda en el cliente. «Imprimir recibo de entrada» da un recibo al cliente.",
+            "Las órdenes de taller también se crean directamente desde un presupuesto aceptado (capítulo Presupuestos). Si no, toque «Nueva orden de taller», elija el cliente (o «Crear y elegir cliente») e indique el objeto. Si no es un producto de su tienda, regístrelo con «+ Añadir producto de terceros»; se guarda en el cliente. «Imprimir recibo de entrada» da un recibo al cliente.",
             "Una orden pasa por seis pasos: 1 Entrada, 2 Presupuesto, 3 Orden, 4 Reparación, 5 Desviaciones, 6 Entrega. El siguiente paso solo se abre cuando el anterior está hecho.",
             "Presupuesto: elija trabajos del catálogo y material de la lista de artículos y toque «Imprimir presupuesto». Después «El cliente aprueba» o «El cliente rechaza».",
             "Reparación: anote tiempo de trabajo, material y textos predefinidos en el protocolo de reparación. El material usado se descuenta de las existencias.",
@@ -1245,7 +1245,7 @@ window.ZYKOL_ANLEITUNG = {
           "intro": "Preparar y embalar órdenes de envío, entregarlas con etiqueta a DHL, UPS o DPD y tramitar devoluciones.",
           "schritte": [
             "Abra «Envíos» en la navegación. Los mosaicos Por embalar, Listo para enviar, Entregado hoy y Devoluciones abiertas llevan directamente a la pestaña correspondiente.",
-            "Pestaña «Órdenes»: órdenes de envío de caja, tienda online y pedidos. «Crear orden de envío» añade una nueva.",
+            "Pestaña «Órdenes»: órdenes de envío de caja, tienda online y pedidos. «Crear orden de envío» añade una nueva. También se puede crear una orden de envío directamente desde un presupuesto aceptado (capítulo Presupuestos).",
             "Pestaña «Preparación y embalaje»: retire la mercancía («Todo retirado»), «Marcar como preparado», toque «Paquete listo» en el puesto de embalaje y «Continuar a la etiqueta».",
             "Pestaña «Etiquetas y seguimiento»: «Crear etiqueta», revisarla con «Vista previa de la etiqueta» e «Imprimir etiqueta». Al final «Cierre del día y entrega»; «Consultar estado del envío» muestra dónde están los envíos.",
             "Pestaña «Devoluciones»: «Crear devolución» o «Crear devolución con etiqueta». Al llegar, «Registrar entrada» y clasifique la mercancía como «Perfecta» (vuelve al almacén) o «Dañada».",
@@ -1529,7 +1529,7 @@ window.ZYKOL_ANLEITUNG = {
             "Em «Orçamentos», crie um novo, escolha o cliente e adicione linhas com desconto. Verifique a pré-visualização em PDF e envie.",
             "Montar as linhas facilmente: «Montar no carrinho» abre a caixa em modo orçamento. Escolha os artigos como sempre e toque em «Passar para o orçamento». Nada é cobrado e um carrinho iniciado é mantido.",
             "Mantenha o estado: Rascunho, Enviado, Aceite, Recusado, Expirado. Fature os aceites com «Passar para a caixa».",
-            "Continuar um orçamento aceite: «Criar ordem de envio» cria uma encomenda aberta (número V) em Envios com cliente, morada e posições. «Criar ordem de oficina» cria uma ordem de oficina; as posições passam como orçamento de reparação e as horas de trabalho acrescentam-se na oficina. Depois o orçamento mostra o número da ordem.",
+            "Continuar um orçamento aceite: «Criar ordem de envio» cria uma encomenda aberta (número V) em Envios com cliente, morada e posições. «Criar ordem de oficina» cria uma ordem de oficina (número WA) na receção da oficina; as posições passam como orçamento de reparação e as horas de trabalho acrescentam-se na oficina. Depois o orçamento mostra o número da ordem e os dois botões desaparecem, assim nenhuma ordem é criada duas vezes.",
             "A partir do carrinho: «Guardar como orçamento» guarda o conteúdo como orçamento (rascunho). Sem cliente, é guardado para um cliente ocasional.",
             "Mais tarde, abra «Orçamentos da caixa» na caixa e toque em «Carregar no carrinho» no orçamento pretendido."
           ],
@@ -1551,7 +1551,7 @@ window.ZYKOL_ANLEITUNG = {
           "intro": "Ordens de oficina desde a entrada até à entrega, também para barcos e equipamento não comprados na sua loja (produtos de terceiros).",
           "schritte": [
             "Abra «Oficina» na navegação. No topo: Entrada e orçamento, Em curso, Para entregar e Produtos de terceiros; por baixo todas as ordens com filtro por passo.",
-            "Toque em «Nova ordem de oficina», escolha o cliente (ou «Criar e escolher cliente») e indique o objeto. Se não for um produto da sua loja, registe-o com «+ Adicionar produto de terceiros»; fica guardado no cliente. «Imprimir recibo de entrada» dá um recibo ao cliente.",
+            "As ordens de oficina também podem ser criadas diretamente a partir de um orçamento aceite (capítulo Orçamentos). Caso contrário, toque em «Nova ordem de oficina», escolha o cliente (ou «Criar e escolher cliente») e indique o objeto. Se não for um produto da sua loja, registe-o com «+ Adicionar produto de terceiros»; fica guardado no cliente. «Imprimir recibo de entrada» dá um recibo ao cliente.",
             "Uma ordem passa por seis passos: 1 Entrada, 2 Orçamento, 3 Ordem, 4 Reparação, 5 Desvios, 6 Entrega. O passo seguinte só abre quando o anterior estiver concluído.",
             "Orçamento: escolha trabalhos do catálogo e material da lista de artigos e toque em «Imprimir orçamento». Depois «Cliente aprova» ou «Cliente recusa».",
             "Reparação: registe tempo de trabalho, material e textos predefinidos no protocolo de reparação. O material usado é retirado do stock.",
@@ -1565,7 +1565,7 @@ window.ZYKOL_ANLEITUNG = {
           "intro": "Preparar e embalar ordens de envio, entregá-las com etiqueta à DHL, UPS ou DPD e tratar devoluções.",
           "schritte": [
             "Abra «Envios» na navegação. Os mosaicos Por embalar, Pronto a enviar, Entregue hoje e Devoluções abertas levam diretamente ao separador certo.",
-            "Separador «Ordens»: ordens de envio da caixa, da loja online e das encomendas. «Criar ordem de envio» adiciona uma nova.",
+            "Separador «Ordens»: ordens de envio da caixa, da loja online e das encomendas. «Criar ordem de envio» adiciona uma nova. Também se pode criar uma ordem de envio diretamente a partir de um orçamento aceite (capítulo Orçamentos).",
             "Separador «Preparação e embalagem»: retire a mercadoria («Tudo retirado»), «Marcar como preparado», toque em «Encomenda pronta» no posto de embalagem e «Continuar para a etiqueta».",
             "Separador «Etiquetas e rastreio»: «Criar etiqueta», verificá-la com «Pré-visualizar etiqueta» e «Imprimir etiqueta». No fim «Fecho do dia e entrega»; «Obter estado do envio» mostra onde estão os envios.",
             "Separador «Devoluções»: «Criar devolução» ou «Criar devolução com etiqueta». À chegada, «Registar entrada» e classifique a mercadoria como «Em perfeito estado» (volta ao stock) ou «Danificada».",

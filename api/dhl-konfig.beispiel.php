@@ -15,5 +15,5 @@ return [
     'V62KP'   => '33333333336201', // DHL Kleinpaket
     'V53WPAK' => '33333333335301', // DHL Paket International
   ],
-  'druckformat' => '910-300-610',  // 103 × 199 mm; für A4 '910-300-700' oder Zeile entfernen
+  'druckformat' => '910-300-700',  // Standard, wenn die Kasse kein Format mitschickt: DHL-Aufkleber A5
 ];

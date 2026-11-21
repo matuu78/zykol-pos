@@ -188,7 +188,7 @@ window.ZYKOL_ANLEITUNG = {
             "Unter dem Gesamtbetrag stehen „Bezahlen“, „Bestellbeleg“ und „Als Angebot speichern“.",
             "„Kasse“ in der Fußleiste bringt Sie von jeder Seite zurück zur Kasse und schließt offene Fenster."
           ],
-          "tipp": "Jede Kasse hat ihren eigenen Warenkorb. Ein Wechsel der Kasse löscht ihn nicht. Verkäufe buchen den Bestand zuerst von der Verkaufsfläche ab."
+          "tipp": "Auf dem Handy sind Eingabefelder und Knöpfe so groß, dass Safari beim Antippen nicht mehr heranzoomt. Jede Kasse hat ihren eigenen Warenkorb. Ein Wechsel der Kasse löscht ihn nicht. Verkäufe buchen den Bestand zuerst von der Verkaufsfläche ab."
         },
         "bezahlen": {
           "titel": "Bezahlen und Beleg",
@@ -249,7 +249,7 @@ window.ZYKOL_ANLEITUNG = {
             "Unter „Angebote“ ein neues Angebot anlegen, Kunden wählen und Positionen mit Rabatt hinzufügen. Die PDF-Vorschau prüfen und versenden.",
             "Positionen bequem zusammenstellen: „Im Warenkorb zusammenstellen“ öffnet die Kasse im Angebotsmodus. Artikel wie gewohnt auswählen und „Ins Angebot übernehmen“ antippen. Kassiert wird dabei nicht, ein angefangener Warenkorb bleibt erhalten.",
             "Den Status pflegen: Entwurf, Versendet, Angenommen, Abgelehnt, Abgelaufen. Angenommene Angebote mit „In Kasse übernehmen“ abrechnen.",
-            "Angenommenes Angebot weiterführen: „Versandauftrag anlegen“ legt einen offenen Auftrag (V-Nummer) im Versand an, mit Kunde, Anschrift und Positionen. „Werkstattauftrag anlegen“ legt einen Werkstattauftrag (WA-Nummer) im Werkstatt-Eingang an, die Positionen werden als Voranschlag übernommen, Arbeitszeiten tragen Sie in der Werkstatt nach. Das Angebot zeigt danach die Auftragsnummer, und die beiden Knöpfe verschwinden – so entsteht kein Auftrag doppelt.",
+            "Angenommenes Angebot weiterführen: „Versandauftrag anlegen“ legt einen offenen Auftrag (V-Nummer) im Versand an, mit Kunde, Anschrift und Positionen. „Werkstattauftrag anlegen“ legt einen Werkstattauftrag (WA-Nummer) im Werkstatt-Eingang an, die Positionen werden als Voranschlag übernommen, die Angebotsnummer steht im Kundenwunsch, Arbeitszeiten tragen Sie in der Werkstatt nach. Das Angebot zeigt danach die Auftragsnummer, und die beiden Knöpfe verschwinden – so entsteht kein Auftrag doppelt.",
             "Aus dem Warenkorb: „Als Angebot speichern“ legt den Inhalt als Angebot (Entwurf) ab. Ohne Kunde wird das Angebot für einen Barkunden gespeichert.",
             "Später in der Kasse „Angebote aus der Kasse“ öffnen und beim gewünschten Angebot „In Warenkorb laden“ antippen."
           ],
@@ -329,7 +329,7 @@ window.ZYKOL_ANLEITUNG = {
             "Eine ausgefüllte Zählliste mit „Gezählte CSV einlesen“ zurückholen.",
             "Die „Differenzliste“ zeigt jede Abweichung zum Soll. Ab 100 € Warenwert ist eine Begründung Pflicht.",
             "„Rest wie Soll übernehmen“ setzt alle noch nicht gezählten Plätze auf den Soll-Bestand. „Inventur abschließen“ bucht die Differenzen (Grund „Inventur“), „Protokoll (PDF)“ speichert das Ergebnis. „Verwerfen“ bricht ab, ohne etwas zu buchen.",
-            "„Bestand importieren“: CSV hierher ziehen oder „CSV auswählen“. Wählbar sind „Bestand setzen“ (Anfangsbestand, nur die Differenz wird gebucht) oder „Menge addieren (Zugang)“. Fremde Dateien ordnen Sie unter „Spalten zuordnen (Vorschlag)“ zu, die zykol.POS-Vorlage wird erkannt.",
+            "„Bestand importieren“: CSV hierher ziehen oder „CSV auswählen“. Wählbar sind „Bestand setzen“ (Anfangsbestand, nur die Differenz wird gebucht) oder „Menge addieren (Zugang)“. Fremde Dateien ordnen Sie unter „Spalten zuordnen (Vorschlag)“ zu, die zykol.POS-Vorlage wird erkannt. Unbekannte Artikel und Lagerorte können dabei angelegt werden.",
             "Unter „CSV-Vorlage & Export“ gibt es eine „Leere Vorlage“, eine Vorlage „Mit aktuellem Bestand“ und eine „Beispiel-CSV (fremdes Format)“. Die Dateien sind mit Semikolon und UTF-8 gespeichert und öffnen in Excel mit Umlauten."
           ],
           "tipp": "Starten und abschließen darf, wer das Recht „Inventur durchführen“ hat. Zum Zählen reicht „Inventur zählen“. Der Bereich gehört zum Modul „Lager & Bestand“. Im Prototyp wirken die Buchungen nur lokal und ersetzen keine dokumentierte Inventur."
@@ -379,7 +379,7 @@ window.ZYKOL_ANLEITUNG = {
             "Genehmigter Urlaub und Ausschreibungsfristen erscheinen automatisch.",
             "Reiter „Schichtplan“: zeigt, wer wann arbeitet. Er ist nur zur Ansicht; geplant wird unter Einstellungen → Benutzer & Rollen."
           ],
-          "tipp": "Den Kalender der mobilen Kasse sehen Sie, wenn Sie in der Fußleiste die Kasse wechseln. Den Ort für das Wetter legen Admins unter Einstellungen → Lagerorte & Standorte fest."
+          "tipp": "Den Kalender der mobilen Kasse sehen Sie, wenn Sie in der Fußleiste die Kasse wechseln. Den Ort für das Wetter legen Admins unter Einstellungen → Lagerorte & Standorte fest. Je Kasse lässt sich ein eigener Wetter-Standort festlegen, per Ortssuche (Name oder PLZ) oder Koordinaten; ohne Auswahl gilt der Standard-Ort. Das Dashboard zeigt das Wetter als Kachel mit Ortsnamen. Ohne Internet erscheint nur ein kurzer Hinweis."
         },
         "zeiterfassung": {
           "titel": "Arbeitszeiterfassung und Urlaub",
@@ -427,7 +427,7 @@ window.ZYKOL_ANLEITUNG = {
             "Versand: DHL, UPS und DPD mit Zugangsdaten anbinden, Sandbox oder Live wählen und die Verbindung testen. Dieselben Angaben stehen im Versand unter „Dienstleister“.",
             "Zahlungsarten: Karte, Bar, PayPal, Rechnung, Gutschein und Vorkasse ein- und ausschalten, sortieren und die Anbindung testen. E-Rechnung: ZUGFeRD-Profil, XRechnung-Syntax und Übermittlung.",
             "Admin (nur root): Systemsprache und Sprache je Benutzer, Systemprotokoll, Datenbank & Backup.",
-            "Module (nur root): Bereiche wie Lager & Bestand, Personal & Urlaub, Arbeitszeiterfassung, Werkstatt, Ausschreibungen, Kassenabschluss, ERP-Anbindung, Kanu-News sowie Boote & Paddel und Regatten mit „An“ oder „Aus“ schalten, oder mit „Alle an“ und „Alle aus“ auf einmal. Ausgeschaltete Module verschwinden aus Menü, Dashboard, Kalender und Rechte-Tabelle, die Daten bleiben erhalten. Kasse, Kunden, Artikel, Belege, Versand, E-Rechnung, Angebote und Kalender sind immer an.",
+            "Module (nur root): Bereiche wie Lager & Bestand, Personal & Urlaub, Arbeitszeiterfassung, Werkstatt, Ausschreibungen, Kassenabschluss, ERP-Anbindung, Kanu-News sowie Boote & Paddel und Regatten mit „An“ oder „Aus“ schalten, oder mit „Alle an“ und „Alle aus“ auf einmal. Ausgeschaltete Module verschwinden aus Menü, Dashboard, Kalender und Rechte-Tabelle, die Daten bleiben erhalten. Kasse, Kunden, Artikel, Belege, Versand, E-Rechnung, Angebote und Kalender sind immer an. Ohne Lager & Bestand buchen Verkauf und Werkstatt keinen Bestand, ohne Personal & Urlaub gibt es keinen Urlaub. Großhandel ist in Vorbereitung und braucht Lager & Bestand.",
             "Die Reihenfolge des Menüs ändern Sie unten in der Seitenleiste mit „Menü sortieren“; „Standard wiederherstellen“ setzt sie zurück. Das Dashboard bleibt immer oben."
           ],
           "tipp": "Die Rolle Werkstatt (Technik) hat ein festes Menü (Dashboard, Werkstatt, Kalender, Zeiterfassung) und darf nicht kassieren."
@@ -508,7 +508,7 @@ window.ZYKOL_ANLEITUNG = {
             "Below the total you find “Pay”, “Order slip” and “Save as quote”.",
             "“Register” in the footer takes you back to the register from any page and closes open windows."
           ],
-          "tipp": "Each register has its own cart; switching registers does not clear it. Sales take stock from the sales floor first."
+          "tipp": "On the phone, input fields and buttons are large enough that Safari no longer zooms in when you tap them. Each register has its own cart; switching registers does not clear it. Sales take stock from the sales floor first."
         },
         "bezahlen": {
           "titel": "Payment and receipt",
@@ -569,7 +569,7 @@ window.ZYKOL_ANLEITUNG = {
             "Under “Quotes”, create a new quote, choose a customer and add items with discount. Check the PDF preview and send it.",
             "Build items easily: “Build in cart” opens the register in quote mode. Choose products as usual and tap “Apply to quote”. Nothing is charged, and a started cart is kept.",
             "Maintain the status: Draft, Sent, Accepted, Declined, Expired. Bill accepted quotes with “Move to register”.",
-            "Continue an accepted quote: “Create shipping order” creates an open order (V number) in Shipping with customer, address and items. “Create repair order” creates a workshop order (WA number) in workshop intake; the items are taken over as the estimate, and you add labour time in the workshop. The quote then shows the order number and both buttons disappear, so no order is created twice.",
+            "Continue an accepted quote: “Create shipping order” creates an open order (V number) in Shipping with customer, address and items. “Create repair order” creates a workshop order (WA number) in workshop intake; the items are taken over as the estimate, the quote number goes into the customer request, and you add labour time in the workshop. The quote then shows the order number and both buttons disappear, so no order is created twice.",
             "From the cart: “Save as quote” stores the contents as a quote (draft). Without a customer it is saved for a walk-in customer.",
             "Later, open “Quotes from the register” in the register and tap “Load into cart” on the quote you want."
           ],
@@ -649,7 +649,7 @@ window.ZYKOL_ANLEITUNG = {
             "Bring a filled-in count sheet back with “Read counted CSV”.",
             "“Differences” shows every deviation from target. From €100 of goods value a reason is required.",
             "“Set rest to target” sets all locations not yet counted to the target stock. “Close stocktake” posts the differences (reason “stocktake”), “Report (PDF)” saves the result. “Discard” cancels without posting anything.",
-            "“Import stock”: drag a CSV here or tap “Choose CSV”. Choose “Set stock” (opening stock; only the difference is posted) or “Add quantity (receipt)”. Map other file formats under “Map columns (suggested)”; the zykol.POS template is detected automatically.",
+            "“Import stock”: drag a CSV here or tap “Choose CSV”. Choose “Set stock” (opening stock; only the difference is posted) or “Add quantity (receipt)”. Map other file formats under “Map columns (suggested)”; the zykol.POS template is detected automatically. Unknown items and locations can be created along the way.",
             "“CSV template & export” offers an “Empty template”, a template “With current stock” and a “Sample CSV (other format)”. Files use semicolons and UTF-8 and open correctly in Excel."
           ],
           "tipp": "Starting and closing a stocktake requires the permission “Carry out stocktake”; counting only needs “Count stocktake”. The area belongs to the “Warehouse & stock” module. In the prototype, bookings are local only and do not replace a documented stocktake."
@@ -699,7 +699,7 @@ window.ZYKOL_ANLEITUNG = {
             "Approved leave and tender deadlines appear automatically.",
             "Tab “Shift plan”: shows who works when. It is view-only; planning is done under Settings → Users & roles."
           ],
-          "tipp": "To see the calendar of the mobile register, switch register in the footer. Admins set the weather location under Settings → Storage locations & sites."
+          "tipp": "To see the calendar of the mobile register, switch register in the footer. Admins set the weather location under Settings → Storage locations & sites. Each register can have its own weather location, found by place search (name or postcode) or coordinates; without one the default location applies. The dashboard shows the weather as a tile with the place name. Without internet only a short notice appears."
         },
         "zeiterfassung": {
           "titel": "Time tracking and leave",
@@ -747,7 +747,7 @@ window.ZYKOL_ANLEITUNG = {
             "Shipping: connect DHL, UPS and DPD with credentials, choose sandbox or live and test the connection. The same details are under “Carriers” in Shipping.",
             "Payment methods: switch card, cash, PayPal, invoice, voucher and prepayment on or off, sort them and test the connection. E-invoice: ZUGFeRD profile, XRechnung syntax and transmission.",
             "Admin (root only): system language and language per user, system log, database & backup.",
-            "Modules (root only): switch areas such as warehouse & stock, staff & leave, time tracking, workshop, tenders, end of day, ERP connection, canoe news, boats & paddles and regattas “On” or “Off”, or all at once with “All on” and “All off”. Disabled modules disappear from the menu, dashboard, calendar and permissions table; data is kept. Till, customers, items, receipts, shipping, e-invoicing, quotes and calendar are always on.",
+            "Modules (root only): switch areas such as warehouse & stock, staff & leave, time tracking, workshop, tenders, end of day, ERP connection, canoe news, boats & paddles and regattas “On” or “Off”, or all at once with “All on” and “All off”. Disabled modules disappear from the menu, dashboard, calendar and permissions table; data is kept. Till, customers, items, receipts, shipping, e-invoicing, quotes and calendar are always on. Without warehouse & stock, sales and workshop do not post stock; without staff & leave there is no leave. Wholesale is in preparation and requires warehouse & stock.",
             "Change the menu order at the bottom of the sidebar with “Sort menu”; “Restore default” resets it. The dashboard always stays at the top."
           ],
           "tipp": "The workshop (technician) role has a fixed menu (dashboard, workshop, calendar, time tracking) and cannot charge sales."
@@ -828,7 +828,7 @@ window.ZYKOL_ANLEITUNG = {
             "Sous le total se trouvent « Payer », « Bon de commande » et « Enregistrer comme devis ».",
             "« Caisse » dans le pied de page vous ramène à la caisse depuis n’importe quelle page et ferme les fenêtres ouvertes."
           ],
-          "tipp": "Chaque caisse a son propre panier ; changer de caisse ne le vide pas. Les ventes déduisent d’abord le stock de la surface de vente."
+          "tipp": "Sur le téléphone, champs de saisie et boutons sont assez grands pour que Safari ne zoome plus quand on les touche. Chaque caisse a son propre panier ; changer de caisse ne le vide pas. Les ventes déduisent d’abord le stock de la surface de vente."
         },
         "bezahlen": {
           "titel": "Paiement et ticket",
@@ -889,7 +889,7 @@ window.ZYKOL_ANLEITUNG = {
             "Sous « Devis », créez un nouveau devis, choisissez le client et ajoutez des lignes avec remise. Vérifiez l’aperçu PDF et envoyez-le.",
             "Composer facilement : « Composer dans le panier » ouvre la caisse en mode devis. Choisissez les articles comme d’habitude et touchez « Reprendre dans le devis ». Rien n’est encaissé et un panier commencé est conservé.",
             "Tenez le statut à jour : Brouillon, Envoyé, Accepté, Refusé, Expiré. Facturez les devis acceptés avec « Reprendre en caisse ».",
-            "Poursuivre un devis accepté : « Créer un ordre d’expédition » crée une commande ouverte (numéro V) dans Expédition avec client, adresse et positions. « Créer un ordre d’atelier » crée un ordre d’atelier (numéro WA) à la réception de l’atelier ; les positions sont reprises comme devis estimatif, les temps de travail se saisissent dans l’atelier. Le devis affiche ensuite le numéro d’ordre et les deux boutons disparaissent : aucun ordre n’est créé deux fois.",
+            "Poursuivre un devis accepté : « Créer un ordre d’expédition » crée une commande ouverte (numéro V) dans Expédition avec client, adresse et positions. « Créer un ordre d’atelier » crée un ordre d’atelier (numéro WA) à la réception de l’atelier ; les positions sont reprises comme devis estimatif, le numéro du devis figure dans la demande du client, les temps de travail se saisissent dans l’atelier. Le devis affiche ensuite le numéro d’ordre et les deux boutons disparaissent : aucun ordre n’est créé deux fois.",
             "Depuis le panier : « Enregistrer comme devis » enregistre le contenu comme devis (brouillon). Sans client, il est enregistré pour un client de passage.",
             "Plus tard, ouvrez « Devis de la caisse » dans la caisse et touchez « Charger dans le panier » sur le devis voulu."
           ],
@@ -969,7 +969,7 @@ window.ZYKOL_ANLEITUNG = {
             "Réimportez une liste remplie avec « Importer le CSV compté ».",
             "La « Liste des écarts » affiche chaque écart par rapport au théorique. À partir de 100 € de valeur, un motif est obligatoire.",
             "« Reprendre le reste comme théorique » met tous les emplacements non comptés au stock théorique. « Clôturer l’inventaire » comptabilise les écarts (motif « inventaire »), « Procès-verbal (PDF) » enregistre le résultat. « Abandonner » annule sans rien comptabiliser.",
-            "« Importer le stock » : glissez un CSV ici ou touchez « Choisir un CSV ». Au choix « Définir le stock » (stock initial, seul l’écart est comptabilisé) ou « Ajouter la quantité (entrée) ». Les fichiers d’un autre format s’associent sous « Associer les colonnes (proposition) » ; le modèle zykol.POS est reconnu.",
+            "« Importer le stock » : glissez un CSV ici ou touchez « Choisir un CSV ». Au choix « Définir le stock » (stock initial, seul l’écart est comptabilisé) ou « Ajouter la quantité (entrée) ». Les fichiers d’un autre format s’associent sous « Associer les colonnes (proposition) » ; le modèle zykol.POS est reconnu. Les articles et emplacements inconnus peuvent être créés au passage.",
             "« Modèle CSV & export » propose un « Modèle vide », un modèle « Avec le stock actuel » et un « CSV d’exemple (autre format) ». Les fichiers utilisent le point-virgule et l’UTF-8 et s’ouvrent correctement dans Excel."
           ],
           "tipp": "Démarrer et clôturer requiert le droit « Réaliser l’inventaire » ; pour compter, « Compter l’inventaire » suffit. La zone fait partie du module « Entrepôt & stock ». Dans le prototype, les écritures restent locales et ne remplacent pas un inventaire documenté."
@@ -1019,7 +1019,7 @@ window.ZYKOL_ANLEITUNG = {
             "Les congés approuvés et les délais d’appels d’offres apparaissent automatiquement.",
             "Onglet « Planning » : montre qui travaille quand. Il est en lecture seule ; la planification se fait sous Paramètres → Utilisateurs & rôles."
           ],
-          "tipp": "Pour voir le calendrier de la caisse mobile, changez de caisse dans le pied de page. Les admins définissent le lieu pour la météo sous Paramètres → Emplacements & sites."
+          "tipp": "Pour voir le calendrier de la caisse mobile, changez de caisse dans le pied de page. Les admins définissent le lieu pour la météo sous Paramètres → Emplacements & sites. Chaque caisse peut avoir son propre lieu météo, par recherche de lieu (nom ou code postal) ou coordonnées ; sinon le lieu par défaut s’applique. Le tableau de bord affiche la météo sous forme de tuile avec le nom du lieu. Sans internet, seul un court message apparaît."
         },
         "zeiterfassung": {
           "titel": "Suivi du temps et congés",
@@ -1067,7 +1067,7 @@ window.ZYKOL_ANLEITUNG = {
             "Expédition : connecter DHL, UPS et DPD avec les identifiants, choisir sandbox ou production et tester la connexion. Les mêmes données figurent dans Expédition sous « Transporteurs ».",
             "Moyens de paiement : activez ou désactivez carte, espèces, PayPal, facture, bon d’achat et paiement anticipé, triez-les et testez la connexion. Facture électronique : profil ZUGFeRD, syntaxe XRechnung et transmission.",
             "Admin (root uniquement) : langue du système et langue par utilisateur, journal système, base de données & sauvegarde.",
-            "Modules (root uniquement) : activer ou désactiver des zones comme entrepôt & stock, personnel & congés, saisie du temps, atelier, appels d’offres, clôture de caisse, connexion ERP, actus canoë, bateaux & pagaies et régates, ou toutes avec « Tout activer » et « Tout désactiver ». Les modules désactivés disparaissent du menu, du tableau de bord, du calendrier et du tableau des droits ; les données sont conservées. Caisse, clients, articles, justificatifs, expédition, facture électronique, devis et calendrier restent toujours actifs.",
+            "Modules (root uniquement) : activer ou désactiver des zones comme entrepôt & stock, personnel & congés, saisie du temps, atelier, appels d’offres, clôture de caisse, connexion ERP, actus canoë, bateaux & pagaies et régates, ou toutes avec « Tout activer » et « Tout désactiver ». Les modules désactivés disparaissent du menu, du tableau de bord, du calendrier et du tableau des droits ; les données sont conservées. Caisse, clients, articles, justificatifs, expédition, facture électronique, devis et calendrier restent toujours actifs. Sans entrepôt & stock, ventes et atelier ne mouvementent pas le stock ; sans personnel & congés, pas de congés. La vente en gros est en préparation et nécessite entrepôt & stock.",
             "Modifiez l’ordre du menu en bas de la barre latérale avec « Trier le menu » ; « Rétablir par défaut » le réinitialise. Le tableau de bord reste toujours en haut."
           ],
           "tipp": "Le rôle atelier (technique) a un menu fixe (tableau de bord, atelier, calendrier, suivi du temps) et ne peut pas encaisser."
@@ -1148,7 +1148,7 @@ window.ZYKOL_ANLEITUNG = {
             "Bajo el total están «Pagar», «Hoja de pedido» y «Guardar como presupuesto».",
             "«Caja» en el pie le devuelve a la caja desde cualquier página y cierra las ventanas abiertas."
           ],
-          "tipp": "Cada caja tiene su propio carrito; cambiar de caja no lo vacía. Las ventas descuentan primero las existencias de la zona de venta."
+          "tipp": "En el móvil, los campos y botones son lo bastante grandes para que Safari ya no amplíe al tocarlos. Cada caja tiene su propio carrito; cambiar de caja no lo vacía. Las ventas descuentan primero las existencias de la zona de venta."
         },
         "bezahlen": {
           "titel": "Pago y ticket",
@@ -1209,7 +1209,7 @@ window.ZYKOL_ANLEITUNG = {
             "En «Presupuestos», cree uno nuevo, elija el cliente y añada líneas con descuento. Revise la vista previa en PDF y envíelo.",
             "Montar las líneas fácilmente: «Montar en el carrito» abre la caja en modo presupuesto. Elija los artículos como siempre y toque «Pasar al presupuesto». No se cobra nada y un carrito empezado se conserva.",
             "Mantenga el estado: Borrador, Enviado, Aceptado, Rechazado, Caducado. Cobre los aceptados con «Pasar a caja».",
-            "Continuar un presupuesto aceptado: «Crear orden de envío» crea un pedido abierto (número V) en Envíos con cliente, dirección y posiciones. «Crear orden de taller» crea una orden de taller (número WA) en la recepción del taller; las posiciones pasan como presupuesto de reparación y las horas de trabajo se añaden en el taller. Después el presupuesto muestra el número de orden y los dos botones desaparecen, así no se crea ninguna orden dos veces.",
+            "Continuar un presupuesto aceptado: «Crear orden de envío» crea un pedido abierto (número V) en Envíos con cliente, dirección y posiciones. «Crear orden de taller» crea una orden de taller (número WA) en la recepción del taller; las posiciones pasan como presupuesto de reparación, el número del presupuesto queda en el deseo del cliente, y las horas de trabajo se añaden en el taller. Después el presupuesto muestra el número de orden y los dos botones desaparecen, así no se crea ninguna orden dos veces.",
             "Desde el carrito: «Guardar como presupuesto» guarda el contenido como presupuesto (borrador). Sin cliente se guarda para un cliente de paso.",
             "Más tarde, abra «Presupuestos de la caja» en la caja y toque «Cargar en el carrito» en el presupuesto deseado."
           ],
@@ -1289,7 +1289,7 @@ window.ZYKOL_ANLEITUNG = {
             "Recupere una lista rellenada con «Leer CSV contado».",
             "La «Lista de diferencias» muestra cada desviación del teórico. A partir de 100 € de valor, el motivo es obligatorio.",
             "«Resto igual al teórico» pone todas las ubicaciones no contadas en el stock teórico. «Cerrar inventario» contabiliza las diferencias (motivo «inventario»), «Acta (PDF)» guarda el resultado. «Descartar» cancela sin contabilizar nada.",
-            "«Importar existencias»: arrastre un CSV aquí o toque «Elegir CSV». Elija «Fijar existencias» (stock inicial; solo se contabiliza la diferencia) o «Sumar cantidad (entrada)». Los archivos de otro formato se asignan en «Asignar columnas (sugerencia)»; la plantilla de zykol.POS se detecta sola.",
+            "«Importar existencias»: arrastre un CSV aquí o toque «Elegir CSV». Elija «Fijar existencias» (stock inicial; solo se contabiliza la diferencia) o «Sumar cantidad (entrada)». Los archivos de otro formato se asignan en «Asignar columnas (sugerencia)»; la plantilla de zykol.POS se detecta sola. Los artículos y ubicaciones desconocidos se pueden crear de paso.",
             "«Plantilla CSV y exportación» ofrece una «Plantilla vacía», una plantilla «Con existencias actuales» y un «CSV de ejemplo (otro formato)». Los archivos usan punto y coma y UTF-8 y se abren bien en Excel."
           ],
           "tipp": "Iniciar y cerrar requiere el permiso «Realizar inventario»; para contar basta «Contar inventario». El área pertenece al módulo «Almacén y existencias». En el prototipo los asientos son solo locales y no sustituyen un inventario documentado."
@@ -1339,7 +1339,7 @@ window.ZYKOL_ANLEITUNG = {
             "Las vacaciones aprobadas y los plazos de licitaciones aparecen automáticamente.",
             "Pestaña «Turnos»: muestra quién trabaja y cuándo. Es solo de consulta; se planifica en Ajustes → Usuarios y roles."
           ],
-          "tipp": "Para ver el calendario de la caja móvil, cambie de caja en el pie. Los administradores fijan la localidad del tiempo en Ajustes → Ubicaciones y sedes."
+          "tipp": "Para ver el calendario de la caja móvil, cambie de caja en el pie. Los administradores fijan la localidad del tiempo en Ajustes → Ubicaciones y sedes. Cada caja puede tener su propia ubicación del tiempo, mediante búsqueda de lugar (nombre o código postal) o coordenadas; si no, se usa la ubicación predeterminada. El panel muestra el tiempo como mosaico con el nombre del lugar. Sin internet solo aparece un breve aviso."
         },
         "zeiterfassung": {
           "titel": "Control horario y vacaciones",
@@ -1387,7 +1387,7 @@ window.ZYKOL_ANLEITUNG = {
             "Envíos: conectar DHL, UPS y DPD con las credenciales, elegir sandbox o producción y probar la conexión. Los mismos datos están en Envíos, en «Transportistas».",
             "Formas de pago: active o desactive tarjeta, efectivo, PayPal, factura, vale y pago por adelantado, ordénelas y pruebe la conexión. Factura electrónica: perfil ZUGFeRD, sintaxis XRechnung y transmisión.",
             "Admin (solo root): idioma del sistema e idioma por usuario, registro del sistema, base de datos y copia de seguridad.",
-            "Módulos (solo root): activar o desactivar áreas como almacén y existencias, personal y vacaciones, registro de jornada, taller, licitaciones, cierre de caja, conexión ERP, noticias de piragüismo, barcos y palas y regatas, o todas con «Todo activado» y «Todo desactivado». Los módulos desactivados desaparecen del menú, el panel, el calendario y la tabla de permisos; los datos se conservan. Caja, clientes, artículos, comprobantes, envíos, factura electrónica, presupuestos y calendario están siempre activos.",
+            "Módulos (solo root): activar o desactivar áreas como almacén y existencias, personal y vacaciones, registro de jornada, taller, licitaciones, cierre de caja, conexión ERP, noticias de piragüismo, barcos y palas y regatas, o todas con «Todo activado» y «Todo desactivado». Los módulos desactivados desaparecen del menú, el panel, el calendario y la tabla de permisos; los datos se conservan. Caja, clientes, artículos, comprobantes, envíos, factura electrónica, presupuestos y calendario están siempre activos. Sin almacén y existencias, ventas y taller no mueven existencias; sin personal y vacaciones no hay vacaciones. La venta al por mayor está en preparación y requiere almacén y existencias.",
             "Cambie el orden del menú abajo en la barra lateral con «Ordenar menú»; «Restaurar predeterminado» lo restablece. El panel siempre queda arriba."
           ],
           "tipp": "El rol taller (técnico) tiene un menú fijo (panel, taller, calendario, control horario) y no puede cobrar."
@@ -1468,7 +1468,7 @@ window.ZYKOL_ANLEITUNG = {
             "Por baixo do total estão «Pagar», «Nota de encomenda» e «Guardar como orçamento».",
             "«Caixa» no rodapé leva-o de volta à caixa a partir de qualquer página e fecha as janelas abertas."
           ],
-          "tipp": "Cada caixa tem o seu carrinho; mudar de caixa não o apaga. As vendas retiram primeiro o stock da área de venda."
+          "tipp": "No telemóvel, os campos e botões são grandes o suficiente para o Safari já não ampliar ao tocar. Cada caixa tem o seu carrinho; mudar de caixa não o apaga. As vendas retiram primeiro o stock da área de venda."
         },
         "bezahlen": {
           "titel": "Pagamento e talão",
@@ -1529,7 +1529,7 @@ window.ZYKOL_ANLEITUNG = {
             "Em «Orçamentos», crie um novo, escolha o cliente e adicione linhas com desconto. Verifique a pré-visualização em PDF e envie.",
             "Montar as linhas facilmente: «Montar no carrinho» abre a caixa em modo orçamento. Escolha os artigos como sempre e toque em «Passar para o orçamento». Nada é cobrado e um carrinho iniciado é mantido.",
             "Mantenha o estado: Rascunho, Enviado, Aceite, Recusado, Expirado. Fature os aceites com «Passar para a caixa».",
-            "Continuar um orçamento aceite: «Criar ordem de envio» cria uma encomenda aberta (número V) em Envios com cliente, morada e posições. «Criar ordem de oficina» cria uma ordem de oficina (número WA) na receção da oficina; as posições passam como orçamento de reparação e as horas de trabalho acrescentam-se na oficina. Depois o orçamento mostra o número da ordem e os dois botões desaparecem, assim nenhuma ordem é criada duas vezes.",
+            "Continuar um orçamento aceite: «Criar ordem de envio» cria uma encomenda aberta (número V) em Envios com cliente, morada e posições. «Criar ordem de oficina» cria uma ordem de oficina (número WA) na receção da oficina; as posições passam como orçamento de reparação, o número do orçamento fica no pedido do cliente, e as horas de trabalho acrescentam-se na oficina. Depois o orçamento mostra o número da ordem e os dois botões desaparecem, assim nenhuma ordem é criada duas vezes.",
             "A partir do carrinho: «Guardar como orçamento» guarda o conteúdo como orçamento (rascunho). Sem cliente, é guardado para um cliente ocasional.",
             "Mais tarde, abra «Orçamentos da caixa» na caixa e toque em «Carregar no carrinho» no orçamento pretendido."
           ],
@@ -1609,7 +1609,7 @@ window.ZYKOL_ANLEITUNG = {
             "Traga de volta uma lista preenchida com «Ler CSV contado».",
             "A «Lista de diferenças» mostra cada desvio do teórico. A partir de 100 € de valor, o motivo é obrigatório.",
             "«Restante igual ao teórico» coloca todos os locais ainda não contados no stock teórico. «Fechar inventário» lança as diferenças (motivo «inventário»), «Relatório (PDF)» guarda o resultado. «Descartar» cancela sem lançar nada.",
-            "«Importar stock»: arraste um CSV para aqui ou toque em «Escolher CSV». Escolha «Definir stock» (stock inicial; só a diferença é lançada) ou «Somar quantidade (entrada)». Ficheiros de outro formato associam-se em «Associar colunas (sugestão)»; o modelo zykol.POS é detetado.",
+            "«Importar stock»: arraste um CSV para aqui ou toque em «Escolher CSV». Escolha «Definir stock» (stock inicial; só a diferença é lançada) ou «Somar quantidade (entrada)». Ficheiros de outro formato associam-se em «Associar colunas (sugestão)»; o modelo zykol.POS é detetado. Artigos e locais desconhecidos podem ser criados ao mesmo tempo.",
             "«Modelo CSV e exportação» oferece um «Modelo vazio», um modelo «Com stock atual» e um «CSV de exemplo (outro formato)». Os ficheiros usam ponto e vírgula e UTF-8 e abrem corretamente no Excel."
           ],
           "tipp": "Iniciar e fechar exige a permissão «Realizar inventário»; para contar basta «Contar inventário». A área pertence ao módulo «Armazém e stock». No protótipo os lançamentos são apenas locais e não substituem um inventário documentado."
@@ -1659,7 +1659,7 @@ window.ZYKOL_ANLEITUNG = {
             "As férias aprovadas e os prazos de concursos aparecem automaticamente.",
             "Separador «Escala»: mostra quem trabalha e quando. É só de consulta; o planeamento faz-se em Definições → Utilizadores e funções."
           ],
-          "tipp": "Para ver o calendário da caixa móvel, mude de caixa no rodapé. Os administradores definem a localidade da meteorologia em Definições → Localizações e locais."
+          "tipp": "Para ver o calendário da caixa móvel, mude de caixa no rodapé. Os administradores definem a localidade da meteorologia em Definições → Localizações e locais. Cada caixa pode ter o seu próprio local do tempo, por pesquisa de local (nome ou código postal) ou coordenadas; sem escolha aplica-se o local predefinido. O painel mostra o tempo como mosaico com o nome do local. Sem internet aparece só um aviso curto."
         },
         "zeiterfassung": {
           "titel": "Registo de horas e férias",
@@ -1707,7 +1707,7 @@ window.ZYKOL_ANLEITUNG = {
             "Envios: ligar DHL, UPS e DPD com as credenciais, escolher sandbox ou produção e testar a ligação. Os mesmos dados estão em Envios, em «Transportadoras».",
             "Meios de pagamento: ative ou desative cartão, numerário, PayPal, fatura, vale e pré-pagamento, ordene-os e teste a ligação. Fatura eletrónica: perfil ZUGFeRD, sintaxe XRechnung e transmissão.",
             "Admin (só root): idioma do sistema e idioma por utilizador, registo do sistema, base de dados e cópia de segurança.",
-            "Módulos (só root): ligar ou desligar áreas como armazém e stock, pessoal e férias, registo de horas, oficina, concursos, fecho de caixa, ligação ERP, notícias de canoagem, barcos e pás e regatas, ou todas com «Tudo ligado» e «Tudo desligado». Os módulos desligados desaparecem do menu, painel, calendário e tabela de permissões; os dados mantêm-se. Caixa, clientes, artigos, documentos, envios, fatura eletrónica, orçamentos e calendário estão sempre ligados.",
+            "Módulos (só root): ligar ou desligar áreas como armazém e stock, pessoal e férias, registo de horas, oficina, concursos, fecho de caixa, ligação ERP, notícias de canoagem, barcos e pás e regatas, ou todas com «Tudo ligado» e «Tudo desligado». Os módulos desligados desaparecem do menu, painel, calendário e tabela de permissões; os dados mantêm-se. Caixa, clientes, artigos, documentos, envios, fatura eletrónica, orçamentos e calendário estão sempre ligados. Sem armazém e stock, vendas e oficina não movimentam stock; sem pessoal e férias não há férias. A venda por grosso está em preparação e requer armazém e stock.",
             "Altere a ordem do menu em baixo na barra lateral com «Ordenar menu»; «Repor predefinição» repõe-na. O painel fica sempre no topo."
           ],
           "tipp": "A função oficina (técnico) tem um menu fixo (painel, oficina, calendário, registo de horas) e não pode cobrar."

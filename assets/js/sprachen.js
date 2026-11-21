@@ -3270,3 +3270,12 @@ Logo|Logótipo
     ['100 × 70 mm (nur Kleinpaket)', '100 × 70 mm (small parcel only)', '100 × 70 mm (petit colis uniquement)', '100 × 70 mm (solo paquete pequeño)', '100 × 70 mm (só pacote pequeno)']
   ].forEach(function (r) { D[r[0]] = {en: r[1], fr: r[2], es: r[3], pt: r[4]}; });
 })();
+(function () {
+  var I = window.ZYKOL_I18N; if (!I) return;
+  var D = I.dict;
+  [
+    ['Kleinpaket-Karton', 'Small parcel box', 'Carton petit colis', 'Caja de paquete pequeño', 'Caixa de pacote pequeno'],
+    ['Nur bis 1 kg (DHL-Vorgabe)', 'Only up to 1 kg (DHL rule)', 'Jusqu’à 1 kg seulement (règle DHL)', 'Solo hasta 1 kg (norma DHL)', 'Só até 1 kg (regra DHL)'],
+    ['Nur bis 35,3 × 25 × 8 cm – Verpackung „Kleinpaket-Karton“ oder „Versandtasche“ wählen', 'Only up to 35.3 × 25 × 8 cm – choose packaging “Small parcel box” or “Mailing bag”', 'Seulement jusqu’à 35,3 × 25 × 8 cm – choisir l’emballage « Carton petit colis » ou « Pochette d’expédition »', 'Solo hasta 35,3 × 25 × 8 cm – elija el embalaje «Caja de paquete pequeño» o «Bolsa de envío»', 'Só até 35,3 × 25 × 8 cm – escolha a embalagem «Caixa de pacote pequeno» ou «Saco de envio»']
+  ].forEach(function (r) { D[r[0]] = {en: r[1], fr: r[2], es: r[3], pt: r[4]}; });
+})();

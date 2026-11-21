@@ -865,11 +865,14 @@ const FELDER = [
   {id: 'email', label: 'E-Mail', platzhalter: 'info@kanu-nordwest.de'},
   {id: 'ustid', label: 'USt-IdNr.', platzhalter: 'DE812446071'},
   {id: 'bankname', label: 'Bank', platzhalter: 'Commerzbank Syke'},
-  {id: 'iban', label: 'IBAN', platzhalter: 'DE12 2004 0000 0123 4567 89'}
+  {id: 'iban', label: 'IBAN', platzhalter: 'DE89 3704 0044 0532 0130 00'}
 ];
 
 // IBAN prüfen (Länge je Land und Prüfsumme Modulo 97); ungültige IBANs werden nicht gedruckt
 const IBAN_LAENGE = {DE: 22, AT: 20, CH: 21, NL: 18, BE: 16, FR: 27, IT: 27, ES: 24, LU: 20, DK: 18, PL: 28};
+// Test-IBAN (Muster-IBAN, prüfziffern-gültig): der GiroCode wird erzeugt, ist aber als Test gekennzeichnet; die alte Demo-IBAN wird ersetzt
+const TEST_IBAN = 'DE89370400440532013000', ALT_DEMO_IBAN = 'DE12200400000123456789';
+const IST_TEST_IBAN = (roh) => String(roh || '').replace(/\s+/g, '').toUpperCase() === TEST_IBAN;
 const IBAN_OK = (roh) => {
   const i = String(roh || '').replace(/\s+/g, '').toUpperCase();
   if (!/^[A-Z]{2}\d{2}[A-Z0-9]{10,30}$/.test(i) || (IBAN_LAENGE[i.slice(0, 2)] && IBAN_LAENGE[i.slice(0, 2)] !== i.length)) return false;
@@ -887,7 +890,7 @@ const STANDARD = {
   email: 'info@zykol.de',
   ustid: 'DE812446071',
   bankname: 'Commerzbank Syke',
-  iban: 'DE12 2004 0000 0123 4567 89',
+  iban: 'DE89 3704 0044 0532 0130 00',
   gesellschaft: 'Zykol GmbH',
   gf: 'Marko Ruschin und Jens Röhling',
   register: 'HRB 123456 (fiktiv)',
@@ -978,7 +981,8 @@ class Component extends DCLogic {
     const d = DOKUMENTE[this.state.typ];
     try { document.title = d.nummer.split(' ').pop(); } catch (e) {}
     const align = (i) => d.spalten[i].align;
-    const g = this.state.daten;
+    const g = String(this.state.daten.iban || '').replace(/\s+/g, '').toUpperCase() === ALT_DEMO_IBAN ? Object.assign({}, this.state.daten, {iban: 'DE89 3704 0044 0532 0130 00'}) : this.state.daten;
+    const giroTest = IST_TEST_IBAN(g.iban);
     if (g.qrBasis) QR_BASIS = g.qrBasis;
     const zeile = (teile) => teile.filter(Boolean).join(' · ');
     return {
@@ -1016,7 +1020,7 @@ class Component extends DCLogic {
       kopfKontakt: zeile([g.telefon && 'Tel. ' + g.telefon, g.email]),
       hatDokNummer: d.nummer !== d.titel,
       fussLinks: [g.firma, g.strasse, g.ort].filter(Boolean),
-      fussMitte: [g.bankname, g.iban && (IBAN_OK(g.iban) ? 'IBAN: ' + g.iban : 'Demo – keine Zahlung vornehmen'), g.bic && IBAN_OK(g.iban) && 'BIC: ' + g.bic].filter(Boolean),
+      fussMitte: [g.bankname, g.iban && (IBAN_OK(g.iban) ? 'IBAN: ' + g.iban + (giroTest ? ' (Test-IBAN)' : '') : 'Demo – keine Zahlung vornehmen'), g.bic && IBAN_OK(g.iban) && 'BIC: ' + g.bic].filter(Boolean),
       hatFussUst: !!g.ustid,
       fussUst: 'USt-IdNr.: ' + (g.ustid || ''),
       fussRechts: [g.gesellschaft || g.firma, g.gf && 'Geschäftsführer:', g.gf, g.register, g.fusszeile].filter(Boolean),
@@ -1057,7 +1061,7 @@ class Component extends DCLogic {
       })),
       summen: d.summen,
       // Ohne gültige IBAN: Hinweise wie in der abgestimmten Beispielrechnung (fiktive Daten, keine Zahlung)
-      hinweise: IBAN_OK(g.iban) ? d.hinweise : this.state.typ === 'rechnung' && !Z_RG_INFO ? ['Fiktive Artikel und Firmendaten. Keine Zahlung vornehmen.', 'Zahlungsziel: ' + Z_ZIEL + '.', 'Bitte geben Sie bei Zahlungen die Rechnungsnummer an.', 'Eigentumsvorbehalt bis zur vollständigen Bezahlung.']
+      hinweise: IBAN_OK(g.iban) && !giroTest ? d.hinweise : this.state.typ === 'rechnung' && !Z_RG_INFO ? ['Fiktive Artikel und Firmendaten. Keine Zahlung vornehmen.', 'Zahlungsziel: ' + Z_ZIEL + '.', 'Bitte geben Sie bei Zahlungen die Rechnungsnummer an.', 'Eigentumsvorbehalt bis zur vollständigen Bezahlung.']
         : d.hinweise.map(h => /unten genannte Konto/.test(h) ? 'Fiktive Artikel und Firmendaten. Keine Zahlung vornehmen.' : h),
       hatPaddel: !!this.state.paddel && (this.state.typ === 'beleg' || this.state.typ === 'rechnung'),
       hatWs: !!this.state.ws && (this.state.typ === 'beleg' || this.state.typ === 'rechnung'), wsZeilen: this.state.ws || [],
@@ -1066,9 +1070,9 @@ class Component extends DCLogic {
       hatQr: this.state.typ === 'beleg',
       // v12.61: „online abrufen“ nur noch auf dem Bon; auf offenen Rechnungen (Zahlart Rechnung) steht der GiroCode zum Bezahlen
       hatGiro: this.state.typ === 'rechnung' && !Z_RG_INFO,
-      giroSrc: this.state.typ === 'rechnung' && !Z_RG_INFO && IBAN_OK(g.iban) ? QR_UTF8(GIROCODE(g.kontoinhaber || g.firma, g.iban, g.bic, CENT(d.summe) / 100, d.nummer)) : '',
+      giroSrc: this.state.typ === 'rechnung' && !Z_RG_INFO && IBAN_OK(g.iban) ? QR_UTF8(GIROCODE(g.kontoinhaber || g.firma, g.iban, g.bic, CENT(d.summe) / 100, (giroTest ? 'TEST ' : '') + d.nummer)) : '',
       giroFehlt: this.state.typ === 'rechnung' && !Z_RG_INFO && !IBAN_OK(g.iban),
-      giroText: IBAN_OK(g.iban) ? 'Mit der Banking-App scannen (GiroCode), Betrag und Verwendungszweck sind schon eingetragen' : 'Der GiroCode erscheint, sobald unter Firma & Kasse eine gültige IBAN eingetragen ist',
+      giroText: giroTest ? 'Test-GiroCode mit Muster-IBAN: lässt sich mit der Banking-App scannen, bitte nicht überweisen' : IBAN_OK(g.iban) ? 'Mit der Banking-App scannen (GiroCode), Betrag und Verwendungszweck sind schon eingetragen' : 'Der GiroCode erscheint, sobald unter Firma & Kasse eine gültige IBAN eingetragen ist',
       giroBetrag: d.summe + ' · ' + d.nummer,
       hatDank: !!g.dankText && (this.state.typ === 'beleg' || this.state.typ === 'rechnung'),
       dankText: g.dankText || '',

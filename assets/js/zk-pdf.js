@@ -298,6 +298,8 @@
         // nur bis zur Unterkante des Inhalts planen – sonst entsteht eine leere Folgeseite (wie a4Seiten, v12.64)
         var H = c.height / SKALA, inhalt = br.frei.concat(br.fest); if (inhalt.length) H = Math.min(H, Math.max.apply(null, inhalt) + 4);
         var plan = a4Plan(H, br, tab, rand, F, kopfH, fussC ? fussC.height / SKALA : 0), koepfe = [];
+        // letzte Seite ohne eigenen Inhalt (nur Restabstand) weglassen
+        while (plan.length > 1 && !inhalt.some(function (v) { var s = plan[plan.length - 1]; return v > s.y + 2 && v <= s.ende + 1; })) plan.pop();
         if (kopf) kopf.style.display = kAnz;
         return plan.reduce(function (p, s, i) {
           return p.then(function () { return kopfZeichnen(plan.length > 1 ? 'Seite ' + (i + 1) + ' von ' + plan.length : '').then(function (k) { koepfe.push(k); }); });

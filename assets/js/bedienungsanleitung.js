@@ -1,6 +1,6 @@
-// zykol.POS – Bedienungsanleitung (DE, EN, FR, ES, PT). Quelle für die Ansicht in Einstellungen und für das PDF. Stand v12.58.
+// zykol.POS – Bedienungsanleitung (DE, EN, FR, ES, PT). Quelle für die Ansicht in Einstellungen und für das PDF. Stand v12.60.
 window.ZYKOL_ANLEITUNG = {
-  "version": "v12.58",
+  "version": "v12.60",
   "meta": [
     {
       "id": "anmelden",
@@ -297,7 +297,7 @@ window.ZYKOL_ANLEITUNG = {
             "Versandarten je Dienstleister an- oder abwählen und die Uhrzeit der täglichen Abholung eintragen.",
             "Im Versand unter „Etiketten & Tracking“ „Etikett erstellen“: Mit „DHL-Sandbox (echt)“ kommt das Etikett als PDF von DHL, mit dem Aufdruck der Sandbox, nicht versandfähig."
           ],
-          "tipp": "Live-Versand ist im Prototyp gesperrt. Dieselben Angaben stehen auch im Versand unter „Dienstleister“."
+          "tipp": "Unter „Etikettformat (Original von DHL)“ wählen Sie das DHL-Format, voreingestellt ist der DHL-Aufkleber A5 (910-300-700), alternativ z. B. A4 oder Thermo 103 × 199 mm; das PDF kommt unverändert von DHL. Mit „Testetikett erstellen“ legt die Kasse in der DHL-Sandbox eine Probesendung mit Testadressen im gewählten Format an, storniert sie sofort wieder und öffnet das PDF über „Testetikett öffnen (PDF)“. Live-Versand ist im Prototyp gesperrt. Dieselben Angaben stehen auch im Versand unter „Dienstleister“."
         },
         "artikel": {
           "titel": "Artikel, Bestand und Lieferanten",
@@ -599,7 +599,7 @@ window.ZYKOL_ANLEITUNG = {
             "Select the shipping products per carrier and enter the daily pickup time.",
             "In Shipping under “Labels & tracking” tap “Create label”: with “DHL sandbox (real)” the label comes from DHL as a PDF, marked as sandbox and not valid for shipping."
           ],
-          "tipp": "Live shipping is locked in the prototype. The same details are also under “Carriers” in Shipping."
+          "tipp": "Under “Label format (DHL original)” choose the DHL format, default is the DHL sticker A5 (910-300-700), alternatively e.g. A4 or thermal 103 × 199 mm; the PDF comes unchanged from DHL. “Create test label” makes a sample shipment with test addresses in the DHL sandbox in the chosen format, cancels it right away and opens the PDF via “Open test label (PDF)”. Live shipping is locked in the prototype. The same details are also under “Carriers” in Shipping."
         },
         "artikel": {
           "titel": "Products, stock and suppliers",
@@ -901,7 +901,7 @@ window.ZYKOL_ANLEITUNG = {
             "Choisir les services par transporteur et saisir l’heure d’enlèvement quotidienne.",
             "Dans Expédition, sous « Étiquettes & suivi », « Créer l’étiquette » : avec « Sandbox DHL (réelle) », l’étiquette arrive de DHL en PDF, marquée sandbox et non valable pour l’envoi."
           ],
-          "tipp": "L’expédition réelle (live) est bloquée dans le prototype. Les mêmes données figurent aussi dans Expédition sous « Transporteurs »."
+          "tipp": "Sous « Format d’étiquette (original DHL) », choisissez le format DHL, par défaut l’étiquette DHL A5 (910-300-700), sinon p. ex. A4 ou thermique 103 × 199 mm ; le PDF arrive de DHL sans modification. « Créer une étiquette test » crée dans la sandbox DHL un envoi d’essai avec des adresses de test au format choisi, l’annule aussitôt et ouvre le PDF via « Ouvrir l’étiquette test (PDF) ». L’expédition réelle (live) est bloquée dans le prototype. Les mêmes données figurent aussi dans Expédition sous « Transporteurs »."
         },
         "artikel": {
           "titel": "Articles, stock et fournisseurs",
@@ -1203,7 +1203,7 @@ window.ZYKOL_ANLEITUNG = {
             "Elegir los servicios de cada transportista e introducir la hora de recogida diaria.",
             "En Envíos, en «Etiquetas y seguimiento», «Crear etiqueta»: con «Sandbox DHL (real)» la etiqueta llega de DHL en PDF, marcada como sandbox y no válida para enviar."
           ],
-          "tipp": "El envío real (live) está bloqueado en el prototipo. Los mismos datos están también en Envíos, en «Transportistas»."
+          "tipp": "En «Formato de etiqueta (original de DHL)» elija el formato DHL, por defecto la etiqueta DHL A5 (910-300-700), o p. ej. A4 o térmica 103 × 199 mm; el PDF llega de DHL sin cambios. «Crear etiqueta de prueba» crea en la sandbox de DHL un envío de prueba con direcciones de prueba en el formato elegido, lo anula al instante y abre el PDF con «Abrir etiqueta de prueba (PDF)». El envío real (live) está bloqueado en el prototipo. Los mismos datos están también en Envíos, en «Transportistas»."
         },
         "artikel": {
           "titel": "Artículos, existencias y proveedores",
@@ -1505,7 +1505,7 @@ window.ZYKOL_ANLEITUNG = {
             "Escolher os serviços de cada transportadora e indicar a hora de recolha diária.",
             "Em Envios, em «Etiquetas e seguimento», «Criar etiqueta»: com «Sandbox DHL (real)» a etiqueta vem da DHL em PDF, marcada como sandbox e não válida para envio."
           ],
-          "tipp": "O envio real (live) está bloqueado no protótipo. Os mesmos dados estão também em Envios, em «Transportadoras»."
+          "tipp": "Em «Formato da etiqueta (original DHL)» escolha o formato DHL, por predefinição a etiqueta DHL A5 (910-300-700), ou p. ex. A4 ou térmica 103 × 199 mm; o PDF vem da DHL sem alterações. «Criar etiqueta de teste» cria na sandbox DHL um envio de teste com moradas de teste no formato escolhido, anula-o logo e abre o PDF com «Abrir etiqueta de teste (PDF)». O envio real (live) está bloqueado no protótipo. Os mesmos dados estão também em Envios, em «Transportadoras»."
         },
         "artikel": {
           "titel": "Artigos, stock e fornecedores",

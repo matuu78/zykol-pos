@@ -3251,3 +3251,57 @@ Logo|Logótipo
     [/^DHL-Sandbox hat die Sendung (\S+) angelegt(.*)\. Mit „Etikett drucken“ das PDF von DHL öffnen\.$/, {en: 'DHL sandbox created shipment $1$2. Use “Print label” to open the PDF from DHL.', fr: 'La sandbox DHL a créé l’envoi $1$2. « Imprimer l’étiquette » ouvre le PDF de DHL.', es: 'La sandbox de DHL creó el envío $1$2. «Imprimir etiqueta» abre el PDF de DHL.', pt: 'A sandbox DHL criou o envio $1$2. «Imprimir etiqueta» abre o PDF da DHL.'}]
   ].forEach(function (m) { I.muster.push(m); });
 })();
+
+/* v12.59 DHL-Etikettformate */
+(function () {
+  var I = window.ZYKOL_I18N; if (!I) return;
+  var D = I.dict;
+  [
+    ['Etikettformat (Original von DHL)', 'Label format (DHL original)', 'Format d’étiquette (original DHL)', 'Formato de etiqueta (original de DHL)', 'Formato da etiqueta (original DHL)'],
+    ['DHL liefert das Etikett als PDF in diesem Format, die Kasse gibt es unverändert aus.', 'DHL delivers the label as a PDF in this format; the POS outputs it unchanged.', 'DHL fournit l’étiquette en PDF dans ce format ; la caisse l’imprime sans modification.', 'DHL entrega la etiqueta en PDF en este formato; la caja la emite sin cambios.', 'A DHL entrega a etiqueta em PDF neste formato; a caixa emite-a sem alterações.'],
+    ['A4 Normalpapier', 'A4 plain paper', 'A4 papier normal', 'A4 papel normal', 'A4 papel normal'],
+    ['Thermo 103 × 199 mm (910-300-610)', 'Thermal 103 × 199 mm (910-300-610)', 'Thermique 103 × 199 mm (910-300-610)', 'Térmica 103 × 199 mm (910-300-610)', 'Térmica 103 × 199 mm (910-300-610)'],
+    ['Thermo 103 × 199 mm (910-300-600)', 'Thermal 103 × 199 mm (910-300-600)', 'Thermique 103 × 199 mm (910-300-600)', 'Térmica 103 × 199 mm (910-300-600)', 'Térmica 103 × 199 mm (910-300-600)'],
+    ['Thermo 103 × 150 mm (910-300-410)', 'Thermal 103 × 150 mm (910-300-410)', 'Thermique 103 × 150 mm (910-300-410)', 'Térmica 103 × 150 mm (910-300-410)', 'Térmica 103 × 150 mm (910-300-410)'],
+    ['Thermo 103 × 150 mm (910-300-400)', 'Thermal 103 × 150 mm (910-300-400)', 'Thermique 103 × 150 mm (910-300-400)', 'Térmica 103 × 150 mm (910-300-400)', 'Térmica 103 × 150 mm (910-300-400)'],
+    ['Laser-Etikett (910-300-700)', 'Laser label (910-300-700)', 'Étiquette laser (910-300-700)', 'Etiqueta láser (910-300-700)', 'Etiqueta laser (910-300-700)'],
+    ['Laser-Etikett (910-300-710)', 'Laser label (910-300-710)', 'Étiquette laser (910-300-710)', 'Etiqueta láser (910-300-710)', 'Etiqueta laser (910-300-710)'],
+    ['Laser A6 (910-300-300)', 'Laser A6 (910-300-300)', 'Laser A6 (910-300-300)', 'Láser A6 (910-300-300)', 'Laser A6 (910-300-300)'],
+    ['100 × 70 mm (nur Kleinpaket)', '100 × 70 mm (small parcel only)', '100 × 70 mm (petit colis uniquement)', '100 × 70 mm (solo paquete pequeño)', '100 × 70 mm (só pacote pequeno)']
+  ].forEach(function (r) { D[r[0]] = {en: r[1], fr: r[2], es: r[3], pt: r[4]}; });
+})();
+(function () {
+  var I = window.ZYKOL_I18N; if (!I) return;
+  var D = I.dict;
+  [
+    ['Kleinpaket-Karton', 'Small parcel box', 'Carton petit colis', 'Caja de paquete pequeño', 'Caixa de pacote pequeno'],
+    ['Nur bis 1 kg (DHL-Vorgabe)', 'Only up to 1 kg (DHL rule)', 'Jusqu’à 1 kg seulement (règle DHL)', 'Solo hasta 1 kg (norma DHL)', 'Só até 1 kg (regra DHL)'],
+    ['Nur bis 35,3 × 25 × 8 cm – Verpackung „Kleinpaket-Karton“ oder „Versandtasche“ wählen', 'Only up to 35.3 × 25 × 8 cm – choose packaging “Small parcel box” or “Mailing bag”', 'Seulement jusqu’à 35,3 × 25 × 8 cm – choisir l’emballage « Carton petit colis » ou « Pochette d’expédition »', 'Solo hasta 35,3 × 25 × 8 cm – elija el embalaje «Caja de paquete pequeño» o «Bolsa de envío»', 'Só até 35,3 × 25 × 8 cm – escolha a embalagem «Caixa de pacote pequeno» ou «Saco de envio»']
+  ].forEach(function (r) { D[r[0]] = {en: r[1], fr: r[2], es: r[3], pt: r[4]}; });
+})();
+
+(function () {
+  var I = window.ZYKOL_I18N; if (!I) return;
+  I.dict['DHL-Aufkleber A5 (910-300-700)'] = {en: 'DHL sticker A5 (910-300-700)', fr: 'Étiquette DHL A5 (910-300-700)', es: 'Etiqueta DHL A5 (910-300-700)', pt: 'Etiqueta DHL A5 (910-300-700)'};
+})();
+(function () {
+  var I = window.ZYKOL_I18N; if (!I) return;
+  I.dict['Das DHL-PDF zu dieser Sendung ist nicht mehr da (z. B. nach dem Neuladen). Bitte Etikett stornieren und neu erstellen.'] = {en: 'The DHL PDF for this shipment is no longer available (e.g. after reloading). Please cancel the label and create it again.', fr: 'Le PDF DHL de cet envoi n’est plus disponible (p. ex. après rechargement). Annulez l’étiquette et recréez-la.', es: 'El PDF de DHL de este envío ya no está disponible (p. ej. tras recargar). Anule la etiqueta y vuelva a crearla.', pt: 'O PDF da DHL deste envio já não está disponível (p. ex. após recarregar). Anule a etiqueta e crie-a de novo.'};
+})();
+
+/* v12.60 Testetikett */
+(function () {
+  var I = window.ZYKOL_I18N; if (!I) return;
+  var D = I.dict;
+  [
+    ['Testetikett erstellen', 'Create test label', 'Créer une étiquette test', 'Crear etiqueta de prueba', 'Criar etiqueta de teste'],
+    ['Testetikett öffnen (PDF)', 'Open test label (PDF)', 'Ouvrir l’étiquette test (PDF)', 'Abrir etiqueta de prueba (PDF)', 'Abrir etiqueta de teste (PDF)'],
+    ['Testetikett wird bei der DHL-Sandbox erstellt …', 'Creating test label in the DHL sandbox …', 'Création de l’étiquette test dans la sandbox DHL …', 'Creando etiqueta de prueba en la sandbox de DHL …', 'A criar etiqueta de teste na sandbox DHL …'],
+    ['DHL-Testetikett', 'DHL test label', 'Étiquette test DHL', 'Etiqueta de prueba DHL', 'Etiqueta de teste DHL']
+  ].forEach(function (r) { D[r[0]] = {en: r[1], fr: r[2], es: r[3], pt: r[4]}; });
+  [
+    [/^Testetikett (\S+) · Format (\S+) · bei DHL wieder storniert$/, {en: 'Test label $1 · format $2 · cancelled again at DHL', fr: 'Étiquette test $1 · format $2 · annulée chez DHL', es: 'Etiqueta de prueba $1 · formato $2 · anulada de nuevo en DHL', pt: 'Etiqueta de teste $1 · formato $2 · anulada de novo na DHL'}],
+    [/^Testetikett (\S+) · Format (\S+)$/, {en: 'Test label $1 · format $2', fr: 'Étiquette test $1 · format $2', es: 'Etiqueta de prueba $1 · formato $2', pt: 'Etiqueta de teste $1 · formato $2'}],
+    [/^DHL-Sandbox: kein Etikett erhalten$/, {en: 'DHL sandbox: no label received', fr: 'Sandbox DHL : aucune étiquette reçue', es: 'Sandbox de DHL: no se recibió etiqueta', pt: 'Sandbox DHL: nenhuma etiqueta recebida'}]
+  ].forEach(function (m) { I.muster.push(m); });
+})();

@@ -76,22 +76,58 @@ $in = json_decode(file_get_contents('php://input'), true) ?: [];
 $aktion = $in['aktion'] ?? '';
 
 if ($aktion === 'pruefen') {
-  // Testsendung nur prüfen lassen (validate=true): weist API-Key, Sandbox-Benutzer und Abrechnungsnummer nach, es entsteht keine Sendung
-  $abs = adresse($in['absender'] ?? []);
-  if (empty($abs['postalCode'])) $abs = ['name1' => 'zykol GmbH', 'addressStreet' => 'Sträßchensweg', 'addressHouse' => '10', 'postalCode' => '53113', 'city' => 'Bonn', 'country' => 'DEU'];
-  $emp = ['name1' => 'DHL Testempfänger', 'addressStreet' => 'Charles-de-Gaulle-Str.', 'addressHouse' => '20', 'postalCode' => '53113', 'city' => 'Bonn', 'country' => 'DEU'];
-  $s = sendung(['product' => 'V01PAK', 'refNo' => 'zykol Verbindungstest', 'shipper' => $abs, 'consignee' => $emp, 'details' => ['weight' => ['value' => 1]]]);
+  // Schritt 1: Testsendung mit fester, gültiger Adresse (DHL-Zentrale Bonn) nur prüfen lassen (validate=true):
+  // weist API-Key, Sandbox-Benutzer und Abrechnungsnummer nach, es entsteht keine Sendung
+  $bonn = ['addressStreet' => 'Charles-de-Gaulle-Str.', 'addressHouse' => '20', 'postalCode' => '53113', 'city' => 'Bonn', 'country' => 'DEU'];
+  $emp = ['name1' => 'DHL Testempfänger'] + $bonn;
+  $s = sendung(['product' => 'V01PAK', 'refNo' => 'zykol Verbindungstest', 'shipper' => ['name1' => 'zykol Verbindungstest'] + $bonn, 'consignee' => $emp, 'details' => ['weight' => ['value' => 1]]]);
   [$code, $j] = dhl('POST', '/orders?validate=true', ['profile' => PROFIL, 'shipments' => [$s]]);
-  antwort(['ok' => $code >= 200 && $code < 300, 'http' => $code, 'meldung' => meldung($j, $code)]);
+  if ($code < 200 || $code >= 300) antwort(['ok' => false, 'http' => $code, 'meldung' => 'Zugang: ' . meldung($j, $code)]);
+  if (($K['sandbox_testabsender'] ?? true) !== false) antwort(['ok' => true, 'http' => $code, 'meldung' => 'Zugang in Ordnung · Absender auf Etiketten: Testadresse Charles-de-Gaulle-Str. 20, 53113 Bonn']);
+  // Schritt 2: Absenderadresse aus „Firma & Kasse“ prüfen; ein Fehler dort betrifft nur die Adresse, nicht den Zugang
+  $abs = adresse($in['absender'] ?? []);
+  if (empty($abs['postalCode'])) antwort(['ok' => true, 'http' => $code, 'meldung' => 'Zugang in Ordnung. Absenderadresse unter Einstellungen → Firma & Kasse fehlt noch.']);
+  $s['shipper'] = $abs;
+  [$c2, $j2] = dhl('POST', '/orders?validate=true', ['profile' => PROFIL, 'shipments' => [$s]]);
+  if ($c2 >= 200 && $c2 < 300) antwort(['ok' => true, 'http' => $c2, 'meldung' => 'Zugang und Absenderadresse in Ordnung']);
+  antwort(['ok' => true, 'http' => $c2, 'adresseOk' => false, 'meldung' => 'Zugang in Ordnung, aber DHL kennt die Absenderadresse nicht (' . meldung($j2, $c2) . '). Bitte unter Einstellungen → Firma & Kasse Straße, Hausnummer, PLZ und Ort prüfen.']);
 }
 
 if ($aktion === 'etikett') {
   $s = sendung($in['sendung'] ?? []);
-  $q = http_build_query(['docFormat' => 'PDF', 'printFormat' => $K['druckformat'] ?? '910-300-610', 'includeDocs' => 'include']);
+  // Sandbox: Absender ist standardmäßig die feste Testadresse (DHL-Zentrale Bonn), der Name bleibt aus „Firma & Kasse“.
+  // Mit 'sandbox_testabsender' => false in dhl-konfig.php wird die eigene Adresse aus „Firma & Kasse“ verwendet.
+  if (($K['sandbox_testabsender'] ?? true) !== false) {
+    $s['shipper'] = ['name1' => $s['shipper']['name1'] ?? 'zykol', 'addressStreet' => 'Charles-de-Gaulle-Str.', 'addressHouse' => '20', 'postalCode' => '53113', 'city' => 'Bonn', 'country' => 'DEU'];
+  }
+  // Original-Etikettformate von DHL (printFormat); das PDF wird unverändert weitergegeben
+  $formate = ['A4', '910-300-600', '910-300-610', '910-300-700', '910-300-700-oz', '910-300-710', '910-300-300', '910-300-300-oz', '910-300-400', '910-300-410', '100x70mm'];
+  $fmt = in_array($in['druckformat'] ?? '', $formate, true) ? $in['druckformat'] : ($K['druckformat'] ?? '910-300-700');
+  if ($fmt === '100x70mm' && $s['product'] !== 'V62KP') $fmt = 'A4'; // 100 × 70 mm gibt es bei DHL nur für Kleinpaket
+  $q = http_build_query(['docFormat' => 'PDF', 'printFormat' => $fmt, 'includeDocs' => 'include']);
   [$code, $j] = dhl('POST', '/orders?' . $q, ['profile' => PROFIL, 'shipments' => [$s]]);
   $it = $j['items'][0] ?? [];
   $ok = $code >= 200 && $code < 300 && !empty($it['shipmentNo']);
   antwort(['ok' => $ok, 'http' => $code, 'sendung' => $it['shipmentNo'] ?? '', 'etikett' => $it['label']['b64'] ?? '', 'meldung' => $ok ? '' : meldung($j, $code)]);
+}
+
+if ($aktion === 'testetikett') {
+  // Testetikett: echte Sandbox-Sendung mit fester Test-Absender- und Empfängeradresse im gewählten Format, danach sofort storniert
+  $formate = ['A4', '910-300-600', '910-300-610', '910-300-700', '910-300-700-oz', '910-300-710', '910-300-300', '910-300-300-oz', '910-300-400', '910-300-410', '100x70mm'];
+  $fmt = in_array($in['druckformat'] ?? '', $formate, true) ? $in['druckformat'] : ($K['druckformat'] ?? '910-300-700');
+  $produkt = $fmt === '100x70mm' ? 'V62KP' : (in_array($in['produkt'] ?? '', PRODUKTE, true) ? $in['produkt'] : 'V01PAK');
+  if ($produkt === 'V53WPAK') $produkt = 'V01PAK';
+  $bonn = ['addressStreet' => 'Charles-de-Gaulle-Str.', 'addressHouse' => '20', 'postalCode' => '53113', 'city' => 'Bonn', 'country' => 'DEU'];
+  $name = mb_substr((string)($in['absenderName'] ?? 'zykol'), 0, 50) ?: 'zykol';
+  $s = sendung(['product' => $produkt, 'refNo' => 'zykol Testetikett', 'shipper' => ['name1' => $name] + $bonn, 'consignee' => ['name1' => 'DHL Testempfänger'] + $bonn,
+    'details' => ['weight' => ['value' => $produkt === 'V62KP' ? 0.5 : 1]]]);
+  if ($produkt === 'V62KP') $s['details']['dim'] = ['uom' => 'cm', 'length' => 30, 'width' => 20, 'height' => 5];
+  $q = http_build_query(['docFormat' => 'PDF', 'printFormat' => $fmt, 'includeDocs' => 'include']);
+  [$code, $j] = dhl('POST', '/orders?' . $q, ['profile' => PROFIL, 'shipments' => [$s]]);
+  $it = $j['items'][0] ?? [];
+  if (!($code >= 200 && $code < 300 && !empty($it['shipmentNo']))) antwort(['ok' => false, 'http' => $code, 'meldung' => meldung($j, $code)]);
+  [$c2] = dhl('DELETE', '/orders?' . http_build_query(['profile' => PROFIL, 'shipment' => $it['shipmentNo']]));
+  antwort(['ok' => true, 'sendung' => $it['shipmentNo'], 'etikett' => $it['label']['b64'] ?? '', 'format' => $fmt, 'produkt' => $produkt, 'storniert' => $c2 >= 200 && $c2 < 300]);
 }
 
 if ($aktion === 'storno') {

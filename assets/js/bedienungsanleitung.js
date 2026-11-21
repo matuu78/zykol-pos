@@ -1,6 +1,6 @@
-// zykol.POS – Bedienungsanleitung (DE, EN, FR, ES, PT). Quelle für die Ansicht in Einstellungen und für das PDF. Stand v12.44.
+// zykol.POS – Bedienungsanleitung (DE, EN, FR, ES, PT). Quelle für die Ansicht in Einstellungen und für das PDF. Stand v12.58.
 window.ZYKOL_ANLEITUNG = {
-  "version": "v12.44",
+  "version": "v12.58",
   "meta": [
     {
       "id": "anmelden",
@@ -56,6 +56,11 @@ window.ZYKOL_ANLEITUNG = {
       "id": "versand",
       "view": "versand",
       "recht": "Versand ansehen"
+    },
+    {
+      "id": "versandanbieter",
+      "view": "einstellungen",
+      "recht": "Versanddienstleister konfigurieren"
     },
     {
       "id": "artikel",
@@ -164,7 +169,7 @@ window.ZYKOL_ANLEITUNG = {
             "Automatische Aufgaben stehen mit dabei, z. B. „Werkstatt abrechnen“ (ganz oben) oder offene Urlaubsanträge für Genehmigende. Der Knopf an der Aufgabe öffnet den passenden Bereich.",
             "Eigene Aufgaben unten eintragen, einen Werktag wählen und „Hinzufügen“ antippen. Mit dem Recht „Aufgaben delegieren“ geben Sie eine Aufgabe über „Verteilen an …“ einem Kollegen."
           ],
-          "tipp": "Ohne eingetragene n8n-Adresse zeigt der Newsticker Beispielmeldungen. Admins tragen die Adresse unter Einstellungen → Shop & Lagerorte → „Kanu-News im Dashboard“ ein."
+          "tipp": "Ohne eingetragene n8n-Adresse zeigt der Newsticker Beispielmeldungen. Admins tragen die Adresse unter Einstellungen → Lagerorte & Standorte → „Kanu-News im Dashboard“ ein."
         },
         "kasse": {
           "titel": "Verkaufen an der Kasse",
@@ -266,7 +271,7 @@ window.ZYKOL_ANLEITUNG = {
             "Wird es mehr als freigegeben (Standard: ab 15 %), muss der Kunde erneut zustimmen: „Kunde genehmigt Abweichung“.",
             "Übergabe: „Übergabeprotokoll drucken“ und „Zur Abrechnung an Kasse übergeben“. Der Verkauf bekommt die Aufgabe „Werkstatt abrechnen“ auf dem Dashboard und kassiert in der Kasse. Danach Bon oder Rechnung wählen; bei Zahlart Rechnung ist die Rechnung Pflicht, „Rechnung zum Bon“ erzeugt nachträglich eine Rechnung ohne neue Buchung."
           ],
-          "tipp": "Für Fremdprodukte druckt „QR-Etikett drucken“ ein Etikett nur mit QR-Code und Shopname. Der Scan öffnet die Produktakte. Stundensatz, Freigabegrenze und Arbeitsschritt-Katalog stehen unter Einstellungen → Shop & Lagerorte."
+          "tipp": "Für Fremdprodukte druckt „QR-Etikett drucken“ ein Etikett nur mit QR-Code und Shopname. Der Scan öffnet die Produktakte. Stundensatz, Freigabegrenze und Arbeitsschritt-Katalog stehen unter Einstellungen → Lagerorte & Standorte."
         },
         "versand": {
           "titel": "Versand",
@@ -279,7 +284,20 @@ window.ZYKOL_ANLEITUNG = {
             "Reiter „Retouren“: „Retoure anlegen“ oder „Retoure mit Etikett anlegen“. Beim Eintreffen „Eingang buchen“ und die Ware als „Einwandfrei“ (zurück ins Lager) oder „Beschädigt“ einstufen.",
             "Reiter „Dienstleister“: Zugänge zu DHL, UPS und DPD eintragen und „Verbindung testen“."
           ],
-          "tipp": "Die Etiketten sind Nachbildungen der Dienstleister-Vorlagen mit dem Aufdruck MUSTER. Die Anbindung an DHL, UPS und DPD ist im Prototyp simuliert."
+          "tipp": "Die Etiketten sind Nachbildungen der Dienstleister-Vorlagen mit dem Aufdruck MUSTER. UPS und DPD sind im Prototyp simuliert. DHL lässt sich unter Einstellungen → Versand mit der echten DHL-Sandbox testen."
+        },
+        "versandanbieter": {
+          "titel": "Versanddienstleister anbinden",
+          "intro": "DHL, UPS und DPD für den Versand einrichten. DHL lässt sich mit der echten DHL-Developer-Sandbox testen.",
+          "schritte": [
+            "„Einstellungen“ öffnen und ganz vorne den Reiter oder die Kachel „Versand“ wählen.",
+            "Je Dienstleister mit „Aktiv“ oder „Inaktiv“ festlegen, ob er im Versand zur Auswahl steht. Neu eingerichtet ist nur DHL aktiv, UPS und DPD sind aus.",
+            "DHL: unter „Anbindung“ „Simuliert“ (Muster-Etiketten) oder „DHL-Sandbox (echt)“ wählen. Die Sandbox spricht über den Server mit der DHL Developer API, die Zugangsdaten liegen nur auf dem Server.",
+            "„Verbindung testen“ antippen. Grün heißt: Zugang geprüft. Eine rote Meldung nennt, was fehlt oder was DHL zurückmeldet.",
+            "Versandarten je Dienstleister an- oder abwählen und die Uhrzeit der täglichen Abholung eintragen.",
+            "Im Versand unter „Etiketten & Tracking“ „Etikett erstellen“: Mit „DHL-Sandbox (echt)“ kommt das Etikett als PDF von DHL, mit dem Aufdruck der Sandbox, nicht versandfähig."
+          ],
+          "tipp": "Live-Versand ist im Prototyp gesperrt. Dieselben Angaben stehen auch im Versand unter „Dienstleister“."
         },
         "artikel": {
           "titel": "Artikel, Bestand und Lieferanten",
@@ -292,7 +310,7 @@ window.ZYKOL_ANLEITUNG = {
             "„Umlagern“ verschiebt Ware zwischen Lagerorten, z. B. vom Lager auf die Verkaufsfläche. Der Reiter „Lager & Historie“ zeigt Mengen je Ort und jede Bewegung.",
             "„Lieferanten“: Stammdaten, Ansprechpartner, Konditionen, Lieferzeit und offene Bestellungen je Hersteller. „Lieferant hinzufügen“ legt einen neuen an."
           ],
-          "tipp": "Die Lagerorte richten Admin und Filialleitung unter Einstellungen → Shop & Lagerorte ein. Orte lassen sich nur deaktivieren, nicht löschen, damit die Historie erhalten bleibt."
+          "tipp": "Die Lagerorte richten Admin und Filialleitung unter Einstellungen → Lagerorte & Standorte ein. Orte lassen sich nur deaktivieren, nicht löschen, damit die Historie erhalten bleibt."
         },
         "etiketten": {
           "titel": "Verkaufte Boote, Paddel-IDs und QR-Etiketten",
@@ -324,7 +342,7 @@ window.ZYKOL_ANLEITUNG = {
             "Für Firmen, Vereine, Verbände und Schulen entsteht eine ZUGFeRD-Rechnung: ein PDF mit eingebetteter XML-Datei.",
             "Für Kunden vom Typ „Öffentliche Hand“ entsteht eine XRechnung. Dafür muss in der Kundenakte die Leitweg-ID eingetragen sein.",
             "In der Rechnungsliste zeigt ein Haken, ob die E-Rechnung gültig ist.",
-            "Unter Einstellungen → E-Rechnung sehen Admins das ZUGFeRD-Profil, die XRechnung-Syntax, die Pflichtangaben des Verkäufers (aus Einstellungen → Shop) und die Übermittlung."
+            "Unter Einstellungen → E-Rechnung sehen Admins das ZUGFeRD-Profil, die XRechnung-Syntax, die Pflichtangaben des Verkäufers (aus Einstellungen → Firma & Kasse) und die Übermittlung."
           ],
           "tipp": "Die Prüfung (KoSIT) und der Versand über Peppol sind im Prototyp simuliert. Das ZUGFeRD-PDF ist noch nicht PDF/A-3-konform."
         },
@@ -339,7 +357,7 @@ window.ZYKOL_ANLEITUNG = {
             "Genehmigter Urlaub und Ausschreibungsfristen erscheinen automatisch.",
             "Reiter „Schichtplan“: zeigt, wer wann arbeitet. Er ist nur zur Ansicht; geplant wird unter Einstellungen → Benutzer & Rollen."
           ],
-          "tipp": "Den Kalender der mobilen Kasse sehen Sie, wenn Sie in der Fußleiste die Kasse wechseln. Den Ort für das Wetter legen Admins unter Einstellungen → Shop & Lagerorte fest."
+          "tipp": "Den Kalender der mobilen Kasse sehen Sie, wenn Sie in der Fußleiste die Kasse wechseln. Den Ort für das Wetter legen Admins unter Einstellungen → Lagerorte & Standorte fest."
         },
         "zeiterfassung": {
           "titel": "Arbeitszeiterfassung und Urlaub",
@@ -352,7 +370,7 @@ window.ZYKOL_ANLEITUNG = {
             "Genehmigen (Admin, Filialleitung, Teamleitung): Unter „Offene Urlaubsanträge“ „Genehmigen“ oder „Ablehnen“ antippen. Genehmigter Urlaub steht im Kalender; offene Anträge erscheinen auf dem Dashboard.",
             "Mit dem Recht „Urlaubsanspruch pflegen“ Anspruch, Vorjahresrest und Arbeitstage je Woche für alle Mitarbeitenden eintragen."
           ],
-          "tipp": "Das Bundesland je Standort (Standard Berlin) stellen Sie unter Einstellungen → Shop & Lagerorte → „Standorte & Feiertage“ ein."
+          "tipp": "Das Bundesland je Standort (Standard Berlin) stellen Sie unter Einstellungen → Lagerorte & Standorte → „Standorte & Feiertage“ ein."
         },
         "transaktionen": {
           "titel": "Transaktionen",
@@ -382,8 +400,9 @@ window.ZYKOL_ANLEITUNG = {
           "schritte": [
             "Drucker, Barcode-Scanner, TSE & Kassensicherung, ERP-Anbindung sowie Webshops & API einrichten. Verbindungen sind im Prototyp simuliert.",
             "Benutzer & Rollen: Benutzer anlegen, Kassen zuordnen, PINs vergeben, Rechte in der Matrix setzen und den Schichtplan planen. Rollen: Admin, Filialleitung, Teamleitung, Verkauf, Aushilfe, Einkauf und Werkstatt (Technik).",
-            "Shop: Firmendaten, Logo, Akzentfarbe, Öffnungszeiten, Nummernkreise und Texte für alle Belege. Dokumentvorlagen: Belege, Rechnungen und Etiketten prüfen.",
-            "Shop & Lagerorte: Lagerorte in bis zu vier Ebenen, Werkstatt (Stundensatz, Freigabegrenze, Arbeitsschritte), Standorte & Feiertage, „Kanu-News im Dashboard“ (n8n-Adresse, Verbindung testen) und „Wetter im Kalender“ (Ort, An/Aus).",
+            "Firma & Kasse: Firmendaten, Logo, Akzentfarbe, Öffnungszeiten, Nummernkreise und Texte für alle Belege. Dokumentvorlagen: Belege, Rechnungen und Etiketten prüfen.",
+            "Lagerorte & Standorte: Lagerorte in bis zu vier Ebenen, Werkstatt (Stundensatz, Freigabegrenze, Arbeitsschritte), Standorte & Feiertage, „Kanu-News im Dashboard“ (n8n-Adresse, Verbindung testen) und „Wetter im Kalender“ (Ort, An/Aus).",
+            "Versand: DHL, UPS und DPD mit Zugangsdaten anbinden, Sandbox oder Live wählen und die Verbindung testen. Dieselben Angaben stehen im Versand unter „Dienstleister“.",
             "Zahlungsarten: Karte, Bar, PayPal, Rechnung, Gutschein und Vorkasse ein- und ausschalten, sortieren und die Anbindung testen. E-Rechnung: ZUGFeRD-Profil, XRechnung-Syntax und Übermittlung.",
             "Admin (nur root): Systemsprache und Sprache je Benutzer, Systemprotokoll, Datenbank & Backup.",
             "Die Reihenfolge des Menüs ändern Sie unten in der Seitenleiste mit „Menü sortieren“; „Standard wiederherstellen“ setzt sie zurück. Das Dashboard bleibt immer oben."
@@ -452,7 +471,7 @@ window.ZYKOL_ANLEITUNG = {
             "Automatic tasks are included, e.g. “Bill workshop orders” (at the top) or open leave requests for approvers. The button on the task opens the right area.",
             "Add your own tasks at the bottom, choose a working day and tap “Add”. With the permission “Delegate tasks” you can hand a task to a colleague via “Assign to …”."
           ],
-          "tipp": "Without an n8n address the ticker shows sample news. Admins enter the address under Settings → Shop & storage locations → “Canoe news on the dashboard”."
+          "tipp": "Without an n8n address the ticker shows sample news. Admins enter the address under Settings → Storage locations & sites → “Canoe news on the dashboard”."
         },
         "kasse": {
           "titel": "Selling at the register",
@@ -554,7 +573,7 @@ window.ZYKOL_ANLEITUNG = {
             "If the cost exceeds the approved amount (default: from 15 %), the customer has to approve again: “Customer approves deviation”.",
             "Handover: “Print handover report” and “Hand over to till for billing”. Sales gets the task “Bill workshop orders” on the dashboard and charges in the register. Then choose receipt or invoice; with payment method invoice the invoice is mandatory, and “Invoice for receipt” creates an invoice afterwards without a new booking."
           ],
-          "tipp": "For third-party products, “Print QR label” prints a label with just a QR code and the shop name. Scanning it opens the product file. Hourly rate, approval limit and work-step catalogue are under Settings → Shop & storage locations."
+          "tipp": "For third-party products, “Print QR label” prints a label with just a QR code and the shop name. Scanning it opens the product file. Hourly rate, approval limit and work-step catalogue are under Settings → Storage locations & sites."
         },
         "versand": {
           "titel": "Shipping",
@@ -567,7 +586,20 @@ window.ZYKOL_ANLEITUNG = {
             "Tab “Returns”: “Create return” or “Create return with label”. On arrival “Book receipt” and grade the goods as “Fine” (back to stock) or “Damaged”.",
             "Tab “Carriers”: enter the DHL, UPS and DPD accounts and “Test connection”."
           ],
-          "tipp": "The labels are replicas of the carrier templates printed MUSTER (sample). The DHL, UPS and DPD connection is simulated in the prototype."
+          "tipp": "The labels are replicas of the carrier templates printed MUSTER (sample). UPS and DPD are simulated in the prototype. DHL can be tested with the real DHL sandbox under Settings → Shipping."
+        },
+        "versandanbieter": {
+          "titel": "Connecting shipping carriers",
+          "intro": "Set up DHL, UPS and DPD for shipping. DHL can be tested against the real DHL Developer sandbox.",
+          "schritte": [
+            "Open “Settings” and choose the “Shipping” tab or tile at the very front.",
+            "For each carrier, choose “Active” or “Inactive” to decide whether it is offered in Shipping. On a new setup only DHL is active, UPS and DPD are off.",
+            "DHL: under “Connection” choose “Simulated” (sample labels) or “DHL sandbox (real)”. The sandbox talks to the DHL Developer API via the server; the credentials are stored on the server only.",
+            "Tap “Test connection”. Green means the access was checked. A red message says what is missing or what DHL reports.",
+            "Select the shipping products per carrier and enter the daily pickup time.",
+            "In Shipping under “Labels & tracking” tap “Create label”: with “DHL sandbox (real)” the label comes from DHL as a PDF, marked as sandbox and not valid for shipping."
+          ],
+          "tipp": "Live shipping is locked in the prototype. The same details are also under “Carriers” in Shipping."
         },
         "artikel": {
           "titel": "Products, stock and suppliers",
@@ -580,7 +612,7 @@ window.ZYKOL_ANLEITUNG = {
             "“Transfer” moves goods between locations, e.g. from storage to the sales floor. The tab “Stock & history” shows quantities per location and every movement.",
             "“Suppliers”: master data, contacts, terms, delivery time and open orders per manufacturer. “Add supplier” creates a new one."
           ],
-          "tipp": "Admin and store manager set up storage locations under Settings → Shop & storage locations. Locations can only be deactivated, not deleted, so the history is kept."
+          "tipp": "Admin and store manager set up storage locations under Settings → Storage locations & sites. Locations can only be deactivated, not deleted, so the history is kept."
         },
         "etiketten": {
           "titel": "Boats sold, paddle IDs and QR labels",
@@ -612,7 +644,7 @@ window.ZYKOL_ANLEITUNG = {
             "For companies, clubs, associations and schools a ZUGFeRD invoice is created: a PDF with an embedded XML file.",
             "For customers of type “Public sector” an XRechnung is created. The routing ID (Leitweg-ID) must be entered in the customer file.",
             "In the invoice list a tick shows whether the e-invoice is valid.",
-            "Under Settings → E-invoice admins see the ZUGFeRD profile, the XRechnung syntax, the mandatory seller details (from Settings → Shop) and the transmission."
+            "Under Settings → E-invoice admins see the ZUGFeRD profile, the XRechnung syntax, the mandatory seller details (from Settings → Company & POS) and the transmission."
           ],
           "tipp": "Validation (KoSIT) and Peppol transmission are simulated in the prototype. The ZUGFeRD PDF is not yet PDF/A-3 compliant."
         },
@@ -627,7 +659,7 @@ window.ZYKOL_ANLEITUNG = {
             "Approved leave and tender deadlines appear automatically.",
             "Tab “Shift plan”: shows who works when. It is view-only; planning is done under Settings → Users & roles."
           ],
-          "tipp": "To see the calendar of the mobile register, switch register in the footer. Admins set the weather location under Settings → Shop & storage locations."
+          "tipp": "To see the calendar of the mobile register, switch register in the footer. Admins set the weather location under Settings → Storage locations & sites."
         },
         "zeiterfassung": {
           "titel": "Time tracking and leave",
@@ -640,7 +672,7 @@ window.ZYKOL_ANLEITUNG = {
             "Approve (admin, store manager, team lead): under “Open leave requests” tap “Approve” or “Reject”. Approved leave appears in the calendar; open requests appear on the dashboard.",
             "With the permission “Maintain leave entitlement”, enter entitlement, carry-over and working days per week for all staff."
           ],
-          "tipp": "Set the federal state per location (default Berlin) under Settings → Shop & storage locations → “Locations & public holidays”."
+          "tipp": "Set the federal state per location (default Berlin) under Settings → Storage locations & sites → “Locations & public holidays”."
         },
         "transaktionen": {
           "titel": "Transactions",
@@ -670,8 +702,9 @@ window.ZYKOL_ANLEITUNG = {
           "schritte": [
             "Set up printers, barcode scanners, TSE & register security, ERP connection and web shops & API. Connections are simulated in the prototype.",
             "Users & roles: create users, assign registers, set PINs, set permissions in the matrix and plan the shift plan. Roles: admin, store manager, team lead, sales, temp, purchasing and workshop (technician).",
-            "Shop: company details, logo, accent colour, opening hours, number ranges and texts for all documents. Document templates: check receipts, invoices and labels.",
-            "Shop & storage locations: storage locations in up to four levels, workshop (hourly rate, approval limit, work steps), locations & public holidays, “Canoe news on the dashboard” (n8n address, test connection) and “Weather in the calendar” (location, on/off).",
+            "Company & POS: company details, logo, accent colour, opening hours, number ranges and texts for all documents. Document templates: check receipts, invoices and labels.",
+            "Storage locations & sites: storage locations in up to four levels, workshop (hourly rate, approval limit, work steps), locations & public holidays, “Canoe news on the dashboard” (n8n address, test connection) and “Weather in the calendar” (location, on/off).",
+            "Shipping: connect DHL, UPS and DPD with credentials, choose sandbox or live and test the connection. The same details are under “Carriers” in Shipping.",
             "Payment methods: switch card, cash, PayPal, invoice, voucher and prepayment on or off, sort them and test the connection. E-invoice: ZUGFeRD profile, XRechnung syntax and transmission.",
             "Admin (root only): system language and language per user, system log, database & backup.",
             "Change the menu order at the bottom of the sidebar with “Sort menu”; “Restore default” resets it. The dashboard always stays at the top."
@@ -740,7 +773,7 @@ window.ZYKOL_ANLEITUNG = {
             "Des tâches automatiques s’ajoutent, p. ex. « Facturer l’atelier » (tout en haut) ou les demandes de congé en attente pour les personnes qui approuvent. Le bouton de la tâche ouvre la bonne zone.",
             "Ajoutez vos propres tâches en bas, choisissez un jour ouvré et touchez « Ajouter ». Avec le droit « Déléguer des tâches », confiez une tâche à un collègue via « Attribuer à … »."
           ],
-          "tipp": "Sans adresse n8n, le fil affiche des actus d’exemple. Les admins saisissent l’adresse sous Paramètres → Boutique & emplacements → « Actus canoë sur le tableau de bord »."
+          "tipp": "Sans adresse n8n, le fil affiche des actus d’exemple. Les admins saisissent l’adresse sous Paramètres → Emplacements & sites → « Actus canoë sur le tableau de bord »."
         },
         "kasse": {
           "titel": "Vendre en caisse",
@@ -842,7 +875,7 @@ window.ZYKOL_ANLEITUNG = {
             "Si le coût dépasse le montant accepté (par défaut dès 15 %), le client doit accepter à nouveau : « Le client accepte l’écart ».",
             "Remise : « Imprimer le procès-verbal de remise » et « Transmettre à la caisse pour facturation ». La vente reçoit la tâche « Facturer l’atelier » sur le tableau de bord et encaisse en caisse. Choisissez ensuite ticket ou facture ; avec le paiement sur facture, la facture est obligatoire, et « Facture pour le ticket » crée une facture après coup sans nouvelle écriture."
           ],
-          "tipp": "Pour les produits tiers, « Imprimer l’étiquette QR » imprime une étiquette avec seulement un QR code et le nom de la boutique. Le scan ouvre la fiche produit. Taux horaire, seuil d’accord et catalogue d’opérations se trouvent sous Paramètres → Boutique & emplacements."
+          "tipp": "Pour les produits tiers, « Imprimer l’étiquette QR » imprime une étiquette avec seulement un QR code et le nom de la boutique. Le scan ouvre la fiche produit. Taux horaire, seuil d’accord et catalogue d’opérations se trouvent sous Paramètres → Emplacements & sites."
         },
         "versand": {
           "titel": "Expédition",
@@ -855,7 +888,20 @@ window.ZYKOL_ANLEITUNG = {
             "Onglet « Retours » : « Créer un retour » ou « Créer un retour avec étiquette ». À l’arrivée, « Enregistrer l’entrée » et classez la marchandise « En parfait état » (retour en stock) ou « Endommagée ».",
             "Onglet « Transporteurs » : saisissez les accès DHL, UPS et DPD et « Tester la connexion »."
           ],
-          "tipp": "Les étiquettes reproduisent les modèles des transporteurs avec la mention MUSTER (exemple). La connexion à DHL, UPS et DPD est simulée dans le prototype."
+          "tipp": "Les étiquettes reproduisent les modèles des transporteurs avec la mention MUSTER (exemple). UPS et DPD sont simulés dans le prototype. DHL peut être testé avec la vraie sandbox DHL sous Paramètres → Expédition."
+        },
+        "versandanbieter": {
+          "titel": "Connecter les transporteurs",
+          "intro": "Configurer DHL, UPS et DPD pour l’expédition. DHL peut être testé avec la vraie sandbox DHL Developer.",
+          "schritte": [
+            "Ouvrir « Paramètres » et choisir tout devant l’onglet ou la tuile « Expédition ».",
+            "Pour chaque transporteur, choisir « Actif » ou « Inactif » pour décider s’il est proposé dans Expédition. À la mise en place, seul DHL est actif ; UPS et DPD sont désactivés.",
+            "DHL : sous « Connexion », choisir « Simulé » (étiquettes d’exemple) ou « Sandbox DHL (réelle) ». La sandbox communique avec l’API DHL Developer via le serveur ; les identifiants restent sur le serveur.",
+            "Appuyer sur « Tester la connexion ». Vert : accès vérifié. Un message rouge indique ce qui manque ou ce que DHL répond.",
+            "Choisir les services par transporteur et saisir l’heure d’enlèvement quotidienne.",
+            "Dans Expédition, sous « Étiquettes & suivi », « Créer l’étiquette » : avec « Sandbox DHL (réelle) », l’étiquette arrive de DHL en PDF, marquée sandbox et non valable pour l’envoi."
+          ],
+          "tipp": "L’expédition réelle (live) est bloquée dans le prototype. Les mêmes données figurent aussi dans Expédition sous « Transporteurs »."
         },
         "artikel": {
           "titel": "Articles, stock et fournisseurs",
@@ -868,7 +914,7 @@ window.ZYKOL_ANLEITUNG = {
             "« Transférer » déplace la marchandise entre emplacements, p. ex. de la réserve vers la surface de vente. L’onglet « Stock & historique » montre les quantités par emplacement et chaque mouvement.",
             "« Fournisseurs » : données de base, contacts, conditions, délai de livraison et commandes ouvertes par fabricant. « Ajouter un fournisseur » en crée un nouveau."
           ],
-          "tipp": "L’admin et le responsable de magasin configurent les emplacements sous Paramètres → Boutique & emplacements. Les emplacements peuvent seulement être désactivés, pas supprimés, pour conserver l’historique."
+          "tipp": "L’admin et le responsable de magasin configurent les emplacements sous Paramètres → Emplacements & sites. Les emplacements peuvent seulement être désactivés, pas supprimés, pour conserver l’historique."
         },
         "etiketten": {
           "titel": "Bateaux vendus, ID de pagaie et étiquettes QR",
@@ -900,7 +946,7 @@ window.ZYKOL_ANLEITUNG = {
             "Pour les entreprises, clubs, fédérations et écoles, une facture ZUGFeRD est créée : un PDF avec un fichier XML intégré.",
             "Pour les clients de type « Secteur public », une XRechnung est créée. La Leitweg-ID doit être saisie dans le dossier client.",
             "Dans la liste des factures, une coche indique si la facture électronique est valide.",
-            "Sous Paramètres → Facture électronique, les admins voient le profil ZUGFeRD, la syntaxe XRechnung, les mentions obligatoires du vendeur (issues de Paramètres → Boutique) et la transmission."
+            "Sous Paramètres → Facture électronique, les admins voient le profil ZUGFeRD, la syntaxe XRechnung, les mentions obligatoires du vendeur (issues de Paramètres → Entreprise & caisse) et la transmission."
           ],
           "tipp": "La validation (KoSIT) et la transmission via Peppol sont simulées dans le prototype. Le PDF ZUGFeRD n’est pas encore conforme PDF/A-3."
         },
@@ -915,7 +961,7 @@ window.ZYKOL_ANLEITUNG = {
             "Les congés approuvés et les délais d’appels d’offres apparaissent automatiquement.",
             "Onglet « Planning » : montre qui travaille quand. Il est en lecture seule ; la planification se fait sous Paramètres → Utilisateurs & rôles."
           ],
-          "tipp": "Pour voir le calendrier de la caisse mobile, changez de caisse dans le pied de page. Les admins définissent le lieu pour la météo sous Paramètres → Boutique & emplacements."
+          "tipp": "Pour voir le calendrier de la caisse mobile, changez de caisse dans le pied de page. Les admins définissent le lieu pour la météo sous Paramètres → Emplacements & sites."
         },
         "zeiterfassung": {
           "titel": "Suivi du temps et congés",
@@ -928,7 +974,7 @@ window.ZYKOL_ANLEITUNG = {
             "Approuver (admin, responsable de magasin, chef d’équipe) : sous « Demandes de congé en attente », touchez « Approuver » ou « Refuser ». Les congés approuvés figurent dans le calendrier ; les demandes ouvertes apparaissent sur le tableau de bord.",
             "Avec le droit « Gérer les droits à congé », saisissez le droit, le report et les jours travaillés par semaine pour tout le personnel."
           ],
-          "tipp": "Réglez le Land par site (par défaut Berlin) sous Paramètres → Boutique & emplacements → « Sites et jours fériés »."
+          "tipp": "Réglez le Land par site (par défaut Berlin) sous Paramètres → Emplacements & sites → « Sites et jours fériés »."
         },
         "transaktionen": {
           "titel": "Transactions",
@@ -958,8 +1004,9 @@ window.ZYKOL_ANLEITUNG = {
           "schritte": [
             "Configurez imprimantes, lecteurs de codes-barres, TSE & sécurité de caisse, connexion ERP ainsi que boutiques en ligne & API. Les connexions sont simulées dans le prototype.",
             "Utilisateurs & rôles : créez des utilisateurs, attribuez des caisses, définissez les PIN, réglez les droits dans la matrice et planifiez le planning. Rôles : admin, responsable de magasin, chef d’équipe, vente, intérimaire, achats et atelier (technique).",
-            "Boutique : coordonnées, logo, couleur d’accent, horaires, séries de numéros et textes de tous les documents. Modèles de documents : vérifier tickets, factures et étiquettes.",
-            "Boutique & emplacements : emplacements sur jusqu’à quatre niveaux, atelier (taux horaire, seuil d’accord, opérations), sites et jours fériés, « Actus canoë sur le tableau de bord » (adresse n8n, tester la connexion) et « Météo dans le calendrier » (lieu, activé/désactivé).",
+            "Entreprise & caisse : coordonnées, logo, couleur d’accent, horaires, séries de numéros et textes de tous les documents. Modèles de documents : vérifier tickets, factures et étiquettes.",
+            "Emplacements & sites : emplacements sur jusqu’à quatre niveaux, atelier (taux horaire, seuil d’accord, opérations), sites et jours fériés, « Actus canoë sur le tableau de bord » (adresse n8n, tester la connexion) et « Météo dans le calendrier » (lieu, activé/désactivé).",
+            "Expédition : connecter DHL, UPS et DPD avec les identifiants, choisir sandbox ou production et tester la connexion. Les mêmes données figurent dans Expédition sous « Transporteurs ».",
             "Moyens de paiement : activez ou désactivez carte, espèces, PayPal, facture, bon d’achat et paiement anticipé, triez-les et testez la connexion. Facture électronique : profil ZUGFeRD, syntaxe XRechnung et transmission.",
             "Admin (root uniquement) : langue du système et langue par utilisateur, journal système, base de données & sauvegarde.",
             "Modifiez l’ordre du menu en bas de la barre latérale avec « Trier le menu » ; « Rétablir par défaut » le réinitialise. Le tableau de bord reste toujours en haut."
@@ -1028,7 +1075,7 @@ window.ZYKOL_ANLEITUNG = {
             "También aparecen tareas automáticas, p. ej. «Cobrar taller» (arriba del todo) o las solicitudes de vacaciones pendientes para quien aprueba. El botón de la tarea abre el área correspondiente.",
             "Añada sus propias tareas abajo, elija un día laborable y toque «Añadir». Con el permiso «Delegar tareas» puede pasar una tarea a un compañero con «Asignar a …»."
           ],
-          "tipp": "Sin dirección n8n, el teletipo muestra noticias de ejemplo. Los administradores la introducen en Ajustes → Tienda y ubicaciones → «Noticias de canoa en el panel»."
+          "tipp": "Sin dirección n8n, el teletipo muestra noticias de ejemplo. Los administradores la introducen en Ajustes → Ubicaciones y sedes → «Noticias de canoa en el panel»."
         },
         "kasse": {
           "titel": "Vender en caja",
@@ -1130,7 +1177,7 @@ window.ZYKOL_ANLEITUNG = {
             "Si el coste supera lo aprobado (por defecto, a partir del 15 %), el cliente debe aprobar de nuevo: «El cliente aprueba la desviación».",
             "Entrega: «Imprimir acta de entrega» y «Pasar a caja para cobrar». Ventas recibe la tarea «Cobrar taller» en el panel y cobra en caja. Después elija ticket o factura; con forma de pago factura, la factura es obligatoria, y «Factura del ticket» crea después una factura sin nuevo asiento."
           ],
-          "tipp": "Para productos de terceros, «Imprimir etiqueta QR» imprime una etiqueta solo con código QR y nombre de la tienda. Al escanearla se abre la ficha del producto. Tarifa por hora, límite de aprobación y catálogo de trabajos están en Ajustes → Tienda y ubicaciones."
+          "tipp": "Para productos de terceros, «Imprimir etiqueta QR» imprime una etiqueta solo con código QR y nombre de la tienda. Al escanearla se abre la ficha del producto. Tarifa por hora, límite de aprobación y catálogo de trabajos están en Ajustes → Ubicaciones y sedes."
         },
         "versand": {
           "titel": "Envíos",
@@ -1143,7 +1190,20 @@ window.ZYKOL_ANLEITUNG = {
             "Pestaña «Devoluciones»: «Crear devolución» o «Crear devolución con etiqueta». Al llegar, «Registrar entrada» y clasifique la mercancía como «Perfecta» (vuelve al almacén) o «Dañada».",
             "Pestaña «Transportistas»: introduzca los accesos de DHL, UPS y DPD y «Probar conexión»."
           ],
-          "tipp": "Las etiquetas son réplicas de las plantillas de los transportistas con la marca MUSTER (muestra). La conexión con DHL, UPS y DPD está simulada en el prototipo."
+          "tipp": "Las etiquetas son réplicas de las plantillas de los transportistas con la marca MUSTER (muestra). UPS y DPD están simulados en el prototipo. DHL se puede probar con la sandbox real de DHL en Ajustes → Envíos."
+        },
+        "versandanbieter": {
+          "titel": "Conectar transportistas",
+          "intro": "Configurar DHL, UPS y DPD para los envíos. DHL se puede probar con la sandbox real de DHL Developer.",
+          "schritte": [
+            "Abrir «Ajustes» y elegir al principio la pestaña o el mosaico «Envíos».",
+            "Para cada transportista, elegir «Activo» o «Inactivo» para decidir si se ofrece en Envíos. En una instalación nueva solo DHL está activo; UPS y DPD están desactivados.",
+            "DHL: en «Conexión» elegir «Simulado» (etiquetas de muestra) o «Sandbox DHL (real)». La sandbox se comunica con la API de DHL Developer a través del servidor; las credenciales solo están en el servidor.",
+            "Pulsar «Probar conexión». Verde significa acceso comprobado. Un mensaje rojo indica qué falta o qué responde DHL.",
+            "Elegir los servicios de cada transportista e introducir la hora de recogida diaria.",
+            "En Envíos, en «Etiquetas y seguimiento», «Crear etiqueta»: con «Sandbox DHL (real)» la etiqueta llega de DHL en PDF, marcada como sandbox y no válida para enviar."
+          ],
+          "tipp": "El envío real (live) está bloqueado en el prototipo. Los mismos datos están también en Envíos, en «Transportistas»."
         },
         "artikel": {
           "titel": "Artículos, existencias y proveedores",
@@ -1156,7 +1216,7 @@ window.ZYKOL_ANLEITUNG = {
             "«Trasladar» mueve mercancía entre ubicaciones, p. ej. del almacén a la zona de venta. La pestaña «Existencias e historial» muestra cantidades por ubicación y cada movimiento.",
             "«Proveedores»: datos maestros, contactos, condiciones, plazo de entrega y pedidos abiertos por fabricante. «Añadir proveedor» crea uno nuevo."
           ],
-          "tipp": "Administración y encargado de tienda configuran las ubicaciones en Ajustes → Tienda y ubicaciones. Las ubicaciones solo se pueden desactivar, no borrar, para conservar el historial."
+          "tipp": "Administración y encargado de tienda configuran las ubicaciones en Ajustes → Ubicaciones y sedes. Las ubicaciones solo se pueden desactivar, no borrar, para conservar el historial."
         },
         "etiketten": {
           "titel": "Barcos vendidos, ID de palas y etiquetas QR",
@@ -1188,7 +1248,7 @@ window.ZYKOL_ANLEITUNG = {
             "Para empresas, clubes, federaciones y escuelas se crea una factura ZUGFeRD: un PDF con un archivo XML incrustado.",
             "Para clientes del tipo «Sector público» se crea una XRechnung. Para ello debe estar el Leitweg-ID en la ficha del cliente.",
             "En la lista de facturas, una marca indica si la factura electrónica es válida.",
-            "En Ajustes → Factura electrónica, los administradores ven el perfil ZUGFeRD, la sintaxis XRechnung, los datos obligatorios del vendedor (de Ajustes → Tienda) y la transmisión."
+            "En Ajustes → Factura electrónica, los administradores ven el perfil ZUGFeRD, la sintaxis XRechnung, los datos obligatorios del vendedor (de Ajustes → Empresa y caja) y la transmisión."
           ],
           "tipp": "La validación (KoSIT) y el envío por Peppol están simulados en el prototipo. El PDF ZUGFeRD aún no cumple PDF/A-3."
         },
@@ -1203,7 +1263,7 @@ window.ZYKOL_ANLEITUNG = {
             "Las vacaciones aprobadas y los plazos de licitaciones aparecen automáticamente.",
             "Pestaña «Turnos»: muestra quién trabaja y cuándo. Es solo de consulta; se planifica en Ajustes → Usuarios y roles."
           ],
-          "tipp": "Para ver el calendario de la caja móvil, cambie de caja en el pie. Los administradores fijan la localidad del tiempo en Ajustes → Tienda y ubicaciones."
+          "tipp": "Para ver el calendario de la caja móvil, cambie de caja en el pie. Los administradores fijan la localidad del tiempo en Ajustes → Ubicaciones y sedes."
         },
         "zeiterfassung": {
           "titel": "Control horario y vacaciones",
@@ -1216,7 +1276,7 @@ window.ZYKOL_ANLEITUNG = {
             "Aprobar (administración, encargado de tienda, jefe de equipo): en «Solicitudes pendientes» toque «Aprobar» o «Rechazar». Las vacaciones aprobadas aparecen en el calendario; las solicitudes pendientes, en el panel.",
             "Con el permiso «Gestionar derecho a vacaciones», introduzca derecho, resto y días laborables por semana para todo el personal."
           ],
-          "tipp": "El estado federado por ubicación (por defecto Berlín) se ajusta en Ajustes → Tienda y ubicaciones → «Sedes y festivos»."
+          "tipp": "El estado federado por ubicación (por defecto Berlín) se ajusta en Ajustes → Ubicaciones y sedes → «Sedes y festivos»."
         },
         "transaktionen": {
           "titel": "Transacciones",
@@ -1246,8 +1306,9 @@ window.ZYKOL_ANLEITUNG = {
           "schritte": [
             "Configure impresoras, lectores de códigos de barras, TSE y seguridad de caja, conexión ERP y tiendas online y API. Las conexiones están simuladas en el prototipo.",
             "Usuarios y roles: cree usuarios, asigne cajas, defina PIN, fije permisos en la matriz y planifique los turnos. Roles: administración, encargado de tienda, jefe de equipo, ventas, auxiliar, compras y taller (técnico).",
-            "Tienda: datos de la empresa, logotipo, color de acento, horarios, series de numeración y textos de todos los documentos. Plantillas de documentos: revisar tickets, facturas y etiquetas.",
-            "Tienda y ubicaciones: ubicaciones en hasta cuatro niveles, taller (tarifa por hora, límite de aprobación, trabajos), sedes y festivos, «Noticias de canoa en el panel» (dirección n8n, probar conexión) y «Tiempo en el calendario» (localidad, activado/desactivado).",
+            "Empresa y caja: datos de la empresa, logotipo, color de acento, horarios, series de numeración y textos de todos los documentos. Plantillas de documentos: revisar tickets, facturas y etiquetas.",
+            "Ubicaciones y sedes: ubicaciones en hasta cuatro niveles, taller (tarifa por hora, límite de aprobación, trabajos), sedes y festivos, «Noticias de canoa en el panel» (dirección n8n, probar conexión) y «Tiempo en el calendario» (localidad, activado/desactivado).",
+            "Envíos: conectar DHL, UPS y DPD con las credenciales, elegir sandbox o producción y probar la conexión. Los mismos datos están en Envíos, en «Transportistas».",
             "Formas de pago: active o desactive tarjeta, efectivo, PayPal, factura, vale y pago por adelantado, ordénelas y pruebe la conexión. Factura electrónica: perfil ZUGFeRD, sintaxis XRechnung y transmisión.",
             "Admin (solo root): idioma del sistema e idioma por usuario, registro del sistema, base de datos y copia de seguridad.",
             "Cambie el orden del menú abajo en la barra lateral con «Ordenar menú»; «Restaurar predeterminado» lo restablece. El panel siempre queda arriba."
@@ -1316,7 +1377,7 @@ window.ZYKOL_ANLEITUNG = {
             "Também surgem tarefas automáticas, p. ex. «Faturar oficina» (no topo) ou pedidos de férias pendentes para quem aprova. O botão da tarefa abre a área certa.",
             "Adicione as suas tarefas em baixo, escolha um dia útil e toque em «Adicionar». Com a permissão «Delegar tarefas» passe uma tarefa a um colega com «Atribuir a …»."
           ],
-          "tipp": "Sem endereço n8n, a faixa mostra notícias de exemplo. Os administradores introduzem o endereço em Definições → Loja e localizações → «Notícias de canoagem no painel»."
+          "tipp": "Sem endereço n8n, a faixa mostra notícias de exemplo. Os administradores introduzem o endereço em Definições → Localizações e locais → «Notícias de canoagem no painel»."
         },
         "kasse": {
           "titel": "Vender na caixa",
@@ -1418,7 +1479,7 @@ window.ZYKOL_ANLEITUNG = {
             "Se o custo ultrapassar o aprovado (por defeito, a partir de 15 %), o cliente tem de aprovar de novo: «Cliente aprova o desvio».",
             "Entrega: «Imprimir auto de entrega» e «Passar à caixa para faturar». As vendas recebem a tarefa «Faturar oficina» no painel e cobram na caixa. Depois escolha talão ou fatura; com o meio de pagamento fatura, a fatura é obrigatória, e «Fatura do talão» cria depois uma fatura sem novo lançamento."
           ],
-          "tipp": "Para produtos de terceiros, «Imprimir etiqueta QR» imprime uma etiqueta só com código QR e nome da loja. A leitura abre a ficha do produto. Preço por hora, limite de aprovação e catálogo de trabalhos estão em Definições → Loja e localizações."
+          "tipp": "Para produtos de terceiros, «Imprimir etiqueta QR» imprime uma etiqueta só com código QR e nome da loja. A leitura abre a ficha do produto. Preço por hora, limite de aprovação e catálogo de trabalhos estão em Definições → Localizações e locais."
         },
         "versand": {
           "titel": "Envios",
@@ -1431,7 +1492,20 @@ window.ZYKOL_ANLEITUNG = {
             "Separador «Devoluções»: «Criar devolução» ou «Criar devolução com etiqueta». À chegada, «Registar entrada» e classifique a mercadoria como «Em perfeito estado» (volta ao stock) ou «Danificada».",
             "Separador «Transportadoras»: introduza os acessos DHL, UPS e DPD e «Testar ligação»."
           ],
-          "tipp": "As etiquetas são réplicas dos modelos das transportadoras com a marca MUSTER (amostra). A ligação à DHL, UPS e DPD é simulada no protótipo."
+          "tipp": "As etiquetas são réplicas dos modelos das transportadoras com a marca MUSTER (amostra). UPS e DPD são simulados no protótipo. A DHL pode ser testada com a sandbox real da DHL em Definições → Envios."
+        },
+        "versandanbieter": {
+          "titel": "Ligar transportadoras",
+          "intro": "Configurar DHL, UPS e DPD para os envios. A DHL pode ser testada com a sandbox real da DHL Developer.",
+          "schritte": [
+            "Abrir «Definições» e escolher logo no início o separador ou o mosaico «Envios».",
+            "Para cada transportadora, escolher «Ativo» ou «Inativo» para decidir se é oferecida em Envios. Numa instalação nova só a DHL está ativa; UPS e DPD estão desligadas.",
+            "DHL: em «Ligação» escolher «Simulado» (etiquetas de exemplo) ou «Sandbox DHL (real)». A sandbox comunica com a API DHL Developer através do servidor; as credenciais ficam só no servidor.",
+            "Tocar em «Testar ligação». Verde significa acesso verificado. Uma mensagem vermelha indica o que falta ou o que a DHL responde.",
+            "Escolher os serviços de cada transportadora e indicar a hora de recolha diária.",
+            "Em Envios, em «Etiquetas e seguimento», «Criar etiqueta»: com «Sandbox DHL (real)» a etiqueta vem da DHL em PDF, marcada como sandbox e não válida para envio."
+          ],
+          "tipp": "O envio real (live) está bloqueado no protótipo. Os mesmos dados estão também em Envios, em «Transportadoras»."
         },
         "artikel": {
           "titel": "Artigos, stock e fornecedores",
@@ -1444,7 +1518,7 @@ window.ZYKOL_ANLEITUNG = {
             "«Transferir» move mercadoria entre localizações, p. ex. do armazém para a área de venda. O separador «Stock e histórico» mostra quantidades por localização e cada movimento.",
             "«Fornecedores»: dados mestres, contactos, condições, prazo de entrega e encomendas abertas por fabricante. «Adicionar fornecedor» cria um novo."
           ],
-          "tipp": "A administração e o gerente de loja configuram as localizações em Definições → Loja e localizações. As localizações só podem ser desativadas, não apagadas, para manter o histórico."
+          "tipp": "A administração e o gerente de loja configuram as localizações em Definições → Localizações e locais. As localizações só podem ser desativadas, não apagadas, para manter o histórico."
         },
         "etiketten": {
           "titel": "Barcos vendidos, ID de pagaias e etiquetas QR",
@@ -1476,7 +1550,7 @@ window.ZYKOL_ANLEITUNG = {
             "Para empresas, clubes, federações e escolas é criada uma fatura ZUGFeRD: um PDF com um ficheiro XML incorporado.",
             "Para clientes do tipo «Setor público» é criada uma XRechnung. Para isso o Leitweg-ID tem de estar na ficha do cliente.",
             "Na lista de faturas, um visto mostra se a fatura eletrónica é válida.",
-            "Em Definições → Fatura eletrónica, os administradores veem o perfil ZUGFeRD, a sintaxe XRechnung, os dados obrigatórios do vendedor (de Definições → Loja) e a transmissão."
+            "Em Definições → Fatura eletrónica, os administradores veem o perfil ZUGFeRD, a sintaxe XRechnung, os dados obrigatórios do vendedor (de Definições → Empresa e caixa) e a transmissão."
           ],
           "tipp": "A validação (KoSIT) e o envio por Peppol são simulados no protótipo. O PDF ZUGFeRD ainda não cumpre PDF/A-3."
         },
@@ -1491,7 +1565,7 @@ window.ZYKOL_ANLEITUNG = {
             "As férias aprovadas e os prazos de concursos aparecem automaticamente.",
             "Separador «Escala»: mostra quem trabalha e quando. É só de consulta; o planeamento faz-se em Definições → Utilizadores e funções."
           ],
-          "tipp": "Para ver o calendário da caixa móvel, mude de caixa no rodapé. Os administradores definem a localidade da meteorologia em Definições → Loja e localizações."
+          "tipp": "Para ver o calendário da caixa móvel, mude de caixa no rodapé. Os administradores definem a localidade da meteorologia em Definições → Localizações e locais."
         },
         "zeiterfassung": {
           "titel": "Registo de horas e férias",
@@ -1504,7 +1578,7 @@ window.ZYKOL_ANLEITUNG = {
             "Aprovar (administração, gerente de loja, chefe de equipa): em «Pedidos de férias pendentes» toque em «Aprovar» ou «Recusar». As férias aprovadas aparecem no calendário; os pedidos pendentes, no painel.",
             "Com a permissão «Gerir direito a férias», introduza direito, resto e dias úteis por semana para toda a equipa."
           ],
-          "tipp": "O estado federado por localização (predefinição Berlim) define-se em Definições → Loja e localizações → «Locais e feriados»."
+          "tipp": "O estado federado por localização (predefinição Berlim) define-se em Definições → Localizações e locais → «Locais e feriados»."
         },
         "transaktionen": {
           "titel": "Transações",
@@ -1534,8 +1608,9 @@ window.ZYKOL_ANLEITUNG = {
           "schritte": [
             "Configure impressoras, leitores de códigos de barras, TSE e segurança da caixa, ligação ERP e lojas online e API. As ligações são simuladas no protótipo.",
             "Utilizadores e funções: crie utilizadores, atribua caixas, defina PIN, defina permissões na matriz e planeie a escala. Funções: administração, gerente de loja, chefe de equipa, vendas, auxiliar, compras e oficina (técnico).",
-            "Loja: dados da empresa, logótipo, cor de destaque, horários, séries de numeração e textos de todos os documentos. Modelos de documentos: verificar talões, faturas e etiquetas.",
-            "Loja e localizações: localizações em até quatro níveis, oficina (preço por hora, limite de aprovação, trabalhos), locais e feriados, «Notícias de canoagem no painel» (endereço n8n, testar ligação) e «Meteorologia no calendário» (localidade, ligado/desligado).",
+            "Empresa e caixa: dados da empresa, logótipo, cor de destaque, horários, séries de numeração e textos de todos os documentos. Modelos de documentos: verificar talões, faturas e etiquetas.",
+            "Localizações e locais: localizações em até quatro níveis, oficina (preço por hora, limite de aprovação, trabalhos), locais e feriados, «Notícias de canoagem no painel» (endereço n8n, testar ligação) e «Meteorologia no calendário» (localidade, ligado/desligado).",
+            "Envios: ligar DHL, UPS e DPD com as credenciais, escolher sandbox ou produção e testar a ligação. Os mesmos dados estão em Envios, em «Transportadoras».",
             "Meios de pagamento: ative ou desative cartão, numerário, PayPal, fatura, vale e pré-pagamento, ordene-os e teste a ligação. Fatura eletrónica: perfil ZUGFeRD, sintaxe XRechnung e transmissão.",
             "Admin (só root): idioma do sistema e idioma por utilizador, registo do sistema, base de dados e cópia de segurança.",
             "Altere a ordem do menu em baixo na barra lateral com «Ordenar menu»; «Repor predefinição» repõe-na. O painel fica sempre no topo."

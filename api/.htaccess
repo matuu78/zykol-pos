@@ -1,0 +1,5 @@
+# zykol.POS – api/: Konfiguration nie ausliefern, nur dhl.php ist aufrufbar
+<FilesMatch "^(dhl-konfig.*\.php|.*\.bak)$">
+  Require all denied
+</FilesMatch>
+Options -Indexes

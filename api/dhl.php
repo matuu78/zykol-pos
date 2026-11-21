@@ -76,13 +76,20 @@ $in = json_decode(file_get_contents('php://input'), true) ?: [];
 $aktion = $in['aktion'] ?? '';
 
 if ($aktion === 'pruefen') {
-  // Testsendung nur prüfen lassen (validate=true): weist API-Key, Sandbox-Benutzer und Abrechnungsnummer nach, es entsteht keine Sendung
-  $abs = adresse($in['absender'] ?? []);
-  if (empty($abs['postalCode'])) $abs = ['name1' => 'zykol GmbH', 'addressStreet' => 'Sträßchensweg', 'addressHouse' => '10', 'postalCode' => '53113', 'city' => 'Bonn', 'country' => 'DEU'];
-  $emp = ['name1' => 'DHL Testempfänger', 'addressStreet' => 'Charles-de-Gaulle-Str.', 'addressHouse' => '20', 'postalCode' => '53113', 'city' => 'Bonn', 'country' => 'DEU'];
-  $s = sendung(['product' => 'V01PAK', 'refNo' => 'zykol Verbindungstest', 'shipper' => $abs, 'consignee' => $emp, 'details' => ['weight' => ['value' => 1]]]);
+  // Schritt 1: Testsendung mit fester, gültiger Adresse (DHL-Zentrale Bonn) nur prüfen lassen (validate=true):
+  // weist API-Key, Sandbox-Benutzer und Abrechnungsnummer nach, es entsteht keine Sendung
+  $bonn = ['addressStreet' => 'Charles-de-Gaulle-Str.', 'addressHouse' => '20', 'postalCode' => '53113', 'city' => 'Bonn', 'country' => 'DEU'];
+  $emp = ['name1' => 'DHL Testempfänger'] + $bonn;
+  $s = sendung(['product' => 'V01PAK', 'refNo' => 'zykol Verbindungstest', 'shipper' => ['name1' => 'zykol Verbindungstest'] + $bonn, 'consignee' => $emp, 'details' => ['weight' => ['value' => 1]]]);
   [$code, $j] = dhl('POST', '/orders?validate=true', ['profile' => PROFIL, 'shipments' => [$s]]);
-  antwort(['ok' => $code >= 200 && $code < 300, 'http' => $code, 'meldung' => meldung($j, $code)]);
+  if ($code < 200 || $code >= 300) antwort(['ok' => false, 'http' => $code, 'meldung' => 'Zugang: ' . meldung($j, $code)]);
+  // Schritt 2: Absenderadresse aus „Firma & Kasse“ prüfen; ein Fehler dort betrifft nur die Adresse, nicht den Zugang
+  $abs = adresse($in['absender'] ?? []);
+  if (empty($abs['postalCode'])) antwort(['ok' => true, 'http' => $code, 'meldung' => 'Zugang in Ordnung. Absenderadresse unter Einstellungen → Firma & Kasse fehlt noch.']);
+  $s['shipper'] = $abs;
+  [$c2, $j2] = dhl('POST', '/orders?validate=true', ['profile' => PROFIL, 'shipments' => [$s]]);
+  if ($c2 >= 200 && $c2 < 300) antwort(['ok' => true, 'http' => $c2, 'meldung' => 'Zugang und Absenderadresse in Ordnung']);
+  antwort(['ok' => true, 'http' => $c2, 'adresseOk' => false, 'meldung' => 'Zugang in Ordnung, aber DHL kennt die Absenderadresse nicht (' . meldung($j2, $c2) . '). Bitte unter Einstellungen → Firma & Kasse Straße, Hausnummer, PLZ und Ort prüfen.']);
 }
 
 if ($aktion === 'etikett') {

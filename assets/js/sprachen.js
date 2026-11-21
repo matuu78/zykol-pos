@@ -3284,3 +3284,7 @@ Logo|Logótipo
   var I = window.ZYKOL_I18N; if (!I) return;
   I.dict['DHL-Aufkleber A5 (910-300-700)'] = {en: 'DHL sticker A5 (910-300-700)', fr: 'Étiquette DHL A5 (910-300-700)', es: 'Etiqueta DHL A5 (910-300-700)', pt: 'Etiqueta DHL A5 (910-300-700)'};
 })();
+(function () {
+  var I = window.ZYKOL_I18N; if (!I) return;
+  I.dict['Das DHL-PDF zu dieser Sendung ist nicht mehr da (z. B. nach dem Neuladen). Bitte Etikett stornieren und neu erstellen.'] = {en: 'The DHL PDF for this shipment is no longer available (e.g. after reloading). Please cancel the label and create it again.', fr: 'Le PDF DHL de cet envoi n’est plus disponible (p. ex. après rechargement). Annulez l’étiquette et recréez-la.', es: 'El PDF de DHL de este envío ya no está disponible (p. ej. tras recargar). Anule la etiqueta y vuelva a crearla.', pt: 'O PDF da DHL deste envio já não está disponível (p. ex. após recarregar). Anule a etiqueta e crie-a de novo.'};
+})();

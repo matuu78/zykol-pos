@@ -3288,3 +3288,20 @@ Logo|Logótipo
   var I = window.ZYKOL_I18N; if (!I) return;
   I.dict['Das DHL-PDF zu dieser Sendung ist nicht mehr da (z. B. nach dem Neuladen). Bitte Etikett stornieren und neu erstellen.'] = {en: 'The DHL PDF for this shipment is no longer available (e.g. after reloading). Please cancel the label and create it again.', fr: 'Le PDF DHL de cet envoi n’est plus disponible (p. ex. après rechargement). Annulez l’étiquette et recréez-la.', es: 'El PDF de DHL de este envío ya no está disponible (p. ej. tras recargar). Anule la etiqueta y vuelva a crearla.', pt: 'O PDF da DHL deste envio já não está disponível (p. ex. após recarregar). Anule a etiqueta e crie-a de novo.'};
 })();
+
+/* v12.60 Testetikett */
+(function () {
+  var I = window.ZYKOL_I18N; if (!I) return;
+  var D = I.dict;
+  [
+    ['Testetikett erstellen', 'Create test label', 'Créer une étiquette test', 'Crear etiqueta de prueba', 'Criar etiqueta de teste'],
+    ['Testetikett öffnen (PDF)', 'Open test label (PDF)', 'Ouvrir l’étiquette test (PDF)', 'Abrir etiqueta de prueba (PDF)', 'Abrir etiqueta de teste (PDF)'],
+    ['Testetikett wird bei der DHL-Sandbox erstellt …', 'Creating test label in the DHL sandbox …', 'Création de l’étiquette test dans la sandbox DHL …', 'Creando etiqueta de prueba en la sandbox de DHL …', 'A criar etiqueta de teste na sandbox DHL …'],
+    ['DHL-Testetikett', 'DHL test label', 'Étiquette test DHL', 'Etiqueta de prueba DHL', 'Etiqueta de teste DHL']
+  ].forEach(function (r) { D[r[0]] = {en: r[1], fr: r[2], es: r[3], pt: r[4]}; });
+  [
+    [/^Testetikett (\S+) · Format (\S+) · bei DHL wieder storniert$/, {en: 'Test label $1 · format $2 · cancelled again at DHL', fr: 'Étiquette test $1 · format $2 · annulée chez DHL', es: 'Etiqueta de prueba $1 · formato $2 · anulada de nuevo en DHL', pt: 'Etiqueta de teste $1 · formato $2 · anulada de novo na DHL'}],
+    [/^Testetikett (\S+) · Format (\S+)$/, {en: 'Test label $1 · format $2', fr: 'Étiquette test $1 · format $2', es: 'Etiqueta de prueba $1 · formato $2', pt: 'Etiqueta de teste $1 · formato $2'}],
+    [/^DHL-Sandbox: kein Etikett erhalten$/, {en: 'DHL sandbox: no label received', fr: 'Sandbox DHL : aucune étiquette reçue', es: 'Sandbox de DHL: no se recibió etiqueta', pt: 'Sandbox DHL: nenhuma etiqueta recebida'}]
+  ].forEach(function (m) { I.muster.push(m); });
+})();

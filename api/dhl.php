@@ -111,6 +111,25 @@ if ($aktion === 'etikett') {
   antwort(['ok' => $ok, 'http' => $code, 'sendung' => $it['shipmentNo'] ?? '', 'etikett' => $it['label']['b64'] ?? '', 'meldung' => $ok ? '' : meldung($j, $code)]);
 }
 
+if ($aktion === 'testetikett') {
+  // Testetikett: echte Sandbox-Sendung mit fester Test-Absender- und Empfängeradresse im gewählten Format, danach sofort storniert
+  $formate = ['A4', '910-300-600', '910-300-610', '910-300-700', '910-300-700-oz', '910-300-710', '910-300-300', '910-300-300-oz', '910-300-400', '910-300-410', '100x70mm'];
+  $fmt = in_array($in['druckformat'] ?? '', $formate, true) ? $in['druckformat'] : ($K['druckformat'] ?? '910-300-700');
+  $produkt = $fmt === '100x70mm' ? 'V62KP' : (in_array($in['produkt'] ?? '', PRODUKTE, true) ? $in['produkt'] : 'V01PAK');
+  if ($produkt === 'V53WPAK') $produkt = 'V01PAK';
+  $bonn = ['addressStreet' => 'Charles-de-Gaulle-Str.', 'addressHouse' => '20', 'postalCode' => '53113', 'city' => 'Bonn', 'country' => 'DEU'];
+  $name = mb_substr((string)($in['absenderName'] ?? 'zykol'), 0, 50) ?: 'zykol';
+  $s = sendung(['product' => $produkt, 'refNo' => 'zykol Testetikett', 'shipper' => ['name1' => $name] + $bonn, 'consignee' => ['name1' => 'DHL Testempfänger'] + $bonn,
+    'details' => ['weight' => ['value' => $produkt === 'V62KP' ? 0.5 : 1]]]);
+  if ($produkt === 'V62KP') $s['details']['dim'] = ['uom' => 'cm', 'length' => 30, 'width' => 20, 'height' => 5];
+  $q = http_build_query(['docFormat' => 'PDF', 'printFormat' => $fmt, 'includeDocs' => 'include']);
+  [$code, $j] = dhl('POST', '/orders?' . $q, ['profile' => PROFIL, 'shipments' => [$s]]);
+  $it = $j['items'][0] ?? [];
+  if (!($code >= 200 && $code < 300 && !empty($it['shipmentNo']))) antwort(['ok' => false, 'http' => $code, 'meldung' => meldung($j, $code)]);
+  [$c2] = dhl('DELETE', '/orders?' . http_build_query(['profile' => PROFIL, 'shipment' => $it['shipmentNo']]));
+  antwort(['ok' => true, 'sendung' => $it['shipmentNo'], 'etikett' => $it['label']['b64'] ?? '', 'format' => $fmt, 'produkt' => $produkt, 'storniert' => $c2 >= 200 && $c2 < 300]);
+}
+
 if ($aktion === 'storno') {
   $nr = preg_replace('/[^0-9A-Za-z]/', '', (string)($in['sendung'] ?? ''));
   if ($nr === '') antwort(['ok' => false, 'meldung' => 'Sendungsnummer fehlt.']);

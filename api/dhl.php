@@ -102,7 +102,7 @@ if ($aktion === 'etikett') {
   }
   // Original-Etikettformate von DHL (printFormat); das PDF wird unverändert weitergegeben
   $formate = ['A4', '910-300-600', '910-300-610', '910-300-700', '910-300-700-oz', '910-300-710', '910-300-300', '910-300-300-oz', '910-300-400', '910-300-410', '100x70mm'];
-  $fmt = in_array($in['druckformat'] ?? '', $formate, true) ? $in['druckformat'] : ($K['druckformat'] ?? '910-300-700');
+  $fmt = in_array($in['druckformat'] ?? '', $formate, true) ? $in['druckformat'] : ($K['druckformat'] ?? '910-300-710');
   if ($fmt === '100x70mm' && $s['product'] !== 'V62KP') $fmt = 'A4'; // 100 × 70 mm gibt es bei DHL nur für Kleinpaket
   $q = http_build_query(['docFormat' => 'PDF', 'printFormat' => $fmt, 'includeDocs' => 'include']);
   [$code, $j] = dhl('POST', '/orders?' . $q, ['profile' => PROFIL, 'shipments' => [$s]]);

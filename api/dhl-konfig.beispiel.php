@@ -15,5 +15,6 @@ return [
     'V62KP'   => '33333333336201', // DHL Kleinpaket
     'V53WPAK' => '33333333335301', // DHL Paket International
   ],
+  'sandbox_testabsender' => true, // true: Absender auf dem Etikett ist die Testadresse Charles-de-Gaulle-Str. 20, 53113 Bonn; false: Adresse aus „Firma & Kasse“
   'druckformat' => '910-300-700',  // Standard, wenn die Kasse kein Format mitschickt: DHL-Aufkleber A5
 ];

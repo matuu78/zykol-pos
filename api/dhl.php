@@ -83,6 +83,7 @@ if ($aktion === 'pruefen') {
   $s = sendung(['product' => 'V01PAK', 'refNo' => 'zykol Verbindungstest', 'shipper' => ['name1' => 'zykol Verbindungstest'] + $bonn, 'consignee' => $emp, 'details' => ['weight' => ['value' => 1]]]);
   [$code, $j] = dhl('POST', '/orders?validate=true', ['profile' => PROFIL, 'shipments' => [$s]]);
   if ($code < 200 || $code >= 300) antwort(['ok' => false, 'http' => $code, 'meldung' => 'Zugang: ' . meldung($j, $code)]);
+  if (($K['sandbox_testabsender'] ?? true) !== false) antwort(['ok' => true, 'http' => $code, 'meldung' => 'Zugang in Ordnung · Absender auf Etiketten: Testadresse Charles-de-Gaulle-Str. 20, 53113 Bonn']);
   // Schritt 2: Absenderadresse aus „Firma & Kasse“ prüfen; ein Fehler dort betrifft nur die Adresse, nicht den Zugang
   $abs = adresse($in['absender'] ?? []);
   if (empty($abs['postalCode'])) antwort(['ok' => true, 'http' => $code, 'meldung' => 'Zugang in Ordnung. Absenderadresse unter Einstellungen → Firma & Kasse fehlt noch.']);
@@ -94,6 +95,11 @@ if ($aktion === 'pruefen') {
 
 if ($aktion === 'etikett') {
   $s = sendung($in['sendung'] ?? []);
+  // Sandbox: Absender ist standardmäßig die feste Testadresse (DHL-Zentrale Bonn), der Name bleibt aus „Firma & Kasse“.
+  // Mit 'sandbox_testabsender' => false in dhl-konfig.php wird die eigene Adresse aus „Firma & Kasse“ verwendet.
+  if (($K['sandbox_testabsender'] ?? true) !== false) {
+    $s['shipper'] = ['name1' => $s['shipper']['name1'] ?? 'zykol', 'addressStreet' => 'Charles-de-Gaulle-Str.', 'addressHouse' => '20', 'postalCode' => '53113', 'city' => 'Bonn', 'country' => 'DEU'];
+  }
   // Original-Etikettformate von DHL (printFormat); das PDF wird unverändert weitergegeben
   $formate = ['A4', '910-300-600', '910-300-610', '910-300-700', '910-300-700-oz', '910-300-710', '910-300-300', '910-300-300-oz', '910-300-400', '910-300-410', '100x70mm'];
   $fmt = in_array($in['druckformat'] ?? '', $formate, true) ? $in['druckformat'] : ($K['druckformat'] ?? '910-300-700');

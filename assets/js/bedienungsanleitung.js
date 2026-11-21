@@ -1,6 +1,6 @@
-// zykol.POS – Bedienungsanleitung (DE, EN, FR, ES, PT). Quelle für die Ansicht in Einstellungen und für das PDF. Stand v12.61.
+// zykol.POS – Bedienungsanleitung (DE, EN, FR, ES, PT). Quelle für die Ansicht in Einstellungen und für das PDF. Stand v12.62.
 window.ZYKOL_ANLEITUNG = {
-  "version": "v12.61",
+  "version": "v12.62",
   "meta": [
     {
       "id": "anmelden",
@@ -66,6 +66,11 @@ window.ZYKOL_ANLEITUNG = {
       "id": "artikel",
       "view": "artikel",
       "recht": "Artikel & Bestand ansehen"
+    },
+    {
+      "id": "inventur",
+      "view": "inventur",
+      "recht": "Inventur zählen"
     },
     {
       "id": "etiketten",
@@ -142,7 +147,8 @@ window.ZYKOL_ANLEITUNG = {
         "Werkstatt ansehen": "Werkstatt ansehen",
         "Versand ansehen": "Versand ansehen",
         "Artikel & Bestand ansehen": "Artikel & Bestand ansehen",
-        "Ausschreibungen ansehen": "Ausschreibungen ansehen"
+        "Ausschreibungen ansehen": "Ausschreibungen ansehen",
+        "Inventur zählen": "Inventur zählen"
       },
       "kapitel": {
         "anmelden": {
@@ -196,7 +202,7 @@ window.ZYKOL_ANLEITUNG = {
             "Zahlart Rechnung: Es gibt keinen Bon, die Rechnung ist Pflicht. Für Firmen, Vereine und öffentliche Auftraggeber entsteht sie als E-Rechnung (Kapitel E-Rechnung).",
             "„Abschließen“ antippen. Ein Hinweis bestätigt den Abschluss; „Öffnen“ zeigt den Vorgang in den Transaktionen."
           ],
-          "tipp": "Jeder Beleg trägt einen QR-Code, über den Kunden ihn online abrufen. TSE, Kartenterminal, PayPal, Drucker und E-Mail-Versand sind im Prototyp simuliert."
+          "tipp": "Der Kassenbon trägt einen QR-Code, über den Kunden ihn online abrufen. Auf Rechnungen steht dieser Code nicht mehr. Offene Rechnungen mit Zahlart Rechnung tragen stattdessen einen GiroCode „Online bezahlen“. Mit der Banking-App gescannt, sind IBAN, Betrag und Rechnungsnummer schon eingetragen. Der GiroCode erscheint erst, wenn unter Firma & Kasse eine gültige IBAN steht. TSE, Kartenterminal, PayPal, Drucker und E-Mail-Versand sind im Prototyp simuliert."
         },
         "kassenabschluss": {
           "titel": "Kassenabschluss",
@@ -243,6 +249,7 @@ window.ZYKOL_ANLEITUNG = {
             "Unter „Angebote“ ein neues Angebot anlegen, Kunden wählen und Positionen mit Rabatt hinzufügen. Die PDF-Vorschau prüfen und versenden.",
             "Positionen bequem zusammenstellen: „Im Warenkorb zusammenstellen“ öffnet die Kasse im Angebotsmodus. Artikel wie gewohnt auswählen und „Ins Angebot übernehmen“ antippen. Kassiert wird dabei nicht, ein angefangener Warenkorb bleibt erhalten.",
             "Den Status pflegen: Entwurf, Versendet, Angenommen, Abgelehnt, Abgelaufen. Angenommene Angebote mit „In Kasse übernehmen“ abrechnen.",
+            "Angenommenes Angebot weiterführen: „Versandauftrag anlegen“ legt einen offenen Auftrag (V-Nummer) im Versand an, mit Kunde, Anschrift und Positionen. „Werkstattauftrag anlegen“ legt einen Werkstattauftrag an, die Positionen werden als Voranschlag übernommen, Arbeitszeiten tragen Sie in der Werkstatt nach. Das Angebot zeigt danach die Auftragsnummer.",
             "Aus dem Warenkorb: „Als Angebot speichern“ legt den Inhalt als Angebot (Entwurf) ab. Ohne Kunde wird das Angebot für einen Barkunden gespeichert.",
             "Später in der Kasse „Angebote aus der Kasse“ öffnen und beim gewünschten Angebot „In Warenkorb laden“ antippen."
           ],
@@ -295,7 +302,8 @@ window.ZYKOL_ANLEITUNG = {
             "DHL: unter „Anbindung“ „Simuliert“ (Muster-Etiketten) oder „DHL-Sandbox (echt)“ wählen. Die Sandbox spricht über den Server mit der DHL Developer API, die Zugangsdaten liegen nur auf dem Server.",
             "„Verbindung testen“ antippen. Grün heißt: Zugang geprüft. Eine rote Meldung nennt, was fehlt oder was DHL zurückmeldet.",
             "Versandarten je Dienstleister an- oder abwählen und die Uhrzeit der täglichen Abholung eintragen.",
-            "Im Versand unter „Etiketten & Tracking“ „Etikett erstellen“: Mit „DHL-Sandbox (echt)“ kommt das Etikett als PDF von DHL, mit dem Aufdruck der Sandbox, nicht versandfähig."
+            "Im Versand unter „Etiketten & Tracking“ „Etikett erstellen“: Mit „DHL-Sandbox (echt)“ kommt das Etikett als PDF von DHL, mit dem Aufdruck der Sandbox, nicht versandfähig.",
+            "DHL Kleinpaket: Im Versand die Verpackung „Kleinpaket-Karton“ (35 × 25 × 8 cm) oder „Versandtasche“ wählen. Erlaubt sind bis 35,3 × 25 × 8 cm und 1 kg. Das Etikettformat 100 × 70 mm gibt es nur für Kleinpaket."
           ],
           "tipp": "Unter „Etikettformat (Original von DHL)“ wählen Sie das DHL-Format, voreingestellt ist der DHL-Aufkleber A5 (910-300-700), alternativ z. B. A4 oder Thermo 103 × 199 mm; das PDF kommt unverändert von DHL. Mit „Testetikett erstellen“ legt die Kasse in der DHL-Sandbox eine Probesendung mit Testadressen im gewählten Format an, storniert sie sofort wieder und öffnet das PDF über „Testetikett öffnen (PDF)“. Live-Versand ist im Prototyp gesperrt. Dieselben Angaben stehen auch im Versand unter „Dienstleister“."
         },
@@ -311,6 +319,20 @@ window.ZYKOL_ANLEITUNG = {
             "„Lieferanten“: Stammdaten, Ansprechpartner, Konditionen, Lieferzeit und offene Bestellungen je Hersteller. „Lieferant hinzufügen“ legt einen neuen an."
           ],
           "tipp": "Die Lagerorte richten Admin und Filialleitung unter Einstellungen → Lagerorte & Standorte ein. Orte lassen sich nur deaktivieren, nicht löschen, damit die Historie erhalten bleibt."
+        },
+        "inventur": {
+          "titel": "Inventur & Import",
+          "intro": "Unter Warenwirtschaft → „Inventur & Import“ zählen Sie den Bestand und spielen Bestände per CSV ein. Jede Änderung steht in der Bestandshistorie.",
+          "schritte": [
+            "„Inventur starten“ antippen, unter „Umfang wählen“ „Ganzer Shop“ oder einzelne Lagerorte wählen und „Stichtag setzen & starten“. Die Soll-Bestände werden zum Stichtag eingefroren.",
+            "Zählen: mit „Zählliste drucken“ auf Papier, mit „Zählliste als CSV“ in Excel oder direkt am Gerät. Ins Scanfeld scannen oder Art.-Nr. + Enter eingeben, jeder Scan zählt +1. Die Ist-Menge lässt sich auch eintippen.",
+            "Eine ausgefüllte Zählliste mit „Gezählte CSV einlesen“ zurückholen.",
+            "Die „Differenzliste“ zeigt jede Abweichung zum Soll. Ab 100 € Warenwert ist eine Begründung Pflicht.",
+            "„Rest wie Soll übernehmen“ setzt alle noch nicht gezählten Plätze auf den Soll-Bestand. „Inventur abschließen“ bucht die Differenzen (Grund „Inventur“), „Protokoll (PDF)“ speichert das Ergebnis. „Verwerfen“ bricht ab, ohne etwas zu buchen.",
+            "„Bestand importieren“: CSV hierher ziehen oder „CSV auswählen“. Wählbar sind „Bestand setzen“ (Anfangsbestand, nur die Differenz wird gebucht) oder „Menge addieren (Zugang)“. Fremde Dateien ordnen Sie unter „Spalten zuordnen (Vorschlag)“ zu, die zykol.POS-Vorlage wird erkannt.",
+            "Unter „CSV-Vorlage & Export“ gibt es eine „Leere Vorlage“, eine Vorlage „Mit aktuellem Bestand“ und eine „Beispiel-CSV (fremdes Format)“. Die Dateien sind mit Semikolon und UTF-8 gespeichert und öffnen in Excel mit Umlauten."
+          ],
+          "tipp": "Starten und abschließen darf, wer das Recht „Inventur durchführen“ hat. Zum Zählen reicht „Inventur zählen“. Der Bereich gehört zum Modul „Lager & Bestand“. Im Prototyp wirken die Buchungen nur lokal und ersetzen keine dokumentierte Inventur."
         },
         "etiketten": {
           "titel": "Verkaufte Boote, Paddel-IDs und QR-Etiketten",
@@ -405,6 +427,7 @@ window.ZYKOL_ANLEITUNG = {
             "Versand: DHL, UPS und DPD mit Zugangsdaten anbinden, Sandbox oder Live wählen und die Verbindung testen. Dieselben Angaben stehen im Versand unter „Dienstleister“.",
             "Zahlungsarten: Karte, Bar, PayPal, Rechnung, Gutschein und Vorkasse ein- und ausschalten, sortieren und die Anbindung testen. E-Rechnung: ZUGFeRD-Profil, XRechnung-Syntax und Übermittlung.",
             "Admin (nur root): Systemsprache und Sprache je Benutzer, Systemprotokoll, Datenbank & Backup.",
+            "Module (nur root): Bereiche wie Lager & Bestand, Personal & Urlaub, Arbeitszeiterfassung, Werkstatt, Ausschreibungen, Kassenabschluss, ERP-Anbindung, Kanu-News sowie Boote & Paddel und Regatten mit „An“ oder „Aus“ schalten, oder mit „Alle an“ und „Alle aus“ auf einmal. Ausgeschaltete Module verschwinden aus Menü, Dashboard, Kalender und Rechte-Tabelle, die Daten bleiben erhalten. Kasse, Kunden, Artikel, Belege, Versand, E-Rechnung, Angebote und Kalender sind immer an.",
             "Die Reihenfolge des Menüs ändern Sie unten in der Seitenleiste mit „Menü sortieren“; „Standard wiederherstellen“ setzt sie zurück. Das Dashboard bleibt immer oben."
           ],
           "tipp": "Die Rolle Werkstatt (Technik) hat ein festes Menü (Dashboard, Werkstatt, Kalender, Zeiterfassung) und darf nicht kassieren."
@@ -444,7 +467,8 @@ window.ZYKOL_ANLEITUNG = {
         "Werkstatt ansehen": "View workshop",
         "Versand ansehen": "View shipping",
         "Artikel & Bestand ansehen": "View products & stock",
-        "Ausschreibungen ansehen": "View tenders"
+        "Ausschreibungen ansehen": "View tenders",
+        "Inventur zählen": "Count stocktake"
       },
       "kapitel": {
         "anmelden": {
@@ -498,7 +522,7 @@ window.ZYKOL_ANLEITUNG = {
             "Payment method invoice: there is no receipt and the invoice is mandatory. For companies, clubs and public-sector buyers it is created as an e-invoice (chapter E-invoice).",
             "Tap “Complete”. A notice confirms the sale; “Open” shows it in Transactions."
           ],
-          "tipp": "Every receipt carries a QR code for online access. TSE, card terminal, PayPal, printers and email are simulated in the prototype."
+          "tipp": "The till receipt carries a QR code for online access; invoices no longer have it. Open invoices with payment method invoice carry a GiroCode “Pay online” instead: scanned with a banking app, IBAN, amount and invoice number are pre-filled. The GiroCode only appears once a valid IBAN is entered under Company & POS. TSE, card terminal, PayPal, printers and email are simulated in the prototype."
         },
         "kassenabschluss": {
           "titel": "Register closing",
@@ -545,6 +569,7 @@ window.ZYKOL_ANLEITUNG = {
             "Under “Quotes”, create a new quote, choose a customer and add items with discount. Check the PDF preview and send it.",
             "Build items easily: “Build in cart” opens the register in quote mode. Choose products as usual and tap “Apply to quote”. Nothing is charged, and a started cart is kept.",
             "Maintain the status: Draft, Sent, Accepted, Declined, Expired. Bill accepted quotes with “Move to register”.",
+            "Continue an accepted quote: “Create shipping order” creates an open order (V number) in Shipping with customer, address and items. “Create repair order” creates a workshop order; the items are taken over as the estimate, and you add labour time in the workshop. The quote then shows the order number.",
             "From the cart: “Save as quote” stores the contents as a quote (draft). Without a customer it is saved for a walk-in customer.",
             "Later, open “Quotes from the register” in the register and tap “Load into cart” on the quote you want."
           ],
@@ -597,7 +622,8 @@ window.ZYKOL_ANLEITUNG = {
             "DHL: under “Connection” choose “Simulated” (sample labels) or “DHL sandbox (real)”. The sandbox talks to the DHL Developer API via the server; the credentials are stored on the server only.",
             "Tap “Test connection”. Green means the access was checked. A red message says what is missing or what DHL reports.",
             "Select the shipping products per carrier and enter the daily pickup time.",
-            "In Shipping under “Labels & tracking” tap “Create label”: with “DHL sandbox (real)” the label comes from DHL as a PDF, marked as sandbox and not valid for shipping."
+            "In Shipping under “Labels & tracking” tap “Create label”: with “DHL sandbox (real)” the label comes from DHL as a PDF, marked as sandbox and not valid for shipping.",
+            "DHL Kleinpaket (small parcel): in Shipping choose the packaging “Small parcel box” (35 × 25 × 8 cm) or a mailer bag. Allowed up to 35.3 × 25 × 8 cm and 1 kg. The 100 × 70 mm label format is only available for Kleinpaket."
           ],
           "tipp": "Under “Label format (DHL original)” choose the DHL format, default is the DHL sticker A5 (910-300-700), alternatively e.g. A4 or thermal 103 × 199 mm; the PDF comes unchanged from DHL. “Create test label” makes a sample shipment with test addresses in the DHL sandbox in the chosen format, cancels it right away and opens the PDF via “Open test label (PDF)”. Live shipping is locked in the prototype. The same details are also under “Carriers” in Shipping."
         },
@@ -613,6 +639,20 @@ window.ZYKOL_ANLEITUNG = {
             "“Suppliers”: master data, contacts, terms, delivery time and open orders per manufacturer. “Add supplier” creates a new one."
           ],
           "tipp": "Admin and store manager set up storage locations under Settings → Storage locations & sites. Locations can only be deactivated, not deleted, so the history is kept."
+        },
+        "inventur": {
+          "titel": "Stocktake & import",
+          "intro": "Under Inventory → “Stocktake & import” you count stock and load stock from CSV. Every change is recorded in the stock history.",
+          "schritte": [
+            "Tap “Start stocktake”, choose “Whole shop” or individual locations under “Choose scope” and tap “Set cut-off & start”. Target stock is frozen at the cut-off date.",
+            "Count on paper with “Print count sheet”, in Excel with “Count sheet as CSV”, or directly on the device. Scan into the scan field or type the item no. + Enter; each scan counts +1. You can also type the counted quantity.",
+            "Bring a filled-in count sheet back with “Read counted CSV”.",
+            "“Differences” shows every deviation from target. From €100 of goods value a reason is required.",
+            "“Set rest to target” sets all locations not yet counted to the target stock. “Close stocktake” posts the differences (reason “stocktake”), “Report (PDF)” saves the result. “Discard” cancels without posting anything.",
+            "“Import stock”: drag a CSV here or tap “Choose CSV”. Choose “Set stock” (opening stock; only the difference is posted) or “Add quantity (receipt)”. Map other file formats under “Map columns (suggested)”; the zykol.POS template is detected automatically.",
+            "“CSV template & export” offers an “Empty template”, a template “With current stock” and a “Sample CSV (other format)”. Files use semicolons and UTF-8 and open correctly in Excel."
+          ],
+          "tipp": "Starting and closing a stocktake requires the permission “Carry out stocktake”; counting only needs “Count stocktake”. The area belongs to the “Warehouse & stock” module. In the prototype, bookings are local only and do not replace a documented stocktake."
         },
         "etiketten": {
           "titel": "Boats sold, paddle IDs and QR labels",
@@ -707,6 +747,7 @@ window.ZYKOL_ANLEITUNG = {
             "Shipping: connect DHL, UPS and DPD with credentials, choose sandbox or live and test the connection. The same details are under “Carriers” in Shipping.",
             "Payment methods: switch card, cash, PayPal, invoice, voucher and prepayment on or off, sort them and test the connection. E-invoice: ZUGFeRD profile, XRechnung syntax and transmission.",
             "Admin (root only): system language and language per user, system log, database & backup.",
+            "Modules (root only): switch areas such as warehouse & stock, staff & leave, time tracking, workshop, tenders, end of day, ERP connection, canoe news, boats & paddles and regattas “On” or “Off”, or all at once with “All on” and “All off”. Disabled modules disappear from the menu, dashboard, calendar and permissions table; data is kept. Till, customers, items, receipts, shipping, e-invoicing, quotes and calendar are always on.",
             "Change the menu order at the bottom of the sidebar with “Sort menu”; “Restore default” resets it. The dashboard always stays at the top."
           ],
           "tipp": "The workshop (technician) role has a fixed menu (dashboard, workshop, calendar, time tracking) and cannot charge sales."
@@ -746,7 +787,8 @@ window.ZYKOL_ANLEITUNG = {
         "Werkstatt ansehen": "Consulter l’atelier",
         "Versand ansehen": "Consulter l’expédition",
         "Artikel & Bestand ansehen": "Consulter articles & stock",
-        "Ausschreibungen ansehen": "Consulter les appels d’offres"
+        "Ausschreibungen ansehen": "Consulter les appels d’offres",
+        "Inventur zählen": "Compter l’inventaire"
       },
       "kapitel": {
         "anmelden": {
@@ -800,7 +842,7 @@ window.ZYKOL_ANLEITUNG = {
             "Moyen de paiement facture : pas de ticket, la facture est obligatoire. Pour les entreprises, clubs et le secteur public, elle est créée en facture électronique (chapitre Facture électronique).",
             "Touchez « Terminer ». Un message confirme la vente ; « Ouvrir » l’affiche dans les transactions."
           ],
-          "tipp": "Chaque ticket porte un QR code pour le consulter en ligne. TSE, terminal de carte, PayPal, imprimantes et e-mail sont simulés dans le prototype."
+          "tipp": "Le ticket de caisse porte un QR code pour le consulter en ligne ; les factures ne l’ont plus. Les factures ouvertes avec le mode de paiement facture portent à la place un GiroCode « Payer en ligne » : scanné avec une application bancaire, IBAN, montant et numéro de facture sont préremplis. Le GiroCode n’apparaît que si un IBAN valide est saisi sous Entreprise & caisse. TSE, terminal de carte, PayPal, imprimantes et e-mail sont simulés dans le prototype."
         },
         "kassenabschluss": {
           "titel": "Clôture de caisse",
@@ -847,6 +889,7 @@ window.ZYKOL_ANLEITUNG = {
             "Sous « Devis », créez un nouveau devis, choisissez le client et ajoutez des lignes avec remise. Vérifiez l’aperçu PDF et envoyez-le.",
             "Composer facilement : « Composer dans le panier » ouvre la caisse en mode devis. Choisissez les articles comme d’habitude et touchez « Reprendre dans le devis ». Rien n’est encaissé et un panier commencé est conservé.",
             "Tenez le statut à jour : Brouillon, Envoyé, Accepté, Refusé, Expiré. Facturez les devis acceptés avec « Reprendre en caisse ».",
+            "Poursuivre un devis accepté : « Créer un ordre d’expédition » crée une commande ouverte (numéro V) dans Expédition avec client, adresse et positions. « Créer un ordre d’atelier » crée un ordre d’atelier ; les positions sont reprises comme devis estimatif, les temps de travail se saisissent dans l’atelier. Le devis affiche ensuite le numéro d’ordre.",
             "Depuis le panier : « Enregistrer comme devis » enregistre le contenu comme devis (brouillon). Sans client, il est enregistré pour un client de passage.",
             "Plus tard, ouvrez « Devis de la caisse » dans la caisse et touchez « Charger dans le panier » sur le devis voulu."
           ],
@@ -899,7 +942,8 @@ window.ZYKOL_ANLEITUNG = {
             "DHL : sous « Connexion », choisir « Simulé » (étiquettes d’exemple) ou « Sandbox DHL (réelle) ». La sandbox communique avec l’API DHL Developer via le serveur ; les identifiants restent sur le serveur.",
             "Appuyer sur « Tester la connexion ». Vert : accès vérifié. Un message rouge indique ce qui manque ou ce que DHL répond.",
             "Choisir les services par transporteur et saisir l’heure d’enlèvement quotidienne.",
-            "Dans Expédition, sous « Étiquettes & suivi », « Créer l’étiquette » : avec « Sandbox DHL (réelle) », l’étiquette arrive de DHL en PDF, marquée sandbox et non valable pour l’envoi."
+            "Dans Expédition, sous « Étiquettes & suivi », « Créer l’étiquette » : avec « Sandbox DHL (réelle) », l’étiquette arrive de DHL en PDF, marquée sandbox et non valable pour l’envoi.",
+            "DHL Kleinpaket (petit colis) : dans Expédition, choisissez l’emballage « Carton petit colis » (35 × 25 × 8 cm) ou une pochette d’expédition. Autorisé jusqu’à 35,3 × 25 × 8 cm et 1 kg. Le format d’étiquette 100 × 70 mm n’existe que pour Kleinpaket."
           ],
           "tipp": "Sous « Format d’étiquette (original DHL) », choisissez le format DHL, par défaut l’étiquette DHL A5 (910-300-700), sinon p. ex. A4 ou thermique 103 × 199 mm ; le PDF arrive de DHL sans modification. « Créer une étiquette test » crée dans la sandbox DHL un envoi d’essai avec des adresses de test au format choisi, l’annule aussitôt et ouvre le PDF via « Ouvrir l’étiquette test (PDF) ». L’expédition réelle (live) est bloquée dans le prototype. Les mêmes données figurent aussi dans Expédition sous « Transporteurs »."
         },
@@ -915,6 +959,20 @@ window.ZYKOL_ANLEITUNG = {
             "« Fournisseurs » : données de base, contacts, conditions, délai de livraison et commandes ouvertes par fabricant. « Ajouter un fournisseur » en crée un nouveau."
           ],
           "tipp": "L’admin et le responsable de magasin configurent les emplacements sous Paramètres → Emplacements & sites. Les emplacements peuvent seulement être désactivés, pas supprimés, pour conserver l’historique."
+        },
+        "inventur": {
+          "titel": "Inventaire & import",
+          "intro": "Sous Gestion des stocks → « Inventaire & import », vous comptez le stock et importez des stocks par CSV. Chaque modification figure dans l’historique.",
+          "schritte": [
+            "Touchez « Démarrer l’inventaire », choisissez « Toute la boutique » ou des emplacements sous « Choisir le périmètre », puis « Fixer la date & démarrer ». Les stocks théoriques sont figés à la date de référence.",
+            "Comptez sur papier avec « Imprimer la liste de comptage », dans Excel avec « Liste de comptage en CSV » ou directement sur l’appareil. Scannez dans le champ de scan ou saisissez la réf. + Entrée ; chaque scan compte +1. La quantité comptée peut aussi être saisie.",
+            "Réimportez une liste remplie avec « Importer le CSV compté ».",
+            "La « Liste des écarts » affiche chaque écart par rapport au théorique. À partir de 100 € de valeur, un motif est obligatoire.",
+            "« Reprendre le reste comme théorique » met tous les emplacements non comptés au stock théorique. « Clôturer l’inventaire » comptabilise les écarts (motif « inventaire »), « Procès-verbal (PDF) » enregistre le résultat. « Abandonner » annule sans rien comptabiliser.",
+            "« Importer le stock » : glissez un CSV ici ou touchez « Choisir un CSV ». Au choix « Définir le stock » (stock initial, seul l’écart est comptabilisé) ou « Ajouter la quantité (entrée) ». Les fichiers d’un autre format s’associent sous « Associer les colonnes (proposition) » ; le modèle zykol.POS est reconnu.",
+            "« Modèle CSV & export » propose un « Modèle vide », un modèle « Avec le stock actuel » et un « CSV d’exemple (autre format) ». Les fichiers utilisent le point-virgule et l’UTF-8 et s’ouvrent correctement dans Excel."
+          ],
+          "tipp": "Démarrer et clôturer requiert le droit « Réaliser l’inventaire » ; pour compter, « Compter l’inventaire » suffit. La zone fait partie du module « Entrepôt & stock ». Dans le prototype, les écritures restent locales et ne remplacent pas un inventaire documenté."
         },
         "etiketten": {
           "titel": "Bateaux vendus, ID de pagaie et étiquettes QR",
@@ -1009,6 +1067,7 @@ window.ZYKOL_ANLEITUNG = {
             "Expédition : connecter DHL, UPS et DPD avec les identifiants, choisir sandbox ou production et tester la connexion. Les mêmes données figurent dans Expédition sous « Transporteurs ».",
             "Moyens de paiement : activez ou désactivez carte, espèces, PayPal, facture, bon d’achat et paiement anticipé, triez-les et testez la connexion. Facture électronique : profil ZUGFeRD, syntaxe XRechnung et transmission.",
             "Admin (root uniquement) : langue du système et langue par utilisateur, journal système, base de données & sauvegarde.",
+            "Modules (root uniquement) : activer ou désactiver des zones comme entrepôt & stock, personnel & congés, saisie du temps, atelier, appels d’offres, clôture de caisse, connexion ERP, actus canoë, bateaux & pagaies et régates, ou toutes avec « Tout activer » et « Tout désactiver ». Les modules désactivés disparaissent du menu, du tableau de bord, du calendrier et du tableau des droits ; les données sont conservées. Caisse, clients, articles, justificatifs, expédition, facture électronique, devis et calendrier restent toujours actifs.",
             "Modifiez l’ordre du menu en bas de la barre latérale avec « Trier le menu » ; « Rétablir par défaut » le réinitialise. Le tableau de bord reste toujours en haut."
           ],
           "tipp": "Le rôle atelier (technique) a un menu fixe (tableau de bord, atelier, calendrier, suivi du temps) et ne peut pas encaisser."
@@ -1048,7 +1107,8 @@ window.ZYKOL_ANLEITUNG = {
         "Werkstatt ansehen": "Ver taller",
         "Versand ansehen": "Ver envíos",
         "Artikel & Bestand ansehen": "Ver artículos y existencias",
-        "Ausschreibungen ansehen": "Ver licitaciones"
+        "Ausschreibungen ansehen": "Ver licitaciones",
+        "Inventur zählen": "Contar inventario"
       },
       "kapitel": {
         "anmelden": {
@@ -1102,7 +1162,7 @@ window.ZYKOL_ANLEITUNG = {
             "Forma de pago factura: no hay ticket y la factura es obligatoria. Para empresas, clubes y sector público se crea como factura electrónica (capítulo Factura electrónica).",
             "Toque «Finalizar». Un aviso confirma la venta; «Abrir» la muestra en Transacciones."
           ],
-          "tipp": "Cada ticket lleva un código QR para consultarlo en línea. TSE, terminal de tarjeta, PayPal, impresoras y correo están simulados en el prototipo."
+          "tipp": "El ticket de caja lleva un código QR para consultarlo en línea; las facturas ya no lo llevan. Las facturas abiertas con forma de pago factura llevan en su lugar un GiroCode «Pagar en línea»: al escanearlo con la app del banco, IBAN, importe y número de factura ya están rellenados. El GiroCode solo aparece si en Empresa y caja hay un IBAN válido. TSE, terminal de tarjeta, PayPal, impresoras y correo están simulados en el prototipo."
         },
         "kassenabschluss": {
           "titel": "Cierre de caja",
@@ -1149,6 +1209,7 @@ window.ZYKOL_ANLEITUNG = {
             "En «Presupuestos», cree uno nuevo, elija el cliente y añada líneas con descuento. Revise la vista previa en PDF y envíelo.",
             "Montar las líneas fácilmente: «Montar en el carrito» abre la caja en modo presupuesto. Elija los artículos como siempre y toque «Pasar al presupuesto». No se cobra nada y un carrito empezado se conserva.",
             "Mantenga el estado: Borrador, Enviado, Aceptado, Rechazado, Caducado. Cobre los aceptados con «Pasar a caja».",
+            "Continuar un presupuesto aceptado: «Crear orden de envío» crea un pedido abierto (número V) en Envíos con cliente, dirección y posiciones. «Crear orden de taller» crea una orden de taller; las posiciones pasan como presupuesto de reparación y las horas de trabajo se añaden en el taller. Después el presupuesto muestra el número de orden.",
             "Desde el carrito: «Guardar como presupuesto» guarda el contenido como presupuesto (borrador). Sin cliente se guarda para un cliente de paso.",
             "Más tarde, abra «Presupuestos de la caja» en la caja y toque «Cargar en el carrito» en el presupuesto deseado."
           ],
@@ -1201,7 +1262,8 @@ window.ZYKOL_ANLEITUNG = {
             "DHL: en «Conexión» elegir «Simulado» (etiquetas de muestra) o «Sandbox DHL (real)». La sandbox se comunica con la API de DHL Developer a través del servidor; las credenciales solo están en el servidor.",
             "Pulsar «Probar conexión». Verde significa acceso comprobado. Un mensaje rojo indica qué falta o qué responde DHL.",
             "Elegir los servicios de cada transportista e introducir la hora de recogida diaria.",
-            "En Envíos, en «Etiquetas y seguimiento», «Crear etiqueta»: con «Sandbox DHL (real)» la etiqueta llega de DHL en PDF, marcada como sandbox y no válida para enviar."
+            "En Envíos, en «Etiquetas y seguimiento», «Crear etiqueta»: con «Sandbox DHL (real)» la etiqueta llega de DHL en PDF, marcada como sandbox y no válida para enviar.",
+            "DHL Kleinpaket (paquete pequeño): en Envíos elija el embalaje «Caja de paquete pequeño» (35 × 25 × 8 cm) o un sobre de envío. Permitido hasta 35,3 × 25 × 8 cm y 1 kg. El formato de etiqueta 100 × 70 mm solo existe para Kleinpaket."
           ],
           "tipp": "En «Formato de etiqueta (original de DHL)» elija el formato DHL, por defecto la etiqueta DHL A5 (910-300-700), o p. ej. A4 o térmica 103 × 199 mm; el PDF llega de DHL sin cambios. «Crear etiqueta de prueba» crea en la sandbox de DHL un envío de prueba con direcciones de prueba en el formato elegido, lo anula al instante y abre el PDF con «Abrir etiqueta de prueba (PDF)». El envío real (live) está bloqueado en el prototipo. Los mismos datos están también en Envíos, en «Transportistas»."
         },
@@ -1217,6 +1279,20 @@ window.ZYKOL_ANLEITUNG = {
             "«Proveedores»: datos maestros, contactos, condiciones, plazo de entrega y pedidos abiertos por fabricante. «Añadir proveedor» crea uno nuevo."
           ],
           "tipp": "Administración y encargado de tienda configuran las ubicaciones en Ajustes → Ubicaciones y sedes. Las ubicaciones solo se pueden desactivar, no borrar, para conservar el historial."
+        },
+        "inventur": {
+          "titel": "Inventario e importación",
+          "intro": "En Gestión de inventario → «Inventario e importación» se cuenta el stock y se cargan existencias por CSV. Cada cambio queda en el historial.",
+          "schritte": [
+            "Toque «Iniciar inventario», elija «Toda la tienda» o ubicaciones concretas en «Elegir alcance» y toque «Fijar fecha y empezar». Las existencias teóricas se congelan en la fecha de corte.",
+            "Cuente en papel con «Imprimir lista de recuento», en Excel con «Lista de recuento en CSV» o directamente en el dispositivo. Escanee en el campo de escaneo o escriba la ref. + Intro; cada escaneo cuenta +1. La cantidad contada también se puede escribir.",
+            "Recupere una lista rellenada con «Leer CSV contado».",
+            "La «Lista de diferencias» muestra cada desviación del teórico. A partir de 100 € de valor, el motivo es obligatorio.",
+            "«Resto igual al teórico» pone todas las ubicaciones no contadas en el stock teórico. «Cerrar inventario» contabiliza las diferencias (motivo «inventario»), «Acta (PDF)» guarda el resultado. «Descartar» cancela sin contabilizar nada.",
+            "«Importar existencias»: arrastre un CSV aquí o toque «Elegir CSV». Elija «Fijar existencias» (stock inicial; solo se contabiliza la diferencia) o «Sumar cantidad (entrada)». Los archivos de otro formato se asignan en «Asignar columnas (sugerencia)»; la plantilla de zykol.POS se detecta sola.",
+            "«Plantilla CSV y exportación» ofrece una «Plantilla vacía», una plantilla «Con existencias actuales» y un «CSV de ejemplo (otro formato)». Los archivos usan punto y coma y UTF-8 y se abren bien en Excel."
+          ],
+          "tipp": "Iniciar y cerrar requiere el permiso «Realizar inventario»; para contar basta «Contar inventario». El área pertenece al módulo «Almacén y existencias». En el prototipo los asientos son solo locales y no sustituyen un inventario documentado."
         },
         "etiketten": {
           "titel": "Barcos vendidos, ID de palas y etiquetas QR",
@@ -1311,6 +1387,7 @@ window.ZYKOL_ANLEITUNG = {
             "Envíos: conectar DHL, UPS y DPD con las credenciales, elegir sandbox o producción y probar la conexión. Los mismos datos están en Envíos, en «Transportistas».",
             "Formas de pago: active o desactive tarjeta, efectivo, PayPal, factura, vale y pago por adelantado, ordénelas y pruebe la conexión. Factura electrónica: perfil ZUGFeRD, sintaxis XRechnung y transmisión.",
             "Admin (solo root): idioma del sistema e idioma por usuario, registro del sistema, base de datos y copia de seguridad.",
+            "Módulos (solo root): activar o desactivar áreas como almacén y existencias, personal y vacaciones, registro de jornada, taller, licitaciones, cierre de caja, conexión ERP, noticias de piragüismo, barcos y palas y regatas, o todas con «Todo activado» y «Todo desactivado». Los módulos desactivados desaparecen del menú, el panel, el calendario y la tabla de permisos; los datos se conservan. Caja, clientes, artículos, comprobantes, envíos, factura electrónica, presupuestos y calendario están siempre activos.",
             "Cambie el orden del menú abajo en la barra lateral con «Ordenar menú»; «Restaurar predeterminado» lo restablece. El panel siempre queda arriba."
           ],
           "tipp": "El rol taller (técnico) tiene un menú fijo (panel, taller, calendario, control horario) y no puede cobrar."
@@ -1350,7 +1427,8 @@ window.ZYKOL_ANLEITUNG = {
         "Werkstatt ansehen": "Ver oficina",
         "Versand ansehen": "Ver envios",
         "Artikel & Bestand ansehen": "Ver artigos e stock",
-        "Ausschreibungen ansehen": "Ver concursos"
+        "Ausschreibungen ansehen": "Ver concursos",
+        "Inventur zählen": "Contar inventário"
       },
       "kapitel": {
         "anmelden": {
@@ -1404,7 +1482,7 @@ window.ZYKOL_ANLEITUNG = {
             "Meio de pagamento fatura: não há talão e a fatura é obrigatória. Para empresas, clubes e setor público é criada como fatura eletrónica (capítulo Fatura eletrónica).",
             "Toque em «Concluir». Um aviso confirma a venda; «Abrir» mostra-a nas Transações."
           ],
-          "tipp": "Cada talão tem um código QR para consulta online. TSE, terminal de cartão, PayPal, impressoras e e-mail são simulados no protótipo."
+          "tipp": "O talão de caixa tem um código QR para consulta online; as faturas já não o têm. As faturas em aberto com forma de pagamento fatura têm em vez disso um GiroCode «Pagar online»: lido com a app do banco, IBAN, montante e número da fatura já vêm preenchidos. O GiroCode só aparece quando há um IBAN válido em Empresa e caixa. TSE, terminal de cartão, PayPal, impressoras e e-mail são simulados no protótipo."
         },
         "kassenabschluss": {
           "titel": "Fecho de caixa",
@@ -1451,6 +1529,7 @@ window.ZYKOL_ANLEITUNG = {
             "Em «Orçamentos», crie um novo, escolha o cliente e adicione linhas com desconto. Verifique a pré-visualização em PDF e envie.",
             "Montar as linhas facilmente: «Montar no carrinho» abre a caixa em modo orçamento. Escolha os artigos como sempre e toque em «Passar para o orçamento». Nada é cobrado e um carrinho iniciado é mantido.",
             "Mantenha o estado: Rascunho, Enviado, Aceite, Recusado, Expirado. Fature os aceites com «Passar para a caixa».",
+            "Continuar um orçamento aceite: «Criar ordem de envio» cria uma encomenda aberta (número V) em Envios com cliente, morada e posições. «Criar ordem de oficina» cria uma ordem de oficina; as posições passam como orçamento de reparação e as horas de trabalho acrescentam-se na oficina. Depois o orçamento mostra o número da ordem.",
             "A partir do carrinho: «Guardar como orçamento» guarda o conteúdo como orçamento (rascunho). Sem cliente, é guardado para um cliente ocasional.",
             "Mais tarde, abra «Orçamentos da caixa» na caixa e toque em «Carregar no carrinho» no orçamento pretendido."
           ],
@@ -1503,7 +1582,8 @@ window.ZYKOL_ANLEITUNG = {
             "DHL: em «Ligação» escolher «Simulado» (etiquetas de exemplo) ou «Sandbox DHL (real)». A sandbox comunica com a API DHL Developer através do servidor; as credenciais ficam só no servidor.",
             "Tocar em «Testar ligação». Verde significa acesso verificado. Uma mensagem vermelha indica o que falta ou o que a DHL responde.",
             "Escolher os serviços de cada transportadora e indicar a hora de recolha diária.",
-            "Em Envios, em «Etiquetas e seguimento», «Criar etiqueta»: com «Sandbox DHL (real)» a etiqueta vem da DHL em PDF, marcada como sandbox e não válida para envio."
+            "Em Envios, em «Etiquetas e seguimento», «Criar etiqueta»: com «Sandbox DHL (real)» a etiqueta vem da DHL em PDF, marcada como sandbox e não válida para envio.",
+            "DHL Kleinpaket (pacote pequeno): em Envios escolha a embalagem «Caixa de pacote pequeno» (35 × 25 × 8 cm) ou um envelope de envio. Permitido até 35,3 × 25 × 8 cm e 1 kg. O formato de etiqueta 100 × 70 mm só existe para Kleinpaket."
           ],
           "tipp": "Em «Formato da etiqueta (original DHL)» escolha o formato DHL, por predefinição a etiqueta DHL A5 (910-300-700), ou p. ex. A4 ou térmica 103 × 199 mm; o PDF vem da DHL sem alterações. «Criar etiqueta de teste» cria na sandbox DHL um envio de teste com moradas de teste no formato escolhido, anula-o logo e abre o PDF com «Abrir etiqueta de teste (PDF)». O envio real (live) está bloqueado no protótipo. Os mesmos dados estão também em Envios, em «Transportadoras»."
         },
@@ -1519,6 +1599,20 @@ window.ZYKOL_ANLEITUNG = {
             "«Fornecedores»: dados mestres, contactos, condições, prazo de entrega e encomendas abertas por fabricante. «Adicionar fornecedor» cria um novo."
           ],
           "tipp": "A administração e o gerente de loja configuram as localizações em Definições → Localizações e locais. As localizações só podem ser desativadas, não apagadas, para manter o histórico."
+        },
+        "inventur": {
+          "titel": "Inventário e importação",
+          "intro": "Em Gestão de stock → «Inventário e importação» conta o stock e carrega stock por CSV. Cada alteração fica no histórico.",
+          "schritte": [
+            "Toque em «Iniciar inventário», escolha «Loja inteira» ou locais em «Escolher âmbito» e toque em «Definir data e iniciar». O stock teórico é congelado na data de referência.",
+            "Conte em papel com «Imprimir lista de contagem», no Excel com «Lista de contagem em CSV» ou diretamente no dispositivo. Digitalize no campo de leitura ou escreva a ref. + Enter; cada leitura conta +1. A quantidade contada também pode ser escrita.",
+            "Traga de volta uma lista preenchida com «Ler CSV contado».",
+            "A «Lista de diferenças» mostra cada desvio do teórico. A partir de 100 € de valor, o motivo é obrigatório.",
+            "«Restante igual ao teórico» coloca todos os locais ainda não contados no stock teórico. «Fechar inventário» lança as diferenças (motivo «inventário»), «Relatório (PDF)» guarda o resultado. «Descartar» cancela sem lançar nada.",
+            "«Importar stock»: arraste um CSV para aqui ou toque em «Escolher CSV». Escolha «Definir stock» (stock inicial; só a diferença é lançada) ou «Somar quantidade (entrada)». Ficheiros de outro formato associam-se em «Associar colunas (sugestão)»; o modelo zykol.POS é detetado.",
+            "«Modelo CSV e exportação» oferece um «Modelo vazio», um modelo «Com stock atual» e um «CSV de exemplo (outro formato)». Os ficheiros usam ponto e vírgula e UTF-8 e abrem corretamente no Excel."
+          ],
+          "tipp": "Iniciar e fechar exige a permissão «Realizar inventário»; para contar basta «Contar inventário». A área pertence ao módulo «Armazém e stock». No protótipo os lançamentos são apenas locais e não substituem um inventário documentado."
         },
         "etiketten": {
           "titel": "Barcos vendidos, ID de pagaias e etiquetas QR",
@@ -1613,6 +1707,7 @@ window.ZYKOL_ANLEITUNG = {
             "Envios: ligar DHL, UPS e DPD com as credenciais, escolher sandbox ou produção e testar a ligação. Os mesmos dados estão em Envios, em «Transportadoras».",
             "Meios de pagamento: ative ou desative cartão, numerário, PayPal, fatura, vale e pré-pagamento, ordene-os e teste a ligação. Fatura eletrónica: perfil ZUGFeRD, sintaxe XRechnung e transmissão.",
             "Admin (só root): idioma do sistema e idioma por utilizador, registo do sistema, base de dados e cópia de segurança.",
+            "Módulos (só root): ligar ou desligar áreas como armazém e stock, pessoal e férias, registo de horas, oficina, concursos, fecho de caixa, ligação ERP, notícias de canoagem, barcos e pás e regatas, ou todas com «Tudo ligado» e «Tudo desligado». Os módulos desligados desaparecem do menu, painel, calendário e tabela de permissões; os dados mantêm-se. Caixa, clientes, artigos, documentos, envios, fatura eletrónica, orçamentos e calendário estão sempre ligados.",
             "Altere a ordem do menu em baixo na barra lateral com «Ordenar menu»; «Repor predefinição» repõe-na. O painel fica sempre no topo."
           ],
           "tipp": "A função oficina (técnico) tem um menu fixo (painel, oficina, calendário, registo de horas) e não pode cobrar."

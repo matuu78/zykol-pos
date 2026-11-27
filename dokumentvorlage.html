@@ -1185,7 +1185,7 @@ class Component extends DCLogic {
       })),
       summen: d.summen,
       // Ohne gültige IBAN: Hinweise wie in der abgestimmten Beispielrechnung (fiktive Daten, keine Zahlung)
-      hinweise: IBAN_OK(g.iban) && !giroTest ? d.hinweise : this.state.typ === 'rechnung' && !Z_RG_INFO ? ['Fiktive Artikel und Firmendaten. Keine Zahlung vornehmen.', 'Zahlungsziel: ' + Z_ZIEL + '.', 'Bitte geben Sie bei Zahlungen die Rechnungsnummer an.', 'Eigentumsvorbehalt bis zur vollständigen Bezahlung.'].concat(d.hinweise.filter(h => /^E-Rechnung nach|^Sichtkopie\. Maßgeblich/.test(h)))
+      hinweise: IBAN_OK(g.iban) && !giroTest ? d.hinweise : this.state.typ === 'rechnung' && !Z_RG_INFO && !Z_STORNO ? ['Fiktive Artikel und Firmendaten. Keine Zahlung vornehmen.', 'Zahlungsziel: ' + Z_ZIEL + '.', 'Bitte geben Sie bei Zahlungen die Rechnungsnummer an.', 'Eigentumsvorbehalt bis zur vollständigen Bezahlung.'].concat(d.hinweise.filter(h => /^E-Rechnung nach|^Sichtkopie\. Maßgeblich/.test(h)))
         : d.hinweise.map(h => /unten genannte Konto/.test(h) ? 'Fiktive Artikel und Firmendaten. Keine Zahlung vornehmen.' : h),
       hatPaddel: !!this.state.paddel && (this.state.typ === 'beleg' || this.state.typ === 'rechnung'),
       hatWs: !!this.state.ws && (this.state.typ === 'beleg' || this.state.typ === 'rechnung'), wsZeilen: this.state.ws || [],
@@ -1194,12 +1194,12 @@ class Component extends DCLogic {
       hatQr: this.state.typ === 'beleg',
       // v12.61: „online abrufen“ nur noch auf dem Bon; auf offenen Rechnungen (Zahlart Rechnung) steht der GiroCode zum Bezahlen
       hatBrief: !!d.brief, briefZeilen: d.brief ? d.brief.slice(0, -1) : [], briefGruss: d.brief ? d.brief[d.brief.length - 1] + ' · ' + (g.firma || '') : '',
-      hatGiro: (this.state.typ === 'rechnung' && !Z_RG_INFO) || this.state.typ === 'mahnung',
-      giroSrc: ((this.state.typ === 'rechnung' && !Z_RG_INFO) || this.state.typ === 'mahnung') && IBAN_OK(g.iban) ? QR_UTF8(GIROCODE(g.kontoinhaber || g.firma, g.iban, g.bic, CENT(d.summe) / 100, (giroTest ? 'TEST ' : '') + d.nummer)) : '',
-      giroFehlt: ((this.state.typ === 'rechnung' && !Z_RG_INFO) || this.state.typ === 'mahnung') && !IBAN_OK(g.iban),
+      hatGiro: (this.state.typ === 'rechnung' && !Z_RG_INFO && !Z_STORNO) || this.state.typ === 'mahnung',
+      giroSrc: ((this.state.typ === 'rechnung' && !Z_RG_INFO && !Z_STORNO) || this.state.typ === 'mahnung') && IBAN_OK(g.iban) ? QR_UTF8(GIROCODE(g.kontoinhaber || g.firma, g.iban, g.bic, CENT(d.summe) / 100, (giroTest ? 'TEST ' : '') + d.nummer)) : '',
+      giroFehlt: ((this.state.typ === 'rechnung' && !Z_RG_INFO && !Z_STORNO) || this.state.typ === 'mahnung') && !IBAN_OK(g.iban),
       giroText: giroTest ? 'Test-GiroCode mit Muster-IBAN: lässt sich mit der Banking-App scannen, bitte nicht überweisen' : IBAN_OK(g.iban) ? 'Mit der Banking-App scannen (GiroCode), Betrag und Verwendungszweck sind schon eingetragen' : 'Der GiroCode erscheint, sobald unter Firma & Kasse eine gültige IBAN eingetragen ist',
       giroBetrag: d.summe + ' · ' + d.nummer,
-      hatDank: !!g.dankText && (this.state.typ === 'beleg' || this.state.typ === 'rechnung'),
+      hatDank: !!g.dankText && !Z_STORNO && (this.state.typ === 'beleg' || this.state.typ === 'rechnung'), // Storno: kein Dank, kein GiroCode (v12.81)
       dankText: g.dankText || '',
       qrTitel: this.state.typ === 'rechnung' ? 'Rechnung online abrufen' : 'Beleg online abrufen',
       istBon: this.state.typ === 'beleg', istA4: this.state.typ !== 'beleg',

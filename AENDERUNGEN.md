@@ -1,6 +1,6 @@
 # zykol.POS Kanu – Änderungen je Version
 
-Stand: 27.11.2026 · Version v12.86 · neueste Version oben
+Stand: 27.11.2026 · Version v12.87 · neueste Version oben
 
 Diese Liste beschreibt, was sich für die Bedienung geändert hat. Quellen sind die Git-Historie und die Pull-Requests von `matuu78/zykol-pos` sowie die Projektnotizen.
 
@@ -12,6 +12,15 @@ Diese Liste beschreibt, was sich für die Bedienung geändert hat. Quellen sind 
 ---
 
 ## November 2026
+
+### v12.87 · 27.11.2026 · Newsletter-Schalter bei Kunden
+- Im Fenster **Kunde bearbeiten** / **Neuer Kunde** gibt es den Schalter **Newsletter**. Ist er an, wählt man darunter, wie die Einwilligung erteilt wurde: Im Laden (schriftlich), Online-Formular (Double-Opt-in), Per E-Mail oder Telefonisch.
+- Beim Speichern werden Einwilligung und Abmeldung mit Datum, Uhrzeit und Benutzer festgehalten (Nachweis nach DSGVO). Das Fenster zeigt den Stand („Eingewilligt am …“, „Abgemeldet am …“) und alle Änderungen.
+- Ohne gültige E-Mail-Adresse lässt sich der Newsletter nicht einschalten.
+- Die Kundenakte zeigt die Zeile **Newsletter** („Ja, seit … · Weg“ oder „Nein, abgemeldet am …“) und darunter den **Newsletter-Verlauf**.
+- In der Kundenliste steht bei Kunden mit Einwilligung ein Kennzeichen „Newsletter“. Der neue Filter **Newsletter (n)** zeigt nur diese Kunden, und **Newsletter-Liste (CSV)** lädt Kundennummer, Name, Ansprechpartner, E-Mail, Datum und Weg der Einwilligung herunter. Archivierte Kunden sind nicht dabei.
+- Demodaten: 6 Kunden mit Einwilligung, 2 abgemeldete.
+- ⚠️ Wie alle Kundenänderungen im Prototyp bleiben Einwilligungen nur bis zum Neuladen der Seite erhalten. Ein Versand an einen Newsletter-Dienst gibt es nicht.
 
 ### v12.86 · 27.11.2026 · Barzahlungen im Kassenabschluss
 - Im Kassenabschluss heißt der erste Reiter jetzt **1 · Zahlungen**. Er zeigt neben Karte und PayPal einen eigenen Bereich **Barzahlungen** mit jeder Barzahlung des Tages (Uhrzeit, Beleg, Artikel, Betrag).

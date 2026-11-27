@@ -1835,6 +1835,20 @@ Logo|Logótipo
   add('Personal', 'Staff', 'Personnel', 'Personal', 'Pessoal');
   add('Kommen und Gehen stempeln, Stunden und Saldo je Mitarbeitende.', 'Clock in and out, hours and balance per employee.', 'Pointer arrivées et départs, heures et solde par collaborateur.', 'Fichar entradas y salidas, horas y saldo por empleado.', 'Registar entradas e saídas, horas e saldo por colaborador.');
   add('Stempelübersicht', 'Time clock overview', 'Aperçu des pointages', 'Resumen de fichajes', 'Resumo de registos');
+  // v12.87: Newsletter-Einwilligung bei Kunden
+  add('Keine Einwilligung', 'No consent', 'Pas de consentement', 'Sin consentimiento', 'Sem consentimento');
+  add('Einwilligung erteilt', 'Consent given', 'Consentement donné', 'Consentimiento dado', 'Consentimento dado');
+  add('Im Laden (schriftlich)', 'In store (in writing)', 'En magasin (par écrit)', 'En la tienda (por escrito)', 'Na loja (por escrito)');
+  add('Online-Formular (Double-Opt-in)', 'Online form (double opt-in)', 'Formulaire en ligne (double opt-in)', 'Formulario en línea (doble opt-in)', 'Formulário online (double opt-in)');
+  add('Per E-Mail', 'By e-mail', 'Par e-mail', 'Por correo electrónico', 'Por e-mail');
+  add('Telefonisch', 'By phone', 'Par téléphone', 'Por teléfono', 'Por telefone');
+  add('Newsletter-Liste (CSV)', 'Newsletter list (CSV)', 'Liste newsletter (CSV)', 'Lista de newsletter (CSV)', 'Lista de newsletter (CSV)');
+  add('Newsletter-Einwilligung liegt vor', 'Newsletter consent given', 'Consentement newsletter donné', 'Consentimiento de newsletter dado', 'Consentimento de newsletter dado');
+  add('Newsletter-Einwilligung', 'Newsletter consent', 'Consentement newsletter', 'Consentimiento de newsletter', 'Consentimento de newsletter');
+  add('Newsletter-Verlauf', 'Newsletter history', 'Historique newsletter', 'Historial de newsletter', 'Histórico de newsletter');
+  add('Die Einwilligung wird beim Speichern mit heutigem Datum festgehalten.', 'Consent will be recorded with today’s date when saving.', 'Le consentement sera enregistré à la date du jour.', 'El consentimiento se registrará con la fecha de hoy al guardar.', 'O consentimento será registado com a data de hoje ao guardar.');
+  add('Die Abmeldung wird beim Speichern mit heutigem Datum festgehalten.', 'Unsubscribing will be recorded with today’s date when saving.', 'La désinscription sera enregistrée à la date du jour.', 'La baja se registrará con la fecha de hoy al guardar.', 'O cancelamento será registado com a data de hoje ao guardar.');
+  add('Für den Newsletter bitte eine gültige E-Mail-Adresse eintragen.', 'Please enter a valid e-mail address for the newsletter.', 'Veuillez saisir une adresse e-mail valide pour la newsletter.', 'Introduzca un correo electrónico válido para la newsletter.', 'Introduza um e-mail válido para a newsletter.');
   [
     ['Januar','January','Janvier','Enero','Janeiro'], ['Februar','February','Février','Febrero','Fevereiro'], ['März','March','Mars','Marzo','Março'],
     ['April','April','Avril','Abril','Abril'], ['Mai','May','Mai','Mayo','Maio'], ['Juni','June','Juin','Junio','Junho'], ['Juli','July','Juillet','Julio','Julho'],
@@ -3788,6 +3802,10 @@ Logo|Logótipo
     [/^Krankmeldung für (.+?) gespeichert\. Schichtplan und Kalender sind angepasst\.$/, {en: 'Sick leave for $1 saved. Shift plan and calendar updated.', fr: 'Arrêt de $1 enregistré. Planning et calendrier mis à jour.', es: 'Baja de $1 guardada. Turnos y calendario actualizados.', pt: 'Baixa de $1 guardada. Turnos e calendário atualizados.'}],
     [/^(.+) ist ab morgen wieder eingeplant\.$/, {en: '$1 is scheduled again from tomorrow.', fr: '$1 est replanifié dès demain.', es: '$1 vuelve a estar en el plan desde mañana.', pt: '$1 volta ao plano a partir de amanhã.'}],
     [/^(.+) · (Bestellt|Bestätigt|Teilgeliefert|Entwurf) · Liefertermin (\S+)$/, {en: '$1 · §2 · delivery $3', fr: '$1 · §2 · livraison $3', es: '$1 · §2 · entrega $3', pt: '$1 · §2 · entrega $3'}],
+    [/^Eingewilligt am (\S+)$/, {en: 'Consent given on $1', fr: 'Consentement donné le $1', es: 'Consentimiento dado el $1', pt: 'Consentimento dado em $1'}],
+    [/^Abgemeldet am (\S+)$/, {en: 'Unsubscribed on $1', fr: 'Désinscrit le $1', es: 'Baja el $1', pt: 'Cancelado em $1'}],
+    [/^Ja, seit (\S+) · (.+)$/, {en: 'Yes, since $1 · $2', fr: 'Oui, depuis le $1 · $2', es: 'Sí, desde el $1 · $2', pt: 'Sim, desde $1 · $2'}],
+    [/^Nein, abgemeldet am (\S+)$/, {en: 'No, unsubscribed on $1', fr: 'Non, désinscrit le $1', es: 'No, baja el $1', pt: 'Não, cancelado em $1'}],
     [/^(\d+) von (\d+)$/, {en: '$1 of $2', fr: '$1 sur $2', es: '$1 de $2', pt: '$1 de $2'}]
   ].forEach(function (m) { I.muster.push(m); });
 })();

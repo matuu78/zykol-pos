@@ -302,6 +302,7 @@
 <script src="assets/js/doc-page.js?v=12.72"></script>
 <script src="assets/js/qrcode.js"></script>
 <script src="assets/js/zk-tse.js"></script>
+<script src="assets/js/zk-dsfinvk.js"></script>
 </helmet>
 
 <div style="font-family:'Inter',sans-serif;color:#101010;">
@@ -613,6 +614,9 @@ const Z_KASSE = (_ZQ.get('kasse') || '').slice(0, 40);
 // TSE-Kurzsignatur der Transaktion (Journal) und Signaturzähler aus der Belegnummer (B-2026-0418 → 18.402)
 // seit v12.73: TSE-Daten des Vorgangs (simuliert, fiskaly SIGN DE) aus Parameter tse=, sonst aus Belegnummer, Datum und Uhrzeit nachgebildet
 const Z_STORNO = (_ZQ.get('storno') || '').slice(0, 40), Z_BEZUG = (_ZQ.get('bezug') || '').slice(0, 40);
+// DSFinV-K-Exportprotokoll (seit v12.74): Kennzahlen des tatsächlich erzeugten Exports aus Parameter exp=
+const Z_EXP = (() => { try { const j = JSON.parse(decodeURIComponent(escape(atob(String(_ZQ.get('exp') || '').replace(/-/g, '+').replace(/_/g, '/'))))); return j && j.belege != null ? j : null; } catch (e) { return null; } })();
+const _ISO_DE = s => /^\d{4}-\d{2}-\d{2}$/.test(s || '') ? s.split('-').reverse().join('.') : (s || '');
 const Z_ZIEL = (() => { const t = Z_DATUM.split('.').map(Number); return _F(new Date(t[2], t[1] - 1, t[0] + 30)); })();
 const Z_GEG = parseFloat(_ZQ.get('gegeben')), Z_RUECK = parseFloat(_ZQ.get('rueckgeld'));
 const Z_POS = (_ZQ.get('pos') || '').split('|').filter(Boolean).map(x => { const t = x.split('~'); return {name: t[0], menge: parseInt(t[1]) || 1, preis: parseFloat(t[2]) || 0, artnr: (t[3] || '').slice(0, 24), ust: t[4] !== undefined && t[4] !== '' && !isNaN(+t[4]) ? +t[4] : null}; });
@@ -917,12 +921,20 @@ const DOKUMENTE = {
     label: 'DSFinV-K Protokoll',
     kicker: 'Kassensicherung',
     titel: 'DSFinV-K Exportprotokoll',
-    nummer: 'Export DSF-2026-0827',
+    nummer: Z_EXP ? 'Export DSF-' + String(Z_EXP.bis || '').replace(/-/g, '') : 'Export DSF-2026-0827',
     untertitel: 'Kassenjournal für Betriebsprüfung und Finanzbuchhaltung',
     summeLabel: 'Umsatz im Export',
     linkeBoxTitel: 'Signatureinheit',
-    linkeBox: ['Cloud-TSE (fiskaly)', 'Seriennummer TSE-4711-0A93-KASSE01', 'Zertifikat gültig bis 31.12.2029', 'Client KASSE-01 · gemeldet 12.01.2026'],
-    meta: [
+    linkeBox: Z_EXP ? ['Cloud-TSE fiskaly SIGN DE (Simulation)', 'TSE-Seriennr. ' + (window.ZK_TSE ? ZK_TSE.seriennummer.slice(0, 16) + '…' : '—'), 'ecdsa-plain-SHA384 · unixTime', 'Datei ' + Z_EXP.datei]
+      : ['Cloud-TSE (fiskaly)', 'Seriennummer TSE-4711-0A93-KASSE01', 'Zertifikat gültig bis 31.12.2029', 'Client KASSE-01 · gemeldet 12.01.2026'],
+    meta: Z_EXP ? [
+      {k: 'Zeitraum', v: _ISO_DE(Z_EXP.von) + ' – ' + _ISO_DE(Z_EXP.bis)},
+      {k: 'Kassenabschlüsse', v: NUM(Z_EXP.abschl)},
+      {k: 'Belege', v: NUM(Z_EXP.belege)},
+      {k: 'Positionen', v: NUM(Z_EXP.pos)},
+      {k: 'Stornobelege', v: NUM(Z_EXP.storni)},
+      {k: 'Export-Format', v: 'DSFinV-K 2.3 · ' + Z_EXP.tab + ' Dateien (CSV + index.xml)'}
+    ] : [
       {k: 'Zeitraum', v: D_MONATSANFANG + ' – ' + D_HEUTE},
       {k: 'Belege', v: '108'},
       {k: 'Signaturen', v: '18.402'},
@@ -935,7 +947,7 @@ const DOKUMENTE = {
       {label: 'Beleg', align: 'left'}, {label: 'Zeit', align: 'left'},
       {label: 'TSE-Signatur', align: 'left'}, {label: 'Zahlart', align: 'left'}, {label: 'Brutto', align: 'right'}
     ],
-    zeilen: [
+    zeilen: Z_EXP ? (Z_EXP.zeilen || []).map(z => R([z[0], z[1], z[2], z[3], (z[4] < 0 ? '− ' : '') + EUR(Math.abs(z[4]))])) : [
       R(['B-2026-0418', '27.08. 14:32', 'a41f-9c02-…-8e11', 'girocard', EUR(3178)]),
       R(['B-2026-0417', '27.08. 13:58', 'b7d3-1188-…-2c40', 'Bar', EUR(297)]),
       R(['B-2026-0416', '27.08. 12:41', 'c902-6a55-…-7f93', 'girocard', EUR(197)]),
@@ -943,13 +955,22 @@ const DOKUMENTE = {
       R(['B-2026-0414', '27.08. 10:47', 'e56c-77b1-…-0d62', 'Storno', '− ' + EUR(2599)]),
       R(['B-2026-0413', '27.08. 09:55', 'f0a2-4b39-…-91ce', 'Bar', EUR(79)])
     ],
-    summen: [
+    summen: Z_EXP ? [
+      {k: 'Belege im Auszug', v: String((Z_EXP.zeilen || []).length) + ' von ' + NUM(Z_EXP.belege)},
+      {k: 'Netto', v: EUR(Z_EXP.netto)},
+      {k: 'Umsatzsteuer', v: EUR(Z_EXP.ust)}
+    ] : [
       {k: 'Belege im Auszug', v: '6'},
       {k: 'Netto', v: EUR(5744 / 1.19)},
       {k: '19 % MwSt.', v: EUR(5744 - 5744 / 1.19)}
     ],
-    summe: EUR(5744),
-    hinweise: [
+    summe: EUR(Z_EXP ? Z_EXP.umsatz : 5744),
+    hinweise: Z_EXP ? [
+      'Export nach DSFinV-K 2.3 (Stamm-, Kassenabschluss- und Einzelaufzeichnungsmodul) mit index.xml; Auszug zeigt die letzten Belege.',
+      'Prototyp: TSE-Werte simuliert (fiskaly SIGN DE). Im Echtbetrieb erzeugt fiskaly den Export aus den übertragenen Kassenabschlüssen.',
+      'Nicht mit Prüfsoftware (z. B. AmadeusVerify) geprüft. Die Datei gdpdu-01-09-2004.dtd liegt im Echtbetrieb bei.'
+    ] : [
+      'Muster mit Beispieldaten. Den echten Export über „DSFinV-K exportieren (ZIP)“ erzeugen.',
       'Export gemäß § 146a AO in Verbindung mit KassenSichV und DSFinV-K 2.3.',
       'Der vollständige Datensatz wird als CSV-Paket mit index.xml übergeben.',
       'Aufbewahrungsfrist 10 Jahre, revisionssicher und unveränderbar.'

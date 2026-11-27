@@ -1,6 +1,6 @@
 # zykol.POS Kanu – Änderungen je Version
 
-Stand: 27.11.2026 · Version v12.85 · neueste Version oben
+Stand: 27.11.2026 · Version v12.86 · neueste Version oben
 
 Diese Liste beschreibt, was sich für die Bedienung geändert hat. Quellen sind die Git-Historie und die Pull-Requests von `matuu78/zykol-pos` sowie die Projektnotizen.
 
@@ -12,6 +12,11 @@ Diese Liste beschreibt, was sich für die Bedienung geändert hat. Quellen sind 
 ---
 
 ## November 2026
+
+### v12.86 · 27.11.2026 · Barzahlungen im Kassenabschluss
+- Im Kassenabschluss heißt der erste Reiter jetzt **1 · Zahlungen**. Er zeigt neben Karte und PayPal einen eigenen Bereich **Barzahlungen** mit jeder Barzahlung des Tages (Uhrzeit, Beleg, Artikel, Betrag).
+- Für Bar gibt es dort kein Feld für einen Tagesbericht. Das Bargeld wird weiter im Schritt „2 · Bargeld zählen“ gezählt.
+- Bei geteilter Zahlung steht in jeder Liste nur der Teil dieser Zahlart, markiert mit „Teilzahlung“. Vorher stand in der Karten- oder PayPal-Liste der ganze Belegbetrag.
 
 ### v12.85 · 27.11.2026 · Beliebig viele Optionen je Rubrik
 - Unter Artikel › Rubriken › Auswahl kann eine Warengruppe jetzt mehr als zwei Optionen haben. Mit **+ Weitere Option** kommt eine weitere dazu, mit „— keine —“ fällt sie wieder weg. Jede Option kann je Rubrik nur einmal gewählt werden.

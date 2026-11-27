@@ -301,6 +301,8 @@
 </style>
 <script src="assets/js/doc-page.js?v=12.72"></script>
 <script src="assets/js/qrcode.js"></script>
+<script src="assets/js/zk-tse.js"></script>
+<script src="assets/js/zk-dsfinvk.js"></script>
 </helmet>
 
 <div style="font-family:'Inter',sans-serif;color:#101010;">
@@ -371,7 +373,7 @@
         <sc-for list="{{ bonKopf }}" as="k" hint-placeholder-count="3"><div style="font-size:11px;">{{ k }}</div></sc-for>
       </div>
       <div style="border-top:1px dashed #101010;margin:9px 0 7px;"></div>
-      <div style="text-align:center;font-weight:700;font-size:12.5px;letter-spacing:.08em;">KASSENBELEG</div>
+      <div style="text-align:center;font-weight:700;font-size:12.5px;letter-spacing:.08em;">{{ bonTitel }}</div>
       <div style="text-align:center;font-size:11px;margin-bottom:6px;">{{ bonNr }} · {{ bonUntertitel }}</div>
       <sc-for list="{{ bonMeta }}" as="m" hint-placeholder-count="4">
         <div style="display:flex;justify-content:space-between;gap:8px;font-size:11px;"><span>{{ m.k }}</span><span style="text-align:right;">{{ m.v }}</span></div>
@@ -397,10 +399,22 @@
         </sc-for>
       </div>
       <div style="border-top:1px dashed #101010;margin:8px 0 6px;"></div>
-      <div style="font-size:10.5px;font-weight:600;letter-spacing:.06em;">TSE</div>
-      <sc-for list="{{ bonTse }}" as="t" hint-placeholder-count="3">
-        <div style="display:flex;justify-content:space-between;gap:8px;font-size:10.5px;"><span>{{ t.k }}</span><span style="text-align:right;word-break:break-all;">{{ t.v }}</span></div>
+      <div style="font-size:10.5px;font-weight:600;letter-spacing:.06em;">TSE · fiskaly SIGN DE</div>
+      <sc-if value="{{ tseAusfall }}" hint-placeholder-val="{{ false }}">
+        <div style="margin:3px 0 4px;padding:4px 6px;border:1px solid #101010;font-size:10.5px;font-weight:700;text-align:center;">TSE AUSGEFALLEN – OHNE SIGNATUR</div>
+      </sc-if>
+      <sc-for list="{{ bonTseKurz }}" as="t" hint-placeholder-count="6">
+        <div style="display:flex;justify-content:space-between;gap:8px;font-size:10px;"><span style="flex:none;">{{ t.k }}</span><span style="text-align:right;word-break:break-all;">{{ t.v }}</span></div>
       </sc-for>
+      <sc-for list="{{ bonTseLang }}" as="t" hint-placeholder-count="2">
+        <div style="font-size:9.5px;margin-top:2px;"><div>{{ t.k }}</div><div style="word-break:break-all;font-variant-numeric:tabular-nums;line-height:1.25;">{{ t.v }}</div></div>
+      </sc-for>
+      <sc-if value="{{ hatTseQr }}" hint-placeholder-val="{{ true }}">
+        <div style="display:flex;flex-direction:column;align-items:center;gap:2px;margin-top:8px;">
+          <img src="{{ tseQrSrc }}" alt="TSE-QR-Code nach DSFinV-K" style="width:38mm;height:38mm;display:block;">
+          <div style="font-size:9.5px;">TSE-Prüfwert (QR nach DSFinV-K)</div>
+        </div>
+      </sc-if>
       <div style="display:flex;flex-direction:column;align-items:center;gap:3px;margin-top:10px;text-align:center;">
         <img src="{{ qrSrc }}" alt="QR-Code zum Beleg" style="width:30mm;height:30mm;display:block;">
         <div style="font-size:10.5px;font-weight:600;">{{ qrTitel }}</div>
@@ -523,6 +537,19 @@
         </div>
       </sc-if>
 
+      <sc-if value="{{ hatTseA4 }}" hint-placeholder-val="{{ false }}">
+        <div data-pdf-zusammen="" style="border:1px solid #e5e7eb;border-radius:10px;padding:10pt 13pt;display:flex;gap:14pt;align-items:flex-start;">
+          <div style="flex:1;min-width:0;display:flex;flex-direction:column;gap:2pt;">
+            <div style="font-size:8pt;letter-spacing:.1em;text-transform:uppercase;font-weight:700;color:#545b66;margin-bottom:3pt;">TSE-Angaben (KassenSichV) · fiskaly SIGN DE</div>
+            <sc-for list="{{ tseA4Zeilen }}" as="z" hint-placeholder-count="6">
+              <div style="display:flex;gap:10pt;font-size:8pt;line-height:1.45;"><span style="flex:none;width:92pt;color:#545b66;">{{ z.k }}</span><span style="min-width:0;word-break:break-all;color:#101010;">{{ z.v }}</span></div>
+            </sc-for>
+            <div style="display:flex;gap:10pt;font-size:8pt;line-height:1.45;"><span style="flex:none;width:92pt;color:#545b66;">Signatur</span><span style="min-width:0;word-break:break-all;color:#101010;">{{ tseA4Sig }}</span></div>
+          </div>
+          <sc-if value="{{ hatTseQr }}" hint-placeholder-val="{{ true }}"><img src="{{ tseQrSrc }}" alt="TSE-QR-Code nach DSFinV-K" style="flex:none;width:78pt;height:78pt;display:block;"></sc-if>
+        </div>
+      </sc-if>
+
       <div data-pdf-zusammen="" style="border-top:1px solid #e5e7eb;padding-top:10pt;display:flex;align-items:flex-start;justify-content:space-between;gap:18pt;">
         <div style="min-width:0;display:flex;flex-direction:column;gap:5pt;">
           <div style="font-size:8pt;letter-spacing:.1em;text-transform:uppercase;font-weight:700;color:#545b66;">Hinweise</div>
@@ -585,14 +612,26 @@ const Z_ZEIT = /^\d{1,2}:\d{2}$/.test(_ZQ.get('zeit') || '') ? _ZQ.get('zeit') :
 const Z_KASSIERER = (_ZQ.get('kassierer') || 'Marko').slice(0, 40);
 const Z_KASSE = (_ZQ.get('kasse') || '').slice(0, 40);
 // TSE-Kurzsignatur der Transaktion (Journal) und Signaturzähler aus der Belegnummer (B-2026-0418 → 18.402)
-const Z_SIG = /^[0-9a-f]{4}-[0-9a-f]{4}$/i.test(_ZQ.get('sig') || '') ? _ZQ.get('sig') : 'a41f-9c02';
-const Z_SIGZ = (() => { const m = /(\d+)$/.exec(_ZQ.get('nr') || ''); return NUM(m ? 17566 + 2 * parseInt(m[1], 10) : 18402); })();
+// seit v12.73: TSE-Daten des Vorgangs (simuliert, fiskaly SIGN DE) aus Parameter tse=, sonst aus Belegnummer, Datum und Uhrzeit nachgebildet
+const Z_STORNO = (_ZQ.get('storno') || '').slice(0, 40), Z_BEZUG = (_ZQ.get('bezug') || '').slice(0, 40);
+// DSFinV-K-Exportprotokoll (seit v12.74): Kennzahlen des tatsächlich erzeugten Exports aus Parameter exp=
+const Z_EXP = (() => { try { const j = JSON.parse(decodeURIComponent(escape(atob(String(_ZQ.get('exp') || '').replace(/-/g, '+').replace(/_/g, '/'))))); return j && j.belege != null ? j : null; } catch (e) { return null; } })();
+const _ISO_DE = s => /^\d{4}-\d{2}-\d{2}$/.test(s || '') ? s.split('-').reverse().join('.') : (s || '');
 const Z_ZIEL = (() => { const t = Z_DATUM.split('.').map(Number); return _F(new Date(t[2], t[1] - 1, t[0] + 30)); })();
 const Z_GEG = parseFloat(_ZQ.get('gegeben')), Z_RUECK = parseFloat(_ZQ.get('rueckgeld'));
-const Z_POS = (_ZQ.get('pos') || '').split('|').filter(Boolean).map(x => { const t = x.split('~'); return {name: t[0], menge: parseInt(t[1]) || 1, preis: parseFloat(t[2]) || 0, artnr: (t[3] || '').slice(0, 24)}; });
+const Z_POS = (_ZQ.get('pos') || '').split('|').filter(Boolean).map(x => { const t = x.split('~'); return {name: t[0], menge: parseInt(t[1]) || 1, preis: parseFloat(t[2]) || 0, artnr: (t[3] || '').slice(0, 24), ust: t[4] !== undefined && t[4] !== '' && !isNaN(+t[4]) ? +t[4] : null}; });
 const Z_SUMME = Z_POS.length ? Math.round(Z_POS.reduce((a, x) => a + x.menge * x.preis, 0) * 100) / 100 : 3178;
 const Z_NR = _ZQ.get('nr') || 'B-2026-0418';
 const Z_RG = _ZQ.get('rg') || 'R-2026-0415';
+// Steuer je Position (seit v12.73): Satz aus der Position, ohne Angabe 19 % (Gutscheinverkauf 0 %)
+const UST = window.ZK_TSE ? ZK_TSE.UST : {von: () => 19, aufteilen: (p) => [{satz: 19, brutto: p.reduce((a, x) => a + x[1] * x[2], 0), netto: p.reduce((a, x) => a + x[1] * x[2], 0) / 1.19, ust: p.reduce((a, x) => a + x[1] * x[2], 0) * 0.19 / 1.19}], buchstabe: {19: 'A', 7: 'B', 0: 'C'}};
+const Z_PROH = Z_POS.length ? Z_POS.map(x => [x.name, x.menge, x.preis, '', x.ust]) : [['Lettmann Vampir 520', 1, 2899, '', 19], ['Braca-Sport Braca IV 745', 1, 279, '', 19]];
+const Z_GRUPPEN = UST.aufteilen(Z_PROH);
+const Z_MEHRSATZ = Z_GRUPPEN.length > 1;
+const Z_STEUERZEILEN = (txtNetto) => Z_GRUPPEN.flatMap(g => g.satz === 0 ? [{k: (Z_MEHRSATZ ? UST.buchstabe[0] + ' ' : '') + 'Ohne USt (nicht steuerbar)', v: EUR(g.brutto)}]
+  : [{k: (Z_MEHRSATZ ? (UST.buchstabe[g.satz] || '') + ' ' : '') + txtNetto + ' ' + g.satz + ' %', v: EUR(g.netto)}, {k: (Z_MEHRSATZ ? (UST.buchstabe[g.satz] || '') + ' ' : '') + g.satz + ' % MwSt.', v: EUR(g.ust)}]);
+const Z_ZAHLUNGEN = (() => { const a = _ZQ.get('zahlart') || 'karte'; return a === 'rechnung' ? [] : [{art: a === 'bar' ? 'Bar' : 'Unbar', betrag: Z_SUMME}]; })();
+const Z_TSE = window.ZK_TSE ? (ZK_TSE.entpacke(_ZQ.get('tse') || '') || ZK_TSE.ausBeleg({beleg: Z_NR, datum: Z_DATUM, zeit: Z_ZEIT, kasse: Z_KASSE || 'Verkaufsraum', pos: Z_PROH, zahlungen: Z_ZAHLUNGEN})) : null;
 // E-Rechnungsdaten aus dem Ausgabe-Schritt der Kasse (seit v12.66): Format, Käuferreferenz/Leitweg-ID, USt-IdNr. des Käufers (seit v12.67), Bestell-, Vertrags-, Vergabenummer, Leistungsdatum
 const Z_ERF = /^(ZUGFeRD|XRechnung|PDF\/A)$/.test(_ZQ.get('erf') || '') ? _ZQ.get('erf') : '';
 const Z_ER = Object.fromEntries(['ref', 'ustid', 'bestell', 'vertrag', 'vergabe', 'leistung'].map(n => [n, (_ZQ.get(n) || '').slice(0, 60)]));
@@ -627,9 +666,9 @@ const DOKUMENTE = {
   beleg: {
     label: 'Kassenbeleg',
     kicker: 'Kassenbeleg',
-    titel: 'Kassenbeleg ' + Z_NR,
+    titel: (Z_STORNO ? 'Stornobeleg ' : 'Kassenbeleg ') + Z_NR,
     nummer: 'Beleg ' + Z_NR,
-    untertitel: (Z_INFO ? Z_INFO.untertitel : 'Kartenzahlung an Terminal 1') + ' · Kassierer ' + Z_KASSIERER,
+    untertitel: (Z_STORNO ? 'Storno zu Beleg ' + Z_STORNO : Z_BEZUG ? 'Rückgabe zu Beleg ' + Z_BEZUG : Z_INFO ? Z_INFO.untertitel : 'Kartenzahlung an Terminal 1') + ' · Kassierer ' + Z_KASSIERER,
     summeLabel: 'Gesamt brutto',
     linkeBoxTitel: 'Kunde',
     linkeBox: ['Laufkunde', 'keine Kundenzuordnung', '—', '—'],
@@ -638,8 +677,7 @@ const DOKUMENTE = {
       {k: 'Belegzeit', v: Z_ZEIT},
       {k: 'Terminal', v: Z_KASSE ? Z_KASSE + ' · Syke' : 'KASSE-01 · Syke'},
       {k: 'Zahlart', v: Z_INFO ? Z_INFO.zahlart : 'girocard (Commerzbank)'},
-      {k: 'TSE-Signatur', v: Z_SIG},
-      {k: 'Signaturzähler', v: Z_SIGZ}
+      ...(Z_STORNO ? [{k: 'Storno zu Beleg', v: Z_STORNO}] : Z_BEZUG ? [{k: 'Ursprungsbeleg', v: Z_BEZUG}] : [])
     ],
     raster: '3.2fr 0.7fr 1.1fr 1.1fr',
     spalten: [
@@ -650,16 +688,15 @@ const DOKUMENTE = {
       R(['Lettmann Vampir 520 · Navy / Weiß · M-Sitz', '1', EUR(2899), EUR(2899)]),
       R(['Braca-Sport Braca IV 745 · Carbon Schwarz · 213 cm', '1', EUR(279), EUR(279)])
     ],
+    saetze: Z_PROH.map(p => UST.von(p)),
     summen: [
-      {k: 'Zwischensumme netto', v: EUR(Z_SUMME / 1.19)},
-      {k: '19 % MwSt.', v: EUR(Z_SUMME - Z_SUMME / 1.19)},
+      ...Z_STEUERZEILEN('Netto'),
       ...(Z_INFO ? Z_INFO.summen : [{k: 'Gegeben (girocard)', v: EUR(3178)}])
     ],
     summe: EUR(Z_SUMME),
     hinweise: [
-      'Belegausgabepflicht nach § 146a Abs. 2 AO erfüllt.',
-      'Prüfwert der TSE als QR-Code auf dem Bondruck enthalten.',
-      'Rückgabe von Neuware innerhalb 14 Tagen mit diesem Beleg.'
+      ...(Z_TSE && Z_TSE.f ? ['Die TSE war bei diesem Vorgang ausgefallen. Der Beleg ist ohne Signatur gültig, der Ausfall ist protokolliert.'] : ['TSE-Prüfwert und Vorgangsdaten stehen im QR-Code nach DSFinV-K (Anhang I).']),
+      ...(Z_STORNO ? ['Dieser Beleg storniert Beleg ' + Z_STORNO + ' vollständig.'] : Z_BEZUG ? ['Rücknahme der Ware aus Beleg ' + Z_BEZUG + '.'] : ['Rückgabe von Neuware innerhalb 14 Tagen mit diesem Beleg.'])
     ]
   },
   rechnung: {
@@ -688,13 +725,13 @@ const DOKUMENTE = {
       {label: 'Artikel', align: 'left'}, {label: 'Art.-Nr.', align: 'left'},
       {label: 'Menge', align: 'right'}, {label: 'Einzel', align: 'right'}, {label: 'Summe', align: 'right'}
     ],
-    zeilen: Z_POS.length ? Z_POS.map(x => R([x.name, x.artnr || '—', String(x.menge), EUR(x.preis), EUR(x.preis * x.menge)])) : [
+    zeilen: Z_POS.length ? Z_POS.map(x => R([x.name, x.artnr || '—', String(x.menge), EUR(x.preis), EUR(x.preis * x.menge) + (Z_MEHRSATZ ? ' ' + (UST.buchstabe[UST.von([x.name, 1, 0, '', x.ust])] || '') : '')])) : [
       R(['Lettmann Nomade 16 · Canadier · Grün', 'LM-NOM-16', '1', EUR(2190), EUR(2190)]),
       R(['Braca-Sport Marathon C1 · 150 cm · Paddel-ID ZKP-260827-415-01, ZKP-260827-415-02', 'BR-MAR-C1', '2', EUR(249), EUR(498)]),
       R(['Zhik PFD 50N · Rot · M', 'ZH-PFD-50', '4', EUR(129), EUR(516)]),
       R(['Rabatt Rahmenvereinbarung 12 %', '—', '1', '', '− ' + EUR(384.48)])
     ],
-    summen: Z_POS.length ? [{k: 'Netto', v: EUR(Z_SUMME / 1.19)}, {k: '19 % MwSt.', v: EUR(Z_SUMME - Z_SUMME / 1.19)}] : [
+    summen: Z_POS.length ? Z_STEUERZEILEN('Netto') : [
       {k: 'Zwischensumme brutto', v: EUR(3204)},
       {k: 'Rabatt 12 %', v: '− ' + EUR(384.48)},
       {k: 'Netto', v: EUR(2819.52 / 1.19)},
@@ -884,12 +921,20 @@ const DOKUMENTE = {
     label: 'DSFinV-K Protokoll',
     kicker: 'Kassensicherung',
     titel: 'DSFinV-K Exportprotokoll',
-    nummer: 'Export DSF-2026-0827',
+    nummer: Z_EXP ? 'Export DSF-' + String(Z_EXP.bis || '').replace(/-/g, '') : 'Export DSF-2026-0827',
     untertitel: 'Kassenjournal für Betriebsprüfung und Finanzbuchhaltung',
     summeLabel: 'Umsatz im Export',
     linkeBoxTitel: 'Signatureinheit',
-    linkeBox: ['Cloud-TSE (fiskaly)', 'Seriennummer TSE-4711-0A93-KASSE01', 'Zertifikat gültig bis 31.12.2029', 'Client KASSE-01 · gemeldet 12.01.2026'],
-    meta: [
+    linkeBox: Z_EXP ? ['Cloud-TSE fiskaly SIGN DE (Simulation)', 'TSE-Seriennr. ' + (window.ZK_TSE ? ZK_TSE.seriennummer.slice(0, 16) + '…' : '—'), 'ecdsa-plain-SHA384 · unixTime', 'Datei ' + Z_EXP.datei]
+      : ['Cloud-TSE (fiskaly)', 'Seriennummer TSE-4711-0A93-KASSE01', 'Zertifikat gültig bis 31.12.2029', 'Client KASSE-01 · gemeldet 12.01.2026'],
+    meta: Z_EXP ? [
+      {k: 'Zeitraum', v: _ISO_DE(Z_EXP.von) + ' – ' + _ISO_DE(Z_EXP.bis)},
+      {k: 'Kassenabschlüsse', v: NUM(Z_EXP.abschl)},
+      {k: 'Belege', v: NUM(Z_EXP.belege)},
+      {k: 'Positionen', v: NUM(Z_EXP.pos)},
+      {k: 'Stornobelege', v: NUM(Z_EXP.storni)},
+      {k: 'Export-Format', v: 'DSFinV-K 2.3 · ' + Z_EXP.tab + ' Dateien (CSV + index.xml)'}
+    ] : [
       {k: 'Zeitraum', v: D_MONATSANFANG + ' – ' + D_HEUTE},
       {k: 'Belege', v: '108'},
       {k: 'Signaturen', v: '18.402'},
@@ -902,7 +947,7 @@ const DOKUMENTE = {
       {label: 'Beleg', align: 'left'}, {label: 'Zeit', align: 'left'},
       {label: 'TSE-Signatur', align: 'left'}, {label: 'Zahlart', align: 'left'}, {label: 'Brutto', align: 'right'}
     ],
-    zeilen: [
+    zeilen: Z_EXP ? (Z_EXP.zeilen || []).map(z => R([z[0], z[1], z[2], z[3], (z[4] < 0 ? '− ' : '') + EUR(Math.abs(z[4]))])) : [
       R(['B-2026-0418', '27.08. 14:32', 'a41f-9c02-…-8e11', 'girocard', EUR(3178)]),
       R(['B-2026-0417', '27.08. 13:58', 'b7d3-1188-…-2c40', 'Bar', EUR(297)]),
       R(['B-2026-0416', '27.08. 12:41', 'c902-6a55-…-7f93', 'girocard', EUR(197)]),
@@ -910,13 +955,22 @@ const DOKUMENTE = {
       R(['B-2026-0414', '27.08. 10:47', 'e56c-77b1-…-0d62', 'Storno', '− ' + EUR(2599)]),
       R(['B-2026-0413', '27.08. 09:55', 'f0a2-4b39-…-91ce', 'Bar', EUR(79)])
     ],
-    summen: [
+    summen: Z_EXP ? [
+      {k: 'Belege im Auszug', v: String((Z_EXP.zeilen || []).length) + ' von ' + NUM(Z_EXP.belege)},
+      {k: 'Netto', v: EUR(Z_EXP.netto)},
+      {k: 'Umsatzsteuer', v: EUR(Z_EXP.ust)}
+    ] : [
       {k: 'Belege im Auszug', v: '6'},
       {k: 'Netto', v: EUR(5744 / 1.19)},
       {k: '19 % MwSt.', v: EUR(5744 - 5744 / 1.19)}
     ],
-    summe: EUR(5744),
-    hinweise: [
+    summe: EUR(Z_EXP ? Z_EXP.umsatz : 5744),
+    hinweise: Z_EXP ? [
+      'Export nach DSFinV-K 2.3 (Stamm-, Kassenabschluss- und Einzelaufzeichnungsmodul) mit index.xml; Auszug zeigt die letzten Belege.',
+      'Prototyp: TSE-Werte simuliert (fiskaly SIGN DE). Im Echtbetrieb erzeugt fiskaly den Export aus den übertragenen Kassenabschlüssen.',
+      'Nicht mit Prüfsoftware (z. B. AmadeusVerify) geprüft. Die Datei gdpdu-01-09-2004.dtd liegt im Echtbetrieb bei.'
+    ] : [
+      'Muster mit Beispieldaten. Den echten Export über „DSFinV-K exportieren (ZIP)“ erzeugen.',
       'Export gemäß § 146a AO in Verbindung mit KassenSichV und DSFinV-K 2.3.',
       'Der vollständige Datensatz wird als CSV-Paket mit index.xml übergeben.',
       'Aufbewahrungsfrist 10 Jahre, revisionssicher und unveränderbar.'
@@ -1150,11 +1204,20 @@ class Component extends DCLogic {
       bonKopf: [g.zusatz, zeile([g.strasse, g.ort]), zeile([g.telefon && 'Tel. ' + g.telefon, g.email]), g.ustid && 'USt-IdNr. ' + g.ustid].filter(Boolean),
       bonNr: d.nummer.split(' ').pop(),
       bonUntertitel: d.untertitel || '',
-      bonMeta: d.meta.filter(m => !/TSE|Signatur/.test(m.k)),
-      bonTse: d.meta.filter(m => /TSE|Signatur/.test(m.k)),
+      bonMeta: d.meta,
+      bonTse: Z_TSE ? ZK_TSE.zeilen(Z_TSE) : [],
+      bonTseLang: Z_TSE ? ZK_TSE.zeilen(Z_TSE).filter(z => z.k === 'Signatur' || z.k === 'TSE-Seriennr.') : [],
+      bonTseKurz: Z_TSE ? ZK_TSE.zeilen(Z_TSE).filter(z => z.k !== 'Signatur' && z.k !== 'TSE-Seriennr.') : [],
+      tseAusfall: !!(Z_TSE && Z_TSE.f),
+      tseQrSrc: Z_TSE && !Z_TSE.f ? QR(ZK_TSE.qrText(Z_TSE)) : '',
+      hatTseQr: !!(Z_TSE && !Z_TSE.f),
+      hatTseA4: !!Z_TSE && this.state.typ === 'rechnung',
+      tseA4Zeilen: Z_TSE ? ZK_TSE.zeilen(Z_TSE).filter(z => z.k !== 'Signatur') : [],
+      tseA4Sig: Z_TSE && !Z_TSE.f ? Z_TSE.sig : 'TSE ausgefallen – keine Signatur',
+      bonTitel: Z_STORNO ? 'STORNOBELEG' : Z_BEZUG ? 'KASSENBELEG · RÜCKGABE' : 'KASSENBELEG',
       bonHatKunde: !!(this.state.kunde && this.state.kunde.length),
       bonKunde: (this.state.kunde || []).filter(x => !/^Kundennummer/.test(x)).slice(0, 1).join('') + ((this.state.kunde || []).find(x => /^Kundennummer/.test(x)) ? ' · ' + (this.state.kunde || []).find(x => /^Kundennummer/.test(x)).replace('Kundennummer ', '') : ''),
-      bonPos: this.state.typ === 'beleg' ? d.zeilen.map(z => ({name: z[0], menge: z[1], einzel: z[2], summe: z[3]})) : [],
+      bonPos: this.state.typ === 'beleg' ? d.zeilen.map((z, i) => ({name: z[0], menge: z[1], einzel: z[2], summe: z[3] + (Z_MEHRSATZ && d.saetze ? ' ' + (UST.buchstabe[d.saetze[i]] || '') : '')})) : [],
       qrSrc: QR(DEMO_LINK(d, this.state.daten, this.state.typ)),
       qrUrl: BELEG_URL(d.nummer.split(' ').pop()).replace('https://', '')
     };

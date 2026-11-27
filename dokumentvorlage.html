@@ -701,22 +701,24 @@ const DOKUMENTE = {
   },
   rechnung: {
     label: 'Rechnung',
-    kicker: 'Rechnung',
-    titel: 'Rechnung ' + Z_RG,
-    nummer: 'Rechnung ' + Z_RG,
-    untertitel: Z_RG_INFO ? Z_RG_INFO[0] : 'Rechnungskauf · Zahlungsziel 30 Tage netto',
+    // Storno einer Rechnung (v12.80): Stornorechnung mit Bezug auf die Ursprungsrechnung statt einer Rechnung mit Minusbetrag
+    kicker: Z_STORNO ? 'Stornorechnung' : 'Rechnung',
+    titel: (Z_STORNO ? 'Stornorechnung ' : 'Rechnung ') + Z_RG,
+    nummer: (Z_STORNO ? 'Stornorechnung ' : 'Rechnung ') + Z_RG,
+    untertitel: Z_STORNO ? 'Storno zu Rechnung ' + Z_STORNO.replace(/^[A-Z]+-/, 'R-') : Z_RG_INFO ? Z_RG_INFO[0] : 'Rechnungskauf · Zahlungsziel 30 Tage netto',
     summeLabel: 'Rechnungsbetrag',
     linkeBoxTitel: 'Rechnungsempfänger',
     linkeBox: ['Kanu-Club Weser Syke e.V.', 'Bernd Ahlers (Vorstand)', 'Am Bootshaus 3', '28857 Syke', 'Kundennummer K-1042'],
     meta: [
-      {k: 'Rechnungsdatum', v: Z_DATUM},
+      {k: Z_STORNO ? 'Stornodatum' : 'Rechnungsdatum', v: Z_DATUM},
+      ...(Z_STORNO ? [{k: 'Storno zu Rechnung', v: Z_STORNO.replace(/^[A-Z]+-/, 'R-')}] : []),
       {k: 'Leistungsdatum', v: /^\d{2}\.\d{2}\.\d{4}$/.test(Z_ER.leistung) ? Z_ER.leistung : Z_DATUM},
       ...(Z_ER.ref ? [{k: Z_ERF === 'XRechnung' ? 'Leitweg-ID' : 'Ihre Referenz', v: Z_ER.ref}] : []),
       ...(Z_ER.ustid ? [{k: 'Ihre USt-IdNr.', v: Z_ER.ustid}] : []),
       ...(Z_ER.bestell ? [{k: 'Ihre Bestellung', v: Z_ER.bestell}] : []),
       ...(Z_ER.vertrag ? [{k: 'Vertrag', v: Z_ER.vertrag}] : []),
       ...(Z_ER.vergabe ? [{k: 'Vergabe', v: Z_ER.vergabe}] : []),
-      ...(Z_RG_INFO ? [] : [{k: 'Zahlungsziel', v: Z_ZIEL}]),
+      ...(Z_RG_INFO || Z_STORNO ? [] : [{k: 'Zahlungsziel', v: Z_ZIEL}]),
       ...(Z_POS.length ? [] : [{k: 'Rahmenrabatt', v: '12 %'}]),
       {k: 'Bearbeiter', v: _ZQ.get('kassierer') ? Z_KASSIERER : 'Anke'}
     ],
@@ -738,7 +740,7 @@ const DOKUMENTE = {
       {k: '19 % MwSt.', v: EUR(2819.52 - 2819.52 / 1.19)}
     ],
     summe: EUR(Z_POS.length ? Z_SUMME : 2819.52),
-    hinweise: [
+    hinweise: Z_STORNO ? ['Diese Stornorechnung hebt Rechnung ' + Z_STORNO.replace(/^[A-Z]+-/, 'R-') + ' vollständig auf. Ein bereits gezahlter Betrag wird erstattet.'] : [
       Z_RG_INFO ? Z_RG_INFO[1] : 'Zahlbar ohne Abzug bis ' + Z_ZIEL + ' auf das unten genannte Konto.',
       'Bitte geben Sie bei der Zahlung die Rechnungsnummer an.',
       'Eigentumsvorbehalt bis zur vollständigen Bezahlung.',

@@ -1,6 +1,6 @@
 # zykol.POS Kanu – Änderungen je Version
 
-Stand: 27.11.2026 · Version v12.84 · neueste Version oben
+Stand: 27.11.2026 · Version v12.85 · neueste Version oben
 
 Diese Liste beschreibt, was sich für die Bedienung geändert hat. Quellen sind die Git-Historie und die Pull-Requests von `matuu78/zykol-pos` sowie die Projektnotizen.
 
@@ -12,6 +12,14 @@ Diese Liste beschreibt, was sich für die Bedienung geändert hat. Quellen sind 
 ---
 
 ## November 2026
+
+### v12.85 · 27.11.2026 · Beliebig viele Optionen je Rubrik
+- Unter Artikel › Rubriken › Auswahl kann eine Warengruppe jetzt mehr als zwei Optionen haben. Mit **+ Weitere Option** kommt eine weitere dazu, mit „— keine —“ fällt sie wieder weg. Jede Option kann je Rubrik nur einmal gewählt werden.
+- Am Artikel (Varianten) erscheint für jede zugeordnete Option eine eigene Zeile mit Werten. Die Varianten sind alle Kombinationen, z. B. Länge × Schafthärte, jede mit eigenem Bestand und Lagerplatz.
+- Kommt an einem Artikel eine neue Option dazu, wandert der Bestand der bisherigen Variante auf die passende neue (z. B. „210 cm“ → „210 cm · weich“). Bestehende Farben und Größen bleiben unverändert.
+- In der Kasse wählt man im Ausführungsdialog je Option einen Wert. Warenkorb, Beleg, Angebot, Bestellung beim Lieferanten und Umlagerung zeigen die ganze Variante.
+- Demodaten: Paddel haben als dritte Option „Schafthärte“, der Jantex Beta 810 hat 5 Längen × 3 Schafthärten.
+- Die Zuordnung der Optionen wird weiter nur im Browser gespeichert. Wer die Optionen schon einmal geändert hat, sieht die neue Paddel-Option erst, wenn er sie unter Rubriken selbst zuordnet.
 
 ### v12.84 · 27.11.2026 · Sondertage bei den Öffnungszeiten
 - Unter Einstellungen › Firma & Kasse › Öffnungszeiten gibt es das neue Feld **Sondertage**. Man trägt einen Tag pro Zeile ein, zum Beispiel „24.12. 9–12 Uhr“ oder „31.12.2026 geschlossen“.

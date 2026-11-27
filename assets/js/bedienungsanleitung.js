@@ -1,6 +1,6 @@
-// zykol.POS – Bedienungsanleitung (DE, EN, FR, ES, PT). Quelle für die Ansicht in Einstellungen und für das PDF. Stand v12.86.
+// zykol.POS – Bedienungsanleitung (DE, EN, FR, ES, PT). Quelle für die Ansicht in Einstellungen und für das PDF. Stand v12.87.
 window.ZYKOL_ANLEITUNG = {
-  "version": "v12.86",
+  "version": "v12.87",
   "meta": [
     {
       "id": "anmelden",
@@ -300,7 +300,8 @@ window.ZYKOL_ANLEITUNG = {
             "Die Kundenakte zeigt Käufe, Umsatz, Belege und gekaufte Boote.",
             "Unter „Produkte des Kunden“ stehen auch Fremdprodukte, die der Kunde zur Werkstatt gebracht hat – mit Etikett und Werkstatthistorie.",
             "Eine abweichende Lieferadresse im Kunden hinterlegen; Bestellbeleg und Versand schlagen sie vor.",
-            "Kunden, die nicht mehr kaufen, „Archivieren“: Sie verschwinden aus Suche und Kasse, ihre Belege bleiben. Ohne Belege lässt sich ein Kunde auch endgültig löschen."
+            "Kunden, die nicht mehr kaufen, „Archivieren“: Sie verschwinden aus Suche und Kasse, ihre Belege bleiben. Ohne Belege lässt sich ein Kunde auch endgültig löschen.",
+            "Newsletter: Im Kunden den Schalter „Newsletter“ einschalten und wählen, wie die Einwilligung erteilt wurde. Beim Speichern werden Datum, Uhrzeit und Benutzer festgehalten, ebenso bei der Abmeldung. Der Filter „Newsletter“ zeigt alle Kunden mit Einwilligung, „Newsletter-Liste (CSV)“ lädt ihre E-Mail-Adressen herunter."
           ],
           "tipp": "Auf dem Handy erscheinen Tabellen als Karten, damit nichts abgeschnitten wird."
         },
@@ -691,7 +692,8 @@ window.ZYKOL_ANLEITUNG = {
             "The customer file shows purchases, revenue, receipts and boats bought.",
             "“Customer’s products” also lists third-party products the customer brought to the workshop – with label and workshop history.",
             "Store a separate delivery address on the customer; order receipt and shipping suggest it.",
-            "“Archive” customers who no longer buy: they disappear from search and the register, their receipts stay. A customer without receipts can also be deleted permanently."
+            "“Archive” customers who no longer buy: they disappear from search and the register, their receipts stay. A customer without receipts can also be deleted permanently.",
+            "Newsletter: switch on “Newsletter” in the customer and choose how consent was given. Saving records date, time and user, and the same for unsubscribing. The “Newsletter” filter shows all customers with consent; “Newsletter list (CSV)” downloads their e-mail addresses."
           ],
           "tipp": "On the phone, tables appear as cards so nothing is cut off."
         },
@@ -1082,7 +1084,8 @@ window.ZYKOL_ANLEITUNG = {
             "Le dossier client montre les achats, le chiffre d’affaires, les tickets et les bateaux achetés.",
             "« Produits du client » liste aussi les produits tiers que le client a apportés à l’atelier – avec étiquette et historique d’atelier.",
             "Enregistrez une adresse de livraison distincte dans la fiche ; bon de commande et expédition la proposent.",
-            "« Archiver » les clients inactifs : ils disparaissent de la recherche et de la caisse, leurs tickets restent. Un client sans tickets peut aussi être supprimé définitivement."
+            "« Archiver » les clients inactifs : ils disparaissent de la recherche et de la caisse, leurs tickets restent. Un client sans tickets peut aussi être supprimé définitivement.",
+            "Newsletter : activer « Newsletter » dans la fiche client et choisir comment le consentement a été donné. L’enregistrement note la date, l’heure et l’utilisateur, de même pour la désinscription. Le filtre « Newsletter » affiche tous les clients ayant consenti ; « Liste newsletter (CSV) » télécharge leurs adresses e-mail."
           ],
           "tipp": "Sur téléphone, les tableaux s’affichent sous forme de cartes pour que rien ne soit coupé."
         },
@@ -1473,7 +1476,8 @@ window.ZYKOL_ANLEITUNG = {
             "La ficha del cliente muestra compras, facturación, tickets y barcos comprados.",
             "«Productos del cliente» incluye también los productos de terceros que el cliente trajo al taller, con etiqueta e historial de taller.",
             "Guarde una dirección de entrega distinta en el cliente; el comprobante de pedido y el envío la proponen.",
-            "«Archivar» a los clientes que ya no compran: desaparecen de la búsqueda y la caja, sus tickets se conservan. Un cliente sin tickets también se puede borrar definitivamente."
+            "«Archivar» a los clientes que ya no compran: desaparecen de la búsqueda y la caja, sus tickets se conservan. Un cliente sin tickets también se puede borrar definitivamente.",
+            "Newsletter: activar «Newsletter» en el cliente y elegir cómo se dio el consentimiento. Al guardar se registran fecha, hora y usuario, también al darse de baja. El filtro «Newsletter» muestra todos los clientes con consentimiento; «Lista de newsletter (CSV)» descarga sus direcciones de correo."
           ],
           "tipp": "En el móvil, las tablas aparecen como tarjetas para que nada quede cortado."
         },
@@ -1864,7 +1868,8 @@ window.ZYKOL_ANLEITUNG = {
             "A ficha do cliente mostra compras, volume de vendas, talões e barcos comprados.",
             "«Produtos do cliente» inclui também os produtos de terceiros que o cliente trouxe à oficina, com etiqueta e histórico de oficina.",
             "Guarde uma morada de entrega diferente no cliente; o comprovativo e o envio sugerem-na.",
-            "«Arquivar» clientes que já não compram: desaparecem da pesquisa e da caixa, os talões ficam. Um cliente sem talões também pode ser apagado definitivamente."
+            "«Arquivar» clientes que já não compram: desaparecem da pesquisa e da caixa, os talões ficam. Um cliente sem talões também pode ser apagado definitivamente.",
+            "Newsletter: ativar «Newsletter» no cliente e escolher como foi dado o consentimento. Ao guardar ficam registados data, hora e utilizador, também no cancelamento. O filtro «Newsletter» mostra todos os clientes com consentimento; «Lista de newsletter (CSV)» descarrega os endereços de e-mail."
           ],
           "tipp": "No telemóvel, as tabelas aparecem como cartões para que nada fique cortado."
         },

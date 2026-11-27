@@ -299,7 +299,7 @@
     .doc-seite-screen{display:none;}
   }
 </style>
-<script src="assets/js/doc-page.js?v=12.71"></script>
+<script src="assets/js/doc-page.js?v=12.72"></script>
 <script src="assets/js/qrcode.js"></script>
 </helmet>
 
@@ -469,6 +469,13 @@
         </div>
       </div>
 
+      <sc-if value="{{ hatBrief }}" hint-placeholder-val="{{ false }}">
+        <div data-pdf-zusammen="" style="display:flex;flex-direction:column;gap:6pt;font-size:10pt;line-height:1.55;color:#101010;">
+          <sc-for list="{{ briefZeilen }}" as="b" hint-placeholder-count="3"><div>{{ b }}</div></sc-for>
+          <div style="font-weight:600;">{{ briefGruss }}</div>
+        </div>
+      </sc-if>
+
       <div data-pdf-tabelle="">
         <div data-pdf-tkopf="" style="display:grid;grid-template-columns:{{ spaltenRaster }};gap:10pt;padding:7pt 10pt;background:{{ akzent }};color:#FFFFFF;border-radius:4px 4px 0 0;font-size:8pt;letter-spacing:.08em;text-transform:uppercase;font-weight:700;">
           <sc-for list="{{ spalten }}" as="s" hint-placeholder-count="5">
@@ -591,6 +598,23 @@ const Z_ERF = /^(ZUGFeRD|XRechnung|PDF\/A)$/.test(_ZQ.get('erf') || '') ? _ZQ.ge
 const Z_ER = Object.fromEntries(['ref', 'ustid', 'bestell', 'vertrag', 'vergabe', 'leistung'].map(n => [n, (_ZQ.get(n) || '').slice(0, 60)]));
 const Z_EINZELN = _ZQ.get('einzeln') === '1', Z_DRUCK = _ZQ.get('druck') === '1';
 const Z_RG_INFO = {bar: ['Bezahlt bar · ' + Z_DATUM, 'Betrag bar erhalten am ' + Z_DATUM + '. Vielen Dank.'], karte: ['Bezahlt mit Karte · ' + Z_DATUM, 'Betrag per Karte bezahlt am ' + Z_DATUM + '. Vielen Dank.'], paypal: ['Bezahlt mit PayPal · ' + Z_DATUM, 'Betrag per PayPal bezahlt am ' + Z_DATUM + '. Vielen Dank.'], gutschein: ['Bezahlt mit Gutschein · ' + Z_DATUM, 'Betrag per Gutschein beglichen am ' + Z_DATUM + '. Vielen Dank.'], vorkasse: ['Bezahlt per Vorkasse · ' + Z_DATUM, 'Betrag per Überweisung erhalten. Vielen Dank.']}[_ZQ.get('zahlart')] || null;
+// Mahnung aus der OP-Liste (seit v12.72): Stufe 0 = Zahlungserinnerung, 1/2 = Mahnung, 3 = letzte Mahnung; ohne Angaben Demo-Werte für die Vorschau
+const Z_MAHN = (() => {
+  const st = Math.max(0, Math.min(3, parseInt(_ZQ.get('stufe'), 10) || 0)), dat = x => /^\d{2}\.\d{2}\.\d{4}$/.test(x || '') ? x : '';
+  const titel = ['Zahlungserinnerung', '1. Mahnung', '2. Mahnung', 'Letzte Mahnung'][st];
+  const rg = (_ZQ.get('rg') || 'R-2026-0402').slice(0, 40), betrag = parseFloat(_ZQ.get('betrag')), gebuehr = parseFloat(_ZQ.get('gebuehr'));
+  const tage = parseInt(_ZQ.get('tage'), 10);
+  const brief = [
+    'Sehr geehrte Damen und Herren,',
+    st === 0 ? 'sicher haben Sie es nur übersehen: Die unten aufgeführte Rechnung ist noch offen. Wir bitten Sie, den Betrag bis zum genannten Datum zu überweisen.'
+      : st === 3 ? 'trotz unserer bisherigen Mahnungen ist die unten aufgeführte Rechnung weiterhin offen. Dies ist unsere letzte Mahnung. Geht der Betrag nicht bis zum genannten Datum ein, geben wir die Forderung ohne weitere Ankündigung ab.'
+      : 'trotz ' + (st === 1 ? 'unserer Zahlungserinnerung' : 'unserer Zahlungserinnerung und der 1. Mahnung') + ' ist die unten aufgeführte Rechnung noch offen. Bitte überweisen Sie den Betrag bis zum genannten Datum.',
+    'Mit freundlichen Grüßen'
+  ];
+  return {stufe: st, titel, kicker: st ? 'Mahnung · Stufe ' + st : 'Zahlungserinnerung', rg,
+    rgDatum: dat(_ZQ.get('rgdatum')) || '28.09.2026', faellig: dat(_ZQ.get('faellig')) || '28.10.2026', frist: dat(_ZQ.get('frist')) || _P(10),
+    tage: isNaN(tage) ? 30 : Math.max(0, tage), betrag: isNaN(betrag) ? 1249 : Math.round(betrag * 100) / 100, gebuehr: isNaN(gebuehr) ? 0 : Math.round(gebuehr * 100) / 100, brief};
+})();
 const Z_INFO = {
   karte: {untertitel: 'Kartenzahlung an Terminal 1', zahlart: 'girocard (Commerzbank)', summen: [{k: 'Gegeben (girocard)', v: EUR(Z_SUMME)}]},
   bar: {untertitel: 'Barverkauf', zahlart: 'Bar', summen: [{k: 'Gegeben (bar)', v: EUR(isNaN(Z_GEG) ? Z_SUMME : Z_GEG)}, {k: 'Rückgeld', v: EUR(isNaN(Z_RUECK) ? 0 : Z_RUECK)}]},
@@ -682,6 +706,41 @@ const DOKUMENTE = {
       'Bitte geben Sie bei der Zahlung die Rechnungsnummer an.',
       'Eigentumsvorbehalt bis zur vollständigen Bezahlung.',
       ...(Z_ERF === 'ZUGFeRD' ? ['E-Rechnung nach ZUGFeRD 2.3 (EN 16931): Die Rechnungsdaten stecken als factur-x.xml in diesem PDF/A-3.'] : Z_ERF === 'XRechnung' ? ['Sichtkopie. Maßgeblich ist die XRechnung (XML), die in diesem PDF/A-3 eingebettet ist und elektronisch übermittelt wird.'] : [])
+    ]
+  },
+  mahnung: {
+    label: 'Mahnung',
+    kicker: Z_MAHN.kicker,
+    titel: Z_MAHN.titel,
+    nummer: Z_MAHN.titel + ' ' + Z_MAHN.rg,
+    untertitel: 'zu Rechnung ' + Z_MAHN.rg + ' vom ' + Z_MAHN.rgDatum,
+    summeLabel: 'Offener Betrag',
+    linkeBoxTitel: 'Empfänger',
+    linkeBox: ['Bootshaus Nord GmbH', 'Sabine Kröger (Einkauf)', 'Hafenstraße 14', '27751 Delmenhorst', 'Kundennummer K-1088'],
+    meta: [
+      {k: 'Datum', v: D_HEUTE},
+      {k: 'Rechnung', v: Z_MAHN.rg},
+      {k: 'Rechnungsdatum', v: Z_MAHN.rgDatum},
+      {k: 'Fällig seit', v: Z_MAHN.faellig},
+      {k: 'Überfällig', v: Z_MAHN.tage + ' Tage'},
+      {k: 'Zahlbar bis', v: Z_MAHN.frist}
+    ],
+    brief: Z_MAHN.brief,
+    raster: '1.4fr 1fr 1fr 0.8fr 1.1fr',
+    spalten: [
+      {label: 'Rechnung', align: 'left'}, {label: 'Datum', align: 'left'},
+      {label: 'Fällig seit', align: 'left'}, {label: 'Tage', align: 'right'}, {label: 'Offen', align: 'right'}
+    ],
+    zeilen: [R([Z_MAHN.rg, Z_MAHN.rgDatum, Z_MAHN.faellig, String(Z_MAHN.tage), EUR(Z_MAHN.betrag)])].concat(Z_MAHN.gebuehr ? [R(['Mahngebühr', D_HEUTE, '—', '', EUR(Z_MAHN.gebuehr)])] : []),
+    summen: [
+      {k: 'Rechnungsbetrag offen', v: EUR(Z_MAHN.betrag)},
+      ...(Z_MAHN.gebuehr ? [{k: 'Mahngebühr', v: EUR(Z_MAHN.gebuehr)}] : [])
+    ],
+    summe: EUR(Z_MAHN.betrag + Z_MAHN.gebuehr),
+    hinweise: [
+      'Bitte überweisen Sie ' + EUR(Z_MAHN.betrag + Z_MAHN.gebuehr) + ' bis zum ' + Z_MAHN.frist + ' auf das unten genannte Konto.',
+      'Verwendungszweck: ' + Z_MAHN.rg + '.',
+      'Haben Sie inzwischen bezahlt, betrachten Sie dieses Schreiben bitte als gegenstandslos.'
     ]
   },
   tagesabschluss: {
@@ -1048,11 +1107,11 @@ class Component extends DCLogic {
       dokTitel: d.titel,
       dokNummer: d.nummer,
       untertitel: d.untertitel,
-      ausgabe: 'Ausgegeben ' + (this.state.typ === 'beleg' || this.state.typ === 'rechnung' ? Z_DATUM + ', ' + Z_ZEIT : D_HEUTE + ', 14:40'),
+      ausgabe: 'Ausgegeben ' + (this.state.typ === 'beleg' || this.state.typ === 'rechnung' ? Z_DATUM + ', ' + Z_ZEIT : this.state.typ === 'mahnung' ? D_HEUTE : D_HEUTE + ', 14:40'),
       summeLabel: d.summeLabel,
       summeWert: d.summe,
       linkeBoxTitel: d.linkeBoxTitel,
-      linkeBox: (this.state.kunde && (this.state.typ === 'beleg' || this.state.typ === 'rechnung'))
+      linkeBox: (this.state.kunde && (this.state.typ === 'beleg' || this.state.typ === 'rechnung' || this.state.typ === 'mahnung'))
         ? this.state.kunde
         : d.linkeBox,
       metaBox: d.meta,
@@ -1078,9 +1137,10 @@ class Component extends DCLogic {
       paddelRef: 'Rechnung ' + (this.state.rg || ''),
       hatQr: this.state.typ === 'beleg',
       // v12.61: „online abrufen“ nur noch auf dem Bon; auf offenen Rechnungen (Zahlart Rechnung) steht der GiroCode zum Bezahlen
-      hatGiro: this.state.typ === 'rechnung' && !Z_RG_INFO,
-      giroSrc: this.state.typ === 'rechnung' && !Z_RG_INFO && IBAN_OK(g.iban) ? QR_UTF8(GIROCODE(g.kontoinhaber || g.firma, g.iban, g.bic, CENT(d.summe) / 100, (giroTest ? 'TEST ' : '') + d.nummer)) : '',
-      giroFehlt: this.state.typ === 'rechnung' && !Z_RG_INFO && !IBAN_OK(g.iban),
+      hatBrief: !!d.brief, briefZeilen: d.brief ? d.brief.slice(0, -1) : [], briefGruss: d.brief ? d.brief[d.brief.length - 1] + ' · ' + (g.firma || '') : '',
+      hatGiro: (this.state.typ === 'rechnung' && !Z_RG_INFO) || this.state.typ === 'mahnung',
+      giroSrc: ((this.state.typ === 'rechnung' && !Z_RG_INFO) || this.state.typ === 'mahnung') && IBAN_OK(g.iban) ? QR_UTF8(GIROCODE(g.kontoinhaber || g.firma, g.iban, g.bic, CENT(d.summe) / 100, (giroTest ? 'TEST ' : '') + d.nummer)) : '',
+      giroFehlt: ((this.state.typ === 'rechnung' && !Z_RG_INFO) || this.state.typ === 'mahnung') && !IBAN_OK(g.iban),
       giroText: giroTest ? 'Test-GiroCode mit Muster-IBAN: lässt sich mit der Banking-App scannen, bitte nicht überweisen' : IBAN_OK(g.iban) ? 'Mit der Banking-App scannen (GiroCode), Betrag und Verwendungszweck sind schon eingetragen' : 'Der GiroCode erscheint, sobald unter Firma & Kasse eine gültige IBAN eingetragen ist',
       giroBetrag: d.summe + ' · ' + d.nummer,
       hatDank: !!g.dankText && (this.state.typ === 'beleg' || this.state.typ === 'rechnung'),

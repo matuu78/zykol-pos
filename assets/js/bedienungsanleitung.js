@@ -1,6 +1,6 @@
-// zykol.POS – Bedienungsanleitung (DE, EN, FR, ES, PT). Quelle für die Ansicht in Einstellungen und für das PDF. Stand v12.85.
+// zykol.POS – Bedienungsanleitung (DE, EN, FR, ES, PT). Quelle für die Ansicht in Einstellungen und für das PDF. Stand v12.86.
 window.ZYKOL_ANLEITUNG = {
-  "version": "v12.85",
+  "version": "v12.86",
   "meta": [
     {
       "id": "anmelden",
@@ -238,7 +238,7 @@ window.ZYKOL_ANLEITUNG = {
           "intro": "Am Ende des Tages unbare Zahlungen abgleichen, Bargeld zählen und den Z-Bericht drucken.",
           "schritte": [
             "In der Navigation „Kassenabschluss“ öffnen. Oben stehen die Umsätze des Tages je Zahlart und die Zahl der Belege.",
-            "Reiter „1 · Unbare Zahlungen“: Für Karte und PayPal die Summe laut Terminal- bzw. PayPal-Tagesbericht eintragen. Die Differenz zur Kasse erscheint sofort.",
+            "Reiter „1 · Zahlungen“: zeigt alle Bar-, Karten- und PayPal-Zahlungen des Tages (bei geteilter Zahlung den jeweiligen Teil). Für Karte und PayPal die Summe laut Terminal- bzw. PayPal-Tagesbericht eintragen. Die Differenz zur Kasse erscheint sofort.",
             "Reiter „2 · Bargeld zählen“: Für jeden Schein und jede Münze die Anzahl mit − und + oder per Eingabe erfassen, bei Münzen auch ganze Rollen. Unten stehen Soll, Ist und Differenz. „Zwischenspeichern“ sichert den Stand, „Zurücksetzen“ leert die Zählung.",
             "Reiter „3 · Abschluss“: Bei einer Differenz die Begründung eintragen (Pflicht). Wechselgeld für morgen angeben; die Bankeinzahlung wird daraus berechnet. Entnahmen und Auszahlungen des Tages mit Betrag und Grund über „+ Entnahme“ erfassen.",
             "„Tag abschließen & Z-Bericht drucken“ antippen. Danach ist der Tag gesperrt.",
@@ -629,7 +629,7 @@ window.ZYKOL_ANLEITUNG = {
           "intro": "At the end of the day reconcile non-cash payments, count the cash and print the Z report.",
           "schritte": [
             "Open “Register closing” in the navigation. The top shows today’s sales per payment method and the number of receipts.",
-            "Tab “1 · Non-cash payments”: enter the total from the terminal or PayPal daily report for card and PayPal. The difference to the register appears immediately.",
+            "Tab “1 · Payments”: lists all cash, card and PayPal payments of the day (for split payments the respective part). Enter the total from the terminal or PayPal daily report for card and PayPal. The difference to the register appears immediately.",
             "Tab “2 · Count cash”: record the number of each note and coin with − and + or by typing, for coins also whole rolls. Target, actual and difference are shown at the bottom. “Save draft” keeps the count, “Reset” clears it.",
             "Tab “3 · Closing”: if there is a difference, enter the reason (mandatory). Enter the float for tomorrow; the bank deposit is calculated from it. Record withdrawals and payouts of the day with amount and reason via “+ Withdrawal”.",
             "Tap “Close day & print Z report”. The day is then locked.",
@@ -1020,7 +1020,7 @@ window.ZYKOL_ANLEITUNG = {
           "intro": "En fin de journée, rapprocher les paiements non espèces, compter les espèces et imprimer le rapport Z.",
           "schritte": [
             "Ouvrez « Clôture de caisse » dans la navigation. En haut figurent les ventes du jour par moyen de paiement et le nombre de tickets.",
-            "Onglet « 1 · Paiements non espèces » : pour la carte et PayPal, saisissez le total du relevé journalier du terminal ou de PayPal. L’écart avec la caisse s’affiche aussitôt.",
+            "Onglet « 1 · Paiements » : liste tous les paiements en espèces, par carte et PayPal du jour (pour un paiement fractionné, la part concernée). Pour la carte et PayPal, saisissez le total du relevé journalier du terminal ou de PayPal. L’écart avec la caisse s’affiche aussitôt.",
             "Onglet « 2 · Compter les espèces » : saisissez le nombre de chaque billet et pièce avec − et + ou au clavier, pour les pièces aussi des rouleaux entiers. En bas : théorique, réel et écart. « Enregistrer » garde le comptage, « Réinitialiser » l’efface.",
             "Onglet « 3 · Clôture » : en cas d’écart, saisissez le motif (obligatoire). Indiquez le fonds de caisse pour demain ; le dépôt bancaire en est calculé. Enregistrez les retraits et sorties du jour avec montant et motif via « + Retrait ».",
             "Touchez « Clôturer la journée et imprimer le rapport Z ». La journée est ensuite verrouillée.",
@@ -1411,7 +1411,7 @@ window.ZYKOL_ANLEITUNG = {
           "intro": "Al final del día, conciliar los pagos no en efectivo, contar el efectivo e imprimir el informe Z.",
           "schritte": [
             "Abra «Cierre de caja» en la navegación. Arriba aparecen las ventas del día por forma de pago y el número de tickets.",
-            "Pestaña «1 · Pagos no en efectivo»: para tarjeta y PayPal, introduzca el total del informe diario del terminal o de PayPal. La diferencia con la caja aparece al momento.",
+            "Pestaña «1 · Pagos»: muestra todos los pagos del día en efectivo, con tarjeta y PayPal (en pagos divididos, la parte correspondiente). Para tarjeta y PayPal, introduzca el total del informe diario del terminal o de PayPal. La diferencia con la caja aparece al momento.",
             "Pestaña «2 · Contar efectivo»: registre la cantidad de cada billete y moneda con − y + o escribiendo; en monedas también cartuchos enteros. Abajo: teórico, real y diferencia. «Guardar borrador» conserva el recuento, «Restablecer» lo borra.",
             "Pestaña «3 · Cierre»: si hay diferencia, indique el motivo (obligatorio). Indique el cambio para mañana; el ingreso en banco se calcula a partir de él. Registre las retiradas y pagos del día con importe y motivo mediante «+ Retirada».",
             "Toque «Cerrar el día e imprimir informe Z». Después el día queda bloqueado.",
@@ -1802,7 +1802,7 @@ window.ZYKOL_ANLEITUNG = {
           "intro": "No fim do dia, conciliar os pagamentos não em numerário, contar o dinheiro e imprimir o relatório Z.",
           "schritte": [
             "Abra «Fecho de caixa» na navegação. No topo aparecem as vendas do dia por meio de pagamento e o número de talões.",
-            "Separador «1 · Pagamentos não em numerário»: para cartão e PayPal, introduza o total do relatório diário do terminal ou do PayPal. A diferença para a caixa aparece de imediato.",
+            "Separador «1 · Pagamentos»: mostra todos os pagamentos do dia em numerário, cartão e PayPal (em pagamentos divididos, a parte respetiva). Para cartão e PayPal, introduza o total do relatório diário do terminal ou do PayPal. A diferença para a caixa aparece de imediato.",
             "Separador «2 · Contar numerário»: registe a quantidade de cada nota e moeda com − e + ou escrevendo; nas moedas também rolos inteiros. Em baixo: previsto, real e diferença. «Guardar rascunho» guarda a contagem, «Repor» apaga-a.",
             "Separador «3 · Fecho»: se houver diferença, indique o motivo (obrigatório). Indique o fundo de caixa para amanhã; o depósito bancário é calculado a partir dele. Registe os levantamentos e pagamentos do dia com valor e motivo em «+ Levantamento».",
             "Toque em «Fechar o dia e imprimir relatório Z». O dia fica então bloqueado.",

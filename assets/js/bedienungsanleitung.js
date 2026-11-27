@@ -1,6 +1,6 @@
-// zykol.POS – Bedienungsanleitung (DE, EN, FR, ES, PT). Quelle für die Ansicht in Einstellungen und für das PDF. Stand v12.63.
+// zykol.POS – Bedienungsanleitung (DE, EN, FR, ES, PT). Quelle für die Ansicht in Einstellungen und für das PDF. Stand v12.71.
 window.ZYKOL_ANLEITUNG = {
-  "version": "v12.63",
+  "version": "v12.71",
   "meta": [
     {
       "id": "anmelden",
@@ -103,6 +103,11 @@ window.ZYKOL_ANLEITUNG = {
       "recht": "Journal & Transaktionen einsehen"
     },
     {
+      "id": "opliste",
+      "view": "opListe",
+      "recht": "Journal & Transaktionen einsehen"
+    },
+    {
       "id": "berichte",
       "view": "umsatz",
       "recht": "Berichte einsehen"
@@ -111,6 +116,21 @@ window.ZYKOL_ANLEITUNG = {
       "id": "einstellungen",
       "view": "einstellungen",
       "recht": "Einstellungen & Benutzer"
+    },
+    {
+      "id": "geraete",
+      "view": "einstellungen",
+      "recht": "Geräte & Kassenbindung verwalten"
+    },
+    {
+      "id": "filialen",
+      "view": "einstellungen",
+      "recht": "Filialen verwalten"
+    },
+    {
+      "id": "anlagen",
+      "view": "einstellungen",
+      "recht": "Anlagevermögen verwalten"
     }
   ],
   "sprachen": {
@@ -149,7 +169,10 @@ window.ZYKOL_ANLEITUNG = {
         "Artikel & Bestand ansehen": "Artikel & Bestand ansehen",
         "Ausschreibungen ansehen": "Ausschreibungen ansehen",
         "Inventur zählen": "Inventur zählen",
-        "Versanddienstleister konfigurieren": "Versanddienstleister konfigurieren"
+        "Versanddienstleister konfigurieren": "Versanddienstleister konfigurieren",
+        "Geräte & Kassenbindung verwalten": "Geräte & Kassenbindung verwalten",
+        "Filialen verwalten": "Filialen verwalten",
+        "Anlagevermögen verwalten": "Anlagevermögen verwalten"
       },
       "kapitel": {
         "anmelden": {
@@ -187,7 +210,10 @@ window.ZYKOL_ANLEITUNG = {
             "Im Warenkorb Mengen ändern oder Positionen entfernen. Auf Tablet und Handy öffnet der Warenkorb-Knopf in der Fußleiste den Warenkorb – von jeder Seite aus.",
             "Kunden zuordnen: Namen oder Nummer eingeben oder „Kundenliste öffnen“. Ein hinterlegter Kundenrabatt wird automatisch abgezogen. Ohne Kundendaten „Barkunde (ohne Kundendaten)“ wählen.",
             "Unter dem Gesamtbetrag stehen „Bezahlen“, „Bestellbeleg“ und „Als Angebot speichern“.",
-            "„Kasse“ in der Fußleiste bringt Sie von jeder Seite zurück zur Kasse und schließt offene Fenster."
+            "„Kasse“ in der Fußleiste bringt Sie von jeder Seite zurück zur Kasse und schließt offene Fenster.",
+            "Über der Artikelliste stehen die Warengruppen als Chips; ein Tipp filtert danach. „+ Freier Betrag“ fügt einen frei eingetragenen Betrag hinzu, z. B. einen Gutschein. Der Artikel „Lieferung“ fragt beim Antippen nach dem Preis für die Bootslieferung.",
+            "„Retoure“ schaltet den Warenkorb auf Rücknahme: Die Preise werden negativ, beim Abschluss geht der Bestand zurück ins Lager und der Betrag wird ausgezahlt. „Verwerfen“ leert den Warenkorb nach einer Rückfrage.",
+            "Hat ein Artikel Zusatzbedarf hinterlegt (z. B. Spritzdecke zum Boot), erscheint er als Vorschlag direkt unter der Position."
           ],
           "tipp": "Auf dem Handy sind Eingabefelder und Knöpfe so groß, dass Safari beim Antippen nicht mehr heranzoomt. Jede Kasse hat ihren eigenen Warenkorb. Ein Wechsel der Kasse löscht ihn nicht. Verkäufe buchen den Bestand zuerst von der Verkaufsfläche ab."
         },
@@ -201,7 +227,9 @@ window.ZYKOL_ANLEITUNG = {
             "Im Dialog „Bezahlen“ antippen. Es erscheint die Belegausgabe.",
             "Bei Karte, Bar und PayPal wird der Bon immer gedruckt. Zusätzlich optional „Rechnung drucken“ oder „Rechnung per E-Mail senden“ wählen.",
             "Zahlart Rechnung: Es gibt keinen Bon, die Rechnung ist Pflicht. Für Firmen, Vereine und öffentliche Auftraggeber entsteht sie als E-Rechnung (Kapitel E-Rechnung).",
-            "„Abschließen“ antippen. Ein Hinweis bestätigt den Abschluss; „Öffnen“ zeigt den Vorgang in den Transaktionen."
+            "„Abschließen“ antippen. Ein Hinweis bestätigt den Abschluss; „Öffnen“ zeigt den Vorgang in den Transaktionen.",
+            "Teilzahlung: Im Dialog „Teilbetrag“ wählen, den Betrag eintragen und „Teilbetrag buchen“. Den Rest zahlt der Kunde mit einer weiteren Zahlart, z. B. 500 € bar und den Rest mit Karte.",
+            "Bei Karte und PayPal öffnet sich ein Dialog wie am Terminal bzw. mit QR-Code; nach der Bestätigung geht es weiter. Bei Karte kann der Kunde zusätzlich Bargeld abheben (Bargeldauszahlung bis 200 €); der Betrag wird im Kassenabschluss als Entnahme gezählt."
           ],
           "tipp": "Der Kassenbon trägt einen QR-Code, über den Kunden ihn online abrufen. Auf Rechnungen steht dieser Code nicht mehr. Offene Rechnungen mit Zahlart Rechnung tragen stattdessen einen GiroCode „Online bezahlen“. Mit der Banking-App gescannt, sind IBAN, Betrag und Rechnungsnummer schon eingetragen. Der GiroCode erscheint erst, wenn unter Firma & Kasse eine gültige IBAN steht. TSE, Kartenterminal, PayPal, Drucker und E-Mail-Versand sind im Prototyp simuliert."
         },
@@ -214,7 +242,8 @@ window.ZYKOL_ANLEITUNG = {
             "Reiter „2 · Bargeld zählen“: Für jeden Schein und jede Münze die Anzahl mit − und + oder per Eingabe erfassen, bei Münzen auch ganze Rollen. Unten stehen Soll, Ist und Differenz. „Zwischenspeichern“ sichert den Stand, „Zurücksetzen“ leert die Zählung.",
             "Reiter „3 · Abschluss“: Bei einer Differenz die Begründung eintragen (Pflicht). Wechselgeld für morgen angeben; die Bankeinzahlung wird daraus berechnet. Entnahmen und Auszahlungen des Tages mit Betrag und Grund über „+ Entnahme“ erfassen.",
             "„Tag abschließen & Z-Bericht drucken“ antippen. Danach ist der Tag gesperrt.",
-            "Reiter „Verlauf“: frühere Abschlüsse ansehen und den Z-Bericht als „Z-Bon“ oder „A4-Bericht“ erneut drucken."
+            "Reiter „Verlauf“: frühere Abschlüsse ansehen und den Z-Bericht als „Z-Bon“ oder „A4-Bericht“ erneut drucken.",
+            "Oben unter „Anfangsbestand“ das Bargeld bei Kassenöffnung prüfen und bei Bedarf korrigieren. Soll-Bestand und Differenz rechnen damit. Stornierte Belege zählen nicht zum Umsatz."
           ],
           "tipp": "Verkauf und Aushilfen machen nur den Kassensturz (Bargeld zählen). Den Tagesabschluss machen Admin, Filialleitung oder Teamleitung."
         },
@@ -227,7 +256,9 @@ window.ZYKOL_ANLEITUNG = {
             "Unter „Kunde, Übergabe & Bezahlung“ den Kunden suchen (Name, Nummer oder Telefon) und antippen. Ist der Kunde neu, die Daten eintragen und „Als neuen Kunden speichern“ antippen.",
             "Übergabe (Abholung, Lieferung oder Versand), Termin und eine Anzahlung eintragen.",
             "Unter „Bezahlung“ wählen: Noch offen, Bezahlt · Karte, Bezahlt · Bar oder Rechnung mit Zahlungsziel in Tagen. Bei Vereinen und Firmen ist Rechnung vorgewählt.",
-            "Die Vorschau prüfen und „Drucken / PDF“ antippen. Der Bestellbeleg wird dabei automatisch unter „Bestellungen“ abgelegt."
+            "Die Vorschau prüfen und „Drucken / PDF“ antippen. Der Bestellbeleg wird dabei automatisch unter „Bestellungen“ abgelegt.",
+            "Rechnungs- und Lieferadresse können abweichen: Unter „Lieferadresse“ eine andere Anschrift eintragen; im Kundenstamm hinterlegte Lieferadressen werden vorgeschlagen. „Lieferkosten (€)“ setzt Versand- oder Lieferkosten als eigene Position.",
+            "Mit einer Anzahlung legt „Ablegen & Anzahlung … kassieren“ den Bestellbeleg ab und kassiert an der Kasse nur die Anzahlung. Den Rest kassieren Sie später unter „Bestellungen“ mit „Restzahlung“."
           ],
           "tipp": "Der Bestellbeleg ist kein Kassenbeleg. Mit der Unterschrift bestätigt der Kunde die Personalisierung."
         },
@@ -239,7 +270,9 @@ window.ZYKOL_ANLEITUNG = {
             "Nach Nummer, Kunde, Telefon oder Artikel suchen oder nach Status filtern. Eine Zeile antippen und den Status auf Bestellt, Abholbereit oder Übergeben setzen.",
             "Übergeben geht nur, wenn die Bestellung bezahlt ist oder auf Rechnung läuft. Ist sie noch offen, „Bezahlt mit Karte“, „Bezahlt bar“ oder „Auf Rechnung (14 Tage)“ wählen. „Erneut drucken“ druckt den Beleg so, wie er abgelegt wurde.",
             "Reiter „Lieferantenbestellungen“ (Recht „Lieferanten verwalten“): mit „Neue Bestellung“ Ware beim Lieferanten bestellen oder den „Bestellvorschlag“ für Artikel unter Mindestbestand übernehmen. „Bestellung als PDF“ erzeugt das Bestellschreiben.",
-            "Kommt die Ware an, wird sie unter Artikel & Bestand mit „Wareneingang buchen“ zu dieser Bestellung gebucht – auch als Teillieferung."
+            "Kommt die Ware an, wird sie unter Artikel & Bestand mit „Wareneingang buchen“ zu dieser Bestellung gebucht – auch als Teillieferung.",
+            "Im Detail einer Kundenbestellung zeigt „Vorgang“ die Schritte bis zur Übergabe. Von dort: „Bedarf anfordern“ (Ware beim Einkauf anfordern), Versand- oder Lieferauftrag anlegen, „Rechnungsentwurf“, „Ändern“ und „Stornieren“. Der Zahlstatus (offen, Anzahlung erhalten, bezahlt) steht an jeder Bestellung und lässt sich filtern.",
+            "Lieferantenbestellungen: Bei „Bestellt“ die Auftragsbestätigung des Lieferanten erfassen; der Liefertermin lässt sich jederzeit ändern, der Verlauf bleibt sichtbar. Artikel mit Varianten werden je Variante bestellt und eingebucht."
           ],
           "tipp": "Im Prototyp setzt „Bezahlt mit Karte“ nur den Status; es wird kein Kassenbeleg erzeugt."
         },
@@ -252,7 +285,9 @@ window.ZYKOL_ANLEITUNG = {
             "Den Status pflegen: Entwurf, Versendet, Angenommen, Abgelehnt, Abgelaufen. Angenommene Angebote mit „In Kasse übernehmen“ abrechnen.",
             "Angenommenes Angebot weiterführen: „Versandauftrag anlegen“ legt einen offenen Auftrag (V-Nummer) im Versand an, mit Kunde, Anschrift und Positionen. „Werkstattauftrag anlegen“ legt einen Werkstattauftrag (WA-Nummer) im Werkstatt-Eingang an, die Positionen werden als Voranschlag übernommen, die Angebotsnummer steht im Kundenwunsch, Arbeitszeiten tragen Sie in der Werkstatt nach. Das Angebot zeigt danach die Auftragsnummer, und die beiden Knöpfe verschwinden – so entsteht kein Auftrag doppelt.",
             "Aus dem Warenkorb: „Als Angebot speichern“ legt den Inhalt als Angebot (Entwurf) ab. Ohne Kunde wird das Angebot für einen Barkunden gespeichert.",
-            "Später in der Kasse „Angebote aus der Kasse“ öffnen und beim gewünschten Angebot „In Warenkorb laden“ antippen."
+            "Später in der Kasse „Angebote aus der Kasse“ öffnen und beim gewünschten Angebot „In Warenkorb laden“ antippen.",
+            "Kundendaten im Angebot lassen sich ändern, ohne den Kundenstamm anzufassen; „In den Kundenstamm übernehmen“ speichert sie dauerhaft. Die Zahlungsbedingung wählen Sie aus Vorschlägen oder tragen sie frei ein.",
+            "Varianten (Farbe, Größe, Länge) direkt an der Position wählen – ohne Umweg über den Warenkorb. Ein „Sonderrabatt“ in Prozent gilt zusätzlich auf die ganze Summe und erscheint auf dem Angebot."
           ],
           "tipp": "Die Gültigkeit ergibt sich aus den Shop-Einstellungen. Auslaufende Angebote stehen im Kalender und auf dem Dashboard."
         },
@@ -263,7 +298,9 @@ window.ZYKOL_ANLEITUNG = {
             "Unter „Kunden“ einen Kunden anlegen oder suchen und nach Typ filtern: Privat, Verein, Firma, Verband, Schule oder Öffentliche Hand.",
             "Rabatt, Zahlungsbedingung und Rechnungsanschrift hinterlegen. Bei Öffentlicher Hand zusätzlich die Leitweg-ID für die XRechnung eintragen.",
             "Die Kundenakte zeigt Käufe, Umsatz, Belege und gekaufte Boote.",
-            "Unter „Produkte des Kunden“ stehen auch Fremdprodukte, die der Kunde zur Werkstatt gebracht hat – mit Etikett und Werkstatthistorie."
+            "Unter „Produkte des Kunden“ stehen auch Fremdprodukte, die der Kunde zur Werkstatt gebracht hat – mit Etikett und Werkstatthistorie.",
+            "Eine abweichende Lieferadresse im Kunden hinterlegen; Bestellbeleg und Versand schlagen sie vor.",
+            "Kunden, die nicht mehr kaufen, „Archivieren“: Sie verschwinden aus Suche und Kasse, ihre Belege bleiben. Ohne Belege lässt sich ein Kunde auch endgültig löschen."
           ],
           "tipp": "Auf dem Handy erscheinen Tabellen als Karten, damit nichts abgeschnitten wird."
         },
@@ -290,7 +327,9 @@ window.ZYKOL_ANLEITUNG = {
             "Reiter „Kommissionieren & Packen“: Ware entnehmen („Alles entnommen“), „Als kommissioniert markieren“, an der Packstation „Paket fertig“ antippen und „Weiter zum Etikett“.",
             "Reiter „Etiketten & Tracking“: „Etikett erstellen“, mit „Etikett-Vorschau“ prüfen und „Etikett drucken“. Am Ende „Tagesabschluss und übergeben“; „Sendungsstatus abrufen“ zeigt den Stand der Sendungen.",
             "Reiter „Retouren“: „Retoure anlegen“ oder „Retoure mit Etikett anlegen“. Beim Eintreffen „Eingang buchen“ und die Ware als „Einwandfrei“ (zurück ins Lager) oder „Beschädigt“ einstufen.",
-            "Reiter „Dienstleister“: Zugänge zu DHL, UPS und DPD eintragen und „Verbindung testen“."
+            "Reiter „Dienstleister“: Zugänge zu DHL, UPS und DPD eintragen und „Verbindung testen“.",
+            "Kommissionieren: Mit „Ich übernehme“ ordnen Sie sich einen Auftrag zu; der Filter „Mir zugewiesen“ zeigt nur Ihre. „Pickliste drucken / PDF“ druckt alle offenen Positionen nach Lagerplatz. Ein Auftrag aus einer Bestellung führt per Link zurück zur Bestellung.",
+            "Boote liefern wir selbst aus: „Selbst ausliefern“ wählt die eigene Auslieferung (Bootsverpackung), nach der Übergabe „Als ausgeliefert markieren“. Eine Spedition gibt es nicht."
           ],
           "tipp": "Die Etiketten sind Nachbildungen der Dienstleister-Vorlagen mit dem Aufdruck MUSTER. UPS und DPD sind im Prototyp simuliert. DHL lässt sich unter Einstellungen → Versand mit der echten DHL-Sandbox testen."
         },
@@ -317,7 +356,10 @@ window.ZYKOL_ANLEITUNG = {
             "„Buchen“: Schwund, Defekt oder Sonstiges mit Grund (Pflicht) buchen. Das dürfen Admin, Filialleitung und Teamleitung.",
             "„Wareneingang buchen“: immer zu einer offenen Lieferantenbestellung, auch als Teillieferung und auf mehrere Lagerorte verteilt. Das darf zusätzlich der Einkauf.",
             "„Umlagern“ verschiebt Ware zwischen Lagerorten, z. B. vom Lager auf die Verkaufsfläche. Der Reiter „Lager & Historie“ zeigt Mengen je Ort und jede Bewegung.",
-            "„Lieferanten“: Stammdaten, Ansprechpartner, Konditionen, Lieferzeit und offene Bestellungen je Hersteller. „Lieferant hinzufügen“ legt einen neuen an."
+            "„Lieferanten“: Stammdaten, Ansprechpartner, Konditionen, Lieferzeit und offene Bestellungen je Hersteller. „Lieferant hinzufügen“ legt einen neuen an.",
+            "Varianten: Im Artikeldetail unter „Varianten“ eine weitere Farbe oder Größe hinzufügen. Jede Variante hat eigenen Bestand und Lagerplatz. Unter „Zusatzbedarf“ legen Sie passendes Zubehör fest, das die Kasse vorschlägt; „Nachbestellen beim Lieferanten“ legt eine Lieferantenbestellung an.",
+            "Im Bestand öffnet „Bestellvorschlag“ alle Artikel unter Mindestbestand. „Umlagerung“ legt einen Umlagerungsauftrag an (Angelegt → Unterwegs → Eingelagert), z. B. zwischen Filialen.",
+            "Lieferanten: mehrere Ansprechpartner je Lieferant, die Bestellungen des Lieferanten und eine durchsuchbare Produktliste nach Warengruppen."
           ],
           "tipp": "Die Lagerorte richten Admin und Filialleitung unter Einstellungen → Lagerorte & Standorte ein. Orte lassen sich nur deaktivieren, nicht löschen, damit die Historie erhalten bleibt."
         },
@@ -336,8 +378,8 @@ window.ZYKOL_ANLEITUNG = {
           "tipp": "Starten und abschließen darf, wer das Recht „Inventur durchführen“ hat. Zum Zählen reicht „Inventur zählen“. Der Bereich gehört zum Modul „Lager & Bestand“. Im Prototyp wirken die Buchungen nur lokal und ersetzen keine dokumentierte Inventur."
         },
         "etiketten": {
-          "titel": "Verkaufte Boote, Paddel-IDs und QR-Etiketten",
-          "intro": "Boote werden über ihre Seriennummer erkannt, Paddel über eine eigene ID. Beides steht in der Bootsakte unter Warenwirtschaft → Verkaufte Boote.",
+          "titel": "Verkaufte Artikel, Paddel-IDs und QR-Etiketten",
+          "intro": "Boote werden über ihre Seriennummer erkannt, Paddel über eine eigene ID. Beides steht in der Bootsakte unter Warenwirtschaft → Verkaufte Artikel; dort lässt sich nach Boote, Paddel und weiteren Artikeln filtern.",
           "schritte": [
             "Die Paddel-ID entsteht beim Abschluss mit Rechnung aus Datum und Nummer (z. B. ZKP-261011-416-01) und steht auf der Rechnung.",
             "Enthält ein Abschluss, eine Rechnung oder ein angenommenes Angebot ein Paddel, erscheint „QR-Etiketten drucken“.",
@@ -383,17 +425,18 @@ window.ZYKOL_ANLEITUNG = {
           "tipp": "Den Kalender der mobilen Kasse sehen Sie, wenn Sie in der Fußleiste die Kasse wechseln. Den Ort für das Wetter legen Admins unter Einstellungen → Lagerorte & Standorte fest. Je Kasse lässt sich ein eigener Wetter-Standort festlegen, per Ortssuche (Name oder PLZ) oder Koordinaten; ohne Auswahl gilt der Standard-Ort. Das Dashboard zeigt das Wetter als Kachel mit Ortsnamen. Ohne Internet erscheint nur ein kurzer Hinweis."
         },
         "zeiterfassung": {
-          "titel": "Arbeitszeiterfassung und Urlaub",
-          "intro": "Kommen und Gehen stempeln, Stunden und Saldo sehen, Urlaub beantragen und genehmigen.",
+          "titel": "Zeiterfassung, Urlaub, Krankheit und Schichten",
+          "intro": "Stempeln, Monatsstunden und Über-/Unterstunden, Schichtplan, Urlaub, Krankheit und Vertretung – für jede Person und das ganze Team.",
           "schritte": [
-            "In der Navigation „Zeiterfassung“ öffnen. Im Reiter „Stempeln“ zu Beginn „Kommen“ und am Ende „Gehen“ antippen. Kasse und Uhrzeit werden protokolliert.",
-            "Die Stempelübersicht zeigt je Person Status, Stunden heute und in der Woche, Soll und Saldo.",
-            "Reiter „Urlaub“: Ihr Anspruch, Rest aus dem Vorjahr, genommene, geplante und beantragte Tage sowie der Rest.",
-            "Urlaub beantragen: Beginn und Ende eintragen, optional eine Notiz, und absenden. Die Arbeitstage werden automatisch gezählt – ohne Wochenenden und Feiertage im Bundesland Ihres Standorts.",
-            "Genehmigen (Admin, Filialleitung, Teamleitung): Unter „Offene Urlaubsanträge“ „Genehmigen“ oder „Ablehnen“ antippen. Genehmigter Urlaub steht im Kalender; offene Anträge erscheinen auf dem Dashboard.",
-            "Mit dem Recht „Urlaubsanspruch pflegen“ Anspruch, Vorjahresrest und Arbeitstage je Woche für alle Mitarbeitenden eintragen."
+            "In der Navigation „Zeiterfassung“ öffnen. „Mein Bereich“ zeigt Ihren Status mit „Kommen“/„Gehen“, Stunden heute und diese Woche, die Monatsstunden (Ist gegen Soll bis gestern), Über-/Unterstunden, Resturlaub, Krankheitstage und Ihren Schichtplan der Woche.",
+            "Unter „Monatsstunden“ stehen die letzten sechs Monate mit Soll, Ist und Saldo. Urlaub und Krankheit werden mit der Sollzeit gutgeschrieben.",
+            "Reiter „Stempeln“: die Stempelübersicht aller Mitarbeitenden mit Status, Stunden heute und in der Woche, Soll und Saldo.",
+            "Reiter „Urlaub“: Anspruch, Rest aus dem Vorjahr, genommene, geplante und beantragte Tage. Urlaub beantragen: Beginn und Ende eintragen und absenden – die Arbeitstage werden ohne Wochenenden und Feiertage gezählt. Genehmigen dürfen Admin, Filialleitung und Teamleitung.",
+            "Reiter „Urlaubskalender“: der Monat für alle Mitarbeitenden mit U (Urlaub genehmigt), B (beantragt), K (krank) sowie freien Tagen und Feiertagen. Mit ‹ › blättern, „Heute“ springt zurück.",
+            "Reiter „Krankheit & Vertretung“: Mitarbeitende, Zeitraum und Vertretung wählen, „AU-Bescheinigung liegt vor“ anhaken und „Krankmeldung speichern“. Eine Diagnose wird nicht erfasst. Das System zeigt betroffene Schichten und wer an diesen Tagen frei ist. Schichtplan und Urlaubskalender passen sich an; „Gesund melden“ beendet die Krankmeldung. Für sich selbst meldet man sich über „Krank melden“ in „Mein Bereich“.",
+            "Reiter „Team“ (Leitung): wer da, krank oder im Urlaub ist, die Schicht heute sowie Wochen- und Monatsstunden, Über-/Unterstunden und Resturlaub je Person. „Stunden exportieren (CSV)“ für die Lohnabrechnung, „Schichtplan bearbeiten“ öffnet die Schichtplanung."
           ],
-          "tipp": "Das Bundesland je Standort (Standard Berlin) stellen Sie unter Einstellungen → Lagerorte & Standorte → „Standorte & Feiertage“ ein."
+          "tipp": "Den Schichtplan pflegen Sie unter Einstellungen → Schichtplanung. Das Bundesland je Standort für die Feiertage stellen Sie unter Einstellungen → Lagerorte & Standorte ein. Stempelungen im Prototyp ersetzen keine gesetzeskonforme Zeiterfassung."
         },
         "transaktionen": {
           "titel": "Transaktionen",
@@ -402,9 +445,22 @@ window.ZYKOL_ANLEITUNG = {
             "Im Dashboard den Reiter „Transaktionen“ wählen. Zeitraum wählen: Heute, Gestern, Letzte 7 Tage, Dieser Monat, Vormonat, Quartal oder Benutzerdefiniert. Nach Zahlart oder Status filtern.",
             "Eine Zeile öffnen, um Positionen, TSE-Daten und den digitalen Beleg zu sehen.",
             "Unter „Angehängte Dokumente“ stehen Bon und Rechnung des Vorgangs. „Ansehen“ zeigt das Dokument, „Drucken“ druckt es erneut.",
-            "Storno oder Retoure aus dem Belegdetail starten (Recht „Storno / Retoure“)."
+            "Storno oder Retoure aus dem Belegdetail starten (Recht „Storno / Retoure“).",
+            "„Stornieren“ im Belegdetail setzt den Beleg auf „Storniert“, bucht den Bestand zurück und nimmt den Betrag aus dem Kassenabschluss. Den Status (z. B. Bezahlt, Offen) ändern Admin und Filialleitung."
           ],
           "tipp": "Jede Kasse hat ein eigenes Journal. Den Tagesabschluss machen Sie im Kassenabschluss."
+        },
+        "opliste": {
+          "titel": "Offene Posten (OP-Liste)",
+          "intro": "Alle offenen Rechnungen mit Fälligkeit, Tagen überfällig und Mahnstufe an einem Ort.",
+          "schritte": [
+            "In der Navigation „OP-Liste“ öffnen. Oben stehen Summe offen, davon überfällig und die Zahl der Posten.",
+            "Nach Kunde oder Rechnungsnummer suchen oder nach Fälligkeit und Mahnstufe filtern. Jede Zeile zeigt Rechnungsdatum, Fälligkeit und Tage überfällig.",
+            "Ist das Geld eingegangen, die Zahlung erfassen. Der Posten verschwindet aus der Liste und die Rechnung gilt als bezahlt.",
+            "Überfällige Posten mahnen: Die Mahnstufen folgen nacheinander (Zahlungserinnerung, 1. und 2. Mahnung, letzte Mahnung). Die Mahnung wird als A4-Schreiben gedruckt; die Fristen stammen aus den Dokumentvorlagen.",
+            "„OP-Liste als CSV“ exportiert die Liste für die Buchhaltung."
+          ],
+          "tipp": "In die OP-Liste kommen Verkäufe mit Zahlart Rechnung. Bestellbelege mit offener Restzahlung kassieren Sie unter „Bestellungen“."
         },
         "berichte": {
           "titel": "Berichte und Umsatz",
@@ -422,16 +478,50 @@ window.ZYKOL_ANLEITUNG = {
           "intro": "Geräte, Benutzer, Shop-Daten und Schnittstellen verwalten. Die Bedienungsanleitung sehen alle Benutzer, alle anderen Bereiche nur mit Recht.",
           "schritte": [
             "Drucker, Barcode-Scanner, TSE & Kassensicherung, ERP-Anbindung sowie Webshops & API einrichten. Verbindungen sind im Prototyp simuliert.",
-            "Benutzer & Rollen: Benutzer anlegen, Kassen zuordnen, PINs vergeben, Rechte in der Matrix setzen und den Schichtplan planen. Rollen: Admin, Filialleitung, Teamleitung, Verkauf, Aushilfe, Einkauf und Werkstatt (Technik).",
+            "Benutzer & Rollen: Benutzer anlegen, Kassen zuordnen, PINs vergeben und Rechte in der Matrix setzen. Rollen: Admin, Filialleitung, Teamleitung, Verkauf, Aushilfe, Einkauf und Werkstatt (Technik).",
             "Firma & Kasse: Firmendaten, Logo, Akzentfarbe, Öffnungszeiten, Nummernkreise und Texte für alle Belege. Dokumentvorlagen: Belege, Rechnungen und Etiketten prüfen.",
             "Lagerorte & Standorte: Lagerorte in bis zu vier Ebenen, Werkstatt (Stundensatz, Freigabegrenze, Arbeitsschritte), Standorte & Feiertage, „Kanu-News im Dashboard“ (n8n-Adresse, Verbindung testen) und „Wetter im Kalender“ (Ort, An/Aus).",
             "Versand: DHL, UPS und DPD mit Zugangsdaten anbinden, Sandbox oder Live wählen und die Verbindung testen. Dieselben Angaben stehen im Versand unter „Dienstleister“.",
             "Zahlungsarten: Karte, Bar, PayPal, Rechnung, Gutschein und Vorkasse ein- und ausschalten, sortieren und die Anbindung testen. E-Rechnung: ZUGFeRD-Profil, XRechnung-Syntax und Übermittlung.",
             "Admin (nur root): Systemsprache und Sprache je Benutzer, Systemprotokoll, Datenbank & Backup.",
             "Module (nur root): Bereiche wie Lager & Bestand, Personal & Urlaub, Arbeitszeiterfassung, Werkstatt, Ausschreibungen, Kassenabschluss, ERP-Anbindung, Kanu-News sowie Boote & Paddel und Regatten mit „An“ oder „Aus“ schalten, oder mit „Alle an“ und „Alle aus“ auf einmal. Ausgeschaltete Module verschwinden aus Menü, Dashboard, Kalender und Rechte-Tabelle, die Daten bleiben erhalten. Kasse, Kunden, Artikel, Belege, Versand, E-Rechnung, Angebote und Kalender sind immer an. Ohne Lager & Bestand buchen Verkauf und Werkstatt keinen Bestand, ohne Personal & Urlaub gibt es keinen Urlaub. Großhandel ist in Vorbereitung und braucht Lager & Bestand.",
-            "Die Reihenfolge des Menüs ändern Sie unten in der Seitenleiste mit „Menü sortieren“; „Standard wiederherstellen“ setzt sie zurück. Das Dashboard bleibt immer oben."
+            "Die Reihenfolge des Menüs ändern Sie unten in der Seitenleiste mit „Menü sortieren“; „Standard wiederherstellen“ setzt sie zurück. Das Dashboard bleibt immer oben.",
+            "Werkstatt: Stundensatz und Werkstattleistungen stehen im eigenen Reiter „Werkstatt“. Schichtplanung, Geräte & Kassenbindung, Filialen und Anlagevermögen haben eigene Reiter (eigene Kapitel)."
           ],
           "tipp": "Die Rolle Werkstatt (Technik) hat ein festes Menü (Dashboard, Werkstatt, Kalender, Zeiterfassung) und darf nicht kassieren."
+        },
+        "geraete": {
+          "titel": "Geräte & Kassenbindung",
+          "intro": "Browser und Rechner einer Kasse zuordnen, Geräte freigeben oder sperren und den Mandanten sehen.",
+          "schritte": [
+            "Einstellungen → „Geräte & Kassenbindung“ öffnen. Unter „Dieses Gerät“ stehen Geräte-ID, Browser und Status.",
+            "Einen Rechnernamen eintragen und unter „Kasse an dieses Gerät binden“ die Kasse wählen. Mit „Kassenwechsel an diesem Gerät sperren“ ist die Bindung fest: Andere Kassen sind an diesem Gerät gesperrt. „Bindung lösen“ hebt sie auf.",
+            "„Registrierte Geräte“: Neue Browser erscheinen mit „Wartet auf Freigabe“. Einer Kasse zuordnen, „Freigeben“, „Sperren“ oder „Entfernen“.",
+            "Unter „Mandant (Tenant)“ steht, zu welchem Mandanten Kassen, Geräte und Filialen gehören."
+          ],
+          "tipp": "Im Prototyp gilt die Bindung für den jeweiligen Browser. „Anmeldung nur an freigegebenen Geräten“ wird angezeigt, aber noch nicht erzwungen."
+        },
+        "filialen": {
+          "titel": "Filialen",
+          "intro": "Standorte mit eigenen Kassen und Lagerorten – mit Bestand, Umlagerungen und Bestellungen je Filiale.",
+          "schritte": [
+            "Einstellungen → „Filialen“ öffnen. Jede Filiale zeigt Artikel am Lager, Stück, Warenwert, Umlagerungen, offene Bestellungen und Mitarbeitende.",
+            "Name und Ort direkt in der Karte ändern. Kassen und Lagerorte per Chip zuordnen; eine Kasse oder ein Lagerort gehört immer zu genau einer Filiale.",
+            "„+ Filiale anlegen“ legt eine neue Filiale an. „Bestand der Filiale“ öffnet den Bestand mit dem Filter dieser Filiale; im Bestand gibt es dafür eigene Filter-Chips.",
+            "Unter „Offene Lieferantenbestellungen je Filiale“ legen Sie fest, wo die Ware ankommt. Ware zwischen Filialen bewegen Sie mit einer Umlagerung im Bestand."
+          ],
+          "tipp": "Mitarbeitende gehören zur Filiale ihrer ersten Kasse (Benutzer & Rollen)."
+        },
+        "anlagen": {
+          "titel": "Anlagevermögen",
+          "intro": "Maschinen, Fahrzeuge und Ausstattung mit Abschreibung, Buchwert und Wartung.",
+          "schritte": [
+            "Einstellungen → „Anlagevermögen“ öffnen. Oben stehen Anlagegüter im Einsatz, Anschaffungswert, Buchwert heute, AfA des laufenden Jahres und fällige Wartungen.",
+            "„+ Anlagegut erfassen“: Bezeichnung, Kategorie, Filiale, Anschaffung, Kosten netto und Nutzungsdauer eintragen (die Kategorie schlägt eine Nutzungsdauer vor), optional die nächste Wartung. „Anlagegut speichern“.",
+            "Abgeschrieben wird linear und monatsgenau ab dem Anschaffungsmonat. Bis 800 € netto gilt das Gut als geringwertiges Wirtschaftsgut und ist sofort abgeschrieben.",
+            "Je Anlagegut: „Wartung erledigt“ setzt die nächste Wartung ein Jahr weiter, „Ausscheiden“ nimmt es aus dem Bestand. Mit den Chips nach Kategorie filtern; „Anlagenverzeichnis (CSV)“ für die Steuerberatung."
+          ],
+          "tipp": "Die Nutzungsdauern sind Vorschläge – bitte mit der Steuerberatung abstimmen. Fällige Wartungen erscheinen rot."
         }
       }
     },
@@ -470,7 +560,10 @@ window.ZYKOL_ANLEITUNG = {
         "Artikel & Bestand ansehen": "View products & stock",
         "Ausschreibungen ansehen": "View tenders",
         "Inventur zählen": "Count stocktake",
-        "Versanddienstleister konfigurieren": "Configure carriers"
+        "Versanddienstleister konfigurieren": "Configure carriers",
+        "Geräte & Kassenbindung verwalten": "Manage devices & register binding",
+        "Filialen verwalten": "Manage branches",
+        "Anlagevermögen verwalten": "Manage fixed assets"
       },
       "kapitel": {
         "anmelden": {
@@ -508,7 +601,10 @@ window.ZYKOL_ANLEITUNG = {
             "Change quantities or remove items in the cart. On tablet and phone, the cart button in the footer opens the cart from any page.",
             "Assign a customer: enter a name or number or tap “Open customer list”. A stored customer discount is deducted automatically. Without customer data choose “Walk-in customer (no customer data)”.",
             "Below the total you find “Pay”, “Order slip” and “Save as quote”.",
-            "“Register” in the footer takes you back to the register from any page and closes open windows."
+            "“Register” in the footer takes you back to the register from any page and closes open windows.",
+            "Product groups appear as chips above the item list; a tap filters by them. “+ Free amount” adds an amount you type in, e.g. a voucher. The “Delivery” item asks for the price of the boat delivery when tapped.",
+            "“Return” switches the cart to a return: prices turn negative, on completion the stock goes back to storage and the amount is paid out. “Discard” empties the cart after a confirmation.",
+            "If an item has add-ons stored (e.g. a spray deck for a boat), they appear as suggestions right below the line."
           ],
           "tipp": "On the phone, input fields and buttons are large enough that Safari no longer zooms in when you tap them. Each register has its own cart; switching registers does not clear it. Sales take stock from the sales floor first."
         },
@@ -522,7 +618,9 @@ window.ZYKOL_ANLEITUNG = {
             "Tap “Pay” in the dialog. The document output appears.",
             "With card, cash and PayPal the receipt is always printed. Optionally choose “Print invoice” or “Send invoice by email” as well.",
             "Payment method invoice: there is no receipt and the invoice is mandatory. For companies, clubs and public-sector buyers it is created as an e-invoice (chapter E-invoice).",
-            "Tap “Complete”. A notice confirms the sale; “Open” shows it in Transactions."
+            "Tap “Complete”. A notice confirms the sale; “Open” shows it in Transactions.",
+            "Partial payment: in the dialog choose “Partial amount”, enter the amount and tap “Book partial amount”. The customer pays the rest with another method, e.g. €500 cash and the rest by card.",
+            "For card and PayPal a dialog opens as on the terminal or with a QR code; continue after confirmation. With card payment the customer can also withdraw cash (cash-back up to €200); it counts as a withdrawal in the cash closing."
           ],
           "tipp": "The till receipt carries a QR code for online access; invoices no longer have it. Open invoices with payment method invoice carry a GiroCode “Pay online” instead: scanned with a banking app, IBAN, amount and invoice number are pre-filled. The GiroCode only appears once a valid IBAN is entered under Company & POS. TSE, card terminal, PayPal, printers and email are simulated in the prototype."
         },
@@ -535,7 +633,8 @@ window.ZYKOL_ANLEITUNG = {
             "Tab “2 · Count cash”: record the number of each note and coin with − and + or by typing, for coins also whole rolls. Target, actual and difference are shown at the bottom. “Save draft” keeps the count, “Reset” clears it.",
             "Tab “3 · Closing”: if there is a difference, enter the reason (mandatory). Enter the float for tomorrow; the bank deposit is calculated from it. Record withdrawals and payouts of the day with amount and reason via “+ Withdrawal”.",
             "Tap “Close day & print Z report”. The day is then locked.",
-            "Tab “History”: view earlier closings and reprint the Z report as “Z receipt” or “A4 report”."
+            "Tab “History”: view earlier closings and reprint the Z report as “Z receipt” or “A4 report”.",
+            "At the top under “Opening balance” check the cash at opening and correct it if needed. Expected cash and difference use this figure. Cancelled receipts don’t count towards sales."
           ],
           "tipp": "Sales staff and temps only do the cash count. The daily closing is done by admin, store manager or team lead."
         },
@@ -548,7 +647,9 @@ window.ZYKOL_ANLEITUNG = {
             "Under “Customer, handover & payment”, search for the customer (name, number or phone) and tap it. For a new customer, enter the details and tap “Save as new customer”.",
             "Enter handover (pick-up, delivery or shipping), date and a deposit.",
             "Under “Payment” choose: Still open, Paid · card, Paid · cash, or invoice with payment term in days. For clubs and companies, invoice is preselected.",
-            "Check the preview and tap “Print / PDF”. The order slip is filed automatically under “Orders”."
+            "Check the preview and tap “Print / PDF”. The order slip is filed automatically under “Orders”.",
+            "Billing and delivery address can differ: enter another address under “Delivery address”; delivery addresses stored on the customer are suggested. “Delivery costs (€)” adds shipping or delivery as its own line.",
+            "With a deposit, “File & collect deposit …” files the order receipt and charges only the deposit at the register. Collect the rest later under “Orders” with “Final payment”."
           ],
           "tipp": "The order slip is not a till receipt. With their signature the customer confirms the personalisation."
         },
@@ -560,7 +661,9 @@ window.ZYKOL_ANLEITUNG = {
             "Search by number, customer, phone or product, or filter by status. Tap a row and set the status to Ordered, Ready for pick-up or Handed over.",
             "Handover is only possible when the order is paid or on invoice. If it is still open, choose “Paid by card”, “Paid in cash” or “On invoice (14 days)”. “Print again” prints the slip as filed.",
             "Tab “Supplier orders” (permission “Manage suppliers”): order goods with “New order” or apply the “Order suggestion” for products below minimum stock. “Order as PDF” creates the order letter.",
-            "When the goods arrive, book them under Products & stock with “Book goods receipt” against this order – partial deliveries too."
+            "When the goods arrive, book them under Products & stock with “Book goods receipt” against this order – partial deliveries too.",
+            "In a customer order’s detail, “Process” shows the steps up to handover. From there: “Request stock” (ask purchasing for goods), create a shipping or delivery order, “Draft invoice”, “Edit” and “Cancel”. The payment status (open, deposit received, paid) is shown on every order and can be filtered.",
+            "Supplier orders: at “Ordered”, record the supplier’s order confirmation; the delivery date can be changed at any time and its history stays visible. Items with variants are ordered and received per variant."
           ],
           "tipp": "In the prototype “Paid by card” only sets the status; no till receipt is created."
         },
@@ -573,7 +676,9 @@ window.ZYKOL_ANLEITUNG = {
             "Maintain the status: Draft, Sent, Accepted, Declined, Expired. Bill accepted quotes with “Move to register”.",
             "Continue an accepted quote: “Create shipping order” creates an open order (V number) in Shipping with customer, address and items. “Create repair order” creates a workshop order (WA number) in workshop intake; the items are taken over as the estimate, the quote number goes into the customer request, and you add labour time in the workshop. The quote then shows the order number and both buttons disappear, so no order is created twice.",
             "From the cart: “Save as quote” stores the contents as a quote (draft). Without a customer it is saved for a walk-in customer.",
-            "Later, open “Quotes from the register” in the register and tap “Load into cart” on the quote you want."
+            "Later, open “Quotes from the register” in the register and tap “Load into cart” on the quote you want.",
+            "Customer details in a quote can be changed without touching the customer record; “Save to customer record” stores them permanently. Choose the payment terms from suggestions or type your own.",
+            "Choose variants (colour, size, length) right on the line – no detour via the cart. A “Special discount” in percent applies on top to the whole total and appears on the quote."
           ],
           "tipp": "Validity comes from the shop settings. Expiring quotes appear in the calendar and on the dashboard."
         },
@@ -584,7 +689,9 @@ window.ZYKOL_ANLEITUNG = {
             "Under “Customers”, create or search for a customer and filter by type: private, club, company, association, school or public sector.",
             "Store discount, payment terms and billing address. For the public sector also enter the routing ID (Leitweg-ID) for XRechnung.",
             "The customer file shows purchases, revenue, receipts and boats bought.",
-            "“Customer’s products” also lists third-party products the customer brought to the workshop – with label and workshop history."
+            "“Customer’s products” also lists third-party products the customer brought to the workshop – with label and workshop history.",
+            "Store a separate delivery address on the customer; order receipt and shipping suggest it.",
+            "“Archive” customers who no longer buy: they disappear from search and the register, their receipts stay. A customer without receipts can also be deleted permanently."
           ],
           "tipp": "On the phone, tables appear as cards so nothing is cut off."
         },
@@ -611,7 +718,9 @@ window.ZYKOL_ANLEITUNG = {
             "Tab “Picking & packing”: take the goods (“All picked”), “Mark as picked”, tap “Parcel ready” at the packing station and “Continue to label”.",
             "Tab “Labels & tracking”: “Create label”, check it with “Label preview” and “Print label”. At the end “Daily closing and hand over”; “Get shipment status” shows where shipments are.",
             "Tab “Returns”: “Create return” or “Create return with label”. On arrival “Book receipt” and grade the goods as “Fine” (back to stock) or “Damaged”.",
-            "Tab “Carriers”: enter the DHL, UPS and DPD accounts and “Test connection”."
+            "Tab “Carriers”: enter the DHL, UPS and DPD accounts and “Test connection”.",
+            "Picking: “I’ll take it” assigns an order to you; the “Assigned to me” filter shows only yours. “Print pick list / PDF” prints all open lines by storage place. An order created from a customer order links back to it.",
+            "We deliver boats ourselves: “Deliver ourselves” selects own delivery (boat packaging); after handover tap “Mark as delivered”. There is no freight forwarder."
           ],
           "tipp": "The labels are replicas of the carrier templates printed MUSTER (sample). UPS and DPD are simulated in the prototype. DHL can be tested with the real DHL sandbox under Settings → Shipping."
         },
@@ -638,7 +747,10 @@ window.ZYKOL_ANLEITUNG = {
             "“Book”: book shrinkage, defect or other with a reason (mandatory). Admin, store manager and team lead may do this.",
             "“Book goods receipt”: always against an open supplier order, also as a partial delivery and spread over several locations. Purchasing may do this too.",
             "“Transfer” moves goods between locations, e.g. from storage to the sales floor. The tab “Stock & history” shows quantities per location and every movement.",
-            "“Suppliers”: master data, contacts, terms, delivery time and open orders per manufacturer. “Add supplier” creates a new one."
+            "“Suppliers”: master data, contacts, terms, delivery time and open orders per manufacturer. “Add supplier” creates a new one.",
+            "Variants: in the item detail under “Variants” add another colour or size. Each variant has its own stock and storage place. Under “Add-ons” set matching accessories that the register suggests; “Reorder from supplier” creates a supplier order.",
+            "In stock, “Order proposal” opens all items below minimum stock. “Transfer” creates a transfer order (Created → In transit → Stored), e.g. between branches.",
+            "Suppliers: several contacts per supplier, the supplier’s orders and a searchable product list by product group."
           ],
           "tipp": "Admin and store manager set up storage locations under Settings → Storage locations & sites. Locations can only be deactivated, not deleted, so the history is kept."
         },
@@ -657,8 +769,8 @@ window.ZYKOL_ANLEITUNG = {
           "tipp": "Starting and closing a stocktake requires the permission “Carry out stocktake”; counting only needs “Count stocktake”. The area belongs to the “Warehouse & stock” module. In the prototype, bookings are local only and do not replace a documented stocktake."
         },
         "etiketten": {
-          "titel": "Boats sold, paddle IDs and QR labels",
-          "intro": "Boats are identified by their serial number, paddles by their own ID. Both are in the boat file under Inventory → Boats sold.",
+          "titel": "Sold items, paddle IDs and QR labels",
+          "intro": "Boats are identified by serial number, paddles by their own ID. Both are in the boat file under Inventory → Sold items, filterable by boats, paddles and other items.",
           "schritte": [
             "The paddle ID is created on completion with invoice from date and number (e.g. ZKP-261011-416-01) and appears on the invoice.",
             "If a sale, an invoice or an accepted quote contains a paddle, “Print QR labels” appears.",
@@ -704,17 +816,18 @@ window.ZYKOL_ANLEITUNG = {
           "tipp": "To see the calendar of the mobile register, switch register in the footer. Admins set the weather location under Settings → Storage locations & sites. Each register can have its own weather location, found by place search (name or postcode) or coordinates; without one the default location applies. The dashboard shows the weather as a tile with the place name. Without internet only a short notice appears."
         },
         "zeiterfassung": {
-          "titel": "Time tracking and leave",
-          "intro": "Clock in and out, see hours and balance, request and approve leave.",
+          "titel": "Time tracking, leave, sickness and shifts",
+          "intro": "Clock in/out, monthly hours and overtime, shift plan, leave, sickness and cover – for each person and the whole team.",
           "schritte": [
-            "Open “Time tracking” in the navigation. In the tab “Clock in/out”, tap “Clock in” at the start and “Clock out” at the end. Register and time are logged.",
-            "The overview shows status, hours today and this week, target and balance for each person.",
-            "Tab “Leave”: your entitlement, carry-over from last year, days taken, planned and requested, and what remains.",
-            "Request leave: enter start and end, optionally a note, and send. Working days are counted automatically – without weekends and public holidays in your location’s federal state.",
-            "Approve (admin, store manager, team lead): under “Open leave requests” tap “Approve” or “Reject”. Approved leave appears in the calendar; open requests appear on the dashboard.",
-            "With the permission “Maintain leave entitlement”, enter entitlement, carry-over and working days per week for all staff."
+            "Open “Time tracking” in the navigation. “My area” shows your status with “Clock in”/“Clock out”, hours today and this week, monthly hours (actual vs. target to yesterday), overtime/undertime, remaining leave, sick days and your shifts this week.",
+            "Under “Monthly hours” you see the last six months with target, actual and balance. Leave and sickness are credited with the target time.",
+            "“Clock in/out” tab: overview of all staff with status, hours today and this week, target and balance.",
+            "“Leave” tab: entitlement, carry-over, taken, planned and requested days. Request leave: enter start and end and send – working days are counted without weekends and holidays. Admin, branch management and team lead approve.",
+            "“Leave calendar” tab: the month for all staff with U (leave approved), B (requested), K (sick) plus days off and holidays. Browse with ‹ ›, “Today” jumps back.",
+            "“Sickness & cover” tab: choose staff member, period and cover, tick “Sick note received” and tap “Save sick leave”. No diagnosis is recorded. The system shows affected shifts and who is free on those days. Shift plan and leave calendar update; “Report fit” ends the sick leave. Report yourself sick via “Report sick” in “My area”.",
+            "“Team” tab (management): who is in, sick or on leave, today’s shift plus weekly and monthly hours, overtime and remaining leave per person. “Export hours (CSV)” for payroll; “Edit shift plan” opens shift planning."
           ],
-          "tipp": "Set the federal state per location (default Berlin) under Settings → Storage locations & sites → “Locations & public holidays”."
+          "tipp": "Maintain the shift plan under Settings → Shift planning. Set the federal state per site for holidays under Settings → Storage locations & sites. Clocking in the prototype does not replace legally compliant time recording."
         },
         "transaktionen": {
           "titel": "Transactions",
@@ -723,9 +836,22 @@ window.ZYKOL_ANLEITUNG = {
             "Choose the tab “Transactions” on the dashboard. Choose a period: Today, Yesterday, Last 7 days, This month, Last month, Quarter or Custom. Filter by payment method or status.",
             "Open a row to see items, TSE data and the digital receipt.",
             "“Attached documents” lists the receipt and invoice of the transaction. “View” shows the document, “Print” prints it again.",
-            "Start a cancellation or return from the receipt details (permission “Cancellation / return”)."
+            "Start a cancellation or return from the receipt details (permission “Cancellation / return”).",
+            "“Cancel” in the receipt detail sets the receipt to “Cancelled”, books the stock back and removes the amount from the cash closing. Admin and branch management change the status (e.g. Paid, Open)."
           ],
           "tipp": "Each register has its own journal. The daily closing is done in Register closing."
+        },
+        "opliste": {
+          "titel": "Open items (OI list)",
+          "intro": "All open invoices with due date, days overdue and dunning level in one place.",
+          "schritte": [
+            "Open “OI list” in the navigation. At the top: total open, of which overdue, and the number of items.",
+            "Search by customer or invoice number or filter by due date and dunning level. Each line shows invoice date, due date and days overdue.",
+            "When the money has arrived, record the payment. The item leaves the list and the invoice counts as paid.",
+            "Dun overdue items: the levels follow one after another (payment reminder, 1st and 2nd reminder, final reminder). The reminder is printed as an A4 letter; the deadlines come from the document templates.",
+            "“OI list as CSV” exports the list for accounting."
+          ],
+          "tipp": "Sales with payment method invoice go into the OI list. Collect order receipts with an open final payment under “Orders”."
         },
         "berichte": {
           "titel": "Reports and sales",
@@ -743,16 +869,50 @@ window.ZYKOL_ANLEITUNG = {
           "intro": "Manage devices, users, shop data and interfaces. All users see the user manual; all other areas require permission.",
           "schritte": [
             "Set up printers, barcode scanners, TSE & register security, ERP connection and web shops & API. Connections are simulated in the prototype.",
-            "Users & roles: create users, assign registers, set PINs, set permissions in the matrix and plan the shift plan. Roles: admin, store manager, team lead, sales, temp, purchasing and workshop (technician).",
+            "Users & roles: create users, assign registers, set PINs and rights in the matrix. Roles: Admin, Branch management, Team lead, Sales, Temp, Purchasing and Workshop (technical).",
             "Company & POS: company details, logo, accent colour, opening hours, number ranges and texts for all documents. Document templates: check receipts, invoices and labels.",
             "Storage locations & sites: storage locations in up to four levels, workshop (hourly rate, approval limit, work steps), locations & public holidays, “Canoe news on the dashboard” (n8n address, test connection) and “Weather in the calendar” (location, on/off).",
             "Shipping: connect DHL, UPS and DPD with credentials, choose sandbox or live and test the connection. The same details are under “Carriers” in Shipping.",
             "Payment methods: switch card, cash, PayPal, invoice, voucher and prepayment on or off, sort them and test the connection. E-invoice: ZUGFeRD profile, XRechnung syntax and transmission.",
             "Admin (root only): system language and language per user, system log, database & backup.",
             "Modules (root only): switch areas such as warehouse & stock, staff & leave, time tracking, workshop, tenders, end of day, ERP connection, canoe news, boats & paddles and regattas “On” or “Off”, or all at once with “All on” and “All off”. Disabled modules disappear from the menu, dashboard, calendar and permissions table; data is kept. Till, customers, items, receipts, shipping, e-invoicing, quotes and calendar are always on. Without warehouse & stock, sales and workshop do not post stock; without staff & leave there is no leave. Wholesale is in preparation and requires warehouse & stock.",
-            "Change the menu order at the bottom of the sidebar with “Sort menu”; “Restore default” resets it. The dashboard always stays at the top."
+            "Change the menu order at the bottom of the sidebar with “Sort menu”; “Restore default” resets it. The dashboard always stays at the top.",
+            "Workshop: hourly rate and workshop services are in their own “Workshop” tab. Shift planning, devices & register binding, branches and fixed assets have their own tabs (own chapters)."
           ],
           "tipp": "The workshop (technician) role has a fixed menu (dashboard, workshop, calendar, time tracking) and cannot charge sales."
+        },
+        "geraete": {
+          "titel": "Devices & register binding",
+          "intro": "Assign browsers and computers to a register, approve or block devices and see the tenant.",
+          "schritte": [
+            "Open Settings → “Devices & register binding”. “This device” shows device ID, browser and status.",
+            "Enter a computer name and choose the register under “Bind register to this device”. With “Lock register switching on this device” the binding is fixed: other registers are blocked on this device. “Remove binding” undoes it.",
+            "“Registered devices”: new browsers appear as “Awaiting approval”. Assign a register, “Approve”, “Block” or “Remove”.",
+            "“Tenant” shows which tenant registers, devices and branches belong to."
+          ],
+          "tipp": "In the prototype the binding applies to the browser in use. “Sign-in only on approved devices” is shown but not yet enforced."
+        },
+        "filialen": {
+          "titel": "Branches",
+          "intro": "Sites with their own registers and storage locations – with stock, transfers and orders per branch.",
+          "schritte": [
+            "Open Settings → “Branches”. Each branch shows items in stock, units, stock value, transfers, open orders and staff.",
+            "Change name and location right in the card. Assign registers and storage locations with chips; a register or location always belongs to exactly one branch.",
+            "“+ Add branch” creates a new branch. “Branch stock” opens stock filtered to this branch; stock has its own filter chips for this.",
+            "Under “Open supplier orders per branch” set where goods arrive. Move goods between branches with a stock transfer."
+          ],
+          "tipp": "Staff belong to the branch of their first register (Users & roles)."
+        },
+        "anlagen": {
+          "titel": "Fixed assets",
+          "intro": "Machines, vehicles and equipment with depreciation, book value and maintenance.",
+          "schritte": [
+            "Open Settings → “Fixed assets”. At the top: assets in use, acquisition value, book value today, depreciation this year and maintenance due.",
+            "“+ Add asset”: enter description, category, branch, acquisition date, net cost and useful life (the category suggests one), optionally the next maintenance. Tap “Save asset”.",
+            "Depreciation is straight-line by month from the month of acquisition. Up to €800 net the item is a low-value asset and written off at once.",
+            "Per asset: “Maintenance done” moves the next maintenance one year on, “Dispose” takes it out of use. Filter by category with the chips; “Asset register (CSV)” for your tax adviser."
+          ],
+          "tipp": "Useful lives are suggestions – please agree them with your tax adviser. Due maintenance shows in red."
         }
       }
     },
@@ -791,7 +951,10 @@ window.ZYKOL_ANLEITUNG = {
         "Artikel & Bestand ansehen": "Consulter articles & stock",
         "Ausschreibungen ansehen": "Consulter les appels d’offres",
         "Inventur zählen": "Compter l’inventaire",
-        "Versanddienstleister konfigurieren": "Configurer les transporteurs"
+        "Versanddienstleister konfigurieren": "Configurer les transporteurs",
+        "Geräte & Kassenbindung verwalten": "Gérer appareils & liaison caisse",
+        "Filialen verwalten": "Gérer les filiales",
+        "Anlagevermögen verwalten": "Gérer les immobilisations"
       },
       "kapitel": {
         "anmelden": {
@@ -829,7 +992,10 @@ window.ZYKOL_ANLEITUNG = {
             "Modifiez les quantités ou supprimez des lignes dans le panier. Sur tablette et téléphone, le bouton panier du pied de page ouvre le panier depuis n’importe quelle page.",
             "Associer un client : saisissez un nom ou un numéro ou touchez « Ouvrir la liste des clients ». Une remise client enregistrée est déduite automatiquement. Sans données client, choisissez « Client de passage (sans données) ».",
             "Sous le total se trouvent « Payer », « Bon de commande » et « Enregistrer comme devis ».",
-            "« Caisse » dans le pied de page vous ramène à la caisse depuis n’importe quelle page et ferme les fenêtres ouvertes."
+            "« Caisse » dans le pied de page vous ramène à la caisse depuis n’importe quelle page et ferme les fenêtres ouvertes.",
+            "Les groupes d’articles apparaissent en puces au-dessus de la liste ; un toucher filtre. « + Montant libre » ajoute un montant saisi, p. ex. un bon. L’article « Livraison » demande le prix de la livraison du bateau.",
+            "« Retour » passe le panier en reprise : les prix deviennent négatifs, à la clôture le stock revient en réserve et le montant est remboursé. « Annuler » vide le panier après confirmation.",
+            "Si un article a des besoins complémentaires (p. ex. jupe pour le bateau), ils apparaissent comme suggestion sous la ligne."
           ],
           "tipp": "Sur le téléphone, champs de saisie et boutons sont assez grands pour que Safari ne zoome plus quand on les touche. Chaque caisse a son propre panier ; changer de caisse ne le vide pas. Les ventes déduisent d’abord le stock de la surface de vente."
         },
@@ -843,7 +1009,9 @@ window.ZYKOL_ANLEITUNG = {
             "Touchez « Payer » dans la fenêtre. La sortie des documents apparaît.",
             "Avec carte, espèces et PayPal, le ticket est toujours imprimé. En option, choisissez aussi « Imprimer la facture » ou « Envoyer la facture par e-mail ».",
             "Moyen de paiement facture : pas de ticket, la facture est obligatoire. Pour les entreprises, clubs et le secteur public, elle est créée en facture électronique (chapitre Facture électronique).",
-            "Touchez « Terminer ». Un message confirme la vente ; « Ouvrir » l’affiche dans les transactions."
+            "Touchez « Terminer ». Un message confirme la vente ; « Ouvrir » l’affiche dans les transactions.",
+            "Paiement partiel : dans la fenêtre, choisissez « Montant partiel », saisissez le montant et touchez « Enregistrer le montant partiel ». Le client paie le reste par un autre moyen, p. ex. 500 € en espèces et le reste par carte.",
+            "Pour la carte et PayPal, une fenêtre s’ouvre comme au terminal ou avec un QR code ; on continue après confirmation. Par carte, le client peut aussi retirer des espèces (cashback jusqu’à 200 €), compté comme sortie dans la clôture."
           ],
           "tipp": "Le ticket de caisse porte un QR code pour le consulter en ligne ; les factures ne l’ont plus. Les factures ouvertes avec le mode de paiement facture portent à la place un GiroCode « Payer en ligne » : scanné avec une application bancaire, IBAN, montant et numéro de facture sont préremplis. Le GiroCode n’apparaît que si un IBAN valide est saisi sous Entreprise & caisse. TSE, terminal de carte, PayPal, imprimantes et e-mail sont simulés dans le prototype."
         },
@@ -856,7 +1024,8 @@ window.ZYKOL_ANLEITUNG = {
             "Onglet « 2 · Compter les espèces » : saisissez le nombre de chaque billet et pièce avec − et + ou au clavier, pour les pièces aussi des rouleaux entiers. En bas : théorique, réel et écart. « Enregistrer » garde le comptage, « Réinitialiser » l’efface.",
             "Onglet « 3 · Clôture » : en cas d’écart, saisissez le motif (obligatoire). Indiquez le fonds de caisse pour demain ; le dépôt bancaire en est calculé. Enregistrez les retraits et sorties du jour avec montant et motif via « + Retrait ».",
             "Touchez « Clôturer la journée et imprimer le rapport Z ». La journée est ensuite verrouillée.",
-            "Onglet « Historique » : consultez les clôtures précédentes et réimprimez le rapport Z en « ticket Z » ou « rapport A4 »."
+            "Onglet « Historique » : consultez les clôtures précédentes et réimprimez le rapport Z en « ticket Z » ou « rapport A4 ».",
+            "En haut, sous « Fonds de caisse initial », vérifiez les espèces à l’ouverture et corrigez si besoin. Le solde théorique et l’écart en tiennent compte. Les tickets annulés ne comptent pas dans le chiffre d’affaires."
           ],
           "tipp": "La vente et les intérimaires ne font que le comptage de caisse. La clôture journalière est faite par l’admin, le responsable de magasin ou le chef d’équipe."
         },
@@ -869,7 +1038,9 @@ window.ZYKOL_ANLEITUNG = {
             "Sous « Client, remise & paiement », recherchez le client (nom, numéro ou téléphone) et touchez-le. Pour un nouveau client, saisissez les données et touchez « Enregistrer comme nouveau client ».",
             "Indiquez la remise (retrait, livraison ou envoi), la date et un acompte.",
             "Sous « Paiement », choisissez : Encore ouvert, Payé · carte, Payé · espèces ou facture avec délai en jours. Pour les clubs et entreprises, la facture est présélectionnée.",
-            "Vérifiez l’aperçu et touchez « Imprimer / PDF ». Le bon est automatiquement classé sous « Commandes »."
+            "Vérifiez l’aperçu et touchez « Imprimer / PDF ». Le bon est automatiquement classé sous « Commandes ».",
+            "Adresse de facturation et de livraison peuvent différer : saisissez une autre adresse sous « Adresse de livraison » ; celles de la fiche client sont proposées. « Frais de livraison (€) » ajoute les frais comme ligne à part.",
+            "Avec un acompte, « Classer & encaisser l’acompte … » classe le bon et n’encaisse que l’acompte en caisse. Le solde s’encaisse plus tard sous « Commandes » avec « Solde »."
           ],
           "tipp": "Le bon de commande n’est pas un ticket de caisse. Par sa signature, le client confirme la personnalisation."
         },
@@ -881,7 +1052,9 @@ window.ZYKOL_ANLEITUNG = {
             "Recherchez par numéro, client, téléphone ou article, ou filtrez par statut. Touchez une ligne et passez le statut à Commandé, Prêt à retirer ou Remis.",
             "La remise n’est possible que si la commande est payée ou sur facture. Si elle est encore ouverte, choisissez « Payé par carte », « Payé en espèces » ou « Sur facture (14 jours) ». « Réimprimer » imprime le bon tel qu’il a été classé.",
             "Onglet « Commandes fournisseurs » (droit « Gérer les fournisseurs ») : commandez avec « Nouvelle commande » ou reprenez la « proposition de commande » pour les articles sous le stock minimum. « Commande en PDF » crée le courrier de commande.",
-            "À l’arrivée, enregistrez la marchandise sous Articles & stock avec « Enregistrer une réception » pour cette commande – aussi en livraison partielle."
+            "À l’arrivée, enregistrez la marchandise sous Articles & stock avec « Enregistrer une réception » pour cette commande – aussi en livraison partielle.",
+            "Dans le détail d’une commande client, « Suivi » montre les étapes jusqu’à la remise. De là : « Demander le besoin » (aux achats), créer un ordre d’expédition ou de livraison, « Brouillon de facture », « Modifier » et « Annuler ». Le statut de paiement (ouvert, acompte reçu, payé) figure sur chaque commande et se filtre.",
+            "Commandes fournisseurs : au statut « Commandé », saisissez la confirmation de commande ; la date de livraison se modifie à tout moment et l’historique reste visible. Les articles à variantes sont commandés et réceptionnés par variante."
           ],
           "tipp": "Dans le prototype, « Payé par carte » ne change que le statut ; aucun ticket de caisse n’est créé."
         },
@@ -894,7 +1067,9 @@ window.ZYKOL_ANLEITUNG = {
             "Tenez le statut à jour : Brouillon, Envoyé, Accepté, Refusé, Expiré. Facturez les devis acceptés avec « Reprendre en caisse ».",
             "Poursuivre un devis accepté : « Créer un ordre d’expédition » crée une commande ouverte (numéro V) dans Expédition avec client, adresse et positions. « Créer un ordre d’atelier » crée un ordre d’atelier (numéro WA) à la réception de l’atelier ; les positions sont reprises comme devis estimatif, le numéro du devis figure dans la demande du client, les temps de travail se saisissent dans l’atelier. Le devis affiche ensuite le numéro d’ordre et les deux boutons disparaissent : aucun ordre n’est créé deux fois.",
             "Depuis le panier : « Enregistrer comme devis » enregistre le contenu comme devis (brouillon). Sans client, il est enregistré pour un client de passage.",
-            "Plus tard, ouvrez « Devis de la caisse » dans la caisse et touchez « Charger dans le panier » sur le devis voulu."
+            "Plus tard, ouvrez « Devis de la caisse » dans la caisse et touchez « Charger dans le panier » sur le devis voulu.",
+            "Les données client du devis se modifient sans toucher la fiche ; « Reprendre dans la fiche client » les enregistre. Choisissez les conditions de paiement parmi des propositions ou saisissez-les.",
+            "Choisissez les variantes (couleur, taille, longueur) directement sur la ligne, sans passer par le panier. Une « Remise spéciale » en pourcentage s’applique en plus sur tout le total et figure sur le devis."
           ],
           "tipp": "La validité découle des paramètres de la boutique. Les devis qui expirent figurent dans le calendrier et sur le tableau de bord."
         },
@@ -905,7 +1080,9 @@ window.ZYKOL_ANLEITUNG = {
             "Sous « Clients », créez ou recherchez un client et filtrez par type : particulier, club, entreprise, fédération, école ou secteur public.",
             "Enregistrez remise, conditions de paiement et adresse de facturation. Pour le secteur public, saisissez aussi la Leitweg-ID pour la XRechnung.",
             "Le dossier client montre les achats, le chiffre d’affaires, les tickets et les bateaux achetés.",
-            "« Produits du client » liste aussi les produits tiers que le client a apportés à l’atelier – avec étiquette et historique d’atelier."
+            "« Produits du client » liste aussi les produits tiers que le client a apportés à l’atelier – avec étiquette et historique d’atelier.",
+            "Enregistrez une adresse de livraison distincte dans la fiche ; bon de commande et expédition la proposent.",
+            "« Archiver » les clients inactifs : ils disparaissent de la recherche et de la caisse, leurs tickets restent. Un client sans tickets peut aussi être supprimé définitivement."
           ],
           "tipp": "Sur téléphone, les tableaux s’affichent sous forme de cartes pour que rien ne soit coupé."
         },
@@ -932,7 +1109,9 @@ window.ZYKOL_ANLEITUNG = {
             "Onglet « Préparation & emballage » : prélevez la marchandise (« Tout prélevé »), « Marquer comme préparé », touchez « Colis prêt » au poste d’emballage puis « Continuer vers l’étiquette ».",
             "Onglet « Étiquettes & suivi » : « Créer l’étiquette », la vérifier avec « Aperçu de l’étiquette » et « Imprimer l’étiquette ». En fin de journée « Clôture et remise » ; « Obtenir le statut » montre où en sont les envois.",
             "Onglet « Retours » : « Créer un retour » ou « Créer un retour avec étiquette ». À l’arrivée, « Enregistrer l’entrée » et classez la marchandise « En parfait état » (retour en stock) ou « Endommagée ».",
-            "Onglet « Transporteurs » : saisissez les accès DHL, UPS et DPD et « Tester la connexion »."
+            "Onglet « Transporteurs » : saisissez les accès DHL, UPS et DPD et « Tester la connexion ».",
+            "Préparation : « Je m’en charge » vous attribue une commande ; le filtre « Qui m’est attribué » n’affiche que les vôtres. « Imprimer la liste de préparation / PDF » imprime toutes les lignes ouvertes par emplacement. Un ordre issu d’une commande renvoie à celle-ci.",
+            "Nous livrons les bateaux nous-mêmes : « Livrer nous-mêmes » choisit la livraison propre (emballage bateau) ; après la remise, « Marquer comme livré ». Il n’y a pas de transporteur."
           ],
           "tipp": "Les étiquettes reproduisent les modèles des transporteurs avec la mention MUSTER (exemple). UPS et DPD sont simulés dans le prototype. DHL peut être testé avec la vraie sandbox DHL sous Paramètres → Expédition."
         },
@@ -959,7 +1138,10 @@ window.ZYKOL_ANLEITUNG = {
             "« Enregistrer » : saisissez démarque, défaut ou autre avec motif (obligatoire). L’admin, le responsable de magasin et le chef d’équipe peuvent le faire.",
             "« Enregistrer une réception » : toujours pour une commande fournisseur ouverte, aussi en livraison partielle et répartie sur plusieurs emplacements. Les achats peuvent aussi le faire.",
             "« Transférer » déplace la marchandise entre emplacements, p. ex. de la réserve vers la surface de vente. L’onglet « Stock & historique » montre les quantités par emplacement et chaque mouvement.",
-            "« Fournisseurs » : données de base, contacts, conditions, délai de livraison et commandes ouvertes par fabricant. « Ajouter un fournisseur » en crée un nouveau."
+            "« Fournisseurs » : données de base, contacts, conditions, délai de livraison et commandes ouvertes par fabricant. « Ajouter un fournisseur » en crée un nouveau.",
+            "Variantes : dans le détail de l’article, sous « Variantes », ajoutez une couleur ou une taille. Chaque variante a son stock et son emplacement. Sous « Besoins complémentaires », définissez les accessoires que la caisse propose ; « Recommander au fournisseur » crée une commande fournisseur.",
+            "Dans le stock, « Proposition de commande » ouvre les articles sous le stock minimum. « Transfert » crée un ordre de transfert (Créé → En route → Stocké), p. ex. entre filiales.",
+            "Fournisseurs : plusieurs interlocuteurs par fournisseur, ses commandes et une liste de produits consultable par groupe."
           ],
           "tipp": "L’admin et le responsable de magasin configurent les emplacements sous Paramètres → Emplacements & sites. Les emplacements peuvent seulement être désactivés, pas supprimés, pour conserver l’historique."
         },
@@ -978,8 +1160,8 @@ window.ZYKOL_ANLEITUNG = {
           "tipp": "Démarrer et clôturer requiert le droit « Réaliser l’inventaire » ; pour compter, « Compter l’inventaire » suffit. La zone fait partie du module « Entrepôt & stock ». Dans le prototype, les écritures restent locales et ne remplacent pas un inventaire documenté."
         },
         "etiketten": {
-          "titel": "Bateaux vendus, ID de pagaie et étiquettes QR",
-          "intro": "Les bateaux sont identifiés par leur numéro de série, les pagaies par un ID propre. Les deux figurent dans le dossier bateau sous Gestion des stocks → Bateaux vendus.",
+          "titel": "Articles vendus, ID de pagaies et étiquettes QR",
+          "intro": "Les bateaux sont identifiés par leur numéro de série, les pagaies par un ID propre. Les deux figurent dans le dossier sous Gestion des stocks → Articles vendus, filtrable par bateaux, pagaies et autres articles.",
           "schritte": [
             "L’ID de pagaie est créé à la clôture avec facture à partir de la date et du numéro (p. ex. ZKP-261011-416-01) et figure sur la facture.",
             "Si une vente, une facture ou un devis accepté contient une pagaie, « Imprimer des étiquettes QR » apparaît.",
@@ -1025,17 +1207,18 @@ window.ZYKOL_ANLEITUNG = {
           "tipp": "Pour voir le calendrier de la caisse mobile, changez de caisse dans le pied de page. Les admins définissent le lieu pour la météo sous Paramètres → Emplacements & sites. Chaque caisse peut avoir son propre lieu météo, par recherche de lieu (nom ou code postal) ou coordonnées ; sinon le lieu par défaut s’applique. Le tableau de bord affiche la météo sous forme de tuile avec le nom du lieu. Sans internet, seul un court message apparaît."
         },
         "zeiterfassung": {
-          "titel": "Suivi du temps et congés",
-          "intro": "Pointer l’arrivée et le départ, voir heures et solde, demander et approuver des congés.",
+          "titel": "Pointage, congés, maladie et planning",
+          "intro": "Pointage, heures mensuelles et heures sup./manquantes, planning, congés, maladie et remplacement – pour chacun et toute l’équipe.",
           "schritte": [
-            "Ouvrez « Suivi du temps » dans la navigation. Dans l’onglet « Pointage », touchez « Arrivée » au début et « Départ » à la fin. La caisse et l’heure sont enregistrées.",
-            "L’aperçu montre pour chaque personne le statut, les heures du jour et de la semaine, le théorique et le solde.",
-            "Onglet « Congés » : votre droit, le report de l’année précédente, les jours pris, planifiés et demandés, et le reste.",
-            "Demander un congé : saisissez début et fin, éventuellement une note, et envoyez. Les jours ouvrés sont comptés automatiquement – sans week-ends ni jours fériés du Land de votre site.",
-            "Approuver (admin, responsable de magasin, chef d’équipe) : sous « Demandes de congé en attente », touchez « Approuver » ou « Refuser ». Les congés approuvés figurent dans le calendrier ; les demandes ouvertes apparaissent sur le tableau de bord.",
-            "Avec le droit « Gérer les droits à congé », saisissez le droit, le report et les jours travaillés par semaine pour tout le personnel."
+            "Ouvrez « Pointage » dans la navigation. « Mon espace » montre votre statut avec « Arrivée »/« Départ », les heures du jour et de la semaine, les heures mensuelles (réel contre prévu jusqu’à hier), heures sup./manquantes, congés restants, jours de maladie et votre planning de la semaine.",
+            "Sous « Heures mensuelles » figurent les six derniers mois avec prévu, réel et solde. Congés et maladie sont crédités du temps prévu.",
+            "Onglet « Pointer » : vue de tout le personnel avec statut, heures du jour et de la semaine, prévu et solde.",
+            "Onglet « Congés » : droit, report, jours pris, prévus et demandés. Demander un congé : saisir début et fin et envoyer – les jours ouvrés sont comptés sans week-ends ni fériés. Admin, direction de filiale et chef d’équipe approuvent.",
+            "Onglet « Calendrier des congés » : le mois pour tout le personnel avec U (congé approuvé), B (demandé), K (malade) ainsi que jours libres et fériés. Naviguez avec ‹ ›, « Aujourd’hui » revient.",
+            "Onglet « Maladie & remplacement » : choisir la personne, la période et le remplaçant, cocher « Arrêt de travail reçu » et toucher « Enregistrer l’arrêt ». Aucun diagnostic n’est saisi. Le système montre les postes concernés et qui est libre ces jours-là. Planning et calendrier se mettent à jour ; « Déclarer guéri » termine l’arrêt. Pour soi-même : « Déclarer malade » dans « Mon espace ».",
+            "Onglet « Équipe » (direction) : qui est présent, malade ou en congé, le poste du jour, heures hebdo et mensuelles, heures sup. et congés restants par personne. « Exporter les heures (CSV) » pour la paie, « Modifier le planning » ouvre le planning."
           ],
-          "tipp": "Réglez le Land par site (par défaut Berlin) sous Paramètres → Emplacements & sites → « Sites et jours fériés »."
+          "tipp": "Le planning se gère sous Paramètres → Planning des équipes. La région par site pour les fériés se règle sous Paramètres → Emplacements & sites. Le pointage du prototype ne remplace pas un enregistrement légal du temps de travail."
         },
         "transaktionen": {
           "titel": "Transactions",
@@ -1044,9 +1227,22 @@ window.ZYKOL_ANLEITUNG = {
             "Choisissez l’onglet « Transactions » du tableau de bord. Choisissez la période : Aujourd’hui, Hier, 7 derniers jours, Ce mois, Mois précédent, Trimestre ou Personnalisé. Filtrez par moyen de paiement ou statut.",
             "Ouvrez une ligne pour voir les articles, les données TSE et le ticket numérique.",
             "« Documents joints » liste le ticket et la facture de la transaction. « Afficher » montre le document, « Imprimer » le réimprime.",
-            "Lancez une annulation ou un retour depuis le détail du ticket (droit « Annulation / retour »)."
+            "Lancez une annulation ou un retour depuis le détail du ticket (droit « Annulation / retour »).",
+            "« Annuler » dans le détail du ticket le passe en « Annulé », remet le stock et retire le montant de la clôture. Admin et direction de filiale modifient le statut (p. ex. Payé, Ouvert)."
           ],
           "tipp": "Chaque caisse a son propre journal. La clôture journalière se fait dans la Clôture de caisse."
+        },
+        "opliste": {
+          "titel": "Postes ouverts (liste OP)",
+          "intro": "Toutes les factures ouvertes avec échéance, jours de retard et niveau de relance au même endroit.",
+          "schritte": [
+            "Ouvrez « Liste OP » dans la navigation. En haut : total ouvert, dont en retard, et nombre de postes.",
+            "Cherchez par client ou numéro de facture, ou filtrez par échéance et niveau de relance. Chaque ligne montre date de facture, échéance et jours de retard.",
+            "Quand l’argent est arrivé, enregistrez le paiement. Le poste quitte la liste et la facture est payée.",
+            "Relancer les postes en retard : les niveaux se suivent (rappel, 1re et 2e relance, dernière relance). La relance s’imprime en lettre A4 ; les délais viennent des modèles de documents.",
+            "« Liste OP en CSV » exporte la liste pour la comptabilité."
+          ],
+          "tipp": "Les ventes payées par facture entrent dans la liste OP. Les bons de commande avec solde ouvert s’encaissent sous « Commandes »."
         },
         "berichte": {
           "titel": "Rapports et ventes",
@@ -1064,16 +1260,50 @@ window.ZYKOL_ANLEITUNG = {
           "intro": "Gérer appareils, utilisateurs, données de la boutique et interfaces. Le mode d’emploi est visible par tous ; les autres zones nécessitent un droit.",
           "schritte": [
             "Configurez imprimantes, lecteurs de codes-barres, TSE & sécurité de caisse, connexion ERP ainsi que boutiques en ligne & API. Les connexions sont simulées dans le prototype.",
-            "Utilisateurs & rôles : créez des utilisateurs, attribuez des caisses, définissez les PIN, réglez les droits dans la matrice et planifiez le planning. Rôles : admin, responsable de magasin, chef d’équipe, vente, intérimaire, achats et atelier (technique).",
+            "Utilisateurs & rôles : créer des utilisateurs, attribuer les caisses, définir PIN et droits dans la matrice. Rôles : Admin, Direction de filiale, Chef d’équipe, Vente, Auxiliaire, Achats et Atelier (technique).",
             "Entreprise & caisse : coordonnées, logo, couleur d’accent, horaires, séries de numéros et textes de tous les documents. Modèles de documents : vérifier tickets, factures et étiquettes.",
             "Emplacements & sites : emplacements sur jusqu’à quatre niveaux, atelier (taux horaire, seuil d’accord, opérations), sites et jours fériés, « Actus canoë sur le tableau de bord » (adresse n8n, tester la connexion) et « Météo dans le calendrier » (lieu, activé/désactivé).",
             "Expédition : connecter DHL, UPS et DPD avec les identifiants, choisir sandbox ou production et tester la connexion. Les mêmes données figurent dans Expédition sous « Transporteurs ».",
             "Moyens de paiement : activez ou désactivez carte, espèces, PayPal, facture, bon d’achat et paiement anticipé, triez-les et testez la connexion. Facture électronique : profil ZUGFeRD, syntaxe XRechnung et transmission.",
             "Admin (root uniquement) : langue du système et langue par utilisateur, journal système, base de données & sauvegarde.",
             "Modules (root uniquement) : activer ou désactiver des zones comme entrepôt & stock, personnel & congés, saisie du temps, atelier, appels d’offres, clôture de caisse, connexion ERP, actus canoë, bateaux & pagaies et régates, ou toutes avec « Tout activer » et « Tout désactiver ». Les modules désactivés disparaissent du menu, du tableau de bord, du calendrier et du tableau des droits ; les données sont conservées. Caisse, clients, articles, justificatifs, expédition, facture électronique, devis et calendrier restent toujours actifs. Sans entrepôt & stock, ventes et atelier ne mouvementent pas le stock ; sans personnel & congés, pas de congés. La vente en gros est en préparation et nécessite entrepôt & stock.",
-            "Modifiez l’ordre du menu en bas de la barre latérale avec « Trier le menu » ; « Rétablir par défaut » le réinitialise. Le tableau de bord reste toujours en haut."
+            "Modifiez l’ordre du menu en bas de la barre latérale avec « Trier le menu » ; « Rétablir par défaut » le réinitialise. Le tableau de bord reste toujours en haut.",
+            "Atelier : taux horaire et prestations ont leur onglet « Atelier ». Planning, appareils & liaison caisse, filiales et immobilisations ont leurs onglets (chapitres dédiés)."
           ],
           "tipp": "Le rôle atelier (technique) a un menu fixe (tableau de bord, atelier, calendrier, suivi du temps) et ne peut pas encaisser."
+        },
+        "geraete": {
+          "titel": "Appareils & liaison caisse",
+          "intro": "Affecter navigateurs et ordinateurs à une caisse, autoriser ou bloquer des appareils et voir le mandant.",
+          "schritte": [
+            "Ouvrez Paramètres → « Appareils & liaison caisse ». « Cet appareil » montre ID, navigateur et statut.",
+            "Saisissez un nom d’ordinateur et choisissez la caisse sous « Lier une caisse à cet appareil ». Avec « Bloquer le changement de caisse ici », la liaison est fixe : les autres caisses sont bloquées sur cet appareil. « Supprimer la liaison » l’annule.",
+            "« Appareils enregistrés » : les nouveaux navigateurs apparaissent « En attente d’autorisation ». Affecter une caisse, « Autoriser », « Bloquer » ou « Supprimer ».",
+            "« Mandant (tenant) » indique à quel mandant appartiennent caisses, appareils et filiales."
+          ],
+          "tipp": "Dans le prototype, la liaison vaut pour le navigateur utilisé. « Connexion uniquement sur appareils autorisés » est affiché mais pas encore imposé."
+        },
+        "filialen": {
+          "titel": "Filiales",
+          "intro": "Sites avec leurs caisses et emplacements – stock, transferts et commandes par filiale.",
+          "schritte": [
+            "Ouvrez Paramètres → « Filiales ». Chaque filiale montre articles en stock, pièces, valeur, transferts, commandes ouvertes et personnel.",
+            "Modifiez nom et lieu dans la carte. Affectez caisses et emplacements par puce ; une caisse ou un emplacement appartient toujours à une seule filiale.",
+            "« + Créer une filiale » ajoute une filiale. « Stock de la filiale » ouvre le stock filtré ; le stock a ses puces de filtre.",
+            "Sous « Commandes fournisseurs ouvertes par filiale », indiquez où arrive la marchandise. Déplacez-la entre filiales par transfert de stock."
+          ],
+          "tipp": "Le personnel appartient à la filiale de sa première caisse (Utilisateurs & rôles)."
+        },
+        "anlagen": {
+          "titel": "Immobilisations",
+          "intro": "Machines, véhicules et équipements avec amortissement, valeur comptable et entretien.",
+          "schritte": [
+            "Ouvrez Paramètres → « Immobilisations ». En haut : immobilisations en service, valeur d’acquisition, valeur comptable, amortissement de l’année et entretiens dus.",
+            "« + Saisir une immobilisation » : désignation, catégorie, filiale, date, coût HT et durée d’utilisation (la catégorie en propose une), éventuellement le prochain entretien. « Enregistrer l’immobilisation ».",
+            "L’amortissement est linéaire au mois près dès le mois d’acquisition. Jusqu’à 800 € HT, le bien est de faible valeur et amorti immédiatement.",
+            "Par immobilisation : « Entretien fait » reporte le prochain entretien d’un an, « Sortir » la retire. Filtrez par catégorie avec les puces ; « Tableau des immobilisations (CSV) » pour l’expert-comptable."
+          ],
+          "tipp": "Les durées sont des propositions – à valider avec l’expert-comptable. Les entretiens dus apparaissent en rouge."
         }
       }
     },
@@ -1112,7 +1342,10 @@ window.ZYKOL_ANLEITUNG = {
         "Artikel & Bestand ansehen": "Ver artículos y existencias",
         "Ausschreibungen ansehen": "Ver licitaciones",
         "Inventur zählen": "Contar inventario",
-        "Versanddienstleister konfigurieren": "Configurar transportistas"
+        "Versanddienstleister konfigurieren": "Configurar transportistas",
+        "Geräte & Kassenbindung verwalten": "Gestionar dispositivos y cajas",
+        "Filialen verwalten": "Gestionar sucursales",
+        "Anlagevermögen verwalten": "Gestionar activo fijo"
       },
       "kapitel": {
         "anmelden": {
@@ -1150,7 +1383,10 @@ window.ZYKOL_ANLEITUNG = {
             "En el carrito cambie cantidades o quite líneas. En tableta y móvil, el botón del carrito en el pie abre el carrito desde cualquier página.",
             "Asignar cliente: introduzca nombre o número o toque «Abrir lista de clientes». Un descuento guardado se aplica automáticamente. Sin datos de cliente elija «Cliente de paso (sin datos)».",
             "Bajo el total están «Pagar», «Hoja de pedido» y «Guardar como presupuesto».",
-            "«Caja» en el pie le devuelve a la caja desde cualquier página y cierra las ventanas abiertas."
+            "«Caja» en el pie le devuelve a la caja desde cualquier página y cierra las ventanas abiertas.",
+            "Los grupos de artículos aparecen como chips sobre la lista; un toque filtra. «+ Importe libre» añade un importe escrito a mano, p. ej. un vale. El artículo «Entrega» pide el precio de la entrega del barco.",
+            "«Devolución» cambia el carrito a devolución: los precios pasan a negativo, al cerrar el stock vuelve al almacén y se paga el importe. «Descartar» vacía el carrito tras confirmar.",
+            "Si un artículo tiene complementos guardados (p. ej. cubrebañera para el barco), aparecen como sugerencia bajo la línea."
           ],
           "tipp": "En el móvil, los campos y botones son lo bastante grandes para que Safari ya no amplíe al tocarlos. Cada caja tiene su propio carrito; cambiar de caja no lo vacía. Las ventas descuentan primero las existencias de la zona de venta."
         },
@@ -1164,7 +1400,9 @@ window.ZYKOL_ANLEITUNG = {
             "Toque «Pagar» en el diálogo. Aparece la emisión de documentos.",
             "Con tarjeta, efectivo y PayPal el ticket se imprime siempre. Opcionalmente elija también «Imprimir factura» o «Enviar factura por correo».",
             "Forma de pago factura: no hay ticket y la factura es obligatoria. Para empresas, clubes y sector público se crea como factura electrónica (capítulo Factura electrónica).",
-            "Toque «Finalizar». Un aviso confirma la venta; «Abrir» la muestra en Transacciones."
+            "Toque «Finalizar». Un aviso confirma la venta; «Abrir» la muestra en Transacciones.",
+            "Pago parcial: en el diálogo elija «Importe parcial», escriba el importe y toque «Registrar importe parcial». El cliente paga el resto con otro medio, p. ej. 500 € en efectivo y el resto con tarjeta.",
+            "Con tarjeta y PayPal se abre un diálogo como en el terminal o con código QR; tras confirmar se continúa. Con tarjeta el cliente puede además sacar efectivo (cashback hasta 200 €), que cuenta como retirada en el cierre."
           ],
           "tipp": "El ticket de caja lleva un código QR para consultarlo en línea; las facturas ya no lo llevan. Las facturas abiertas con forma de pago factura llevan en su lugar un GiroCode «Pagar en línea»: al escanearlo con la app del banco, IBAN, importe y número de factura ya están rellenados. El GiroCode solo aparece si en Empresa y caja hay un IBAN válido. TSE, terminal de tarjeta, PayPal, impresoras y correo están simulados en el prototipo."
         },
@@ -1177,7 +1415,8 @@ window.ZYKOL_ANLEITUNG = {
             "Pestaña «2 · Contar efectivo»: registre la cantidad de cada billete y moneda con − y + o escribiendo; en monedas también cartuchos enteros. Abajo: teórico, real y diferencia. «Guardar borrador» conserva el recuento, «Restablecer» lo borra.",
             "Pestaña «3 · Cierre»: si hay diferencia, indique el motivo (obligatorio). Indique el cambio para mañana; el ingreso en banco se calcula a partir de él. Registre las retiradas y pagos del día con importe y motivo mediante «+ Retirada».",
             "Toque «Cerrar el día e imprimir informe Z». Después el día queda bloqueado.",
-            "Pestaña «Historial»: vea cierres anteriores y reimprima el informe Z como «ticket Z» o «informe A4»."
+            "Pestaña «Historial»: vea cierres anteriores y reimprima el informe Z como «ticket Z» o «informe A4».",
+            "Arriba, en «Saldo inicial», compruebe el efectivo al abrir y corríjalo si hace falta. El saldo previsto y la diferencia lo usan. Los tickets anulados no cuentan como venta."
           ],
           "tipp": "Ventas y auxiliares solo hacen el arqueo de caja. El cierre diario lo hacen administración, encargado de tienda o jefe de equipo."
         },
@@ -1190,7 +1429,9 @@ window.ZYKOL_ANLEITUNG = {
             "En «Cliente, entrega y pago», busque al cliente (nombre, número o teléfono) y tóquelo. Si es nuevo, introduzca los datos y toque «Guardar como nuevo cliente».",
             "Indique la entrega (recogida, envío a domicilio o envío), la fecha y un anticipo.",
             "En «Pago» elija: Pendiente, Pagado · tarjeta, Pagado · efectivo o factura con plazo en días. Para clubes y empresas la factura está preseleccionada.",
-            "Revise la vista previa y toque «Imprimir / PDF». La hoja se archiva automáticamente en «Pedidos»."
+            "Revise la vista previa y toque «Imprimir / PDF». La hoja se archiva automáticamente en «Pedidos».",
+            "La dirección de factura y de entrega pueden ser distintas: escriba otra en «Dirección de entrega»; se proponen las guardadas en el cliente. «Gastos de entrega (€)» añade el envío como línea propia.",
+            "Con anticipo, «Guardar y cobrar anticipo …» guarda el comprobante y en caja cobra solo el anticipo. El resto se cobra después en «Pedidos» con «Pago final»."
           ],
           "tipp": "La hoja de pedido no es un ticket de caja. Con su firma, el cliente confirma la personalización."
         },
@@ -1202,7 +1443,9 @@ window.ZYKOL_ANLEITUNG = {
             "Busque por número, cliente, teléfono o artículo, o filtre por estado. Toque una fila y ponga el estado en Pedido, Listo para recoger o Entregado.",
             "Solo se puede entregar si el pedido está pagado o va con factura. Si sigue pendiente, elija «Pagado con tarjeta», «Pagado en efectivo» o «Con factura (14 días)». «Volver a imprimir» imprime la hoja tal como se archivó.",
             "Pestaña «Pedidos a proveedores» (permiso «Gestionar proveedores»): pida mercancía con «Nuevo pedido» o adopte la «propuesta de pedido» para artículos bajo el stock mínimo. «Pedido en PDF» crea la carta de pedido.",
-            "Cuando llegue la mercancía, regístrela en Artículos y existencias con «Registrar entrada» para ese pedido, también como entrega parcial."
+            "Cuando llegue la mercancía, regístrela en Artículos y existencias con «Registrar entrada» para ese pedido, también como entrega parcial.",
+            "En el detalle de un pedido de cliente, «Proceso» muestra los pasos hasta la entrega. Desde ahí: «Solicitar material» (a compras), crear orden de envío o entrega, «Borrador de factura», «Editar» y «Anular». El estado de pago (abierto, anticipo recibido, pagado) aparece en cada pedido y se puede filtrar.",
+            "Pedidos a proveedores: en «Pedido», registre la confirmación del proveedor; la fecha de entrega se puede cambiar siempre y el historial queda visible. Los artículos con variantes se piden y reciben por variante."
           ],
           "tipp": "En el prototipo, «Pagado con tarjeta» solo cambia el estado; no se crea ticket de caja."
         },
@@ -1215,7 +1458,9 @@ window.ZYKOL_ANLEITUNG = {
             "Mantenga el estado: Borrador, Enviado, Aceptado, Rechazado, Caducado. Cobre los aceptados con «Pasar a caja».",
             "Continuar un presupuesto aceptado: «Crear orden de envío» crea un pedido abierto (número V) en Envíos con cliente, dirección y posiciones. «Crear orden de taller» crea una orden de taller (número WA) en la recepción del taller; las posiciones pasan como presupuesto de reparación, el número del presupuesto queda en el deseo del cliente, y las horas de trabajo se añaden en el taller. Después el presupuesto muestra el número de orden y los dos botones desaparecen, así no se crea ninguna orden dos veces.",
             "Desde el carrito: «Guardar como presupuesto» guarda el contenido como presupuesto (borrador). Sin cliente se guarda para un cliente de paso.",
-            "Más tarde, abra «Presupuestos de la caja» en la caja y toque «Cargar en el carrito» en el presupuesto deseado."
+            "Más tarde, abra «Presupuestos de la caja» en la caja y toque «Cargar en el carrito» en el presupuesto deseado.",
+            "Los datos del cliente en el presupuesto se pueden cambiar sin tocar la ficha; «Guardar en la ficha del cliente» los guarda. Elija las condiciones de pago entre propuestas o escríbalas.",
+            "Elija variantes (color, talla, longitud) en la propia línea, sin pasar por el carrito. Un «Descuento especial» en porcentaje se aplica además sobre el total y aparece en el presupuesto."
           ],
           "tipp": "La validez se toma de los ajustes de la tienda. Los presupuestos que caducan aparecen en el calendario y en el panel."
         },
@@ -1226,7 +1471,9 @@ window.ZYKOL_ANLEITUNG = {
             "En «Clientes», cree o busque un cliente y filtre por tipo: particular, club, empresa, federación, escuela o sector público.",
             "Guarde descuento, condiciones de pago y dirección de facturación. Para el sector público, introduzca también el Leitweg-ID para la XRechnung.",
             "La ficha del cliente muestra compras, facturación, tickets y barcos comprados.",
-            "«Productos del cliente» incluye también los productos de terceros que el cliente trajo al taller, con etiqueta e historial de taller."
+            "«Productos del cliente» incluye también los productos de terceros que el cliente trajo al taller, con etiqueta e historial de taller.",
+            "Guarde una dirección de entrega distinta en el cliente; el comprobante de pedido y el envío la proponen.",
+            "«Archivar» a los clientes que ya no compran: desaparecen de la búsqueda y la caja, sus tickets se conservan. Un cliente sin tickets también se puede borrar definitivamente."
           ],
           "tipp": "En el móvil, las tablas aparecen como tarjetas para que nada quede cortado."
         },
@@ -1253,7 +1500,9 @@ window.ZYKOL_ANLEITUNG = {
             "Pestaña «Preparación y embalaje»: retire la mercancía («Todo retirado»), «Marcar como preparado», toque «Paquete listo» en el puesto de embalaje y «Continuar a la etiqueta».",
             "Pestaña «Etiquetas y seguimiento»: «Crear etiqueta», revisarla con «Vista previa de la etiqueta» e «Imprimir etiqueta». Al final «Cierre del día y entrega»; «Consultar estado del envío» muestra dónde están los envíos.",
             "Pestaña «Devoluciones»: «Crear devolución» o «Crear devolución con etiqueta». Al llegar, «Registrar entrada» y clasifique la mercancía como «Perfecta» (vuelve al almacén) o «Dañada».",
-            "Pestaña «Transportistas»: introduzca los accesos de DHL, UPS y DPD y «Probar conexión»."
+            "Pestaña «Transportistas»: introduzca los accesos de DHL, UPS y DPD y «Probar conexión».",
+            "Preparación: «Lo cojo yo» le asigna un pedido; el filtro «Asignados a mí» muestra solo los suyos. «Imprimir lista de picking / PDF» imprime las líneas abiertas por ubicación. Una orden creada desde un pedido enlaza de vuelta a él.",
+            "Los barcos los entregamos nosotros: «Entregar nosotros» elige la entrega propia (embalaje de barco); tras la entrega, «Marcar como entregado». No hay agencia de transporte."
           ],
           "tipp": "Las etiquetas son réplicas de las plantillas de los transportistas con la marca MUSTER (muestra). UPS y DPD están simulados en el prototipo. DHL se puede probar con la sandbox real de DHL en Ajustes → Envíos."
         },
@@ -1280,7 +1529,10 @@ window.ZYKOL_ANLEITUNG = {
             "«Registrar»: anote merma, defecto u otro con motivo (obligatorio). Pueden hacerlo administración, encargado de tienda y jefe de equipo.",
             "«Registrar entrada»: siempre para un pedido abierto a proveedor, también como entrega parcial y repartida en varias ubicaciones. Compras también puede hacerlo.",
             "«Trasladar» mueve mercancía entre ubicaciones, p. ej. del almacén a la zona de venta. La pestaña «Existencias e historial» muestra cantidades por ubicación y cada movimiento.",
-            "«Proveedores»: datos maestros, contactos, condiciones, plazo de entrega y pedidos abiertos por fabricante. «Añadir proveedor» crea uno nuevo."
+            "«Proveedores»: datos maestros, contactos, condiciones, plazo de entrega y pedidos abiertos por fabricante. «Añadir proveedor» crea uno nuevo.",
+            "Variantes: en el detalle del artículo, en «Variantes», añada otro color o talla. Cada variante tiene su stock y ubicación. En «Complementos» defina accesorios que la caja propone; «Volver a pedir al proveedor» crea un pedido.",
+            "En stock, «Propuesta de pedido» abre los artículos bajo el mínimo. «Traslado» crea una orden de traslado (Creado → En camino → Almacenado), p. ej. entre sucursales.",
+            "Proveedores: varios contactos por proveedor, sus pedidos y una lista de productos con búsqueda por grupo."
           ],
           "tipp": "Administración y encargado de tienda configuran las ubicaciones en Ajustes → Ubicaciones y sedes. Las ubicaciones solo se pueden desactivar, no borrar, para conservar el historial."
         },
@@ -1299,8 +1551,8 @@ window.ZYKOL_ANLEITUNG = {
           "tipp": "Iniciar y cerrar requiere el permiso «Realizar inventario»; para contar basta «Contar inventario». El área pertenece al módulo «Almacén y existencias». En el prototipo los asientos son solo locales y no sustituyen un inventario documentado."
         },
         "etiketten": {
-          "titel": "Barcos vendidos, ID de palas y etiquetas QR",
-          "intro": "Los barcos se identifican por su número de serie, las palas por un ID propio. Ambos están en la ficha del barco en Gestión de inventario → Barcos vendidos.",
+          "titel": "Artículos vendidos, ID de palas y etiquetas QR",
+          "intro": "Los barcos se identifican por número de serie, las palas por un ID propio. Ambos están en la ficha en Gestión de stock → Artículos vendidos, filtrable por barcos, palas y otros artículos.",
           "schritte": [
             "El ID de la pala se crea al cerrar con factura a partir de fecha y número (p. ej. ZKP-261011-416-01) y aparece en la factura.",
             "Si una venta, una factura o un presupuesto aceptado incluye una pala, aparece «Imprimir etiquetas QR».",
@@ -1346,17 +1598,18 @@ window.ZYKOL_ANLEITUNG = {
           "tipp": "Para ver el calendario de la caja móvil, cambie de caja en el pie. Los administradores fijan la localidad del tiempo en Ajustes → Ubicaciones y sedes. Cada caja puede tener su propia ubicación del tiempo, mediante búsqueda de lugar (nombre o código postal) o coordenadas; si no, se usa la ubicación predeterminada. El panel muestra el tiempo como mosaico con el nombre del lugar. Sin internet solo aparece un breve aviso."
         },
         "zeiterfassung": {
-          "titel": "Control horario y vacaciones",
-          "intro": "Fichar entrada y salida, ver horas y saldo, solicitar y aprobar vacaciones.",
+          "titel": "Control horario, vacaciones, bajas y turnos",
+          "intro": "Fichaje, horas mensuales y horas extra/faltantes, turnos, vacaciones, bajas y sustituciones – por persona y para todo el equipo.",
           "schritte": [
-            "Abra «Control horario» en la navegación. En la pestaña «Fichar», toque «Entrada» al empezar y «Salida» al terminar. Se registran la caja y la hora.",
-            "El resumen muestra para cada persona estado, horas de hoy y de la semana, teórico y saldo.",
-            "Pestaña «Vacaciones»: su derecho, el resto del año anterior, días disfrutados, planificados y solicitados, y lo que queda.",
-            "Solicitar vacaciones: indique inicio y fin, opcionalmente una nota, y envíe. Los días laborables se cuentan solos, sin fines de semana ni festivos del estado federado de su ubicación.",
-            "Aprobar (administración, encargado de tienda, jefe de equipo): en «Solicitudes pendientes» toque «Aprobar» o «Rechazar». Las vacaciones aprobadas aparecen en el calendario; las solicitudes pendientes, en el panel.",
-            "Con el permiso «Gestionar derecho a vacaciones», introduzca derecho, resto y días laborables por semana para todo el personal."
+            "Abra «Control horario» en la navegación. «Mi área» muestra su estado con «Entrada»/«Salida», horas de hoy y de la semana, horas mensuales (real frente a previsto hasta ayer), horas extra/faltantes, vacaciones restantes, días de baja y sus turnos de la semana.",
+            "En «Horas mensuales» aparecen los últimos seis meses con previsto, real y saldo. Vacaciones y bajas se abonan con el tiempo previsto.",
+            "Pestaña «Fichar»: resumen de todo el personal con estado, horas de hoy y de la semana, previsto y saldo.",
+            "Pestaña «Vacaciones»: derecho, arrastre, días disfrutados, previstos y solicitados. Solicitar: indicar inicio y fin y enviar – los días laborables se cuentan sin fines de semana ni festivos. Aprueban Admin, dirección de sucursal y jefe de equipo.",
+            "Pestaña «Calendario de vacaciones»: el mes para todo el personal con U (aprobadas), B (solicitadas), K (de baja) y días libres y festivos. Pase con ‹ ›, «Hoy» vuelve.",
+            "Pestaña «Bajas y sustituciones»: elegir persona, periodo y sustituto, marcar «Parte de baja recibido» y tocar «Guardar baja». No se registra diagnóstico. El sistema muestra los turnos afectados y quién está libre esos días. Turnos y calendario se ajustan; «Dar de alta» termina la baja. Para uno mismo: «Comunicar baja» en «Mi área».",
+            "Pestaña «Equipo» (dirección): quién está, de baja o de vacaciones, el turno de hoy, horas semanales y mensuales, horas extra y vacaciones restantes por persona. «Exportar horas (CSV)» para nóminas; «Editar turnos» abre la planificación."
           ],
-          "tipp": "El estado federado por ubicación (por defecto Berlín) se ajusta en Ajustes → Ubicaciones y sedes → «Sedes y festivos»."
+          "tipp": "Los turnos se gestionan en Ajustes → Planificación de turnos. La comunidad por sede para los festivos se ajusta en Ajustes → Ubicaciones y sedes. El fichaje del prototipo no sustituye un registro horario legal."
         },
         "transaktionen": {
           "titel": "Transacciones",
@@ -1365,9 +1618,22 @@ window.ZYKOL_ANLEITUNG = {
             "En el panel elija la pestaña «Transacciones». Elija el periodo: Hoy, Ayer, Últimos 7 días, Este mes, Mes anterior, Trimestre o Personalizado. Filtre por forma de pago o estado.",
             "Abra una fila para ver líneas, datos TSE y el ticket digital.",
             "En «Documentos adjuntos» están el ticket y la factura de la operación. «Ver» muestra el documento, «Imprimir» lo reimprime.",
-            "Inicie una anulación o devolución desde el detalle del ticket (permiso «Anulación / devolución»)."
+            "Inicie una anulación o devolución desde el detalle del ticket (permiso «Anulación / devolución»).",
+            "«Anular» en el detalle del ticket lo pone en «Anulado», devuelve el stock y quita el importe del cierre. Admin y dirección de sucursal cambian el estado (p. ej. Pagado, Abierto)."
           ],
           "tipp": "Cada caja tiene su propio diario. El cierre diario se hace en Cierre de caja."
+        },
+        "opliste": {
+          "titel": "Partidas abiertas (lista OP)",
+          "intro": "Todas las facturas abiertas con vencimiento, días de retraso y nivel de reclamación en un solo lugar.",
+          "schritte": [
+            "Abra «Lista OP» en la navegación. Arriba: total abierto, del que vencido, y número de partidas.",
+            "Busque por cliente o número de factura o filtre por vencimiento y nivel de reclamación. Cada línea muestra fecha, vencimiento y días de retraso.",
+            "Cuando llegue el dinero, registre el pago. La partida sale de la lista y la factura queda pagada.",
+            "Reclamar partidas vencidas: los niveles van uno tras otro (recordatorio, 1.ª y 2.ª reclamación, última reclamación). Se imprime como carta A4; los plazos vienen de las plantillas de documentos.",
+            "«Lista OP en CSV» exporta la lista para contabilidad."
+          ],
+          "tipp": "Las ventas con pago por factura entran en la lista OP. Los comprobantes de pedido con pago final pendiente se cobran en «Pedidos»."
         },
         "berichte": {
           "titel": "Informes y ventas",
@@ -1385,16 +1651,50 @@ window.ZYKOL_ANLEITUNG = {
           "intro": "Gestionar dispositivos, usuarios, datos de la tienda e interfaces. El manual lo ven todos; las demás áreas requieren permiso.",
           "schritte": [
             "Configure impresoras, lectores de códigos de barras, TSE y seguridad de caja, conexión ERP y tiendas online y API. Las conexiones están simuladas en el prototipo.",
-            "Usuarios y roles: cree usuarios, asigne cajas, defina PIN, fije permisos en la matriz y planifique los turnos. Roles: administración, encargado de tienda, jefe de equipo, ventas, auxiliar, compras y taller (técnico).",
+            "Usuarios y roles: crear usuarios, asignar cajas, definir PIN y derechos en la matriz. Roles: Admin, Dirección de sucursal, Jefe de equipo, Venta, Auxiliar, Compras y Taller (técnico).",
             "Empresa y caja: datos de la empresa, logotipo, color de acento, horarios, series de numeración y textos de todos los documentos. Plantillas de documentos: revisar tickets, facturas y etiquetas.",
             "Ubicaciones y sedes: ubicaciones en hasta cuatro niveles, taller (tarifa por hora, límite de aprobación, trabajos), sedes y festivos, «Noticias de canoa en el panel» (dirección n8n, probar conexión) y «Tiempo en el calendario» (localidad, activado/desactivado).",
             "Envíos: conectar DHL, UPS y DPD con las credenciales, elegir sandbox o producción y probar la conexión. Los mismos datos están en Envíos, en «Transportistas».",
             "Formas de pago: active o desactive tarjeta, efectivo, PayPal, factura, vale y pago por adelantado, ordénelas y pruebe la conexión. Factura electrónica: perfil ZUGFeRD, sintaxis XRechnung y transmisión.",
             "Admin (solo root): idioma del sistema e idioma por usuario, registro del sistema, base de datos y copia de seguridad.",
             "Módulos (solo root): activar o desactivar áreas como almacén y existencias, personal y vacaciones, registro de jornada, taller, licitaciones, cierre de caja, conexión ERP, noticias de piragüismo, barcos y palas y regatas, o todas con «Todo activado» y «Todo desactivado». Los módulos desactivados desaparecen del menú, el panel, el calendario y la tabla de permisos; los datos se conservan. Caja, clientes, artículos, comprobantes, envíos, factura electrónica, presupuestos y calendario están siempre activos. Sin almacén y existencias, ventas y taller no mueven existencias; sin personal y vacaciones no hay vacaciones. La venta al por mayor está en preparación y requiere almacén y existencias.",
-            "Cambie el orden del menú abajo en la barra lateral con «Ordenar menú»; «Restaurar predeterminado» lo restablece. El panel siempre queda arriba."
+            "Cambie el orden del menú abajo en la barra lateral con «Ordenar menú»; «Restaurar predeterminado» lo restablece. El panel siempre queda arriba.",
+            "Taller: la tarifa por hora y los servicios están en su pestaña «Taller». Turnos, dispositivos y cajas, sucursales y activo fijo tienen pestañas propias (capítulos propios)."
           ],
           "tipp": "El rol taller (técnico) tiene un menú fijo (panel, taller, calendario, control horario) y no puede cobrar."
+        },
+        "geraete": {
+          "titel": "Dispositivos y vinculación de caja",
+          "intro": "Asignar navegadores y equipos a una caja, aprobar o bloquear dispositivos y ver el cliente (tenant).",
+          "schritte": [
+            "Abra Ajustes → «Dispositivos y vinculación de caja». «Este dispositivo» muestra ID, navegador y estado.",
+            "Escriba un nombre de equipo y elija la caja en «Vincular caja a este dispositivo». Con «Bloquear cambio de caja aquí» la vinculación es fija: las demás cajas quedan bloqueadas en este dispositivo. «Quitar vinculación» la deshace.",
+            "«Dispositivos registrados»: los navegadores nuevos aparecen como «Pendiente de aprobación». Asignar caja, «Aprobar», «Bloquear» o «Quitar».",
+            "«Cliente (tenant)» indica a qué cliente pertenecen cajas, dispositivos y sucursales."
+          ],
+          "tipp": "En el prototipo la vinculación vale para el navegador usado. «Acceso solo en dispositivos aprobados» se muestra pero aún no se impone."
+        },
+        "filialen": {
+          "titel": "Sucursales",
+          "intro": "Sedes con cajas y ubicaciones propias – stock, traslados y pedidos por sucursal.",
+          "schritte": [
+            "Abra Ajustes → «Sucursales». Cada sucursal muestra artículos en stock, unidades, valor, traslados, pedidos abiertos y personal.",
+            "Cambie nombre y lugar en la tarjeta. Asigne cajas y ubicaciones con chips; una caja o ubicación pertenece siempre a una sola sucursal.",
+            "«+ Crear sucursal» añade una sucursal. «Stock de la sucursal» abre el stock filtrado; el stock tiene sus propios chips de filtro.",
+            "En «Pedidos a proveedores abiertos por sucursal» indique dónde llega la mercancía. Muévala entre sucursales con un traslado."
+          ],
+          "tipp": "El personal pertenece a la sucursal de su primera caja (Usuarios y roles)."
+        },
+        "anlagen": {
+          "titel": "Activo fijo",
+          "intro": "Máquinas, vehículos y equipos con amortización, valor contable y mantenimiento.",
+          "schritte": [
+            "Abra Ajustes → «Activo fijo». Arriba: activos en uso, valor de adquisición, valor contable hoy, amortización del año y mantenimientos pendientes.",
+            "«+ Registrar activo»: denominación, categoría, sucursal, fecha, coste neto y vida útil (la categoría propone una), opcionalmente el próximo mantenimiento. «Guardar activo».",
+            "La amortización es lineal y mensual desde el mes de adquisición. Hasta 800 € netos el bien es de escaso valor y se amortiza de inmediato.",
+            "Por activo: «Mantenimiento hecho» pasa el siguiente un año, «Dar de baja» lo retira. Filtre por categoría con los chips; «Registro de activos (CSV)» para el asesor fiscal."
+          ],
+          "tipp": "Las vidas útiles son propuestas – consúltelas con su asesor fiscal. Los mantenimientos pendientes salen en rojo."
         }
       }
     },
@@ -1433,7 +1733,10 @@ window.ZYKOL_ANLEITUNG = {
         "Artikel & Bestand ansehen": "Ver artigos e stock",
         "Ausschreibungen ansehen": "Ver concursos",
         "Inventur zählen": "Contar inventário",
-        "Versanddienstleister konfigurieren": "Configurar transportadoras"
+        "Versanddienstleister konfigurieren": "Configurar transportadoras",
+        "Geräte & Kassenbindung verwalten": "Gerir dispositivos & caixas",
+        "Filialen verwalten": "Gerir filiais",
+        "Anlagevermögen verwalten": "Gerir ativo fixo"
       },
       "kapitel": {
         "anmelden": {
@@ -1471,7 +1774,10 @@ window.ZYKOL_ANLEITUNG = {
             "No carrinho altere quantidades ou remova linhas. Em tablet e telemóvel, o botão do carrinho no rodapé abre o carrinho a partir de qualquer página.",
             "Associar cliente: introduza nome ou número ou toque em «Abrir lista de clientes». Um desconto guardado é aplicado automaticamente. Sem dados de cliente escolha «Cliente ocasional (sem dados)».",
             "Por baixo do total estão «Pagar», «Nota de encomenda» e «Guardar como orçamento».",
-            "«Caixa» no rodapé leva-o de volta à caixa a partir de qualquer página e fecha as janelas abertas."
+            "«Caixa» no rodapé leva-o de volta à caixa a partir de qualquer página e fecha as janelas abertas.",
+            "Os grupos de artigos aparecem como chips por cima da lista; um toque filtra. «+ Valor livre» acrescenta um valor escrito à mão, p. ex. um vale. O artigo «Entrega» pede o preço da entrega do barco.",
+            "«Devolução» muda o carrinho para devolução: os preços ficam negativos, ao concluir o stock volta ao armazém e o valor é pago. «Descartar» esvazia o carrinho após confirmação.",
+            "Se um artigo tiver complementos guardados (p. ex. saia para o barco), aparecem como sugestão por baixo da linha."
           ],
           "tipp": "No telemóvel, os campos e botões são grandes o suficiente para o Safari já não ampliar ao tocar. Cada caixa tem o seu carrinho; mudar de caixa não o apaga. As vendas retiram primeiro o stock da área de venda."
         },
@@ -1485,7 +1791,9 @@ window.ZYKOL_ANLEITUNG = {
             "Toque em «Pagar» no diálogo. Surge a emissão de documentos.",
             "Com cartão, numerário e PayPal o talão é sempre impresso. Opcionalmente escolha também «Imprimir fatura» ou «Enviar fatura por e-mail».",
             "Meio de pagamento fatura: não há talão e a fatura é obrigatória. Para empresas, clubes e setor público é criada como fatura eletrónica (capítulo Fatura eletrónica).",
-            "Toque em «Concluir». Um aviso confirma a venda; «Abrir» mostra-a nas Transações."
+            "Toque em «Concluir». Um aviso confirma a venda; «Abrir» mostra-a nas Transações.",
+            "Pagamento parcial: no diálogo escolha «Valor parcial», introduza o valor e toque «Registar valor parcial». O cliente paga o resto com outro meio, p. ex. 500 € em numerário e o resto com cartão.",
+            "Com cartão e PayPal abre-se um diálogo como no terminal ou com código QR; continua após confirmar. Com cartão o cliente pode ainda levantar numerário (cashback até 200 €), contado como saída no fecho."
           ],
           "tipp": "O talão de caixa tem um código QR para consulta online; as faturas já não o têm. As faturas em aberto com forma de pagamento fatura têm em vez disso um GiroCode «Pagar online»: lido com a app do banco, IBAN, montante e número da fatura já vêm preenchidos. O GiroCode só aparece quando há um IBAN válido em Empresa e caixa. TSE, terminal de cartão, PayPal, impressoras e e-mail são simulados no protótipo."
         },
@@ -1498,7 +1806,8 @@ window.ZYKOL_ANLEITUNG = {
             "Separador «2 · Contar numerário»: registe a quantidade de cada nota e moeda com − e + ou escrevendo; nas moedas também rolos inteiros. Em baixo: previsto, real e diferença. «Guardar rascunho» guarda a contagem, «Repor» apaga-a.",
             "Separador «3 · Fecho»: se houver diferença, indique o motivo (obrigatório). Indique o fundo de caixa para amanhã; o depósito bancário é calculado a partir dele. Registe os levantamentos e pagamentos do dia com valor e motivo em «+ Levantamento».",
             "Toque em «Fechar o dia e imprimir relatório Z». O dia fica então bloqueado.",
-            "Separador «Histórico»: veja fechos anteriores e reimprima o relatório Z como «talão Z» ou «relatório A4»."
+            "Separador «Histórico»: veja fechos anteriores e reimprima o relatório Z como «talão Z» ou «relatório A4».",
+            "Em cima, em «Saldo inicial», verifique o numerário na abertura e corrija se necessário. O saldo previsto e a diferença usam este valor. Talões anulados não contam para as vendas."
           ],
           "tipp": "Vendas e auxiliares só fazem a contagem de caixa. O fecho diário é feito pela administração, gerente de loja ou chefe de equipa."
         },
@@ -1511,7 +1820,9 @@ window.ZYKOL_ANLEITUNG = {
             "Em «Cliente, entrega e pagamento», procure o cliente (nome, número ou telefone) e toque nele. Se for novo, introduza os dados e toque em «Guardar como novo cliente».",
             "Indique a entrega (levantamento, entrega ao domicílio ou envio), a data e um sinal.",
             "Em «Pagamento» escolha: Em aberto, Pago · cartão, Pago · numerário ou fatura com prazo em dias. Para clubes e empresas, a fatura está pré-selecionada.",
-            "Verifique a pré-visualização e toque em «Imprimir / PDF». A nota é arquivada automaticamente em «Encomendas»."
+            "Verifique a pré-visualização e toque em «Imprimir / PDF». A nota é arquivada automaticamente em «Encomendas».",
+            "A morada de faturação e de entrega podem diferir: introduza outra em «Morada de entrega»; as guardadas no cliente são sugeridas. «Custos de entrega (€)» acrescenta o envio como linha própria.",
+            "Com sinal, «Guardar e cobrar sinal …» guarda o comprovativo e na caixa cobra só o sinal. O resto cobra-se depois em «Encomendas» com «Pagamento final»."
           ],
           "tipp": "A nota de encomenda não é um talão de caixa. Com a assinatura, o cliente confirma a personalização."
         },
@@ -1523,7 +1834,9 @@ window.ZYKOL_ANLEITUNG = {
             "Pesquise por número, cliente, telefone ou artigo, ou filtre por estado. Toque numa linha e defina o estado como Encomendado, Pronto a levantar ou Entregue.",
             "Só é possível entregar se a encomenda estiver paga ou for com fatura. Se ainda estiver em aberto, escolha «Pago com cartão», «Pago em numerário» ou «Com fatura (14 dias)». «Imprimir novamente» imprime a nota tal como foi arquivada.",
             "Separador «Encomendas a fornecedores» (permissão «Gerir fornecedores»): encomende com «Nova encomenda» ou adote a «proposta de encomenda» para artigos abaixo do stock mínimo. «Encomenda em PDF» cria a carta de encomenda.",
-            "Quando a mercadoria chegar, registe-a em Artigos e stock com «Registar entrada» para essa encomenda, também como entrega parcial."
+            "Quando a mercadoria chegar, registe-a em Artigos e stock com «Registar entrada» para essa encomenda, também como entrega parcial.",
+            "No detalhe de uma encomenda de cliente, «Processo» mostra os passos até à entrega. Daí: «Pedir material» (às compras), criar ordem de envio ou entrega, «Rascunho de fatura», «Alterar» e «Anular». O estado de pagamento (em aberto, sinal recebido, pago) aparece em cada encomenda e pode ser filtrado.",
+            "Encomendas a fornecedores: em «Encomendado», registe a confirmação do fornecedor; a data de entrega pode ser alterada a qualquer momento e o histórico fica visível. Artigos com variantes são encomendados e rececionados por variante."
           ],
           "tipp": "No protótipo, «Pago com cartão» só altera o estado; não é criado talão de caixa."
         },
@@ -1536,7 +1849,9 @@ window.ZYKOL_ANLEITUNG = {
             "Mantenha o estado: Rascunho, Enviado, Aceite, Recusado, Expirado. Fature os aceites com «Passar para a caixa».",
             "Continuar um orçamento aceite: «Criar ordem de envio» cria uma encomenda aberta (número V) em Envios com cliente, morada e posições. «Criar ordem de oficina» cria uma ordem de oficina (número WA) na receção da oficina; as posições passam como orçamento de reparação, o número do orçamento fica no pedido do cliente, e as horas de trabalho acrescentam-se na oficina. Depois o orçamento mostra o número da ordem e os dois botões desaparecem, assim nenhuma ordem é criada duas vezes.",
             "A partir do carrinho: «Guardar como orçamento» guarda o conteúdo como orçamento (rascunho). Sem cliente, é guardado para um cliente ocasional.",
-            "Mais tarde, abra «Orçamentos da caixa» na caixa e toque em «Carregar no carrinho» no orçamento pretendido."
+            "Mais tarde, abra «Orçamentos da caixa» na caixa e toque em «Carregar no carrinho» no orçamento pretendido.",
+            "Os dados do cliente no orçamento podem ser alterados sem mexer na ficha; «Guardar na ficha do cliente» grava-os. Escolha as condições de pagamento entre sugestões ou escreva-as.",
+            "Escolha variantes (cor, tamanho, comprimento) na própria linha, sem passar pelo carrinho. Um «Desconto especial» em percentagem aplica-se ainda ao total e aparece no orçamento."
           ],
           "tipp": "A validade resulta das definições da loja. Os orçamentos a expirar aparecem no calendário e no painel."
         },
@@ -1547,7 +1862,9 @@ window.ZYKOL_ANLEITUNG = {
             "Em «Clientes», crie ou procure um cliente e filtre por tipo: particular, clube, empresa, federação, escola ou setor público.",
             "Guarde desconto, condições de pagamento e morada de faturação. Para o setor público, introduza também o Leitweg-ID para a XRechnung.",
             "A ficha do cliente mostra compras, volume de vendas, talões e barcos comprados.",
-            "«Produtos do cliente» inclui também os produtos de terceiros que o cliente trouxe à oficina, com etiqueta e histórico de oficina."
+            "«Produtos do cliente» inclui também os produtos de terceiros que o cliente trouxe à oficina, com etiqueta e histórico de oficina.",
+            "Guarde uma morada de entrega diferente no cliente; o comprovativo e o envio sugerem-na.",
+            "«Arquivar» clientes que já não compram: desaparecem da pesquisa e da caixa, os talões ficam. Um cliente sem talões também pode ser apagado definitivamente."
           ],
           "tipp": "No telemóvel, as tabelas aparecem como cartões para que nada fique cortado."
         },
@@ -1574,7 +1891,9 @@ window.ZYKOL_ANLEITUNG = {
             "Separador «Preparação e embalagem»: retire a mercadoria («Tudo retirado»), «Marcar como preparado», toque em «Encomenda pronta» no posto de embalagem e «Continuar para a etiqueta».",
             "Separador «Etiquetas e rastreio»: «Criar etiqueta», verificá-la com «Pré-visualizar etiqueta» e «Imprimir etiqueta». No fim «Fecho do dia e entrega»; «Obter estado do envio» mostra onde estão os envios.",
             "Separador «Devoluções»: «Criar devolução» ou «Criar devolução com etiqueta». À chegada, «Registar entrada» e classifique a mercadoria como «Em perfeito estado» (volta ao stock) ou «Danificada».",
-            "Separador «Transportadoras»: introduza os acessos DHL, UPS e DPD e «Testar ligação»."
+            "Separador «Transportadoras»: introduza os acessos DHL, UPS e DPD e «Testar ligação».",
+            "Preparação: «Fico eu com isto» atribui-lhe uma ordem; o filtro «Atribuídos a mim» mostra só as suas. «Imprimir lista de picking / PDF» imprime todas as linhas em aberto por local. Uma ordem criada a partir de uma encomenda tem ligação de volta.",
+            "Os barcos são entregues por nós: «Entregar nós mesmos» escolhe a entrega própria (embalagem de barco); depois da entrega, «Marcar como entregue». Não há transportadora."
           ],
           "tipp": "As etiquetas são réplicas dos modelos das transportadoras com a marca MUSTER (amostra). UPS e DPD são simulados no protótipo. A DHL pode ser testada com a sandbox real da DHL em Definições → Envios."
         },
@@ -1601,7 +1920,10 @@ window.ZYKOL_ANLEITUNG = {
             "«Registar»: registe quebra, defeito ou outro com motivo (obrigatório). Podem fazê-lo a administração, o gerente de loja e o chefe de equipa.",
             "«Registar entrada»: sempre para uma encomenda aberta a fornecedor, também como entrega parcial e distribuída por várias localizações. As compras também podem fazê-lo.",
             "«Transferir» move mercadoria entre localizações, p. ex. do armazém para a área de venda. O separador «Stock e histórico» mostra quantidades por localização e cada movimento.",
-            "«Fornecedores»: dados mestres, contactos, condições, prazo de entrega e encomendas abertas por fabricante. «Adicionar fornecedor» cria um novo."
+            "«Fornecedores»: dados mestres, contactos, condições, prazo de entrega e encomendas abertas por fabricante. «Adicionar fornecedor» cria um novo.",
+            "Variantes: no detalhe do artigo, em «Variantes», acrescente outra cor ou tamanho. Cada variante tem stock e local próprios. Em «Complementos» defina acessórios que a caixa sugere; «Encomendar ao fornecedor» cria uma encomenda.",
+            "No stock, «Proposta de encomenda» abre os artigos abaixo do mínimo. «Transferência» cria uma ordem (Criada → Em trânsito → Armazenada), p. ex. entre filiais.",
+            "Fornecedores: vários contactos por fornecedor, as suas encomendas e uma lista de produtos pesquisável por grupo."
           ],
           "tipp": "A administração e o gerente de loja configuram as localizações em Definições → Localizações e locais. As localizações só podem ser desativadas, não apagadas, para manter o histórico."
         },
@@ -1620,8 +1942,8 @@ window.ZYKOL_ANLEITUNG = {
           "tipp": "Iniciar e fechar exige a permissão «Realizar inventário»; para contar basta «Contar inventário». A área pertence ao módulo «Armazém e stock». No protótipo os lançamentos são apenas locais e não substituem um inventário documentado."
         },
         "etiketten": {
-          "titel": "Barcos vendidos, ID de pagaias e etiquetas QR",
-          "intro": "Os barcos são identificados pelo número de série, as pagaias por um ID próprio. Ambos estão na ficha do barco em Gestão de stock → Barcos vendidos.",
+          "titel": "Artigos vendidos, IDs de pagaias e etiquetas QR",
+          "intro": "Os barcos são identificados pelo número de série, as pagaias por um ID próprio. Ambos estão na ficha em Gestão de stock → Artigos vendidos, filtrável por barcos, pagaias e outros artigos.",
           "schritte": [
             "O ID da pagaia é criado no fecho com fatura a partir da data e do número (p. ex. ZKP-261011-416-01) e aparece na fatura.",
             "Se uma venda, uma fatura ou um orçamento aceite incluir uma pagaia, surge «Imprimir etiquetas QR».",
@@ -1667,17 +1989,18 @@ window.ZYKOL_ANLEITUNG = {
           "tipp": "Para ver o calendário da caixa móvel, mude de caixa no rodapé. Os administradores definem a localidade da meteorologia em Definições → Localizações e locais. Cada caixa pode ter o seu próprio local do tempo, por pesquisa de local (nome ou código postal) ou coordenadas; sem escolha aplica-se o local predefinido. O painel mostra o tempo como mosaico com o nome do local. Sem internet aparece só um aviso curto."
         },
         "zeiterfassung": {
-          "titel": "Registo de horas e férias",
-          "intro": "Picar entrada e saída, ver horas e saldo, pedir e aprovar férias.",
+          "titel": "Registo de horas, férias, doença e turnos",
+          "intro": "Ponto, horas mensais e horas extra/em falta, turnos, férias, doença e substituição – por pessoa e para toda a equipa.",
           "schritte": [
-            "Abra «Registo de horas» na navegação. No separador «Picar ponto», toque em «Entrada» no início e «Saída» no fim. A caixa e a hora ficam registadas.",
-            "A visão geral mostra para cada pessoa estado, horas de hoje e da semana, previsto e saldo.",
-            "Separador «Férias»: o seu direito, o resto do ano anterior, dias gozados, planeados e pedidos, e o que resta.",
-            "Pedir férias: indique início e fim, opcionalmente uma nota, e envie. Os dias úteis são contados automaticamente, sem fins de semana nem feriados do estado federado da sua localização.",
-            "Aprovar (administração, gerente de loja, chefe de equipa): em «Pedidos de férias pendentes» toque em «Aprovar» ou «Recusar». As férias aprovadas aparecem no calendário; os pedidos pendentes, no painel.",
-            "Com a permissão «Gerir direito a férias», introduza direito, resto e dias úteis por semana para toda a equipa."
+            "Abra «Registo de horas» na navegação. «A minha área» mostra o seu estado com «Entrada»/«Saída», horas de hoje e da semana, horas mensais (real vs. previsto até ontem), horas extra/em falta, férias restantes, dias de doença e os seus turnos da semana.",
+            "Em «Horas mensais» estão os últimos seis meses com previsto, real e saldo. Férias e doença são creditadas com o tempo previsto.",
+            "Separador «Ponto»: visão de todos com estado, horas de hoje e da semana, previsto e saldo.",
+            "Separador «Férias»: direito, transitado, dias gozados, previstos e pedidos. Pedir férias: indicar início e fim e enviar – os dias úteis contam sem fins de semana nem feriados. Aprovam Admin, gerência de filial e chefe de equipa.",
+            "Separador «Calendário de férias»: o mês para todos com U (aprovadas), B (pedidas), K (doente) e folgas e feriados. Navegue com ‹ ›, «Hoje» volta.",
+            "Separador «Doença & substituição»: escolher pessoa, período e substituto, marcar «Atestado recebido» e tocar «Guardar baixa». Não se regista diagnóstico. O sistema mostra os turnos afetados e quem está livre nesses dias. Turnos e calendário ajustam-se; «Dar alta» termina a baixa. Para si próprio: «Comunicar doença» em «A minha área».",
+            "Separador «Equipa» (gerência): quem está, doente ou de férias, o turno de hoje, horas semanais e mensais, horas extra e férias restantes por pessoa. «Exportar horas (CSV)» para salários; «Editar turnos» abre o planeamento."
           ],
-          "tipp": "O estado federado por localização (predefinição Berlim) define-se em Definições → Localizações e locais → «Locais e feriados»."
+          "tipp": "Os turnos geram-se em Definições → Planeamento de turnos. A região por local para os feriados define-se em Definições → Locais de armazém & locais. O ponto do protótipo não substitui um registo legal do tempo de trabalho."
         },
         "transaktionen": {
           "titel": "Transações",
@@ -1686,9 +2009,22 @@ window.ZYKOL_ANLEITUNG = {
             "No painel escolha o separador «Transações». Escolha o período: Hoje, Ontem, Últimos 7 dias, Este mês, Mês anterior, Trimestre ou Personalizado. Filtre por meio de pagamento ou estado.",
             "Abra uma linha para ver linhas, dados TSE e o talão digital.",
             "Em «Documentos anexos» estão o talão e a fatura da transação. «Ver» mostra o documento, «Imprimir» reimprime-o.",
-            "Inicie uma anulação ou devolução a partir do detalhe do talão (permissão «Anulação / devolução»)."
+            "Inicie uma anulação ou devolução a partir do detalhe do talão (permissão «Anulação / devolução»).",
+            "«Anular» no detalhe do talão passa-o a «Anulado», repõe o stock e retira o valor do fecho. Admin e gerência de filial alteram o estado (p. ex. Pago, Em aberto)."
           ],
           "tipp": "Cada caixa tem o seu diário. O fecho diário faz-se no Fecho de caixa."
+        },
+        "opliste": {
+          "titel": "Itens em aberto (lista OP)",
+          "intro": "Todas as faturas em aberto com vencimento, dias de atraso e nível de cobrança num só lugar.",
+          "schritte": [
+            "Abra «Lista OP» na navegação. Em cima: total em aberto, do qual vencido, e número de itens.",
+            "Pesquise por cliente ou número de fatura ou filtre por vencimento e nível de cobrança. Cada linha mostra data, vencimento e dias de atraso.",
+            "Quando o dinheiro chegar, registe o pagamento. O item sai da lista e a fatura fica paga.",
+            "Cobrar itens vencidos: os níveis seguem-se (lembrete, 1.ª e 2.ª cobrança, última cobrança). Imprime-se como carta A4; os prazos vêm dos modelos de documentos.",
+            "«Lista OP em CSV» exporta a lista para a contabilidade."
+          ],
+          "tipp": "As vendas pagas por fatura entram na lista OP. Os comprovativos de encomenda com pagamento final em aberto cobram-se em «Encomendas»."
         },
         "berichte": {
           "titel": "Relatórios e vendas",
@@ -1706,16 +2042,50 @@ window.ZYKOL_ANLEITUNG = {
           "intro": "Gerir dispositivos, utilizadores, dados da loja e interfaces. O manual é visível para todos; as outras áreas exigem permissão.",
           "schritte": [
             "Configure impressoras, leitores de códigos de barras, TSE e segurança da caixa, ligação ERP e lojas online e API. As ligações são simuladas no protótipo.",
-            "Utilizadores e funções: crie utilizadores, atribua caixas, defina PIN, defina permissões na matriz e planeie a escala. Funções: administração, gerente de loja, chefe de equipa, vendas, auxiliar, compras e oficina (técnico).",
+            "Utilizadores & funções: criar utilizadores, atribuir caixas, definir PIN e direitos na matriz. Funções: Admin, Gerência de filial, Chefe de equipa, Venda, Auxiliar, Compras e Oficina (técnica).",
             "Empresa e caixa: dados da empresa, logótipo, cor de destaque, horários, séries de numeração e textos de todos os documentos. Modelos de documentos: verificar talões, faturas e etiquetas.",
             "Localizações e locais: localizações em até quatro níveis, oficina (preço por hora, limite de aprovação, trabalhos), locais e feriados, «Notícias de canoagem no painel» (endereço n8n, testar ligação) e «Meteorologia no calendário» (localidade, ligado/desligado).",
             "Envios: ligar DHL, UPS e DPD com as credenciais, escolher sandbox ou produção e testar a ligação. Os mesmos dados estão em Envios, em «Transportadoras».",
             "Meios de pagamento: ative ou desative cartão, numerário, PayPal, fatura, vale e pré-pagamento, ordene-os e teste a ligação. Fatura eletrónica: perfil ZUGFeRD, sintaxe XRechnung e transmissão.",
             "Admin (só root): idioma do sistema e idioma por utilizador, registo do sistema, base de dados e cópia de segurança.",
             "Módulos (só root): ligar ou desligar áreas como armazém e stock, pessoal e férias, registo de horas, oficina, concursos, fecho de caixa, ligação ERP, notícias de canoagem, barcos e pás e regatas, ou todas com «Tudo ligado» e «Tudo desligado». Os módulos desligados desaparecem do menu, painel, calendário e tabela de permissões; os dados mantêm-se. Caixa, clientes, artigos, documentos, envios, fatura eletrónica, orçamentos e calendário estão sempre ligados. Sem armazém e stock, vendas e oficina não movimentam stock; sem pessoal e férias não há férias. A venda por grosso está em preparação e requer armazém e stock.",
-            "Altere a ordem do menu em baixo na barra lateral com «Ordenar menu»; «Repor predefinição» repõe-na. O painel fica sempre no topo."
+            "Altere a ordem do menu em baixo na barra lateral com «Ordenar menu»; «Repor predefinição» repõe-na. O painel fica sempre no topo.",
+            "Oficina: o preço/hora e os serviços estão no separador «Oficina». Turnos, dispositivos & caixas, filiais e ativo fixo têm separadores próprios (capítulos próprios)."
           ],
           "tipp": "A função oficina (técnico) tem um menu fixo (painel, oficina, calendário, registo de horas) e não pode cobrar."
+        },
+        "geraete": {
+          "titel": "Dispositivos & ligação à caixa",
+          "intro": "Atribuir navegadores e computadores a uma caixa, aprovar ou bloquear dispositivos e ver o inquilino.",
+          "schritte": [
+            "Abra Definições → «Dispositivos & ligação à caixa». «Este dispositivo» mostra ID, navegador e estado.",
+            "Introduza um nome de computador e escolha a caixa em «Ligar caixa a este dispositivo». Com «Bloquear troca de caixa aqui» a ligação é fixa: as outras caixas ficam bloqueadas neste dispositivo. «Remover ligação» desfaz.",
+            "«Dispositivos registados»: novos navegadores aparecem como «A aguardar aprovação». Atribuir caixa, «Aprovar», «Bloquear» ou «Remover».",
+            "«Inquilino (tenant)» indica a que inquilino pertencem caixas, dispositivos e filiais."
+          ],
+          "tipp": "No protótipo a ligação vale para o navegador em uso. «Acesso só em dispositivos aprovados» é mostrado mas ainda não imposto."
+        },
+        "filialen": {
+          "titel": "Filiais",
+          "intro": "Locais com caixas e locais de armazém próprios – stock, transferências e encomendas por filial.",
+          "schritte": [
+            "Abra Definições → «Filiais». Cada filial mostra artigos em stock, unidades, valor, transferências, encomendas em aberto e colaboradores.",
+            "Altere nome e local no cartão. Atribua caixas e locais com chips; uma caixa ou local pertence sempre a uma só filial.",
+            "«+ Criar filial» acrescenta uma filial. «Stock da filial» abre o stock filtrado; o stock tem chips de filtro próprios.",
+            "Em «Encomendas a fornecedores em aberto por filial» defina onde chega a mercadoria. Mova-a entre filiais com uma transferência."
+          ],
+          "tipp": "Os colaboradores pertencem à filial da sua primeira caixa (Utilizadores & funções)."
+        },
+        "anlagen": {
+          "titel": "Ativo fixo",
+          "intro": "Máquinas, veículos e equipamento com amortização, valor contabilístico e manutenção.",
+          "schritte": [
+            "Abra Definições → «Ativo fixo». Em cima: ativos em uso, valor de aquisição, valor contabilístico hoje, amortização do ano e manutenções devidas.",
+            "«+ Registar ativo»: designação, categoria, filial, data, custo líquido e vida útil (a categoria sugere uma), opcionalmente a próxima manutenção. «Guardar ativo».",
+            "A amortização é linear e mensal desde o mês de aquisição. Até 800 € líquidos o bem é de baixo valor e amortizado de imediato.",
+            "Por ativo: «Manutenção feita» passa a próxima um ano, «Abater» retira-o. Filtre por categoria com os chips; «Registo de ativos (CSV)» para o contabilista."
+          ],
+          "tipp": "As vidas úteis são sugestões – confirme com o contabilista. Manutenções devidas aparecem a vermelho."
         }
       }
     }

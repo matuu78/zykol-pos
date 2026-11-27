@@ -1,6 +1,6 @@
-// zykol.POS – Bedienungsanleitung (DE, EN, FR, ES, PT). Quelle für die Ansicht in Einstellungen und für das PDF. Stand v12.75.
+// zykol.POS – Bedienungsanleitung (DE, EN, FR, ES, PT). Quelle für die Ansicht in Einstellungen und für das PDF. Stand v12.76.
 window.ZYKOL_ANLEITUNG = {
-  "version": "v12.75",
+  "version": "v12.76",
   "meta": [
     {
       "id": "anmelden",

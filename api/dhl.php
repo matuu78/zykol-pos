@@ -2,7 +2,7 @@
 /* zykol.POS – Server-Baustein DHL Parcel DE Shipping API v2 (v12.58)
  * NUR SANDBOX: Die Adresse ist fest auf api-sandbox.dhl.com gesetzt; Live-Versand ist im Prototyp gesperrt.
  * Zugangsdaten stehen in dhl-konfig.php (Vorlage: dhl-konfig.beispiel.php) und verlassen den Server nie.
- * Aufruf aus der Kasse: POST JSON {aktion: 'pruefen' | 'etikett' | 'storno', ...}
+ * Aufruf aus der Kasse: POST JSON {aktion: 'pruefen' | 'etikett' | 'vorschau' | 'testetikett' | 'storno', ...}
  */
 header('Content-Type: application/json; charset=utf-8');
 header('Cache-Control: no-store');
@@ -93,7 +93,9 @@ if ($aktion === 'pruefen') {
   antwort(['ok' => true, 'http' => $c2, 'adresseOk' => false, 'meldung' => 'Zugang in Ordnung, aber DHL kennt die Absenderadresse nicht (' . meldung($j2, $c2) . '). Bitte unter Einstellungen → Firma & Kasse Straße, Hausnummer, PLZ und Ort prüfen.']);
 }
 
-if ($aktion === 'etikett') {
+// Sendung mit Etikett anlegen (für 'etikett' und 'vorschau')
+function etikett_anlegen($in) {
+  global $K;
   $s = sendung($in['sendung'] ?? []);
   // Sandbox: Absender ist standardmäßig die feste Testadresse (DHL-Zentrale Bonn), der Name bleibt aus „Firma & Kasse“.
   // Mit 'sandbox_testabsender' => false in dhl-konfig.php wird die eigene Adresse aus „Firma & Kasse“ verwendet.
@@ -107,8 +109,20 @@ if ($aktion === 'etikett') {
   $q = http_build_query(['docFormat' => 'PDF', 'printFormat' => $fmt, 'includeDocs' => 'include']);
   [$code, $j] = dhl('POST', '/orders?' . $q, ['profile' => PROFIL, 'shipments' => [$s]]);
   $it = $j['items'][0] ?? [];
-  $ok = $code >= 200 && $code < 300 && !empty($it['shipmentNo']);
+  return [$code >= 200 && $code < 300 && !empty($it['shipmentNo']), $code, $j, $it];
+}
+
+if ($aktion === 'etikett') {
+  [$ok, $code, $j, $it] = etikett_anlegen($in);
   antwort(['ok' => $ok, 'http' => $code, 'sendung' => $it['shipmentNo'] ?? '', 'etikett' => $it['label']['b64'] ?? '', 'meldung' => $ok ? '' : meldung($j, $code)]);
+}
+
+if ($aktion === 'vorschau') {
+  // Etikett-Vorschau (v12.79): echte Sandbox-Sendung mit den Daten des Auftrags, PDF zurück, Sendung sofort wieder storniert
+  [$ok, $code, $j, $it] = etikett_anlegen($in);
+  if (!$ok) antwort(['ok' => false, 'http' => $code, 'meldung' => meldung($j, $code)]);
+  [$c2] = dhl('DELETE', '/orders?' . http_build_query(['profile' => PROFIL, 'shipment' => $it['shipmentNo']]));
+  antwort(['ok' => true, 'sendung' => $it['shipmentNo'], 'etikett' => $it['label']['b64'] ?? '', 'storniert' => $c2 >= 200 && $c2 < 300]);
 }
 
 if ($aktion === 'testetikett') {

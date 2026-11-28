@@ -1,6 +1,6 @@
 # zykol.POS Kanu – Änderungen je Version
 
-Stand: 27.11.2026 · Version v12.87 · neueste Version oben
+Stand: 28.11.2026 · Version v12.88 · neueste Version oben
 
 Diese Liste beschreibt, was sich für die Bedienung geändert hat. Quellen sind die Git-Historie und die Pull-Requests von `matuu78/zykol-pos` sowie die Projektnotizen.
 
@@ -12,6 +12,13 @@ Diese Liste beschreibt, was sich für die Bedienung geändert hat. Quellen sind 
 ---
 
 ## November 2026
+
+### v12.88 · 28.11.2026 · Etikett direkt an der Packstation
+- Fehler behoben: Nach „Paket fertig“ sprang die Packstation zum nächsten Auftrag. Der Knopf „Weiter zum Etikett“ war damit weg, und an der Packstation selbst ließ sich kein Etikett drucken.
+- Der gepackte Auftrag bleibt jetzt an der Packstation stehen. Dort stehen Versandart und der Knopf **Etikett erstellen und drucken**. Bei DHL legt er die Sendung in der DHL-Sandbox an und öffnet das PDF von DHL gleich zum Drucken.
+- Danach zeigt die Packstation die Sendungsnummer und **Etikett drucken** (öffnet das Etikett noch einmal). Die Verpackung lässt sich dann nicht mehr ändern.
+- Fehlt etwas an der Anschrift, steht der Hinweis an der Packstation und der Etikett-Knopf fehlt. **Auftrag öffnen (Versandart, Services)** führt wie bisher in den Auftrag, z. B. für DHL-Services.
+- ⚠️ Getestet mit nachgebildeter DHL-Antwort. Die echte DHL-Sandbox ist nur vom Webspace aus erreichbar.
 
 ### v12.87 · 27.11.2026 · Newsletter-Schalter bei Kunden
 - Im Fenster **Kunde bearbeiten** / **Neuer Kunde** gibt es den Schalter **Newsletter**. Ist er an, wählt man darunter, wie die Einwilligung erteilt wurde: Im Laden (schriftlich), Online-Formular (Double-Opt-in), Per E-Mail oder Telefonisch.

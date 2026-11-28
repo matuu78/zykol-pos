@@ -1849,6 +1849,12 @@ Logo|Logótipo
   add('Die Einwilligung wird beim Speichern mit heutigem Datum festgehalten.', 'Consent will be recorded with today’s date when saving.', 'Le consentement sera enregistré à la date du jour.', 'El consentimiento se registrará con la fecha de hoy al guardar.', 'O consentimento será registado com a data de hoje ao guardar.');
   add('Die Abmeldung wird beim Speichern mit heutigem Datum festgehalten.', 'Unsubscribing will be recorded with today’s date when saving.', 'La désinscription sera enregistrée à la date du jour.', 'La baja se registrará con la fecha de hoy al guardar.', 'O cancelamento será registado com a data de hoje ao guardar.');
   add('Für den Newsletter bitte eine gültige E-Mail-Adresse eintragen.', 'Please enter a valid e-mail address for the newsletter.', 'Veuillez saisir une adresse e-mail valide pour la newsletter.', 'Introduzca un correo electrónico válido para la newsletter.', 'Introduza um e-mail válido para a newsletter.');
+  // v12.88: Etikett direkt an der Packstation
+  add('Etikett erstellen und drucken', 'Create and print label', 'Créer et imprimer l’étiquette', 'Crear e imprimir etiqueta', 'Criar e imprimir etiqueta');
+  add('Etikett wird erstellt …', 'Creating label …', 'Création de l’étiquette …', 'Creando etiqueta …', 'A criar etiqueta …');
+  add('Auftrag öffnen (Versandart, Services)', 'Open order (shipping method, services)', 'Ouvrir l’ordre (mode d’envoi, services)', 'Abrir orden (método de envío, servicios)', 'Abrir ordem (modo de envio, serviços)');
+  add('Versandart:', 'Shipping method:', 'Mode d’envoi :', 'Método de envío:', 'Modo de envio:');
+  add('Sendung', 'Shipment', 'Envoi', 'Envío', 'Envio');
   [
     ['Januar','January','Janvier','Enero','Janeiro'], ['Februar','February','Février','Febrero','Fevereiro'], ['März','March','Mars','Marzo','Março'],
     ['April','April','Avril','Abril','Abril'], ['Mai','May','Mai','Mayo','Maio'], ['Juni','June','Juin','Junio','Junho'], ['Juli','July','Juillet','Julio','Julho'],
@@ -2966,6 +2972,7 @@ Logo|Logótipo
     [/^Etikett für (DHL|UPS|DPD) erstellt: (\S+)\. Im Prototyp ist das ein Muster\.$/, {en: 'Label for $1 created: $2. In the prototype this is a sample.', fr: 'Étiquette $1 créée : $2. Dans le prototype, c’est un modèle.', es: 'Etiqueta de $1 creada: $2. En el prototipo es una muestra.', pt: 'Etiqueta $1 criada: $2. No protótipo é uma amostra.'}],
     [/^(V-\d+) an (DHL|UPS|DPD) übergeben\.$/, {en: '$1 handed over to $2.', fr: '$1 remis à $2.', es: '$1 entregado a $2.', pt: '$1 entregue à $2.'}],
     [/^Sendungsstatus abgerufen: (.+) \(simuliert\)\.$/, {en: 'Tracking status: §1 (simulated).', fr: 'Statut du suivi : §1 (simulé).', es: 'Estado del envío: §1 (simulado).', pt: 'Estado do envio: §1 (simulado).'}],
+    [/^(V-\d+) ist gepackt und versandbereit\. Jetzt das Etikett erstellen und drucken\.$/, {en: '$1 is packed and ready. Now create and print the label.', fr: '$1 est emballé et prêt. Créez et imprimez maintenant l’étiquette.', es: '$1 está embalado y listo. Ahora cree e imprima la etiqueta.', pt: '$1 está embalado e pronto. Agora crie e imprima a etiqueta.'}],
     [/^(V-\d+) ist gepackt und versandbereit\. Etikett unter Aufträge erstellen\.$/, {en: '$1 is packed and ready. Create the label under Orders.', fr: '$1 est emballé et prêt. Créez l’étiquette sous Ordres.', es: '$1 está embalado y listo. Cree la etiqueta en Órdenes.', pt: '$1 está embalado e pronto. Crie a etiqueta em Ordens.'}],
     [/^(V-\d+) ist kommissioniert\. Weiter an der Packstation\.$/, {en: '$1 is picked. Continue at the packing station.', fr: '$1 est préparé. Continuez au poste d’emballage.', es: '$1 está preparado. Continúe en el puesto de embalaje.', pt: '$1 está preparado. Continue no posto de embalagem.'}],
     [/^(.+) gepackt\.$/, {en: '$1 packed.', fr: '$1 emballé.', es: '$1 embalado.', pt: '$1 embalado.'}],
@@ -3262,6 +3269,7 @@ Logo|Logótipo
   [
     [/^DHL-Sandbox-Zugang geprüft \(echt\) · (.+)$/, {en: 'DHL sandbox access checked (real) · $1', fr: 'Accès sandbox DHL vérifié (réel) · $1', es: 'Acceso sandbox DHL comprobado (real) · $1', pt: 'Acesso sandbox DHL verificado (real) · $1'}],
     [/^DHL-Sandbox: (.+)$/, {en: 'DHL sandbox: $1', fr: 'Sandbox DHL : $1', es: 'Sandbox DHL: $1', pt: 'Sandbox DHL: $1'}],
+    [/^DHL-Sandbox hat die Sendung (\S+) angelegt(.*)\. Das PDF ist zum Drucken geöffnet\.$/, {en: 'DHL sandbox created shipment $1$2. The PDF is open for printing.', fr: 'La sandbox DHL a créé l’envoi $1$2. Le PDF est ouvert pour l’impression.', es: 'La sandbox de DHL creó el envío $1$2. El PDF está abierto para imprimir.', pt: 'A sandbox DHL criou o envio $1$2. O PDF está aberto para impressão.'}],
     [/^DHL-Sandbox hat die Sendung (\S+) angelegt(.*)\. Mit „Etikett drucken“ das PDF von DHL öffnen\.$/, {en: 'DHL sandbox created shipment $1$2. Use “Print label” to open the PDF from DHL.', fr: 'La sandbox DHL a créé l’envoi $1$2. « Imprimer l’étiquette » ouvre le PDF de DHL.', es: 'La sandbox de DHL creó el envío $1$2. «Imprimir etiqueta» abre el PDF de DHL.', pt: 'A sandbox DHL criou o envio $1$2. «Imprimir etiqueta» abre o PDF da DHL.'}]
   ].forEach(function (m) { I.muster.push(m); });
 })();

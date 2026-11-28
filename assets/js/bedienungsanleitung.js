@@ -1,6 +1,6 @@
-// zykol.POS – Bedienungsanleitung (DE, EN, FR, ES, PT). Quelle für die Ansicht in Einstellungen und für das PDF. Stand v12.87.
+// zykol.POS – Bedienungsanleitung (DE, EN, FR, ES, PT). Quelle für die Ansicht in Einstellungen und für das PDF. Stand v12.88.
 window.ZYKOL_ANLEITUNG = {
-  "version": "v12.87",
+  "version": "v12.88",
   "meta": [
     {
       "id": "anmelden",
@@ -325,7 +325,7 @@ window.ZYKOL_ANLEITUNG = {
           "schritte": [
             "In der Navigation „Versand“ öffnen. Die Kacheln Zu packen, Versandbereit, Heute übergeben und Retouren offen führen direkt zum passenden Reiter.",
             "Reiter „Aufträge“: Versandaufträge aus Kasse, Webshop und Bestellungen. Mit „Versandauftrag anlegen“ einen neuen Auftrag erfassen. Aus einem angenommenen Angebot entsteht ein Versandauftrag direkt am Angebot (Kapitel Angebote).",
-            "Reiter „Kommissionieren & Packen“: Ware entnehmen („Alles entnommen“), „Als kommissioniert markieren“, an der Packstation „Paket fertig“ antippen und „Weiter zum Etikett“.",
+            "Reiter „Kommissionieren & Packen“: Ware entnehmen („Alles entnommen“), „Als kommissioniert markieren“, an der Packstation „Paket fertig“ antippen und gleich dort „Etikett erstellen und drucken“. Der Auftrag bleibt an der Packstation stehen, bis das Etikett gedruckt ist; „Etikett drucken“ öffnet es erneut.",
             "Reiter „Etiketten & Tracking“: „Etikett erstellen“, mit „Etikett-Vorschau“ prüfen und „Etikett drucken“. Am Ende „Tagesabschluss und übergeben“; „Sendungsstatus abrufen“ zeigt den Stand der Sendungen.",
             "Reiter „Retouren“: „Retoure anlegen“ oder „Retoure mit Etikett anlegen“. Beim Eintreffen „Eingang buchen“ und die Ware als „Einwandfrei“ (zurück ins Lager) oder „Beschädigt“ einstufen.",
             "Reiter „Dienstleister“: Zugänge zu DHL, UPS und DPD eintragen und „Verbindung testen“.",
@@ -717,7 +717,7 @@ window.ZYKOL_ANLEITUNG = {
           "schritte": [
             "Open “Shipping” in the navigation. The tiles To pack, Ready to ship, Handed over today and Open returns lead straight to the right tab.",
             "Tab “Orders”: shipping orders from register, web shop and orders. “Create shipping order” adds a new one. A shipping order can also be created directly from an accepted quote (chapter Quotes).",
-            "Tab “Picking & packing”: take the goods (“All picked”), “Mark as picked”, tap “Parcel ready” at the packing station and “Continue to label”.",
+            "Tab “Picking & packing”: take the goods (“All picked”), “Mark as picked”, tap “Parcel ready” at the packing station and then “Create and print label” right there. The order stays at the packing station until the label is printed; “Print label” opens it again.",
             "Tab “Labels & tracking”: “Create label”, check it with “Label preview” and “Print label”. At the end “Daily closing and hand over”; “Get shipment status” shows where shipments are.",
             "Tab “Returns”: “Create return” or “Create return with label”. On arrival “Book receipt” and grade the goods as “Fine” (back to stock) or “Damaged”.",
             "Tab “Carriers”: enter the DHL, UPS and DPD accounts and “Test connection”.",
@@ -1109,7 +1109,7 @@ window.ZYKOL_ANLEITUNG = {
           "schritte": [
             "Ouvrez « Expédition » dans la navigation. Les tuiles À emballer, Prêt à expédier, Remis aujourd’hui et Retours ouverts mènent directement au bon onglet.",
             "Onglet « Ordres » : ordres d’expédition venant de la caisse, de la boutique en ligne et des commandes. « Créer un ordre d’expédition » en ajoute un. Un ordre d’expédition peut aussi être créé directement depuis un devis accepté (chapitre Devis).",
-            "Onglet « Préparation & emballage » : prélevez la marchandise (« Tout prélevé »), « Marquer comme préparé », touchez « Colis prêt » au poste d’emballage puis « Continuer vers l’étiquette ».",
+            "Onglet « Préparation & emballage » : prélevez la marchandise (« Tout prélevé »), « Marquer comme préparé », touchez « Colis prêt » au poste d’emballage puis, au même endroit, « Créer et imprimer l’étiquette ». L’ordre reste au poste d’emballage jusqu’à l’impression ; « Imprimer l’étiquette » la rouvre.",
             "Onglet « Étiquettes & suivi » : « Créer l’étiquette », la vérifier avec « Aperçu de l’étiquette » et « Imprimer l’étiquette ». En fin de journée « Clôture et remise » ; « Obtenir le statut » montre où en sont les envois.",
             "Onglet « Retours » : « Créer un retour » ou « Créer un retour avec étiquette ». À l’arrivée, « Enregistrer l’entrée » et classez la marchandise « En parfait état » (retour en stock) ou « Endommagée ».",
             "Onglet « Transporteurs » : saisissez les accès DHL, UPS et DPD et « Tester la connexion ».",
@@ -1501,7 +1501,7 @@ window.ZYKOL_ANLEITUNG = {
           "schritte": [
             "Abra «Envíos» en la navegación. Los mosaicos Por embalar, Listo para enviar, Entregado hoy y Devoluciones abiertas llevan directamente a la pestaña correspondiente.",
             "Pestaña «Órdenes»: órdenes de envío de caja, tienda online y pedidos. «Crear orden de envío» añade una nueva. También se puede crear una orden de envío directamente desde un presupuesto aceptado (capítulo Presupuestos).",
-            "Pestaña «Preparación y embalaje»: retire la mercancía («Todo retirado»), «Marcar como preparado», toque «Paquete listo» en el puesto de embalaje y «Continuar a la etiqueta».",
+            "Pestaña «Preparación y embalaje»: retire la mercancía («Todo retirado»), «Marcar como preparado», toque «Paquete listo» en el puesto de embalaje y allí mismo «Crear e imprimir etiqueta». La orden se queda en el puesto de embalaje hasta imprimir la etiqueta; «Imprimir etiqueta» la vuelve a abrir.",
             "Pestaña «Etiquetas y seguimiento»: «Crear etiqueta», revisarla con «Vista previa de la etiqueta» e «Imprimir etiqueta». Al final «Cierre del día y entrega»; «Consultar estado del envío» muestra dónde están los envíos.",
             "Pestaña «Devoluciones»: «Crear devolución» o «Crear devolución con etiqueta». Al llegar, «Registrar entrada» y clasifique la mercancía como «Perfecta» (vuelve al almacén) o «Dañada».",
             "Pestaña «Transportistas»: introduzca los accesos de DHL, UPS y DPD y «Probar conexión».",
@@ -1893,7 +1893,7 @@ window.ZYKOL_ANLEITUNG = {
           "schritte": [
             "Abra «Envios» na navegação. Os mosaicos Por embalar, Pronto a enviar, Entregue hoje e Devoluções abertas levam diretamente ao separador certo.",
             "Separador «Ordens»: ordens de envio da caixa, da loja online e das encomendas. «Criar ordem de envio» adiciona uma nova. Também se pode criar uma ordem de envio diretamente a partir de um orçamento aceite (capítulo Orçamentos).",
-            "Separador «Preparação e embalagem»: retire a mercadoria («Tudo retirado»), «Marcar como preparado», toque em «Encomenda pronta» no posto de embalagem e «Continuar para a etiqueta».",
+            "Separador «Preparação e embalagem»: retire a mercadoria («Tudo retirado»), «Marcar como preparado», toque em «Encomenda pronta» no posto de embalagem e ali mesmo em «Criar e imprimir etiqueta». A ordem fica no posto de embalagem até a etiqueta ser impressa; «Imprimir etiqueta» abre-a de novo.",
             "Separador «Etiquetas e rastreio»: «Criar etiqueta», verificá-la com «Pré-visualizar etiqueta» e «Imprimir etiqueta». No fim «Fecho do dia e entrega»; «Obter estado do envio» mostra onde estão os envios.",
             "Separador «Devoluções»: «Criar devolução» ou «Criar devolução com etiqueta». À chegada, «Registar entrada» e classifique a mercadoria como «Em perfeito estado» (volta ao stock) ou «Danificada».",
             "Separador «Transportadoras»: introduza os acessos DHL, UPS e DPD e «Testar ligação».",

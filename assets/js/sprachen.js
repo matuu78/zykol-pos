@@ -855,6 +855,14 @@ Kanupolo|Canoe polo|Kayak-polo|Kayak-polo
 Canadier|Canoe|Canoë|Canoa
 Status|Status|Statut|Estado
 Logo|Logo|Logo|Logotipo
+EAN / GTIN|EAN / GTIN|EAN / GTIN|EAN / GTIN
+8, 12, 13 oder 14 Ziffern – oder scannen|8, 12, 13 or 14 digits – or scan|8, 12, 13 ou 14 chiffres – ou scanner|8, 12, 13 o 14 dígitos – o escanear
+leer lassen oder scannen|leave empty or scan|laisser vide ou scanner|dejar vacío o escanear
+Die EAN darf nur Ziffern enthalten.|The EAN may only contain digits.|L’EAN ne peut contenir que des chiffres.|El EAN solo puede contener dígitos.
+Keine Änderung.|No change.|Aucune modification.|Sin cambios.
+EAN entfernt.|EAN removed.|EAN supprimé.|EAN eliminado.
+Noch kein EAN-Scan in dieser Sitzung|No EAN scan in this session yet|Aucun scan EAN dans cette session|Aún no hay escaneos EAN en esta sesión
+Noch kein Artikel mit EAN|No product with an EAN yet|Aucun article avec EAN|Aún no hay artículos con EAN
 `;
   var P = `
 Anmelden|Iniciar sessão
@@ -1715,6 +1723,14 @@ Kanupolo|Kayak-polo
 Canadier|Canoa
 Status|Estado
 Logo|Logótipo
+EAN / GTIN|EAN / GTIN
+8, 12, 13 oder 14 Ziffern – oder scannen|8, 12, 13 ou 14 dígitos – ou digitalizar
+leer lassen oder scannen|deixar vazio ou digitalizar
+Die EAN darf nur Ziffern enthalten.|O EAN só pode conter dígitos.
+Keine Änderung.|Sem alteração.
+EAN entfernt.|EAN removido.
+Noch kein EAN-Scan in dieser Sitzung|Ainda sem leitura EAN nesta sessão
+Noch kein Artikel mit EAN|Ainda nenhum artigo com EAN
 `;
   var dict = {};
   L.split('\n').forEach(function (l) {

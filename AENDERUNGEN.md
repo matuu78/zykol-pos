@@ -1,6 +1,6 @@
 # zykol.POS Kanu – Änderungen je Version
 
-Stand: 28.11.2026 · Version v12.88 · neueste Version oben
+Stand: 28.11.2026 · Version v12.89 · neueste Version oben
 
 Diese Liste beschreibt, was sich für die Bedienung geändert hat. Quellen sind die Git-Historie und die Pull-Requests von `matuu78/zykol-pos` sowie die Projektnotizen.
 
@@ -12,6 +12,15 @@ Diese Liste beschreibt, was sich für die Bedienung geändert hat. Quellen sind 
 ---
 
 ## November 2026
+
+### v12.89 · 28.11.2026 · EAN-Feld am Artikel
+- Jeder Artikel hat jetzt das Feld **EAN / GTIN**. Es steht in der Artikelkarte unter der Artikelnummer und im Fenster **Neuer Artikel**.
+- Unter **Artikel & Bestand** lässt sich die EAN in der Artikelkarte ändern oder entfernen (Feld **EAN / GTIN**, **Übernehmen** oder Enter). Recht: „Artikel & Bestände pflegen“.
+- Die Kasse prüft beim Speichern: nur Ziffern, 8, 12, 13 oder 14 Stellen, richtige Prüfziffer, keine EAN doppelt. Führende Nullen bleiben erhalten.
+- Scannen und Suchen finden Artikel über die EAN: Kasse, Artikel & Bestand, Inventur, Packstation, Angebote, Werkstatt-Teile und Einkauf. Eine 12-stellige UPC und dieselbe Nummer mit führender Null gelten als gleich.
+- **Einstellungen > Barcode-Scanner** zeigt unter „Letzte Scans“ jetzt die echten EAN-Scans der Sitzung statt fester Beispiele.
+- Demodaten: Alle Waren haben eine interne EAN-13 mit Präfix 20 (Ladennummer, keine echte Hersteller-EAN). Dienstleistungen wie „Lieferung“ haben keine EAN.
+- Simuliert: Wie alle Artikeländerungen gilt eine geänderte EAN nur bis zum Neuladen.
 
 ### v12.88 · 28.11.2026 · Etikett direkt an der Packstation
 - Fehler behoben: Nach „Paket fertig“ sprang die Packstation zum nächsten Auftrag. Der Knopf „Weiter zum Etikett“ war damit weg, und an der Packstation selbst ließ sich kein Etikett drucken.
